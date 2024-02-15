@@ -36,7 +36,7 @@ class PatientObj extends DocObj {
     }
 }
 
-export function SignUpDoc({ userType ,onClose}) {
+export function SignUpDoc({ userType, onClose }) {
 
     //initializing the local storage
     if (!localStorage.getItem('docs')) {
@@ -70,30 +70,37 @@ export function SignUpDoc({ userType ,onClose}) {
             case 'fname':
                 result = Validations.nameValid(e.target.value)
                 setFname({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'lname':
                 result = Validations.nameValid(e.target.value)
                 setLname({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'email':
                 result = Validations.emailValid(e.target.value)
                 setEmail({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'phone':
                 result = Validations.phoneValid(e.target.value)
                 setPhone({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'password':
                 result = Validations.passwordValid(e.target.value)
                 setPassword({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'confirmPassword':
                 result = Validations.confirmPasswordValid(password.value, e.target.value)
                 setConfirmPassword({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'age':
                 result = Validations.ageValid(parseInt(e.target.value))
                 setAge({ value: e.target.value, isValid: result.isValid, message: result.message })
+                e.target.className = result.isValid ? 'form-control is-valid' : 'form-control is-invalid'
                 break;
             case 'gender':
                 setGender(e.target.value)
@@ -120,7 +127,7 @@ export function SignUpDoc({ userType ,onClose}) {
                 localPatients.find(pat => pat.email === email.value) ||
                 localPatients.find(pat => pat.phone === phone.value)
             ) {
-                
+
                 setAlertTitle('Error');
                 setAlertMessage('Doctor already exists');
                 setShowAlert(true);
@@ -137,7 +144,7 @@ export function SignUpDoc({ userType ,onClose}) {
                     gender,
                     phone.value
                 );
-                
+
                 if (userType === 'Doctor') {
                     localDocs.push(newdoc);
                     localStorage.setItem('docs', JSON.stringify(localDocs));
@@ -156,12 +163,16 @@ export function SignUpDoc({ userType ,onClose}) {
                 }
                 onClose();
             }
+        } else {
+            setAlertTitle('Error');
+            setAlertMessage('Please fill all the fields correctly');
+            setShowAlert(true);
         }
     };
 
 
     useEffect(() => {
-        
+
     }, [])
 
 
@@ -174,10 +185,10 @@ export function SignUpDoc({ userType ,onClose}) {
                 <div className='d-flex justify-content-center'>
                     <h2 className='text-primary'>{userType} <span className='text-danger'>Sign Up</span></h2>
                 </div>
-                <Input name="fname" label='First Name' type='text' placeholder='Enter First Name' onChange={(e) => handelChange(e)} value={fname.value} isValid={fname.isValid} message={fname.message} />
-                <Input name="lname" label='Last Name' type='text' placeholder='Enter Last Name' onChange={(e) => handelChange(e)} value={lname.value} isValid={lname.isValid} message={lname.message} />
-                <Input name="email" label='Email' type='email' placeholder='Enter Email' onChange={(e) => handelChange(e)} value={email.value} isValid={email.isValid} message={email.message} />
-                <Input name="phone" label='Phone' type='text' placeholder='Enter Phone' onChange={(e) => handelChange(e)} value={phone.value} isValid={phone.isValid} message={phone.message} />
+                <Input name="fname" label='First Name' type='text' placeholder='Enter First Name' onChange={(e) => handelChange(e)} value={fname.value} message={fname.message} />
+                <Input name="lname" label='Last Name' type='text' placeholder='Enter Last Name' onChange={(e) => handelChange(e)} value={lname.value} message={lname.message} />
+                <Input name="email" label='Email' type='email' placeholder='Enter Email' onChange={(e) => handelChange(e)} value={email.value} message={email.message} />
+                <Input name="phone" label='Phone' type='text' placeholder='Enter Phone' onChange={(e) => handelChange(e)} value={phone.value} message={phone.message} />
                 <Input name="password" label='Password' type='password' placeholder='Enter Password' onChange={(e) => handelChange(e)} value={password.value} isValid={password.isValid} message={password.message} />
                 <Input name="confirmPassword" label='Confirm Password' type='password' placeholder='Enter Confirm Password' onChange={(e) => handelChange(e)} value={confirmPassword.value} isValid={confirmPassword.isValid} message={confirmPassword.message} />
                 <Input name="age" label='Age' type='text' placeholder='Enter Age' onChange={(e) => handelChange(e)} value={age.value} isValid={age.isValid} message={age.message} />
