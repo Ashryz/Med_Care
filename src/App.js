@@ -5,18 +5,24 @@ import SignIn from './Pages/SignIn/SignIn.js'
 import { Outlet } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ForgotPassword from './Pages/SignIn/ForgotPassword.js';
-
+import Userprofile from './Components/UserProfile/Userprofile'; 
+import ChangePass from './Components/ChangePass/ChangePass';
 
 
 
 function App() {
   return (
     <div className="App">
+   
       <BrowserRouter>
+      
         <Routes>
+        
           <Route path='/ForgotPassword' element={<ForgotPassword/>}/>
           <Route path='/SignIn' element={<SignIn/>}/>
           <Route path='/SignUp' element={<SelectReg/>}/>
+          <Route exact path="/Userprofile" element={<Userprofile/>} />
+          <Route exact path="/changepassword" element={<ChangePass/>} />
         </Routes>
       </BrowserRouter>
       {/* <SelectReg/> */}
