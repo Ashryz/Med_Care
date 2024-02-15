@@ -164,6 +164,7 @@ export function SignUpDoc({ userType, onClose }) {
                 onClose();
             }
         } else {
+
             setAlertTitle('Error');
             setAlertMessage('Please fill all the fields correctly');
             setShowAlert(true);
@@ -173,7 +174,7 @@ export function SignUpDoc({ userType, onClose }) {
 
     useEffect(() => {
 
-    }, [])
+    }, [localDocs, localPatients])
 
 
     return (
