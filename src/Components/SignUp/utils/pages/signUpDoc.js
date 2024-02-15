@@ -182,9 +182,9 @@ export function SignUpDoc({ userType, onClose }) {
             <div className='text-center '>
                 {showAlert && <AlertNew title={alertTitle} message={alertMessage} onClose={handleCloseAlert} />}
             </div>
-            <Form className='container text-start p-4 border' onSubmit={handleSubmit}>
+            <Form className='container text-start p-4 border rounded-1' onSubmit={handleSubmit}>
                 <div className='d-flex justify-content-center'>
-                    <h2 className='text-primary'>{userType} <span className='text-danger'>Sign Up</span></h2>
+                    <h2 className='text-primary text-capitalize'>{userType} <span className='text-danger'>Sign Up</span></h2>
                 </div>
                 <Input name="fname" label='First Name' type='text' placeholder='Enter First Name' onChange={(e) => handelChange(e)} value={fname.value} message={fname.message} />
                 <Input name="lname" label='Last Name' type='text' placeholder='Enter Last Name' onChange={(e) => handelChange(e)} value={lname.value} message={lname.message} />
@@ -201,7 +201,7 @@ export function SignUpDoc({ userType, onClose }) {
                     </Form.Control>
                 </Form.Group>
                 <div className='d-flex justify-content-center mt-3'>
-                    <Button variant="primary" type="submit">
+                    <Button variant="primary" type="submit" className='shadow w-75'>
                         Sign Up
                     </Button>
                 </div>
