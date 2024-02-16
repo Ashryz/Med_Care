@@ -3,11 +3,11 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Dropdown } from 'react-bootstrap';
-import { Link, useHistory } from 'react-router-dom/cjs/react-router-dom';
+import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Navbar.css'
 function NavbarComp() {
-    const history = useHistory();
+    // const history = useHistory();
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
@@ -24,7 +24,7 @@ function NavbarComp() {
       const handleLogout = () => {
         localStorage.removeItem("isLoggedIn");
         setIsLoggedIn(false);
-        history.push("/");
+        // history.push("/");
       };
 
   return (
