@@ -26,9 +26,6 @@ function App() {
           <Route exact path="/changepassword" element={<ChangePass />} />
         </Routes>
       </BrowserRouter>
-      {/* <SelectReg/> */}
-
-
     </div>
   );
 }
