@@ -18,6 +18,9 @@ export default function Home() {
             <div>
                 <Link to='/changepassword'>Change Password</Link>
             </div>
+            <div>
+                <Link to='/main'>Home</Link>
+            </div>
         </div>
     )
 
