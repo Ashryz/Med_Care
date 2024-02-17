@@ -194,6 +194,7 @@ export function SignUpDoc({ userType, onClose }) {
     };
 
 
+
     useEffect(() => {
 
     }, [localDocs, localPatients])
@@ -217,7 +218,7 @@ export function SignUpDoc({ userType, onClose }) {
                 <Input name="age" label='Age' type='text' placeholder='Enter Age' onChange={(e) => handelChange(e)} value={age.value} isValid={age.isValid} message={age.message} />
                 <Form.Group controlId="formBasicGender">
                     <Form.Label>Gender</Form.Label>
-                    <Form.Control as="select" className="form-user-select-sm" onChange={(e) => setGender(e.target.value)} value={gender}>
+                    <Form.Control as="select" className="form-user-select-sm shadow" onChange={(e) => setGender(e.target.value)} value={gender}>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </Form.Control>
