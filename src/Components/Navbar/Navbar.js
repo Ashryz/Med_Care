@@ -28,9 +28,9 @@ function NavbarComp() {
       };
 
   return (
-    <Navbar expand="lg" bg='primary' id='nv-bar'>
+    <Navbar expand="lg" bg='primary' id='nv-bar'  >
       <Container>
-        <Navbar.Brand className='fw-bold fs-2 text-white'><i className="bi bi-hospital"></i> MED-CARE</Navbar.Brand>
+        <Navbar.Brand className='fw-bold fs-2 text-white'><Link className='text-decoration-none text-white' to="/"><i className="bi bi-hospital"></i> MED-CARE </Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
@@ -54,8 +54,8 @@ function NavbarComp() {
               </Dropdown>
           {!isLoggedIn && (
               <>
-                <Link to="/login"><Button variant="outline-light" className='me-2 fw-bold'><i className="bi bi-box-arrow-in-right fw-bold"></i> Login</Button>{' '}</Link>
-                <Link to="/SelectReg"><Button variant="outline-light" className='me-2 fw-bold'><i className="bi bi-person-fill fw-bold"></i> Register</Button>{' '}</Link>
+                <Link to="/SignIn"><Button variant="outline-light" className='me-2 fw-bold'><i className="bi bi-box-arrow-in-right fw-bold"></i> Login</Button>{' '}</Link>
+                <Link to="/SignUp"><Button variant="outline-light" className='me-2 fw-bold'><i className="bi bi-person-fill fw-bold"></i> Register</Button>{' '}</Link>
               </>
             )}
            {isLoggedIn && (

@@ -20,7 +20,7 @@ const ChangePass = () => {
     if (e.target.name === "password") {
       ChangePass({
         ...user,
-        userPassword: e.target.value,
+        Password: e.target.value,
       });
       PassErr({
         ...err,
@@ -34,7 +34,7 @@ const ChangePass = () => {
       PassErr({
         ...err,
         errorConfirmation:
-          e.target.value === user.userPassword ? "" : "not match the password",
+          e.target.value === user.Password ? "" : "not match the password",
       });
     }
   };
@@ -69,7 +69,7 @@ const ChangePass = () => {
                       className="form-control"
                       id="password"
                       placeholder="Password"
-                      value={user.userPassword}
+                      value={user.Password}
                       name="password"
                       onChange={(e) => inputChange(e)}
                       required
