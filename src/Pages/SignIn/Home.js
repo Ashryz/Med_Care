@@ -1,6 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import Filter from '../../Components/Filter/Filter'
+import ListDoctor from '../../Components/ListDoctor/ListDoctor'
 export default function Home() {
     return (
         <div>
@@ -18,7 +19,12 @@ export default function Home() {
             <div>
                 <Link to='/changepassword'>Change Password</Link>
             </div>
+            <div>
+                <ListDoctor/>
+                <Filter/>
+            </div>
         </div>
+        
     )
 
 }
