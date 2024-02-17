@@ -7,7 +7,8 @@ import ForgotPassword from './Pages/SignIn/ForgotPassword.js';
 import Userprofile from './Components/UserProfile/Userprofile';
 import ChangePass from './Components/ChangePass/ChangePass';
 import NavbarComp from './Components/Navbar/Navbar.js';
-import Home from './Components/Hero/main.js';
+import Home from './Pages/SignIn/Home.js';
+import ListDoctor from './Components/ListDoctor/ListDoctor.js';
 
 
 
@@ -25,6 +26,8 @@ function App() {
           <Route path='/SignUp' element={<SelectReg />} />
           <Route exact path="/Userprofile" element={<Userprofile />} />
           <Route exact path="/changepassword" element={<ChangePass />} />
+          <Route exact path="/Listdoctor" element={<ListDoctor/>} />
+
         </Routes>
       </BrowserRouter>
       {/* <SelectReg/> */}

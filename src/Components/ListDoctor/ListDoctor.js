@@ -3,6 +3,7 @@ import DropdownButton from 'react-bootstrap/DropdownButton';
 import './ListDoctor.css'
 import {  Col, Row } from 'react-bootstrap';
 import Booking from '../Boking/Booking';
+import Filter from '../Filter/Filter';
 function ListDoctor() {
   return (
    <div className='Min p-4'>
@@ -26,8 +27,9 @@ function ListDoctor() {
 </div>
 </Row>
 
-
+<Filter/>
    </div>
+   
   )
 }
 

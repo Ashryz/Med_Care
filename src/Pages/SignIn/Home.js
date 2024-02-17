@@ -22,6 +22,12 @@ export default function Home() {
             <div>
                 <Link to='/main'>Home</Link>
             </div>
+            <div>
+               
+            </div>
+            <div>
+                <Link to='/Listdoctor'>listdoctor</Link>
+            </div>
         </div>
         
     )
