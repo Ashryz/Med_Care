@@ -24,7 +24,7 @@ function YourComponent() {
                 <div className='col-12'>
                     <div className='row'>
                         <button className='col btn btn-danger w-75 m-2 py-3 shadow' onClick={() => handleSignUp('patient')}>Patient</button>
-                        <button className='col btn btn-primary w-75 m-2 py-3 shadow' onClick={() => handleSignUp('doctor')}>Doctor</button>
+                        <button className='col btn btn-primary w-75 m-2 py-3 shadow' onClick={() => handleSignUp('Doctor')}>Doctor</button>
                     </div>
 
                     {showSignUp && (

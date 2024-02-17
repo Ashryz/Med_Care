@@ -7,28 +7,35 @@ import { Validations } from '../validations/validation.js'
 import AlertNew from '../alert/alertNew.js'
 import { useNavigate } from 'react-router-dom'
 
-class DocObj {
-    constructor(fname, lname, email, password, age, gender, phone, imgleink, area, specilization, clinics, degree, fees) {
+class Person {
+    constructor(fname, lname, email, password, age, gender, phone, imgleink) {
         this.fname = fname;
         this.lname = lname;
-        // this.name = fname + " " + lname;
+        this.name = fname + " " + lname;
         this.email = email;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.phone = phone;
         this.imgleink = imgleink || '';
+    }
+}
+
+class DocObj extends Person {
+    constructor(fname, lname, email, password, age, gender, phone, imgleink, area, specialization, clinics, degree, fees) {
+        super(fname, lname, email, password, age, gender, phone, imgleink);
         this.area = area || '';
-        this.specilization = specilization || [];
+        this.specialization = specialization || [];
         this.clinics = clinics || [];
         this.degree = degree || [];
         this.fees = fees || [];
     }
 }
 
-class PatientObj extends DocObj {
+class PatientObj extends Person {
     constructor(fname, lname, email, password, age, gender, phone, imgleink, area, doctors, diseases, medicines, reports) {
-        super(fname, lname, email, password, age, gender, phone, imgleink, area);
+        super(fname, lname, email, password, age, gender, phone, imgleink);
+        this.area = area || '';
         this.appointments = [];
         this.doctors = doctors || [];
         this.diseases = diseases || [];
@@ -36,6 +43,7 @@ class PatientObj extends DocObj {
         this.reports = reports || [];
     }
 }
+
 
 export function SignUpDoc({ userType, onClose }) {
 
@@ -137,17 +145,18 @@ export function SignUpDoc({ userType, onClose }) {
                 setPhone({ value: phone.value, isValid: false, message: `${userType} Already exists` });
             }
             else {
-                const newdoc = new DocObj(
-                    fname.value,
-                    lname.value,
-                    email.value,
-                    password.value,
-                    age.value,
-                    gender,
-                    phone.value
-                );
+
 
                 if (userType === 'Doctor') {
+                    const newdoc = new DocObj(
+                        fname.value,
+                        lname.value,
+                        email.value,
+                        password.value,
+                        age.value,
+                        gender,
+                        phone.value
+                    );
                     localDocs.push(newdoc);
                     localStorage.setItem('docs', JSON.stringify(localDocs));
 
@@ -157,7 +166,12 @@ export function SignUpDoc({ userType, onClose }) {
                     navigte("/SignIn")
                 } else {
                     const newpat = new PatientObj(
-                        ...Object.values(newdoc)
+                        fname.value,
+                        lname.value,
+                        email.value,
+                        password.value,
+                        age.value,
+
                     );
                     localPatients.push(newpat);
                     localStorage.setItem('patients', JSON.stringify(localPatients));
