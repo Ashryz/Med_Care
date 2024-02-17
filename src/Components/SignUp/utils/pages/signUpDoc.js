@@ -5,12 +5,13 @@ import { Input } from '../inputs/inputText.js'
 import { Button, Form, } from 'react-bootstrap'
 import { Validations } from '../validations/validation.js'
 import AlertNew from '../alert/alertNew.js'
+import { useNavigate } from 'react-router-dom'
 
 class DocObj {
     constructor(fname, lname, email, password, age, gender, phone, imgleink, area, specilization, clinics, degree, fees) {
         this.fname = fname;
         this.lname = lname;
-        this.name = fname + " " + lname;
+        // this.name = fname + " " + lname;
         this.email = email;
         this.password = password;
         this.age = age;
@@ -109,6 +110,7 @@ export function SignUpDoc({ userType, onClose }) {
                 break;
         }
     }
+    const navigte = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -148,9 +150,11 @@ export function SignUpDoc({ userType, onClose }) {
                 if (userType === 'Doctor') {
                     localDocs.push(newdoc);
                     localStorage.setItem('docs', JSON.stringify(localDocs));
+
                     setAlertTitle('Success');
                     setAlertMessage('Doctor has been added successfully');
                     setShowAlert(true);
+                    navigte("/SignIn")
                 } else {
                     const newpat = new PatientObj(
                         ...Object.values(newdoc)
@@ -160,6 +164,8 @@ export function SignUpDoc({ userType, onClose }) {
                     setAlertTitle('Success');
                     setAlertMessage('Patient has been added successfully');
                     setShowAlert(true);
+                    navigte("/SignIn")
+
                 }
                 onClose();
             }

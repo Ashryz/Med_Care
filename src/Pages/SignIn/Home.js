@@ -20,8 +20,7 @@ export default function Home() {
                 <Link to='/changepassword'>Change Password</Link>
             </div>
             <div>
-                <ListDoctor/>
-                <Filter/>
+                <Link to='/main'>Home</Link>
             </div>
         </div>
         
