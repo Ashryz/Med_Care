@@ -29,6 +29,7 @@ class DocObj extends Person {
         this.clinics = clinics || [];
         this.degree = degree || [];
         this.fees = fees || [];
+        this.type = 'doctor';
     }
 }
 
@@ -41,6 +42,7 @@ class PatientObj extends Person {
         this.diseases = diseases || [];
         this.medicines = medicines || [];
         this.reports = reports || [];
+        this.type = 'patient';
     }
 }
 
@@ -202,7 +204,7 @@ export function SignUpDoc({ userType, onClose }) {
             <div className='text-center '>
                 {showAlert && <AlertNew title={alertTitle} message={alertMessage} onClose={handleCloseAlert} />}
             </div>
-            <Form className='container text-start p-4 border rounded-1' onSubmit={handleSubmit}>
+            <Form className='container text-start p-4 border rounded-4' onSubmit={handleSubmit}>
                 <div className='d-flex justify-content-center'>
                     <h2 className='text-primary text-capitalize'>{userType} <span className='text-danger'>Sign Up</span></h2>
                 </div>
