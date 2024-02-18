@@ -11,6 +11,7 @@ import Home from './Pages/SignIn/Home.js';
 import ListDoctor from './Components/ListDoctor/ListDoctor.js';
 import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
 import Hero from './Components/Hero/Hero.js';
+import Homez from './Components/Home/Homez.js';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
         <NavbarComp />
         <Routes>
           <Route path='/main' element={<Home/>} />
-          <Route path='/' element={<Home/>} />
+          <Route path='/2' element={<Home/>} />
+          <Route path='/' element={<Homez />} />
           <Route path='/ForgotPassword' element={<ForgotPassword />} />
           <Route path='/SignIn' element={<SignIn />} />
           <Route path='/SignUp' element={<SelectReg />} />

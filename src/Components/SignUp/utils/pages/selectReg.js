@@ -19,12 +19,12 @@ function YourComponent() {
         <div className='container m-auto mt-5 w-50 p-3 border shadow rounded-4' style={{ height: '25vh' }}>
             <div className='row'>
                 <div className='col-12'>
-                    <h1 className='text-center text-primary'>Regis<span className='text-danger'>tration</span></h1>
+                    <h1 className='text-center sec-color'>Regis<span className='prim-color'>tration</span></h1>
                 </div>
                 <div className='col-12'>
                     <div className='row'>
-                        <button className='col btn btn-danger w-75 m-2 py-3 shadow' onClick={() => handleSignUp('patient')}>Patient</button>
-                        <button className='col btn btn-primary w-75 m-2 py-3 shadow' onClick={() => handleSignUp('Doctor')}>Doctor</button>
+                        <button className='col btn w-75 m-2 py-3 shadow main-btn' onClick={() => handleSignUp('patient')}>Patient</button>
+                        <button className='col btn  w-75 m-2 py-3 shadow sec-btn' onClick={() => handleSignUp('Doctor')}>Doctor</button>
                     </div>
 
                     {showSignUp && (

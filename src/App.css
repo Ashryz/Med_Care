@@ -4,11 +4,37 @@
   box-sizing: border-box;
 }
 
-
 .App-logo {
   height: 40vmin;
   pointer-events: none;
 }
+
+/* ###############Important###############33 */
+/* the back ground bg */
+.main-bg-1 {
+  background-image: linear-gradient(MediumSeaGreen, dodgerBlue) !important;
+}
+/* primaryC */
+.prim-color {
+  color: mediumseagreen !important;
+}
+
+.sec-color {
+  color: dodgerblue !important;
+}
+
+/* mainbtn1 */
+.main-btn {
+  background: mediumseagreen !important;
+  color: white !important;
+}
+/* mainbtn2 */
+.sec-btn {
+  background: dodgerblue !important;
+  color: white !important;
+}
+
+/* ############################################ */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
