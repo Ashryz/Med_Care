@@ -22,7 +22,7 @@ export default function Home() {
                 <Link to='/changepassword'>Change Password</Link>
             </div>
             <div>
-                <Link to='/main'>Home</Link>
+                <Link to='/Hero'>Hero</Link>
             </div>
             <div>
 
