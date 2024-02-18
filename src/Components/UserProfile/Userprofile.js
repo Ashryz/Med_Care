@@ -5,10 +5,6 @@ import { Input } from "../utils/inputs/inputText";
 import AlertNew from "../utils/alert/alertNew";
 import { Validations } from "../utils/validations/validation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faIconName } from '@fortawesome/free-solid-svg-icons';
-
-import Sidebar from "../SideBar/Sidebar";
-
 import {
   faUser,
   faEnvelope,
@@ -16,6 +12,8 @@ import {
   faCalendarAlt,
   faMapMarkerAlt,
 } from "@fortawesome/free-solid-svg-icons";
+
+import Sidebar from "../SideBar/Sidebar";
 
 const Userprofile = () => {
   const dummyData = {
@@ -25,7 +23,6 @@ const Userprofile = () => {
     email: "serr24a@gmail.com",
     mobileNumber: "01020336754",
     age: "22",
-    birthDate: "1990-02-06",
     area: "Bani Suef",
   };
 
@@ -40,7 +37,6 @@ const Userprofile = () => {
           email: "serra@gmail.com",
           mobileNumber: "01020336754",
           age: "22",
-          birthDate: "1990-02-06",
           area: "Bani Suef",
         };
   };
@@ -53,7 +49,6 @@ const Userprofile = () => {
     email: "",
     mobileNumber: "",
     age: "",
-    birthDate: "",
     area: "",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -79,7 +74,6 @@ const Userprofile = () => {
       username: usernameValidation.message,
       firstName: firstNameValidation.message,
       lastName: lastNameValidation.message,
-      birthDate: "",
       area: "",
     });
 
@@ -98,7 +92,6 @@ const Userprofile = () => {
         username: "",
         firstName: "",
         lastName: "",
-        birthDate: "",
         area: "",
       });
 
@@ -265,31 +258,6 @@ const Userprofile = () => {
                 </div>
                 <div className="mb-3 row">
                   <label
-                    htmlFor="birthdate"
-                    className="form-label col-sm-3 text-primary"
-                  >
-                    <FontAwesomeIcon icon={faCalendarAlt} /> Birth Date
-                  </label>
-                  <div className="col-sm-9">
-                    <Input
-                      type="date"
-                      placeholder={dummyData.birthDate}
-                      value={formData.birthDate || dummyData.birthDate}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          birthDate: e.target.value,
-                        })
-                      }
-                      isValid={!validationMessages.birthDate}
-                      message={validationMessages.birthDate}
-                      name="birthdate"
-                      className="form-control form-control-blue"
-                    />
-                  </div>
-                </div>
-                <div className="mb-3 row">
-                  <label
                     htmlFor="area"
                     className="form-label col-sm-3 text-primary"
                   >
@@ -337,3 +305,4 @@ const Userprofile = () => {
 };
 
 export default Userprofile;
+
