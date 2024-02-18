@@ -5,3 +5,11 @@ li:hover{
     text-decoration: underline;
     color: white
 }
+
+footer{
+    height: fit-content;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #282c34;  
+}

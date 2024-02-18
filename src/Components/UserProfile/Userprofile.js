@@ -130,7 +130,7 @@ const Userprofile = () => {
   };
 
   return (
-    <div style={{ minHeight: "80vh" }} className="container mt-5">
+    <div className="container mt-5" style={{ height: "100vh" }}>
       <div className="row">
         <div className="col-md-3">
           <Sidebar />

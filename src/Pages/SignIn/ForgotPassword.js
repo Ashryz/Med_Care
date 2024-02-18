@@ -49,7 +49,7 @@ function ForgotPassword() {
     }
     return (
 
-        <>
+        <div className="bg-light" style={{ height: "100vh" }}>
             <div className="container ">
                 <div className="row justify-content-center">
                     <div className="col-md-8 " >
@@ -86,7 +86,7 @@ function ForgotPassword() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 export default ForgotPassword;
