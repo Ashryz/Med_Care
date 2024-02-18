@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form } from "react-bootstrap";
 import { Input } from "../utils/inputs/inputText";
-import AlertNew from "../utils/alert/alertNew";
 import { Validations } from "../utils/validations/validation";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -16,87 +15,118 @@ import {
 import Sidebar from "../SideBar/Sidebar";
 
 const Userprofile = () => {
-  const dummyData = {
-    firstName: "Israa",
-    lastName: "Lotfy",
-    userName: "israa@24",
-    email: "serr24a@gmail.com",
-    mobileNumber: "01020336754",
-    age: "22",
-    area: "Bani Suef",
-  };
-
-  const getStoredData = () => {
-    const storedData = localStorage.getItem("formData");
-    return storedData
-      ? JSON.parse(storedData)
-      : {
-          firstName: "Israa",
-          lastName: "Lotfy",
-          userName: "israa@24",
-          email: "serra@gmail.com",
-          mobileNumber: "01020336754",
-          age: "22",
-          area: "Bani Suef",
-        };
-  };
-
-  const [formData, setFormData] = useState(getStoredData);
-  const [validationMessages, setValidationMessages] = useState({
-    firstName: "",
-    lastName: "",
-    userName: "",
-    email: "",
-    mobileNumber: "",
-    age: "",
-    area: "",
-  });
+  const [fname, setFname] = useState({ value: "", isValid: true, message: "" });
+  const [lname, setLname] = useState({ value: "", isValid: true, message: "" });
+  const [email, setEmail] = useState({ value: "", isValid: true, message: "" });
+  const [phone, setPhone] = useState({ value: "", isValid: true, message: "" });
+  const [age, setAge] = useState({ value: "", isValid: true, message: "" });
+  const [gender, setGender] = useState("male");
+  const [area, setArea] = useState({ value: "", isValid: true, message: "" });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
-    localStorage.setItem("formData", JSON.stringify(formData));
-  }, [formData]);
+    const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
+    if (currentUserData) {
+      setFname({ ...fname, value: currentUserData.fname });
+      setLname({ ...lname, value: currentUserData.lname });
+      setEmail({ ...email, value: currentUserData.email });
+      setPhone({ ...phone, value: currentUserData.phone });
+      setAge({ ...age, value: currentUserData.age });
+      setGender(currentUserData.gender);
+      setArea({ ...area, value: currentUserData.area });
+    }
+  }, []);
+
+ const handleInputChange = (e) => {
+  const { name, value } = e.target;
+  let isValid = true;
+  let message = "";
+
+  switch (name) {
+    case "fname":
+    case "lname":
+      // Validate first name and last name
+      const nameValidationResult = Validations.nameValid(value);
+      isValid = nameValidationResult.isValid;
+      message = nameValidationResult.message;
+      if (name === "fname") {
+        setFname({ ...fname, value, isValid, message });
+      } else {
+        setLname({ ...lname, value, isValid, message });
+      }
+      break;
+    case "email":
+      const emailValidationResult = Validations.emailValid(value);
+      isValid = emailValidationResult.isValid;
+      message = emailValidationResult.message;
+      setEmail({ ...email, value, isValid, message });
+      break;
+    case "phone":
+      const phoneValidationResult = Validations.phoneValid(value);
+      isValid = phoneValidationResult.isValid;
+      message = phoneValidationResult.message;
+      setPhone({ ...phone, value, isValid, message });
+      break;
+    case "age":
+      const ageValidationResult = Validations.ageValid(parseInt(value));
+      isValid = ageValidationResult.isValid;
+      message = ageValidationResult.message;
+      setAge({ ...age, value, isValid, message });
+      break;
+    case "gender":
+      setGender(value);
+      break;
+    case "area":
+      setArea({ ...area, value });
+      break;
+    default:
+      break;
+  }
+};
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const emailValidation = Validations.emailValid(formData.email);
-    const mobileValidation = Validations.phoneValid(formData.mobileNumber);
-    const ageValidation = Validations.ageValid(formData.age);
-    const usernameValidation = Validations.nameValid(formData.username);
-    const firstNameValidation = Validations.nameValid(formData.firstName);
-    const lastNameValidation = Validations.nameValid(formData.lastName);
 
-    setValidationMessages({
-      email: emailValidation.message,
-      mobileNumber: mobileValidation.message,
-      age: ageValidation.message,
-      username: usernameValidation.message,
-      firstName: firstNameValidation.message,
-      lastName: lastNameValidation.message,
-      area: "",
-    });
+    const isFormValid = validateForm();
 
-    if (
-      emailValidation.isValid &&
-      mobileValidation.isValid &&
-      ageValidation.isValid &&
-      usernameValidation.isValid &&
-      firstNameValidation.isValid &&
-      lastNameValidation.isValid
-    ) {
-      setValidationMessages({
-        email: "",
-        mobileNumber: "",
-        age: "",
-        username: "",
-        firstName: "",
-        lastName: "",
-        area: "",
-      });
-
+    if (isFormValid) {
+      const currentUserData = {
+        fname: fname.value,
+        lname: lname.value,
+        email: email.value,
+        phone: phone.value,
+        age: age.value,
+        gender,
+        area: area.value,
+      };
+      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
       setShowSuccessMessage(true);
     }
+  };
+
+  const validateForm = () => {
+    let isFormValid = true;
+
+
+    if (!fname.isValid) {
+      isFormValid = false;
+    }
+
+
+    if (!lname.isValid) {
+      isFormValid = false;
+    }
+
+
+    if (!email.isValid) {
+      isFormValid = false;
+    }
+
+
+
+    return isFormValid;
   };
 
   return (
@@ -114,72 +144,38 @@ const Userprofile = () => {
               <form onSubmit={handleSubmit}>
                 <div className="mb-3 row">
                   <label
-                    htmlFor="firstName"
+                    htmlFor="fname"
                     className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faUser} /> First Name
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
                     <Input
                       type="text"
-                      placeholder={dummyData.firstName}
-                      value={formData.firstName || dummyData.firstName}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          firstName: e.target.value,
-                        })
-                      }
-                      isValid={!validationMessages.firstName}
-                      message={validationMessages.firstName}
-                      name="firstName"
+                      name="fname"
+                      value={fname.value}
+                      onChange={handleInputChange}
+                      isValid={fname.isValid}
+                      message={fname.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
                 <div className="mb-3 row">
                   <label
-                    htmlFor="lastName"
+                    htmlFor="lname"
                     className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faUser} /> Last Name
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
                     <Input
                       type="text"
-                      placeholder={dummyData.lastName}
-                      value={formData.lastName || dummyData.lastName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, lastName: e.target.value })
-                      }
-                      isValid={!validationMessages.lastName}
-                      message={validationMessages.lastName}
-                      name="lastName"
-                      className="form-control form-control-blue"
-                    />
-                  </div>
-                </div>
-                <div className="mb-3 row">
-                  <label
-                    htmlFor="userName"
-                    className="form-label col-sm-3 text-primary"
-                  >
-                    <FontAwesomeIcon icon={faUser} /> User Name
-                    <sup style={{ color: "red" }}> *</sup>
-                  </label>
-                  <div className="col-sm-9">
-                    <Input
-                      type="text"
-                      placeholder={dummyData.userName}
-                      value={formData.userName || dummyData.userName}
-                      onChange={(e) =>
-                        setFormData({ ...formData, userName: e.target.value })
-                      }
-                      isValid={!validationMessages.userName}
-                      message={validationMessages.userName}
-                      name="userName"
+                      name="lname"
+                      value={lname.value}
+                      onChange={handleInputChange}
+                      isValid={lname.isValid}
+                      message={lname.message}
                       className="form-control form-control-blue"
                     />
                   </div>
@@ -190,45 +186,34 @@ const Userprofile = () => {
                     className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
                     <Input
                       type="email"
-                      placeholder={dummyData.email}
-                      value={formData.email || dummyData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
-                      isValid={!validationMessages.email}
-                      message={validationMessages.email}
                       name="email"
+                      value={email.value}
+                      onChange={handleInputChange}
+                      isValid={email.isValid}
+                      message={email.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
                 <div className="mb-3 row">
                   <label
-                    htmlFor="mobileNumber"
+                    htmlFor="phone"
                     className="form-label col-sm-3 text-primary"
                   >
-                    <FontAwesomeIcon icon={faPhoneAlt} /> Mobile Number
-                    <sup style={{ color: "red" }}> *</sup>
+                    <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                   </label>
                   <div className="col-sm-9">
                     <Input
                       type="text"
-                      placeholder={dummyData.mobileNumber}
-                      value={formData.mobileNumber || dummyData.mobileNumber}
-                      onChange={(e) =>
-                        setFormData({
-                          ...formData,
-                          mobileNumber: e.target.value,
-                        })
-                      }
-                      isValid={!validationMessages.mobileNumber}
-                      message={validationMessages.mobileNumber}
-                      name="mobileNumber"
+                      name="phone"
+                      value={phone.value}
+                      onChange={handleInputChange}
+                      isValid={phone.isValid}
+                      message={phone.message}
                       className="form-control form-control-blue"
                     />
                   </div>
@@ -239,19 +224,15 @@ const Userprofile = () => {
                     className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
                     <Input
                       type="text"
-                      placeholder={dummyData.age}
-                      value={formData.age || dummyData.age}
-                      onChange={(e) =>
-                        setFormData({ ...formData, age: e.target.value })
-                      }
-                      isValid={!validationMessages.age}
-                      message={validationMessages.age}
                       name="age"
+                      value={age.value}
+                      onChange={handleInputChange}
+                      isValid={age.isValid}
+                      message={age.message}
                       className="form-control form-control-blue"
                     />
                   </div>
@@ -265,13 +246,12 @@ const Userprofile = () => {
                   </label>
                   <div className="col-sm-9">
                     <Form.Select
-                      value={formData.area}
-                      onChange={(e) =>
-                        setFormData({ ...formData, area: e.target.value })
-                      }
+                      value={area.value}
+                      name="area"
+                      onChange={handleInputChange}
                       className="form-select form-control-blue"
                     >
-                      <option value="">{dummyData.area}</option>
+                      <option value="">Select Area</option>
                       <option value="Cairo">Cairo</option>
                       <option value="Aswan">Aswan</option>
                       <option value="Nasr City">Nasr City</option>
