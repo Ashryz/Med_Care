@@ -7,35 +7,45 @@ import { Validations } from '../validations/validation.js'
 import AlertNew from '../alert/alertNew.js'
 import { useNavigate } from 'react-router-dom'
 
-class DocObj {
-    constructor(fname, lname, email, password, age, gender, phone, imgleink, area, specilization, clinics, degree, fees) {
+class Person {
+    constructor(fname, lname, email, password, age, gender, phone, imgleink) {
         this.fname = fname;
         this.lname = lname;
-        // this.name = fname + " " + lname;
+        this.name = fname + " " + lname;
         this.email = email;
         this.password = password;
         this.age = age;
         this.gender = gender;
         this.phone = phone;
         this.imgleink = imgleink || '';
-        this.area = area || '';
-        this.specilization = specilization || [];
-        this.clinics = clinics || [];
-        this.degree = degree || [];
-        this.fees = fees || [];
     }
 }
 
-class PatientObj extends DocObj {
+class DocObj extends Person {
+    constructor(fname, lname, email, password, age, gender, phone, imgleink, area, specialization, clinics, degree, fees) {
+        super(fname, lname, email, password, age, gender, phone, imgleink);
+        this.area = area || '';
+        this.specialization = specialization || [];
+        this.clinics = clinics || [];
+        this.degree = degree || [];
+        this.fees = fees || [];
+        this.type = 'doctor';
+    }
+}
+
+class PatientObj extends Person {
     constructor(fname, lname, email, password, age, gender, phone, imgleink, area, doctors, diseases, medicines, reports) {
-        super(fname, lname, email, password, age, gender, phone, imgleink, area);
+        super(fname, lname, email, password, age, gender, phone, imgleink);
+        this.area = area || '';
         this.appointments = [];
         this.doctors = doctors || [];
         this.diseases = diseases || [];
         this.medicines = medicines || [];
         this.reports = reports || [];
+        this.type = 'patient';
     }
 }
+
 
 export function SignUpDoc({ userType, onClose }) {
 
@@ -137,17 +147,18 @@ export function SignUpDoc({ userType, onClose }) {
                 setPhone({ value: phone.value, isValid: false, message: `${userType} Already exists` });
             }
             else {
-                const newdoc = new DocObj(
-                    fname.value,
-                    lname.value,
-                    email.value,
-                    password.value,
-                    age.value,
-                    gender,
-                    phone.value
-                );
+
 
                 if (userType === 'Doctor') {
+                    const newdoc = new DocObj(
+                        fname.value,
+                        lname.value,
+                        email.value,
+                        password.value,
+                        age.value,
+                        gender,
+                        phone.value
+                    );
                     localDocs.push(newdoc);
                     localStorage.setItem('docs', JSON.stringify(localDocs));
 
@@ -157,7 +168,12 @@ export function SignUpDoc({ userType, onClose }) {
                     navigte("/SignIn")
                 } else {
                     const newpat = new PatientObj(
-                        ...Object.values(newdoc)
+                        fname.value,
+                        lname.value,
+                        email.value,
+                        password.value,
+                        age.value,
+
                     );
                     localPatients.push(newpat);
                     localStorage.setItem('patients', JSON.stringify(localPatients));
@@ -178,6 +194,7 @@ export function SignUpDoc({ userType, onClose }) {
     };
 
 
+
     useEffect(() => {
 
     }, [localDocs, localPatients])
@@ -188,7 +205,7 @@ export function SignUpDoc({ userType, onClose }) {
             <div className='text-center '>
                 {showAlert && <AlertNew title={alertTitle} message={alertMessage} onClose={handleCloseAlert} />}
             </div>
-            <Form className='container text-start p-4 border rounded-1' onSubmit={handleSubmit}>
+            <Form className='container text-start p-4 border rounded-4' onSubmit={handleSubmit}>
                 <div className='d-flex justify-content-center'>
                     <h2 className='text-primary text-capitalize'>{userType} <span className='text-danger'>Sign Up</span></h2>
                 </div>
@@ -201,7 +218,7 @@ export function SignUpDoc({ userType, onClose }) {
                 <Input name="age" label='Age' type='text' placeholder='Enter Age' onChange={(e) => handelChange(e)} value={age.value} isValid={age.isValid} message={age.message} />
                 <Form.Group controlId="formBasicGender">
                     <Form.Label>Gender</Form.Label>
-                    <Form.Control as="select" className="form-user-select-sm" onChange={(e) => setGender(e.target.value)} value={gender}>
+                    <Form.Control as="select" className="form-user-select-sm shadow" onChange={(e) => setGender(e.target.value)} value={gender}>
                         <option value="male">Male</option>
                         <option value="female">Female</option>
                     </Form.Control>

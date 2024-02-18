@@ -9,8 +9,8 @@ import ChangePass from './Components/ChangePass/ChangePass';
 import NavbarComp from './Components/Navbar/Navbar.js';
 import Home from './Pages/SignIn/Home.js';
 import ListDoctor from './Components/ListDoctor/ListDoctor.js';
-
-
+import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
+import Hero from './Components/Hero/Hero.js';
 
 
 function App() {
@@ -27,7 +27,8 @@ function App() {
           <Route exact path="/Userprofile" element={<Userprofile />} />
           <Route exact path="/changepassword" element={<ChangePass />} />
           <Route exact path="/Listdoctor" element={<ListDoctor/>} />
-
+          <Route exact path="/DoctorProfile" element={ <DoctorProfile />} />
+          <Route exact path="/Hero" element={ <Hero />} />
         </Routes>
       </BrowserRouter>
       {/* <SelectReg/> */}

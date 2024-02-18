@@ -1,7 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import Filter from '../../Components/Filter/Filter'
-import ListDoctor from '../../Components/ListDoctor/ListDoctor'
+
 export default function Home() {
     return (
         <div>
@@ -16,20 +15,23 @@ export default function Home() {
             <div>
                 <Link to='/Userprofile'>User Profile</Link>
             </div>
+             <div>
+                <Link to='/DoctorProfile'>DoctorProfile</Link>
+            </div>
             <div>
                 <Link to='/changepassword'>Change Password</Link>
             </div>
             <div>
-                <Link to='/main'>Home</Link>
+                <Link to='/Hero'>Hero</Link>
             </div>
             <div>
-               
+
             </div>
             <div>
                 <Link to='/Listdoctor'>listdoctor</Link>
             </div>
         </div>
-        
+
     )
 
 }
