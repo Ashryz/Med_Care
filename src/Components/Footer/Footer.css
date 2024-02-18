@@ -1,0 +1,7 @@
+.fixed-bottom {
+    background-image: linear-gradient(MediumSeaGreen , dodgerBlue) !important; 
+}
+li:hover{
+    text-decoration: underline;
+    color: white
+}
