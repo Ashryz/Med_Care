@@ -29,7 +29,7 @@ function YourComponent() {
 
                     {showSignUp && (
                         <Modal show={showSignUp} onHide={handleCloseSignUp} size='md' centered >
-                            <Modal.Header closeButton className='bg-primary'>
+                            <Modal.Header className='prim-pg' closeButton>
                             </Modal.Header>
                             <Modal.Body className="rounded-5">
                                 <SignUpDoc userType={userType} onClose={handleCloseSignUp} />

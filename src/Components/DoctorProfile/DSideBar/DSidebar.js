@@ -18,7 +18,7 @@ const Sidebar = () => {
         to="/DoctorProfile"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem bg-primary text-white'>
+      <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
       
         <FontAwesomeIcon icon={faUser} /> Profile
       </ListGroup.Item>
@@ -28,33 +28,33 @@ const Sidebar = () => {
        to="/changedpassword"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem'>
+      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
       
-        <FontAwesomeIcon icon={faKey} /> Change Password
+        <FontAwesomeIcon icon={faKey} className="sec-color"/> Change Password
         </ListGroup.Item>
       </Link>
       <Link
         to="/manage-branch"
         className="text-decoration-none"
       > 
-      <ListGroup.Item className='list-group-item listgroupItem'>
-        <FontAwesomeIcon icon={faHospital} /> Manage Branch
+      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+        <FontAwesomeIcon icon={faHospital} className="sec-color"/> Manage Branch
         </ListGroup.Item>
       </Link>
       <Link
         to="/schedule"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem'>
-        <FontAwesomeIcon icon={faCalendarAlt} /> Schedule
+      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+        <FontAwesomeIcon icon={faCalendarAlt} className="sec-color"/> Schedule
         </ListGroup.Item>
       </Link>
       <Link
         to="/specialization"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem'>
-        <FontAwesomeIcon icon={faClock} /> Specialization
+      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+        <FontAwesomeIcon icon={faClock} className="sec-color"/> Specialization
         </ListGroup.Item>
       </Link>
      </ListGroup>

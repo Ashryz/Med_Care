@@ -47,12 +47,12 @@ const ChangePass = () => {
             <Sidebar />
           </div>
           <div className="col-md-9">
-            <ListGroup className="cardheadlistStyle m-3 bg-primary" as="ul">
+            <ListGroup className="cardheadlistStyle m-3 " as="ul">
               <ListGroup.Item
-                className="cardhead bg-primary listgroupItem"
+                className="cardhead prim-pg listgroupItem"
                 as="li"
               >
-                <p className="text-center text-light cardhead">
+                <p className="text-center text-light  cardhead">
                   {" "}
                   Change Password
                 </p>
@@ -78,7 +78,7 @@ const ChangePass = () => {
                   </div>
 
                   <div className="p-3">
-                    <label htmlFor="confirmation" className="form-label">
+                    <label htmlFor="confirmation" className="form-label sec-color">
                       New Password
                     </label>
                     <input
@@ -97,10 +97,10 @@ const ChangePass = () => {
                   </div>
 
                   <div className="text-center">
-                    <button type="submit" className="btn btn-danger me-2">
+                    <button type="submit" className="btn main-btn me-2">
                       Save
                     </button>
-                    <button type="button" className="btn btn-secondary">
+                    <button type="button" className="btn sec-btn ">
                       Cancel
                     </button>
                   </div>

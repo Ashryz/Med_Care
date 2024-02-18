@@ -34,65 +34,65 @@ const DoctorProfile = () => {
     }
   }, []);
 
- const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  let isValid = true;
-  let message = "";
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    let isValid = true;
+    let message = "";
 
-  switch (name) {
-    case "fname":
-    case "lname":
-      // Validate first name and last name
-      const nameValidationResult = Validations.nameValid(value);
-      isValid = nameValidationResult.isValid;
-      message = nameValidationResult.message;
-      if (name === "fname") {
-        setFname({ value, isValid, message });
-      } else {
-        setLname({ value, isValid, message });
-      }
-      break;
-    case "email":
-     
-      const emailValidationResult = Validations.emailValid(value);
-      isValid = emailValidationResult.isValid;
-      message = emailValidationResult.message;
-      setEmail({ value, isValid, message });
-      break;
-    case "phone":
-     
-      const phoneValidationResult = Validations.phoneValid(value);
-      isValid = phoneValidationResult.isValid;
-      message = phoneValidationResult.message;
-      setPhone({ value, isValid, message });
-      break;
-    case "age":
-    
-      const ageValidationResult = Validations.ageValid(parseInt(value));
-      isValid = ageValidationResult.isValid;
-      message = ageValidationResult.message;
-      setAge({ value, isValid, message });
-      break;
-    case "gender":
-      
-      setGender(value);
-      break;
-     case "degree":
-      setDegree({ value });
-      break;
-     case "area":
-      setArea({ value });
-      break; 
-     case "specialization":
-      setSpecialization({value});
-      break; 
+    switch (name) {
+      case "fname":
+      case "lname":
+        // Validate first name and last name
+        const nameValidationResult = Validations.nameValid(value);
+        isValid = nameValidationResult.isValid;
+        message = nameValidationResult.message;
+        if (name === "fname") {
+          setFname({ value, isValid, message });
+        } else {
+          setLname({ value, isValid, message });
+        }
+        break;
+      case "email":
+
+        const emailValidationResult = Validations.emailValid(value);
+        isValid = emailValidationResult.isValid;
+        message = emailValidationResult.message;
+        setEmail({ value, isValid, message });
+        break;
+      case "phone":
+
+        const phoneValidationResult = Validations.phoneValid(value);
+        isValid = phoneValidationResult.isValid;
+        message = phoneValidationResult.message;
+        setPhone({ value, isValid, message });
+        break;
+      case "age":
+
+        const ageValidationResult = Validations.ageValid(parseInt(value));
+        isValid = ageValidationResult.isValid;
+        message = ageValidationResult.message;
+        setAge({ value, isValid, message });
+        break;
+      case "gender":
+
+        setGender(value);
+        break;
+      case "degree":
+        setDegree({ value });
+        break;
+      case "area":
+        setArea({ value });
+        break;
+      case "specialization":
+        setSpecialization({ value });
+        break;
       case "fees":
-      setFees({value});
-      break; 
-    default:
-      break;
-  }
-};
+        setFees({ value });
+        break;
+      default:
+        break;
+    }
+  };
 
 
   const handleSubmit = (e) => {
@@ -143,14 +143,14 @@ const DoctorProfile = () => {
   };
 
   return (
-    <div style={{ minHeight: "80vh" }} className="container mt-5">
+    <div style={{ minHeight: "100vh" }} className="container mt-5">
       <div className="row">
         <div className="col-md-3">
           <DSidebar />
         </div>
         <div className="col-md-9">
           <div className="card bg-light p-4">
-            <div className="card-header bg-primary text-light">
+            <div className="card-header prim-pg text-light">
               <h3 className="text-center mb-0">Manage Profile</h3>
             </div>
             <div className="card-body">
@@ -159,7 +159,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="fname"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faUser} /> First Name
                     <sup style={{ color: "red" }}> *</sup>
@@ -174,7 +174,7 @@ const DoctorProfile = () => {
                       message={fname.message}
                       name="fname"
                       className={fname.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required 
+                      required
                     />
                   </div>
                 </div>
@@ -182,7 +182,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="lname"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faUser} /> Last Name
                     <sup style={{ color: "red" }}> *</sup>
@@ -197,7 +197,7 @@ const DoctorProfile = () => {
                       message={lname.message}
                       name="lname"
                       className={lname.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required 
+                      required
                     />
                   </div>
                 </div>
@@ -205,7 +205,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="email"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
                     <sup style={{ color: "red" }}> *</sup>
@@ -220,7 +220,7 @@ const DoctorProfile = () => {
                       message={email.message}
                       name="email"
                       className={email.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required 
+                      required
                     />
                   </div>
                 </div>
@@ -228,7 +228,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="phone"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faPhoneAlt} /> Phone Number
                     <sup style={{ color: "red" }}> *</sup>
@@ -243,7 +243,7 @@ const DoctorProfile = () => {
                       message={phone.message}
                       name="phone"
                       className={phone.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required 
+                      required
                     />
                   </div>
                 </div>
@@ -251,7 +251,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="age"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
                     <sup style={{ color: "red" }}> *</sup>
@@ -266,7 +266,7 @@ const DoctorProfile = () => {
                       message={age.message}
                       name="age"
                       className={age.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required 
+                      required
                     />
                   </div>
                 </div>
@@ -274,7 +274,7 @@ const DoctorProfile = () => {
                 <div className="mb-3 row">
                   <label
                     htmlFor="gender"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faUser} /> Gender
                     <sup style={{ color: "red" }}> *</sup>
@@ -285,18 +285,18 @@ const DoctorProfile = () => {
                       value={gender}
                       onChange={(e) => setGender(e.target.value)}
                       className="form-select"
-                      required 
+                      required
                     >
                       <option value="male">Male</option>
                       <option value="female">Female</option>
                     </select>
                   </div>
                 </div>
-                
+
                 <div className="mb-3 row">
                   <label
                     htmlFor="specialization"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faBrain} className="me-2" /> Specialization
                     <sup style={{ color: "red" }}> *</sup>
@@ -307,7 +307,7 @@ const DoctorProfile = () => {
                       className='form-select'
                       value={specialization.value}
                       onChange={handleInputChange}
-                      required 
+                      required
                     >
                       <option value="">Select specialization</option>
                       <option value="Cardiology">Cardiology</option>
@@ -317,11 +317,11 @@ const DoctorProfile = () => {
 
                   </div>
                 </div>
-                
+
                 <div className="mb-3 row">
                   <label
                     htmlFor="degree"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faGraduationCap} className="me-2" /> Degree
                     <sup style={{ color: "red" }}> *</sup>
@@ -332,7 +332,7 @@ const DoctorProfile = () => {
                       className='form-select'
                       value={degree.value}
                       onChange={handleInputChange}
-                      required 
+                      required
                     >
                       <option value="">Select degree</option>
                       <option value="MD">MD</option>
@@ -342,11 +342,11 @@ const DoctorProfile = () => {
 
                   </div>
                 </div>
-               
+
                 <div className="mb-3 row">
                   <label
                     htmlFor="area"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faMapMarkerAlt} /> Area
                     <sup style={{ color: "red" }}> *</sup>
@@ -357,7 +357,7 @@ const DoctorProfile = () => {
                       className='form-select'
                       value={area.value}
                       onChange={handleInputChange}
-                      required 
+                      required
                     >
                       <option value="">Select area</option>
                       <option value="Cairo">Cairo</option>
@@ -367,11 +367,11 @@ const DoctorProfile = () => {
 
                   </div>
                 </div>
-                
+
                 <div className="mb-3 row">
                   <label
                     htmlFor="fees"
-                    className="form-label col-sm-3 text-primary"
+                    className="form-label col-sm-3 sec-color"
                   >
                     <FontAwesomeIcon icon={faDollarSign} className="me-2" /> Fees
                     <sup style={{ color: "red" }}> *</sup>
@@ -382,7 +382,7 @@ const DoctorProfile = () => {
                       className='form-select'
                       value={fees.value}
                       onChange={handleInputChange}
-                      required 
+                      required
                     >
                       <option value="">Select fees</option>
                       <option value="50">$50</option>
@@ -394,10 +394,10 @@ const DoctorProfile = () => {
                 </div>
 
                 <div className="text-center">
-                  <button type="submit" className="btn btn-danger me-2">
+                  <button type="submit" className="main-btn btn me-2">
                     Save
                   </button>
-                  <button type="button" className="btn btn-secondary">
+                  <button type="button" className=" btn sec-btn ">
                     Cancel
                   </button>
                 </div>

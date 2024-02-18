@@ -137,7 +137,7 @@ const Userprofile = () => {
         </div>
         <div className="col-md-9">
           <div className="card bg-light p-4">
-            <div className="card-header bg-primary text-light">
+            <div className="card-header prim-pg text-light">
               <h3 className="text-center mb-0">Manage Profile</h3>
             </div>
             <div className="card-body">
@@ -262,10 +262,10 @@ const Userprofile = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <button type="submit" className="btn btn-danger me-2">
+                  <button type="submit" className="btn main-btn me-2">
                     Save
                   </button>
-                  <button type="button" className="btn btn-secondary">
+                  <button type="button" className="btn sec-btn">
                     Cancel
                   </button>
                 </div>

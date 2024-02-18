@@ -10,10 +10,20 @@
 }
 
 /* ###############Important###############33 */
-/* the back ground bg */
+
+/* the background */
+.prim-pg{
+  background-color: mediumseagreen !important;
+}
 .main-bg-1 {
   background-image: linear-gradient(MediumSeaGreen, dodgerBlue) !important;
+  color: rgb(255, 255, 255) !important;
 }
+.main-bg-2 {
+  background-color: dodgerBlue !important;
+  color: rgb(255, 255, 255) !important;
+}
+
 /* primaryC */
 .prim-color {
   color: mediumseagreen !important;
@@ -27,6 +37,7 @@
 .main-btn {
   background: mediumseagreen !important;
   color: white !important;
+  border: none !important ;
 }
 /* mainbtn2 */
 .sec-btn {

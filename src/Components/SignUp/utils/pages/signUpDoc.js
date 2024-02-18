@@ -180,6 +180,8 @@ export function SignUpDoc({ userType, onClose }) {
                     setAlertTitle('Success');
                     setAlertMessage('Patient has been added successfully');
                     setShowAlert(true);
+                    
+
                     navigte("/SignIn")
 
                 }
@@ -207,7 +209,7 @@ export function SignUpDoc({ userType, onClose }) {
             </div>
             <Form className='container text-start p-4 border rounded-4' onSubmit={handleSubmit}>
                 <div className='d-flex justify-content-center'>
-                    <h2 className='text-primary text-capitalize'>{userType} <span className='text-danger'>Sign Up</span></h2>
+                    <h2 className='prim-color text-capitalize'>{userType} <span className='sec-color'>Sign Up</span></h2>
                 </div>
                 <Input name="fname" label='First Name' type='text' placeholder='Enter First Name' onChange={(e) => handelChange(e)} value={fname.value} message={fname.message} />
                 <Input name="lname" label='Last Name' type='text' placeholder='Enter Last Name' onChange={(e) => handelChange(e)} value={lname.value} message={lname.message} />
@@ -224,7 +226,7 @@ export function SignUpDoc({ userType, onClose }) {
                     </Form.Control>
                 </Form.Group>
                 <div className='d-flex justify-content-center mt-3'>
-                    <Button variant="primary" type="submit" className='shadow w-75'>
+                    <Button variant="" type="submit" className='shadow w-75 main-btn'>
                         Sign Up
                     </Button>
                 </div>

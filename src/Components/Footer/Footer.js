@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Col, Container, Row } from 'react-bootstrap';
 function FooterComp() {
     return (
-        <footer className="footer main-bg-1 py-5 mt-5 ">
+        <footer className="row footer main-bg-1 py-5 mt-5 ">
             <Container className='justify-content-between d-flex justify-content-center justify-content-lg-between'>
                 <div className="me-5 d-none d-lg-block">
                     <h1 className='fw-bold fs-2 text-white'><Link className='text-decoration-none text-white' to="/"><i className="bi bi-hospital"></i> MED-CARE </Link></h1>
