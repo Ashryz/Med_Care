@@ -9,8 +9,7 @@ import ChangePass from './Components/ChangePass/ChangePass';
 import NavbarComp from './Components/Navbar/Navbar.js';
 import Home from './Pages/SignIn/Home.js';
 import ListDoctor from './Components/ListDoctor/ListDoctor.js';
-
-
+import FooterComp from './Components/Footer/Footer.js';
 
 
 function App() {
@@ -27,8 +26,8 @@ function App() {
           <Route exact path="/Userprofile" element={<Userprofile />} />
           <Route exact path="/changepassword" element={<ChangePass />} />
           <Route exact path="/Listdoctor" element={<ListDoctor/>} />
-
         </Routes>
+        <FooterComp />
       </BrowserRouter>
       {/* <SelectReg/> */}
     </div>
