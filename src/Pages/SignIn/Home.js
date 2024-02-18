@@ -15,6 +15,9 @@ export default function Home() {
             <div>
                 <Link to='/Userprofile'>User Profile</Link>
             </div>
+             <div>
+                <Link to='/DoctorProfile'>DoctorProfile</Link>
+            </div>
             <div>
                 <Link to='/changepassword'>Change Password</Link>
             </div>
