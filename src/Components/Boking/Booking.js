@@ -13,7 +13,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
 <div className='col'>
 <p id='day' >To day</p>
@@ -22,7 +22,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
 <div className='col'>
 <p id='day' >To day</p>
@@ -31,7 +31,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
    </div>
     </Carousel.Item>
@@ -44,7 +44,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
 <div className='col'>
 <p id='day' >To day</p>
@@ -53,7 +53,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
 <div className='col'>
 <p id='day' >To day</p>
@@ -62,7 +62,7 @@ function Booking() {
 
 <p className='appo'>from 1am t0 5pm</p>
 
-<Button id='btn' variant="secondary">Boking</Button>{' '}
+<Button id='btn' variant="danger">Boking</Button>{' '}
 </div>
    </div>
     </Carousel.Item>

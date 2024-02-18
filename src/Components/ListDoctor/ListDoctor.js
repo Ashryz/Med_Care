@@ -6,6 +6,8 @@ import Booking from '../Boking/Booking';
 import Filter from '../Filter/Filter';
 function ListDoctor() {
   return (
+    <>
+    
    <div className='Min p-4'>
 <Row>
 <div className='col col-2'>
@@ -27,9 +29,11 @@ function ListDoctor() {
 </div>
 </Row>
 
-<Filter/>
+
    </div>
-   
+<Filter/>
+
+   </>
   )
 }
 
