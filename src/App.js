@@ -7,11 +7,12 @@ import ForgotPassword from './Pages/SignIn/ForgotPassword.js';
 import Userprofile from './Components/UserProfile/Userprofile';
 import ChangePass from './Components/ChangePass/ChangePass';
 import NavbarComp from './Components/Navbar/Navbar.js';
-import Home from './Pages/SignIn/Home.js';
+import Home from './Home.js';
 import ListDoctor from './Components/ListDoctor/ListDoctor.js';
 import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
 import Hero from './Components/Hero/Hero.js';
 import FooterComp from './Components/Footer/Footer.js';
+import Error from './Components/Error/Error.js';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
           <Route exact path="/Listdoctor" element={<ListDoctor />} />
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
           <Route exact path="/Hero" element={<Hero />} />
+          <Route path='*' element={<Error />} />
         </Routes>
         <FooterComp />
       </BrowserRouter>

@@ -1,0 +1,18 @@
+.ser-card:hover,
+.ser-card:focus {
+  background-color: mediumseagreen !important;
+  color: white !important;
+  transition: background-color 0.3s ease, color 1s ease;
+  cursor: pointer;
+  svg {
+    color: white !important;
+    transition: color 0.3s ease;
+  }
+}
+
+.ser-card {
+  background-color: white !important;
+  color: black !important;
+  transition: background-color 0.3s ease, color 1s ease;
+  cursor: pointer;
+}

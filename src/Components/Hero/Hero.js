@@ -1,30 +1,45 @@
 import React from "react";
-import './main.css';
-
+import docimg from '../../img/hero-img.jpg';
+import { Link } from "react-router-dom";
+import './hero.css';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 const Hero = () => {
   return (
-    <div className="container p-0 my-5 border border-danger">
-  <div className="">
-    <img
-      className="img-fluid border border-2"
-      src="./img/hero-img.jpg"
-      alt="Card"
-      height={797}
-      width={2020} />
-    <div className="card-img-overlay border border-5 border-warning" style={{ pointerEvents: 'none' }}>
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-md-6">
-            <div className="wider-container white-background p-4 shadow">
-              <h5 className="card-title fs-1 text-black fw-light">Search For Your Doctor</h5>
-              <button className="btn btn-primary fs-5 mt-3">Search Now</button>
+
+    <header className='container-fluid p-0'>
+      <div
+        className=' text-center bg-image'
+        style=
+        {{
+          backgroundImage: `url(${docimg})`,
+          backgroundSize: 'cover',
+          height: '40vh'
+        }}
+      >
+        <div className='mask w-100 h-100 ' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
+
+          <div className='d-flex justify-content-center align-items-center h-100'>
+
+            <div className='text-white'>
+              <h1 className="hero-text">Your Health is Our Priority <FontAwesomeIcon icon={faHeartPulse} className="text-light" /></h1>
+              <h1 className='mb-3 sec-color'>
+                <span className="prim-color">Med</span>
+                <span className="sec-color">Care</span>
+              </h1>
+
+              <div className='d-flex justify-content-center'>
+                <Link to='/SignUp' className='btn main-btn btn-lg me-4'>Sign Up</Link>
+                <Link to='/SignIn' className='btn sec-btn btn-lg'>Login</Link>
+              </div>
+
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </div>
-</div>
+    </header>
+
+
 
   );
 };
