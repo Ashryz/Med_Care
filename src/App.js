@@ -30,7 +30,7 @@ function App() {
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
           <Route exact path="/Hero" element={<Hero />} />
         </Routes>
-        {/* <FooterComp /> */}
+        <FooterComp />
       </BrowserRouter>
       {/* <SelectReg/> */}
     </div>

@@ -16,6 +16,7 @@ function YourComponent() {
     };
 
     return (
+        <div className='container' style={{ height: '100vh' }}>
         <div className='container m-auto mt-5 w-50 p-3 border shadow rounded-4' style={{ height: '25vh' }}>
             <div className='row'>
                 <div className='col-12'>
@@ -38,6 +39,7 @@ function YourComponent() {
                     )}
                 </div>
             </div>
+        </div>
         </div>
     );
 

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 export default function Home() {
     return (
-        <div>
+        <div className='container' style={{ height: '100vh' }}>
             <div>
                 <Link to='/SignIn'>Sign In</Link>
             </div>
@@ -15,7 +15,7 @@ export default function Home() {
             <div>
                 <Link to='/Userprofile'>User Profile</Link>
             </div>
-             <div>
+            <div>
                 <Link to='/DoctorProfile'>DoctorProfile</Link>
             </div>
             <div>

@@ -1,14 +1,9 @@
-.fixed-bottom {
-    background-image: linear-gradient(MediumSeaGreen , dodgerBlue) !important; 
-    
-}
+
 li:hover{
     text-decoration: underline;
     color: white
 }
 
 footer{
-    height: fit-content;
-    position: fixed;
-    bottom: 0;
+   
 }
