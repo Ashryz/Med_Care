@@ -3,14 +3,15 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
 import { Dropdown } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Navbar.css'
 function NavbarComp() {
-    // const history = useHistory();
+    const navigate = useNavigate()
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [showDropdown, setShowDropdown] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false);
+    const [currentUser, setCurrentUser] = useState({});
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
@@ -18,13 +19,14 @@ function NavbarComp() {
     useEffect(() => {
         const loggedIn = localStorage.getItem("isLoggedIn") === "true";
         setIsLoggedIn(loggedIn);
+        setCurrentUser(JSON.parse(localStorage.getItem('currentUser')) || {})
         setShowDropdown(false);
       }, []);
 
       const handleLogout = () => {
         localStorage.removeItem("isLoggedIn");
         setIsLoggedIn(false);
-        // history.push("/");
+        navigate("/");
       };
 
   return (
@@ -64,7 +66,14 @@ function NavbarComp() {
                     User Name
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <Dropdown.Item eventKey="Option 1"> Profile</Dropdown.Item>
+                    <Dropdown.Item eventKey="Option 1">
+                    <Link
+                      to={currentUser.type === 'doctor' ? "/DoctorProfile" : "/Userprofile"}
+                      className="text-dark text-decoration-none"
+                    >
+                      Profile
+                    </Link>
+                    </Dropdown.Item>
                     <Dropdown.Divider />
                     <Dropdown.Item eventKey="Option 2" onClick={handleLogout}><i className="bi bi-box-arrow-right"></i> Logout </Dropdown.Item>
                 </Dropdown.Menu>
