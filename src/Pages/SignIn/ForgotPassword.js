@@ -49,16 +49,16 @@ function ForgotPassword() {
     }
     return (
 
-        <>
+        <div className="bg-light" style={{ height: "100vh" }}>
             <div className="container ">
                 <div className="row justify-content-center">
                     <div className="col-md-8 " >
                         <ListGroup className="cardhead listStyle m-3 bg-primary" as="ul">
                             <ListGroup.Item
-                                className="cardhead bg-primary listgroupItem"
+                                className="cardhead prim-pg listgroupItem"
                                 as="li"
                             >
-                                <p className="text-center text-light cardhead">
+                                <p className="text-center   text-light cardhead">
                                     {" "}
                                     Forgot Password
                                 </p>
@@ -75,7 +75,7 @@ function ForgotPassword() {
                                         <Form.Control.Feedback type="invalid">{errors.emailErrors}</Form.Control.Feedback>
                                     </div>
                                     <div className="text-center">
-                                        <Button type="submit" className="btn btn-danger my-3 rounded-2 fw-bold ">
+                                        <Button type="submit" className="btn main-btn my-3 rounded-2 fw-bold ">
                                             Reset
                                         </Button>
 
@@ -86,7 +86,7 @@ function ForgotPassword() {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 }
 export default ForgotPassword;

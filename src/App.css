@@ -3,14 +3,75 @@
   padding: 0;
   box-sizing: border-box;
 }
+<<<<<<< HEAD
 .App{
   height: 100vh !important;
 }
 
+=======
+body{
+  background-color: rgb(226, 230, 234);
+}
+>>>>>>> main
 .App-logo {
-  height: 40vmin;
+  min-height: 100vh;
   pointer-events: none;
 }
+
+/* ###############Important###############33 */
+
+/* the background */
+.prim-pg {
+  background-color: mediumseagreen !important;
+}
+.main-bg-1 {
+  background-image: linear-gradient(MediumSeaGreen, dodgerBlue) !important;
+  color: rgb(255, 255, 255) !important;
+}
+.main-bg-2 {
+  background-color: dodgerBlue !important;
+  color: rgb(255, 255, 255) !important;
+}
+
+/* primaryC */
+.prim-color {
+  color: mediumseagreen !important;
+}
+
+.sec-color {
+  color: dodgerblue !important;
+}
+
+/* mainbtn1 */
+.main-btn {
+  background: mediumseagreen !important;
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.3s ease, color 1s ease;
+}
+
+.main-btn:hover,
+.main-btn:focus {
+  background: linear-gradient(to right, #90d6b9, #14cc8e) !important;
+  color: rgba(255, 255, 255, 0.801) !important;
+}
+
+
+/* mainbtn2 */
+.sec-btn {
+  background: dodgerblue !important;
+  color: white !important;
+  border: none !important;
+  transition: background-color 0.3s ease, color 1s ease;
+}
+
+.sec-btn:hover,
+.sec-btn:focus {
+  background: linear-gradient(to right, #9fd4ec, #07a1e9) !important;
+  color: rgba(255, 255, 255, 0.801) !important;
+}
+
+/* ############################################ */
 
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {

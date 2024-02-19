@@ -98,7 +98,7 @@ function SignIn() {
 return (
     <div className='container  my-2 text-center  p-2  justify-content-center  bg-light' >
         <Form onSubmit={handleLogin} className=" w-25 mx-auto text-start  rounded-4 bg-white shadow " style={{ minWidth: "360px" }}>
-            <div className='bg-primary text-center text-white p-1' style={{ borderRadius: "11px 11px 0px 0px" }}><span className='fw-light'>Login</span></div>
+            <div className='text-center  p-1 prim-pg text-light' style={{ borderRadius: "11px 11px 0px 0px" }}><span className='fw-light'>Login</span></div>
             <div className='mx-4 my-4'>
                 <Row className="mb-3  pt-4 text-start">
                     <Form.Group as={Col}>
@@ -128,7 +128,7 @@ return (
                     </Form.Group>
                 </Row>
                 <Row className='mx-1' >
-                    <Button type="submit" className="btn btn-danger my-3 rounded-2 fw-bold ">
+                    <Button type="submit" className="main-btn my-3 rounded-2 fw-bold ">
                         LOGIN
                     </Button>
                 </Row>
@@ -138,7 +138,7 @@ return (
                     </div>
                     <div className='mb-4'>
 
-                        <Link to={"/ForgotPassword"} className="text-decoration-none" >Forgot Your Password?</Link>
+                        <Link to={"/ForgotPassword"} className="text-decoration-none prim-color" >Forgot Your Password?</Link>
                     </div>
                 </div>
 
@@ -148,8 +148,8 @@ return (
                 <label className="or">or</label>
             </div>
             <div className="text-center mt-1 pb-4">
-                <span className="text-muted me-2">New User</span>
-                <Link to={"/SignUp"} className="text-decoration-none border-0 border-bottom border-2 border-danger pb-1">SignUp</Link>
+                <span className="sec-color me-2 ">New User</span>
+                <Link to={"/SignUp"} className="text-decoration-none border-0 border-bottom border-2  prim-color pb-1">SignUp</Link>
             </div>
 
         </Form>

@@ -16,26 +16,28 @@ function YourComponent() {
     };
 
     return (
-        <div className='container m-auto mt-5 w-50 p-3 border shadow rounded-4' style={{ height: '25vh' }}>
-            <div className='row'>
-                <div className='col-12'>
-                    <h1 className='text-center text-primary'>Regis<span className='text-danger'>tration</span></h1>
-                </div>
-                <div className='col-12'>
-                    <div className='row'>
-                        <button className='col btn btn-danger w-75 m-2 py-3 shadow' onClick={() => handleSignUp('patient')}>Patient</button>
-                        <button className='col btn btn-primary w-75 m-2 py-3 shadow' onClick={() => handleSignUp('Doctor')}>Doctor</button>
+        <div className='container' style={{ height: '53.9vh' }}>
+            <div className='container m-auto mt-3 w-50 p-3 border shadow rounded-4 d-flex justify-content-center align-items-center h-50'>
+                <div className='row'>
+                    <div className='col-12'>
+                        <h1 className='text-center sec-color'>Regis<span className='prim-color'>tration</span></h1>
                     </div>
+                    <div className='col-12'>
+                        <div className='row'>
+                            <button className='col fw-bold btn  m-2 py-3 shadow main-btn' onClick={() => handleSignUp('patient')}>Patient</button>
+                            <button className='col btn fw-bold  m-2 py-3 shadow sec-btn' onClick={() => handleSignUp('Doctor')}>Doctor</button>
+                        </div>
 
-                    {showSignUp && (
-                        <Modal show={showSignUp} onHide={handleCloseSignUp} size='md' centered >
-                            <Modal.Header closeButton className='bg-primary'>
-                            </Modal.Header>
-                            <Modal.Body className="rounded-5">
-                                <SignUpDoc userType={userType} onClose={handleCloseSignUp} />
-                            </Modal.Body>
-                        </Modal>
-                    )}
+                        {showSignUp && (
+                            <Modal show={showSignUp} onHide={handleCloseSignUp} size='md' centered >
+                                <Modal.Header className='prim-pg' closeButton>
+                                </Modal.Header>
+                                <Modal.Body className="rounded-5">
+                                    <SignUpDoc userType={userType} onClose={handleCloseSignUp} />
+                                </Modal.Body>
+                            </Modal>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
