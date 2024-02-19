@@ -5,7 +5,7 @@ import './hero.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 const Hero = () => {
-  //const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
+  const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
   const isLoggedIn = localStorage.getItem("isLoggedIn")
 
   return (
