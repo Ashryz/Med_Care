@@ -10,14 +10,14 @@ const Hero = () => {
 
   return (
 
-    <header className='container-fluid p-0'>
+    <header className='container-fluid p-0 '>
       <div
         className=' text-center bg-image'
         style=
         {{
           backgroundImage: `url(${docimg})`,
           backgroundSize: 'cover',
-          height: '40vh'
+          height: '65vh'
         }}
       >
         <div className='mask w-100 h-100 ' style={{ backgroundColor: 'rgba(0, 0, 0, 0.6)' }}>
