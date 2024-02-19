@@ -5,6 +5,9 @@ import './hero.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 const Hero = () => {
+  //const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
+  const isLoggedIn = localStorage.getItem("isLoggedIn")
+
   return (
 
     <header className='container-fluid p-0'>
@@ -23,14 +26,22 @@ const Hero = () => {
 
             <div className='text-white'>
               <h1 className="hero-text">Your Health is Our Priority <FontAwesomeIcon icon={faHeartPulse} className="text-light" /></h1>
-              <h1 className='mb-3 sec-color'>
-                <span className="prim-color">Med</span>
-                <span className="sec-color">Care</span>
-              </h1>
 
-              <div className='d-flex justify-content-center'>
-                <Link to='/SignUp' className='btn main-btn btn-lg me-4'>Sign Up</Link>
-                <Link to='/SignIn' className='btn sec-btn btn-lg'>Login</Link>
+
+              <div className=' justify-content-center'>
+                <h1 className='m-auto mb-3 sec-color'>
+                  <span className="prim-color">Med</span>
+                  <span className="sec-color">Care</span>
+                </h1>
+                {isLoggedIn && (
+                  <Link to='/Dashboard' className='btn main-btn btn-lg '>Dashboard</Link>
+                )}
+                {!isLoggedIn && (
+                  <Link to='/SignUp' className='btn main-btn btn-lg me-4'>Sign Up</Link>
+                )}
+                {!isLoggedIn && (
+                  <Link to='/SignIn' className='btn sec-btn btn-lg'>Login</Link>
+                )}
               </div>
 
             </div>
