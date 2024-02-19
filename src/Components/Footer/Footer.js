@@ -5,7 +5,7 @@ function FooterComp() {
     return (
         <div className="container-fluid p-0">
             <footer className="w-100  main-bg-1 py-5 mt-5 ">
-                <Container className='container'>
+                <Container className='container d-flex justify-content-between'>
                     <div className="me-5 d-none d-lg-block">
                         <h1 className='fw-bold fs-2 text-white'><Link className='text-decoration-none text-white' to="/"><i className="bi bi-hospital"></i> MED-CARE </Link></h1>
                     </div>
