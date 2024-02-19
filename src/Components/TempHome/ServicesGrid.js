@@ -14,7 +14,7 @@ function ServicesGrid() {
         <div className="container-fluid p-0 ">
             <h2 className='text-center mb-4'>Explore</h2>
             <div className="row row-cols-1 row-cols-md-3 row-cols-lg-4 p-3 justify-content-center">
-                <div className='ser-card col-sm-3 border p-3 rounded-3 shadow me-3'>
+                <div className='ser-card col-sm-3 border p-3 rounded-3 shadow me-3 mb-2'>
                     <FontAwesomeIcon icon={faHandHoldingMedical} size='2x' className='prim-color' />
                     <h4 className='mt-3'>Browse Doctors</h4>
                     <p>Book appointment with the best doctors in your city</p>
