@@ -20,7 +20,7 @@ function TempHome() {
                 </div>
                 <div className="col-12 col-md-3 d-flex justify-content-center align-items-center">
                     <Link to='/Listdoctor' className='btn main-btn btn-lg shadow'>
-                        BookNow <FontAwesomeIcon icon={faArrowRight} />
+                        Book Now <FontAwesomeIcon icon={faArrowRight} />
                     </Link>
                 </div>
             </div>
