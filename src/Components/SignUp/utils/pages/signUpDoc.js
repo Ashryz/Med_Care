@@ -173,6 +173,8 @@ export function SignUpDoc({ userType, onClose }) {
                         email.value,
                         password.value,
                         age.value,
+                        gender,
+                        phone.value
 
                     );
                     localPatients.push(newpat);
@@ -180,7 +182,7 @@ export function SignUpDoc({ userType, onClose }) {
                     setAlertTitle('Success');
                     setAlertMessage('Patient has been added successfully');
                     setShowAlert(true);
-                    
+
 
                     navigte("/SignIn")
 
