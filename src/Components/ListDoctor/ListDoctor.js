@@ -57,7 +57,7 @@ function ListDoctor() {
 </div>
 <div className='container p-0 w-70'>
 
-<Row className='ser-card sm=8 border p-3 rounded-3 shadow me-3 mb-2'>
+<Row className=' sm=8 border p-3 rounded-3 shadow me-3 mb-2'>
    <div className='col col-2'>
    <img id='img' src='person.jpg'></img>
 
@@ -73,8 +73,8 @@ function ListDoctor() {
 
    </div>
    <div className='col'>
-   <Button className='btn w-25 m-2 mt-5 sm-3' variant="danger">Boking</Button>{' '}
-      <Button className='btn w-25 m-2 mt-5 sm-4' variant="info">Details</Button>{' '}
+   <Button className='btn w-25 m-2 mt-5 sm-3 main-btn' >Boking</Button>{' '}
+      <Button className='btn w-25 m-2 mt-5 sm-4 sec-btn'>Details</Button>{' '}
    </div>
 </Row>
 </div>
