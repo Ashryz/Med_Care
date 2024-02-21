@@ -2,12 +2,11 @@ import Accordion from 'react-bootstrap/Accordion';
 import './filter.css'
 function Filter() {
   return (
-    <div className='main'>
-        <h6 className='text-center hed'>Filter</h6>
+    <div className='filter'>
     
-    <Accordion defaultActiveKey="0" id='acc'>
+    <Accordion defaultActiveKey="0" id='acc' className=' border p-3 rounded-3 shadow me-3 mb-2'>
       <Accordion.Item eventKey="0">
-        <Accordion.Header>titel</Accordion.Header>
+        <Accordion.Header id='ached'>titel</Accordion.Header>
         <Accordion.Body>
         <div className='input'>
               <input className="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate"/>
@@ -24,7 +23,7 @@ function Filter() {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="1">
-        <Accordion.Header>Gender</Accordion.Header>
+        <Accordion.Header id='ached'>Gender</Accordion.Header>
         <Accordion.Body>
         <div className='input'>
               <input className="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate"/>
@@ -37,7 +36,7 @@ function Filter() {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="2">
-        <Accordion.Header>Avalabilty</Accordion.Header>
+        <Accordion.Header id='ached'>Avalabilty</Accordion.Header>
         <Accordion.Body>
         <div className='input'>
               <input className="form-check-input" type="checkbox" value="" id="flexCheckIndeterminate"/>
@@ -54,7 +53,7 @@ function Filter() {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="3">
-        <Accordion.Header>Entity</Accordion.Header>
+        <Accordion.Header id='ached'>Entity</Accordion.Header>
         <Accordion.Body>
         <div className='input'>
               <input className="form-check-input"name="options" type="checkbox" value="" id="flexCheckIndeterminate"/>
@@ -67,7 +66,7 @@ function Filter() {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4">
-        <Accordion.Header>Examination</Accordion.Header>
+        <Accordion.Header id='ached'>Examination</Accordion.Header>
         <Accordion.Body>
         <div className='input'>
               <input className="form-check-input"name="options" type="radio" value="" id="flexCheckIndeterminate"/>
