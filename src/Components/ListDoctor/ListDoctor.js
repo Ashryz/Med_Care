@@ -4,6 +4,9 @@ import './ListDoctor.css'
 import {  Button, Col, Row } from 'react-bootstrap';
 import Booking from '../Boking/Booking';
 import Filter from '../Filter/Filter';
+import DoctorDetal from '../DoctorDetalis/DoctorDetal';
+import AboutDoctor from '../AboutDoctor/AboutDoctor';
+import PastionReview from '../PastionReview/PastionReview';
 function ListDoctor() {
   return (
     <>
@@ -19,7 +22,13 @@ function ListDoctor() {
  <h5>Doctor Ghazy Abdelmaneem</h5>
 <p>Consultant of diabetes and internal medicine</p> 
 <p>Endocrinologist Specialized in Adult Diabetes and Endocrinology</p>
-
+<div>
+<img id='docimg' src="com.png"></img>
+    <img id='docimg' src="com.png"></img>
+    <img id='docimg' src="com.png"></img>
+    <img id='docimg' src="com.png"></img>
+    <img id='docimg' src="com.png"></img>
+</div>
 <p>El-Dokki:El Tahrir</p>
 <p>Fees:300EGP</p>
 <p>16676-cost-of-regular-call </p>
@@ -82,8 +91,9 @@ function ListDoctor() {
 <Filter/>
 
 
- 
-
+ <DoctorDetal/>
+<AboutDoctor/>
+<PastionReview/>
    </>
   )
 }
