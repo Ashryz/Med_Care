@@ -1,10 +1,6 @@
-
-.hed{
-    align-items: center;
+.filter{
+    width: 17rem;
 }
-.main{
-    width: 20%;
-}
-.hed{
-    background-color: aqua;
+#acc{
+    width: 15rem;
 }
