@@ -22,7 +22,7 @@ body{
   color: rgb(255, 255, 255) !important;
 }
 .main-bg-2 {
-  background-color: dodgerBlue !important;
+  background-color: #1e90ff !important;
   color: rgb(255, 255, 255) !important;
 }
 
@@ -43,10 +43,8 @@ body{
   transition: background-color 0.3s ease, color 1s ease;
 }
 
-.main-btn:hover,
-.main-btn:focus {
-  background: linear-gradient(to right, #90d6b9, #14cc8e) !important;
-  color: rgba(255, 255, 255, 0.801) !important;
+.light-bg {
+  background-color: rgb(146, 236, 187) !important;
 }
 
 
@@ -57,7 +55,11 @@ body{
   border: none !important;
   transition: background-color 0.3s ease, color 1s ease;
 }
-
+.main-btn:hover,
+.main-btn:focus {
+  background: linear-gradient(to right, #90d6b9, #14cc8e) !important;
+  color: rgba(255, 255, 255, 0.801) !important;
+}
 .sec-btn:hover,
 .sec-btn:focus {
   background: linear-gradient(to right, #9fd4ec, #07a1e9) !important;
