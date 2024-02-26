@@ -31,7 +31,7 @@ function App() {
           <Route exact path="/changepassword" element={<ChangePass />} />
           <Route exact path="/Listdoctor" element={<ListDoctor />} />
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
-          <Route exact path="/SearchResults" element={<SearchResults />} />
+          <Route exact path="/search/:query" element={<SearchResults />} />
           <Route exact path="/Hero" element={<Hero />} />
           <Route exact path='/review' element={<Review />} />
           <Route path='*' element={<Error />} />

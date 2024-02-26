@@ -6,11 +6,10 @@ import { faVenusMars, faCalendarWeek, faStethoscope, faMoneyBill1Wave } from '@f
 import './filter.css'
 function Filter() {
   return (
-    <div className='main'>
       <Card style={{ width: '25rem' }} className='ms-5'>
         <Card.Header className='main-bg-2 text-center text-white fw-bold'><h3>Select Your Search</h3></Card.Header>
         <Card.Body>
-        <Accordion defaultActiveKey={['0']} alwaysOpen id='acc'>
+        <Accordion defaultActiveKey={['0']} alwaysOpen id='acc' style={{width:'22.5rem'}}>
       <Accordion.Item eventKey="0">
         <Accordion.Header style={{backgroundColor:'mediumseagreen'}}><h4><i className="bi bi-mortarboard-fill"></i>&nbsp;Title</h4></Accordion.Header>
         <Accordion.Body>
@@ -93,38 +92,43 @@ function Filter() {
             type={'radio'}
             id={'radio1'}
             label={'Any'}
+            name={'examinationPrice'}
           />
         <Form.Check
             type={'radio'}
             id={'radio2'}
             label={'Less than EGP 50'}
+            name={'examinationPrice'}
           />
         <Form.Check
             type={'radio'}
             id={'radio3'}
             label={'From EGP 50 to 100'}
+            name={'examinationPrice'}
           />
         <Form.Check
             type={'radio'}
             id={'radio4'}
             label={'From EGP 100 to 200'}
+            name={'examinationPrice'}
           />
         <Form.Check
             type={'radio'}
             id={'radio5'}
             label={'From EGP 200 to 300'}
+            name={'examinationPrice'}
           />
         <Form.Check
             type={'radio'}
             id={'radio6'}
             label={'Greater than EGP 300'}
+            name={'examinationPrice'}
           />
         </Accordion.Body>
       </Accordion.Item>
     </Accordion>
         </Card.Body>
     </Card>
-    </div>
   );
 }
 
