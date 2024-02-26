@@ -62,6 +62,14 @@ const DoctorProfile = () => {
       console.error("Error fetching doctor data:", error);
     }
   };
+    // Function to handle choosing profile picture
+  const handleChooseProfilePicture = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger file input click
+      setShowModal(false); // Close modal after clicking "Choose Profile Picture"
+    }
+  };
+
  // Function to handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -182,7 +190,7 @@ const DoctorProfile = () => {
                       />
                       <FontAwesomeIcon
                         icon={faCamera}
-                        className="position-absolute top-50 start-50 translate-middle text-primary"
+                        className="position-absolute top-50 start-10 translate-middle text-primary"
                         style={{ fontSize: "24px", cursor: "pointer" }}
                         onClick={() => setShowModal(true)}
                       />
@@ -431,8 +439,8 @@ const DoctorProfile = () => {
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
             Delete 
           </Button>
-          <Button variant="secondary" onClick={() => setShowModal(false)}>
-            Close
+          <Button variant="secondary" onClick={handleChooseProfilePicture}>
+            Choose Profile Picture
           </Button>
         </Modal.Footer>
       </Modal>
