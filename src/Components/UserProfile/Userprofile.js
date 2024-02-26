@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form } from "react-bootstrap";
-import { Input } from "../utils/inputs/inputText";
-import { Validations } from "../utils/validations/validation";
+import { Form, Modal, Button } from "react-bootstrap";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -10,138 +10,152 @@ import {
   faPhoneAlt,
   faCalendarAlt,
   faMapMarkerAlt,
+  faCamera,
 } from "@fortawesome/free-solid-svg-icons";
 
-import Sidebar from "../SideBar/Sidebar";
+import Sidebar from "./SideBar/Sidebar";
 
 const Userprofile = () => {
-  const [fname, setFname] = useState({ value: "", isValid: true, message: "" });
-  const [lname, setLname] = useState({ value: "", isValid: true, message: "" });
-  const [email, setEmail] = useState({ value: "", isValid: true, message: "" });
-  const [phone, setPhone] = useState({ value: "", isValid: true, message: "" });
-  const [age, setAge] = useState({ value: "", isValid: true, message: "" });
-  const [gender, setGender] = useState("male");
-  const [area, setArea] = useState({ value: "", isValid: true, message: "" });
+  const [userData, setUserData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    age: "",
+    area: "",
+    Image: "",
+  });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const fileInputRef = useRef(null); // Define fileInputRef
 
   useEffect(() => {
-    const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
-    if (currentUserData) {
-      setFname({ ...fname, value: currentUserData.fname });
-      setLname({ ...lname, value: currentUserData.lname });
-      setEmail({ ...email, value: currentUserData.email });
-      setPhone({ ...phone, value: currentUserData.phone });
-      setAge({ ...age, value: currentUserData.age });
-      setGender(currentUserData.gender);
-      setArea({ ...area, value: currentUserData.area });
-    }
+    fetchUserData();
   }, []);
 
- const handleInputChange = (e) => {
-  const { name, value } = e.target;
-  let isValid = true;
-  let message = "";
-
-  switch (name) {
-    case "fname":
-    case "lname":
-      // Validate first name and last name
-      const nameValidationResult = Validations.nameValid(value);
-      isValid = nameValidationResult.isValid;
-      message = nameValidationResult.message;
-      if (name === "fname") {
-        setFname({ ...fname, value, isValid, message });
-      } else {
-        setLname({ ...lname, value, isValid, message });
+  const fetchUserData = async () => {
+    try {
+      const response = await axios.get(
+        "https://retoolapi.dev/VcvvU9/Userprofile"
+      );
+      if (response.data.length > 0) {
+        const currentUserData = response.data[2];
+        setUserData(currentUserData);
       }
-      break;
-    case "email":
-      const emailValidationResult = Validations.emailValid(value);
-      isValid = emailValidationResult.isValid;
-      message = emailValidationResult.message;
-      setEmail({ ...email, value, isValid, message });
-      break;
-    case "phone":
-      const phoneValidationResult = Validations.phoneValid(value);
-      isValid = phoneValidationResult.isValid;
-      message = phoneValidationResult.message;
-      setPhone({ ...phone, value, isValid, message });
-      break;
-    case "age":
-      const ageValidationResult = Validations.ageValid(parseInt(value));
-      isValid = ageValidationResult.isValid;
-      message = ageValidationResult.message;
-      setAge({ ...age, value, isValid, message });
-      break;
-    case "gender":
-      setGender(value);
-      break;
-    case "area":
-      setArea({ ...area, value });
-      break;
-    default:
-      break;
-  }
-};
-
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-
-    const isFormValid = validateForm();
-
-    if (isFormValid) {
-      const currentUserData = {
-        fname: fname.value,
-        lname: lname.value,
-        email: email.value,
-        phone: phone.value,
-        age: age.value,
-        gender,
-        area: area.value,
-      };
-      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
-      setShowSuccessMessage(true);
+    } catch (error) {
+      console.error("Error fetching user data:", error);
     }
   };
 
-  const validateForm = () => {
-    let isFormValid = true;
+  const handleDeleteProfilePicture = () => {
+    // Clear the profile picture from the state
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      Image: "",
+    }));
+    setShowModal(false); // Close the modal after deleting the profile picture
+  };
 
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      [name]: value,
+    }));
+  };
 
-    if (!fname.isValid) {
-      isFormValid = false;
+  const handleChooseProfilePicture = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger file input click
+      setShowModal(false); // Close the modal after clicking "Choose Profile Picture"
     }
+  };
 
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
 
-    if (!lname.isValid) {
-      isFormValid = false;
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setUserData((prevUserData) => ({
+      ...prevUserData,
+      Image: file.name,
+    }));
+    setShowModal(false); // Close the modal after choosing the profile picture
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const existingUserResponse = await axios.get(
+        "https://retoolapi.dev/VcvvU9/Userprofile"
+      );
+      const existingUser = existingUserResponse.data.length > 0;
+
+      const method = existingUser ? "put" : "post";
+      const url = existingUser
+        ? `https://retoolapi.dev/VcvvU9/Userprofile/${existingUserResponse.data[2].id}`
+        : "https://retoolapi.dev/VcvvU9/Userprofile";
+
+      await axios[method](url, userData);
+
+      setShowSuccessMessage(true);
+    } catch (error) {
+      console.error("Error saving user data:", error);
     }
-
-
-    if (!email.isValid) {
-      isFormValid = false;
-    }
-
-
-
-    return isFormValid;
   };
 
   return (
-    <div className="container mt-5" style={{ height: "100vh" }}>
-      <div className="row">
+    <div className="container mt-5">
+      <div className="row ">
         <div className="col-md-3">
           <Sidebar />
         </div>
         <div className="col-md-9">
-          <div className="card bg-light p-4">
+          <div className="card bg-light m-3">
             <div className="card-header prim-pg text-light">
               <h3 className="text-center mb-0">Manage Profile</h3>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
+                {/* Image Input */}
+                <div className="mb-3 row justify-content-center align-items-center">
+                  <label
+                    htmlFor="Image"
+                    className="form-label col-12 text-center"
+                  >
+                    <div className="position-relative">
+                      <img
+                        src={userData.Image ? userData.Image : "/profile.jpeg"}
+                        alt="User"
+                        className="rounded-circle img-thumbnail"
+                        style={{
+                          width: "150px",
+                          height: "150px",
+                          objectFit: "cover",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => setShowModal(true)}
+                      />
+                      <FontAwesomeIcon
+                        icon={faCamera}
+                        className="position-absolute top-50 start-50 translate-middle text-primary"
+                        style={{ fontSize: "24px", cursor: "pointer" }}
+                        onClick={() => setShowModal(true)}
+                      />
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="Image"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    className="d-none"
+                    accept="image/*"
+                  />
+                </div>
+                {/* First Name Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="fname"
@@ -150,17 +164,16 @@ const Userprofile = () => {
                     <FontAwesomeIcon icon={faUser} /> First Name
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
                       name="fname"
-                      value={fname.value}
+                      value={userData.fname}
                       onChange={handleInputChange}
-                      isValid={fname.isValid}
-                      message={fname.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
+                {/* Last Name Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="lname"
@@ -169,17 +182,16 @@ const Userprofile = () => {
                     <FontAwesomeIcon icon={faUser} /> Last Name
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
                       name="lname"
-                      value={lname.value}
+                      value={userData.lname}
                       onChange={handleInputChange}
-                      isValid={lname.isValid}
-                      message={lname.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
+                {/* Email Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="email"
@@ -188,17 +200,16 @@ const Userprofile = () => {
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="email"
                       name="email"
-                      value={email.value}
+                      value={userData.email}
                       onChange={handleInputChange}
-                      isValid={email.isValid}
-                      message={email.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
+                {/* Phone Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="phone"
@@ -207,17 +218,16 @@ const Userprofile = () => {
                     <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
                       name="phone"
-                      value={phone.value}
+                      value={userData.phone}
                       onChange={handleInputChange}
-                      isValid={phone.isValid}
-                      message={phone.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
+                {/* Age Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="age"
@@ -226,17 +236,16 @@ const Userprofile = () => {
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
                       name="age"
-                      value={age.value}
+                      value={userData.age}
                       onChange={handleInputChange}
-                      isValid={age.isValid}
-                      message={age.message}
                       className="form-control form-control-blue"
                     />
                   </div>
                 </div>
+                {/* Area Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="area"
@@ -246,7 +255,7 @@ const Userprofile = () => {
                   </label>
                   <div className="col-sm-9">
                     <Form.Select
-                      value={area.value}
+                      value={userData.area}
                       name="area"
                       onChange={handleInputChange}
                       className="form-select form-control-blue"
@@ -261,6 +270,7 @@ const Userprofile = () => {
                     </Form.Select>
                   </div>
                 </div>
+                {/* Submit button */}
                 <div className="text-center">
                   <button type="submit" className="btn main-btn me-2">
                     Save
@@ -269,7 +279,7 @@ const Userprofile = () => {
                     Cancel
                   </button>
                 </div>
-
+                {/* Success message */}
                 {showSuccessMessage && (
                   <div className="alert alert-success mt-3" role="alert">
                     Profile updated successfully!
@@ -280,6 +290,36 @@ const Userprofile = () => {
           </div>
         </div>
       </div>
+
+      <Modal show={showModal} onHide={handleCloseModal} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Profile Picture Options</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="text-center">
+            {/* Display the profile picture */}
+            {userData.Image && (
+              <img
+                src={userData.Image}
+                alt="Profile"
+                className="img-fluid rounded"
+                style={{ maxHeight: "400px" }}
+              />
+            )}
+            {/* Display a message if no profile picture is available */}
+            {!userData.Image && <p>No profile picture available</p>}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleDeleteProfilePicture}>
+            Delete Profile Picture
+          </Button>
+          <Button variant="secondary" onClick={handleChooseProfilePicture}>
+            Choose Profile Picture
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
     </div>
   );
 };
