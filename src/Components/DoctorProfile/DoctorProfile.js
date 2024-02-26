@@ -2,7 +2,6 @@ import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
@@ -15,8 +14,8 @@ import {
   faGraduationCap,
   faBrain
 } from "@fortawesome/free-solid-svg-icons";
-
 import DSidebar from "./DSideBar/DSidebar";
+import { Validations } from "../utils/validations/validation";
 
 const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({
@@ -33,7 +32,18 @@ const DoctorProfile = () => {
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const fileInputRef = useRef(null); // Define fileInputRef
+  const fileInputRef = useRef(null);
+  const [validationErrors, setValidationErrors] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    age: "",
+    area: "",
+    fees: "",
+    specialization: "",
+    degree: "",
+  });
 
   useEffect(() => {
     fetchDoctorData();
@@ -52,14 +62,21 @@ const DoctorProfile = () => {
       console.error("Error fetching doctor data:", error);
     }
   };
-
+ // Function to handle image change
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setDoctorData((prevDoctorData) => ({
+      ...prevDoctorData,
+      Image: file.name,
+    }));
+    setShowModal(false); // Close modal after choosing profile picture
+  };
   const handleDeleteProfilePicture = () => {
-    // Clear the profile picture from the state
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
       Image: "",
     }));
-    setShowModal(false); // Close the modal after deleting the profile picture
+    setShowModal(false);
   };
 
   const handleInputChange = (e) => {
@@ -68,30 +85,49 @@ const DoctorProfile = () => {
       ...prevDoctorData,
       [name]: value,
     }));
+
+    // Perform validation
+    validateField(name, value);
   };
 
-  const handleChooseProfilePicture = () => {
-    if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger file input click
-      setShowModal(false); // Close the modal after clicking "Choose Profile Picture"
+  const validateField = (name, value) => {
+    let errorMessage = "";
+    switch (name) {
+      case "fname":
+      case "lname":
+        errorMessage = Validations.nameValid(value).message;
+        break;
+      case "email":
+        errorMessage = Validations.emailValid(value).message;
+        break;
+      case "phone":
+        errorMessage = Validations.phoneValid(value).message;
+        break;
+      case "age":
+        errorMessage = Validations.ageValid(value).message;
+        break;
+      case "fees":
+      if (value <= 200) {
+        errorMessage = "Fees must be greater than 200";
+      }
+      break;
+      default:
+        break;
     }
-  };
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    setDoctorData((prevDoctorData) => ({
-      ...prevDoctorData,
-      Image: file.name,
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
     }));
-    setShowModal(false); // Close the modal after choosing the profile picture
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if there are any validation errors
+    const isValid = Object.values(validationErrors).every((error) => error === "");
+    if (!isValid) {
+      console.error("Form has validation errors");
+      return;
+    }
 
     try {
       const existingDoctorResponse = await axios.get(
@@ -116,7 +152,7 @@ const DoctorProfile = () => {
     <div className="container mt-5">
       <div className="row ">
         <div className="col-md-3">
-             <DSidebar />
+          <DSidebar />
         </div>
         <div className="col-md-9">
           <div className="card bg-light m-3">
@@ -177,6 +213,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.fname}</div>
                   </div>
                 </div>
                 {/* Last Name Input */}
@@ -195,6 +232,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.lname}</div>
                   </div>
                 </div>
                 {/* Email Input */}
@@ -213,6 +251,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.email}</div>
                   </div>
                 </div>
                 {/* Phone Input */}
@@ -231,6 +270,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.phone}</div>
                   </div>
                 </div>
                 {/* Age Input */}
@@ -249,6 +289,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.age}</div>
                   </div>
                 </div>
                 {/* Area Input */}
@@ -274,6 +315,7 @@ const DoctorProfile = () => {
                       <option value="Giza">Giza</option>
                       <option value="Alexandria">Alexandria</option>
                     </Form.Select>
+                    <div className="text-danger">{validationErrors.area}</div>
                   </div>
                 </div>
                 {/* Fees Input */}
@@ -292,6 +334,7 @@ const DoctorProfile = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.fees}</div>
                   </div>
                 </div>
                 {/* Specialization Input */}
@@ -303,13 +346,20 @@ const DoctorProfile = () => {
                     <FontAwesomeIcon icon={faGraduationCap} /> Specialization
                   </label>
                   <div className="col-sm-9">
-                    <input
-                      type="text"
-                      name="specialization"
+                    <Form.Select
                       value={doctorData.specialization}
+                      name="specialization"
                       onChange={handleInputChange}
-                      className="form-control form-control-blue"
-                    />
+                      className="form-select form-control-blue"
+                    >
+                      <option value="">Select Specialization</option>
+                      <option value="Cardiology">Cardiology</option>
+                      <option value="Orthopedics">Orthopedics</option>
+                      <option value="Dermatology">Dermatology</option>
+                      <option value="Pediatrics">Pediatrics</option>
+                      
+                    </Form.Select>
+                    <div className="text-danger">{validationErrors.specialization}</div>
                   </div>
                 </div>
                 {/* Degree Input */}
@@ -321,16 +371,23 @@ const DoctorProfile = () => {
                     <FontAwesomeIcon icon={faBrain} /> Degree
                   </label>
                   <div className="col-sm-9">
-                    <input
-                      type="text"
-                      name="degree"
+                    <Form.Select
                       value={doctorData.degree}
+                      name="degree"
                       onChange={handleInputChange}
-                      className="form-control form-control-blue"
-                    />
+                      className="form-select form-control-blue"
+                    >
+                      <option value="">Select Degree</option>
+                      <option value="MBBS">MBBS</option>
+                      <option value="MD">MD</option>
+                      <option value="MS">MS</option>
+                      <option value="PhD">PhD</option>
+                      
+                    </Form.Select>
+                    <div className="text-danger">{validationErrors.degree}</div>
                   </div>
                 </div>
-                {/* Submit button */}
+                
                 <div className="text-center">
                   <button type="submit" className="btn main-btn me-2">
                     Save
@@ -351,7 +408,7 @@ const DoctorProfile = () => {
         </div>
       </div>
 
-      <Modal show={showModal} onHide={handleCloseModal} centered>
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
@@ -372,14 +429,13 @@ const DoctorProfile = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
-            Delete Profile Picture
+            Delete 
           </Button>
-          <Button variant="secondary" onClick={handleChooseProfilePicture}>
-            Choose Profile Picture
+          <Button variant="secondary" onClick={() => setShowModal(false)}>
+            Close
           </Button>
         </Modal.Footer>
       </Modal>
-
     </div>
   );
 };
