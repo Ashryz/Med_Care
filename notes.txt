@@ -1,0 +1,50 @@
+Doctor Table:
+-Columns:
+    doc_id (Primary Key)
+    fname
+    lname
+    email (Unique)
+    phone (Unique)
+    password
+    age
+    gender
+    imglink
+    area
+    specialization
+    clinics
+    degree
+    fees
+========================
+Patient Table:
+-Columns:
+    patient_id (Primary Key)
+    fname
+    lname
+    email (Unique)
+    password
+    age
+    gender
+    phone (Unique)
+    imglink
+    area
+========================
+
+Appointment Table:
+-Columns:
+    app_id (Primary Key)
+    doc_id (Foreign Key)
+    patient_id (Foreign Key)
+    date
+    time
+    status (Pending, Approved, Rejected)
+
+========================
+Feedback Table:
+-Columns:
+    feedback_id (Primary Key)
+    doc_id (Foreign Key)
+    patient_id (Foreign Key)
+    app_id (Foreign Key)
+    feedback
+    rating
+    date
