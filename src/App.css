@@ -3,7 +3,7 @@
   padding: 0;
   box-sizing: border-box;
 }
-body{
+body {
   background-color: rgb(226, 230, 234);
 }
 .App-logo {
@@ -47,21 +47,18 @@ body{
   background-color: rgb(146, 236, 187) !important;
 }
 
-
 /* mainbtn2 */
 .sec-btn {
   background: dodgerblue !important;
   color: white !important;
   border: none !important;
-  transition: background-color 0.3s ease, color 1s ease;
+  transition: background-color 0.3s ease, color 1s ease-in-out;
 }
-.main-btn:hover,
-.main-btn:focus {
+.main-btn:hover {
   background: linear-gradient(to right, #90d6b9, #14cc8e) !important;
   color: rgba(255, 255, 255, 0.801) !important;
 }
-.sec-btn:hover,
-.sec-btn:focus {
+.sec-btn:hover {
   background: linear-gradient(to right, #9fd4ec, #07a1e9) !important;
   color: rgba(255, 255, 255, 0.801) !important;
 }

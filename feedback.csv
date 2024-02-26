@@ -1,0 +1,7 @@
+feed_id,doc_email,doc_id,patient_id,patient_email,review,date,rating,patiant_img
+1,ahmed@gmail.com,1,1,mohamed@gmail.com,Dr. Ahmed is a great doctor he is very professional and caring. I would highly recommend him to anyone.,2020-01-01,5,person.jpg
+2,ali@gmail.com,1,2,mohamed@gmail.com,Dr. Ali is very good,2021-02-02,4,person.jpg
+3,hassan@gmail.com,1,3,ahmedp@gmail.com,Dr. Hassan is very good,2022-05-30,3,person.jpg
+4,dina@gmail.com,1,4,mohamed@gmail.com,Dr. Dina is very good,2023-05-07,2,person.jpg
+5,sara@gmail.com,1,5,ahmedp@gmail.com,Dr. Sara is very good,2024-08-15,1,person.jpg
+6,john@gmail.com,1,6,ahmedp@gmail.com,Dr. John is very good,2025-09-20,5,person.jpg
