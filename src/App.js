@@ -13,7 +13,8 @@ import DoctorProfile from './Components/DoctorProfile/DoctorProfile';
 import Hero from './Components/Hero/Hero.js';
 import FooterComp from './Components/Footer/Footer.js';
 import Error from './Components/Error/Error.js';
-import SearchResults from './Components/Search/SearchResults.js';import Review from './Pages/review/Review.js';
+import SearchResults from './Components/Search/SearchResults.js';
+import Review from './Pages/review/Review.js';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route exact path="/changepassword" element={<ChangePass />} />
           <Route exact path="/Listdoctor" element={<ListDoctor />} />
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
+          <Route exact path="/SearchResults" element={<SearchResults />} />
           <Route exact path="/Hero" element={<Hero />} />
           <Route exact path='/review' element={<Review />} />
           <Route path='*' element={<Error />} />
