@@ -23,7 +23,7 @@ const ChangePass = () => {
   const fetchUserData = async () => {
     try {
       const response = await axios.get(
-        "https://retoolapi.dev/VcvvU9/Userprofile/6" // Assuming the user ID is 5
+        "https://retoolapi.dev/FaXhlL/userprofile/3" 
       );
       if (response.data) {
         setUser({
@@ -77,7 +77,7 @@ const ChangePass = () => {
 
     try {
       // Update the user data including the password in the API
-      await axios.put("https://retoolapi.dev/VcvvU9/Userprofile/6", {
+      await axios.put("https://retoolapi.dev/FaXhlL/userprofile/3", {
         ...user,
       });
       // Reset the input fields and errors

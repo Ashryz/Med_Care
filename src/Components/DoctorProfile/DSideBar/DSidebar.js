@@ -30,7 +30,7 @@ const Sidebar = () => {
       >
       <ListGroup.Item className='list-group-item listgroupItem prim-color'>
       
-        <FontAwesomeIcon icon={faKey} className="sec-color"/> Change Password
+        <FontAwesomeIcon icon={faKey} className="prim-color"/> Change Password
         </ListGroup.Item>
       </Link>
   </ListGroup>

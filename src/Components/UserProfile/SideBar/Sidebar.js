@@ -17,9 +17,9 @@ const Sidebar = () => {
         </ListGroup.Item>
         </Link>
        <Link className="text-decoration-none" to="/changepassword">
-        <ListGroup.Item className='list-group-item listgroupItem'>
+        <ListGroup.Item className='list-group-item listgroupItem prim-color'>
           <FontAwesomeIcon icon={faLock} className="me-2" />
-          <span className='spanStyle'>Change Password</span>
+          <span >Change Password</span>
         </ListGroup.Item>
       </Link>
 
