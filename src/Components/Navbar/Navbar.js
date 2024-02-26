@@ -2,6 +2,8 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import InputGroup from 'react-bootstrap/InputGroup';
 import { Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
@@ -12,6 +14,7 @@ function NavbarComp() {
   const [showDropdown, setShowDropdown] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const [searchQuery, setSearchQuery] = useState('');
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -30,6 +33,12 @@ function NavbarComp() {
     navigate("/");
   };
 
+  const handleSearch = () => {
+    if (searchQuery.trim() !== "") {
+        navigate(`/search/${searchQuery}`);
+    }
+    };
+
   return (
     <Navbar expand="lg" bg='primary' id='nv-bar'  >
       <Container>
@@ -39,6 +48,21 @@ function NavbarComp() {
           <Nav className="me-auto">
             <Nav.Link as={Link} to="/" className="text-decoration-none text-white fw-bold fs-5">Home</Nav.Link>
           </Nav>
+          {isLoggedIn && currentUser.type === 'patient' && (
+          <Nav className='d-flex justify-content-center'>
+            <InputGroup>
+              <Form.Control
+                placeholder="Search for Doctor's Name"
+                aria-label="Doctor's Name"
+                aria-describedby="basic-addon2"
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
+              <Button variant="outline-light" id="button-addon2" onClick={handleSearch}>
+              <i className="bi bi-search"></i>
+              </Button>
+            </InputGroup>
+          </Nav>
+          )}
           <Nav className='ms-auto g-2'>
             <Button variant="outline-light" onClick={toggleDarkMode} className='me-2'>
               {isDarkMode ? (
