@@ -14,7 +14,6 @@ function EditableReview({ revObj, onClose }) {
 
   const handleStarClick = (rating) => {
     setStarRating(rating);
-    console.log(rating);
   };
 
   const handelSubmit = (e) => {

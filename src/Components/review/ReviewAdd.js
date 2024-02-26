@@ -8,7 +8,7 @@ function ReviewAdd() {
   // const revobj
   //6,john@gmail.com,1,6,ahmedp@gmail.com,Dr. John is very good,2025-09-20,5,person.jpg
   const [animated, setAnimated] = useState("");
-  const [revobg, setRevobj] = useState({
+  const revobg = {
     id: "",
     doc_mail: "example@gmail.com",
     doc_id: 1,
@@ -16,9 +16,9 @@ function ReviewAdd() {
     patient_mail: "jojo@gmail.com",
     review: "",
     date: new Date().toISOString().slice(0, 10),
-    rating: 5,
+    rating: 0,
     patiant_img: "person.jpg",
-  });
+  };
 
   const [reviewText, setReviewText] = useState("");
   const [starRating, setStarRating] = useState(0);
@@ -33,34 +33,29 @@ function ReviewAdd() {
 
   const handleStarClick = (rating) => {
     setStarRating(rating);
+    console.log(rating);
   };
 
   const handleAddReview = (e) => {
     e.preventDefault();
-    setRevobj({ ...revobg, review: reviewText, rating: starRating });
+
     if (reviewText === "" || starRating === 0) {
-      setAnimated(
-        "animate__animated animate__shakeX border border-2 border-danger"
-      );
+      setAnimated("animate__animated animate__shakeX");
       setTimeout(() => {
         setAnimated("");
-      }, 1000);
+      }, 500);
       return;
     }
+    const updatedRevObj = { ...revobg, review: reviewText, rating: starRating };
     axios
-      .post("https://retoolapi.dev/bGDaxE/feedback", revobg)
+      .post("https://retoolapi.dev/bGDaxE/feedback", updatedRevObj)
       .then((response) => {
-        
+        console.log(response);
       })
       .catch((error) => {
+        console.log(error);
       });
 
-    handleCancel();
-  };
-
-  const handleCancel = () => {
-    setReviewText("");
-    setStarRating(0);
     handleClose();
   };
 
@@ -86,7 +81,7 @@ function ReviewAdd() {
               </div>
             </Row>
             <Row className="justify-content-center align-items-center m-0 p-3">
-              <div className="col-12 text-center">
+              <div className={`col-md-12 text-center ${animated}`}>
                 {[...Array(5)].map((star, index) => {
                   const ratingValue = index + 1;
                   return (
@@ -140,7 +135,7 @@ function ReviewAdd() {
                       <Button
                         className="btn sec-btn rounded-5 shadow-lg p-2"
                         style={{ width: "80%", fontSize: "1rem" }}
-                        onClick={handleCancel}
+                        onClick={handleClose}
                       >
                         Cancel
                       </Button>

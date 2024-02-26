@@ -20,7 +20,7 @@ const ReviewCard = ({ revObj }) => {
     setAction(action);
   };
 
-  console.log(revObj.rating);
+  
 
   return (
     <div
