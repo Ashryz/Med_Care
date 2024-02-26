@@ -9,10 +9,12 @@ import {
   faPhoneAlt,
   faCalendarAlt,
   faMapMarkerAlt,
-  faCamera,
   faDollarSign,
   faGraduationCap,
-  faBrain
+  faBrain,
+   faCamera,
+   faInfoCircle,
+   faVenusMars
 } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "./DSideBar/DSidebar";
 import { Validations } from "../utils/validations/validation";
@@ -52,7 +54,7 @@ const DoctorProfile = () => {
   const fetchDoctorData = async () => {
     try {
       const response = await axios.get(
-        "https://retoolapi.dev/1qOuQb/Doctorprofile"
+        "https://retoolapi.dev/46yPXc/doctors"
       );
       if (response.data.length > 0) {
         const currentDoctorData = response.data[2];
@@ -62,7 +64,7 @@ const DoctorProfile = () => {
       console.error("Error fetching doctor data:", error);
     }
   };
-    // Function to handle choosing profile picture
+
   const handleChooseProfilePicture = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click(); // Trigger file input click
@@ -70,7 +72,6 @@ const DoctorProfile = () => {
     }
   };
 
- // Function to handle image change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setDoctorData((prevDoctorData) => ({
@@ -79,6 +80,7 @@ const DoctorProfile = () => {
     }));
     setShowModal(false); // Close modal after choosing profile picture
   };
+  
   const handleDeleteProfilePicture = () => {
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
@@ -115,10 +117,10 @@ const DoctorProfile = () => {
         errorMessage = Validations.ageValid(value).message;
         break;
       case "fees":
-      if (value <= 200) {
-        errorMessage = "Fees must be greater than 200";
-      }
-      break;
+        if (value <= 200) {
+          errorMessage = "Fees must be greater than 200";
+        }
+        break;
       default:
         break;
     }
@@ -145,8 +147,8 @@ const DoctorProfile = () => {
 
       const method = existingDoctor ? "put" : "post";
       const url = existingDoctor
-        ? `https://retoolapi.dev/1qOuQb/Doctorprofile/${existingDoctorResponse.data[2].id}`
-        : "https://retoolapi.dev/1qOuQb/Doctorprofile";
+        ? `https://retoolapi.dev/46yPXc/doctors/${existingDoctorResponse.data[2].id}`
+        : "https://retoolapi.dev/46yPXc/doctors";
 
       await axios[method](url, doctorData);
 
@@ -243,6 +245,24 @@ const DoctorProfile = () => {
                     <div className="text-danger">{validationErrors.lname}</div>
                   </div>
                 </div>
+                 {/* Bio Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="bio"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} />Bio
+                  </label>
+                  <div className="col-sm-9">
+                    <textarea
+                      name="bio"
+                      value={doctorData.bio}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
+                    />
+                    <div className="text-danger">{validationErrors.bio}</div>
+                  </div>
+                </div>
                 {/* Email Input */}
                 <div className="mb-3 row">
                   <label
@@ -300,6 +320,25 @@ const DoctorProfile = () => {
                     <div className="text-danger">{validationErrors.age}</div>
                   </div>
                 </div>
+                 <div className="mb-3 row">
+                  <label htmlFor="gender" className="form-label col-sm-3 text-primary">
+                    <FontAwesomeIcon icon={faVenusMars} /> Gender
+                  </label>
+                  <div className="col-sm-9">
+                    <Form.Select
+                      value={doctorData.gender}
+                      name="gender"
+                      onChange={handleInputChange}
+                      className="form-select form-control-blue"
+                    >
+                      <option value="">Select Gender</option>
+                      <option value="male">Male</option>
+                      <option value="female">Female</option>
+                     
+                    </Form.Select>
+                    
+                  </div>
+                </div>
                 {/* Area Input */}
                 <div className="mb-3 row">
                   <label
@@ -316,12 +355,36 @@ const DoctorProfile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Area</option>
-                      <option value="Cairo">Cairo</option>
-                      <option value="Aswan">Aswan</option>
-                      <option value="Nasr City">Nasr City</option>
-                      <option value="Bani Suef">Bani Suef</option>
-                      <option value="Giza">Giza</option>
-                      <option value="Alexandria">Alexandria</option>
+                      <option value="">Select Area</option>
+                       <option value="Cairo">Cairo</option>
+		    <option value="Alexandria">Alexandria</option>
+		    <option value="Giza">Giza</option>
+		    <option value="Port Said">Port Said</option>
+		    <option value="Suez">Suez</option>
+		    <option value="Luxor">Luxor</option>
+		    <option value="Asyut">Asyut</option>
+		    <option value="Ismailia">Ismailia</option>
+		    <option value="Faiyum">Faiyum</option>
+		    <option value="Beni Suef">Beni Suef</option>
+		    <option value="Mansoura">Mansoura</option>
+		    <option value="Damietta">Damietta</option>
+		    <option value="Assiut">Assiut</option>
+		    <option value="Minya">Minya</option>
+		    <option value="Sohag">Sohag</option>
+		    <option value="Qena">Qena</option>
+		    <option value="Aswan">Aswan</option>
+		    <option value="Beheira">Beheira</option>
+		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+		    <option value="Matruh">Matruh</option>
+		    <option value="New Valley">New Valley</option>
+		    <option value="North Sinai">North Sinai</option>
+		    <option value="South Sinai">South Sinai</option>
+		    <option value="Red Sea">Red Sea</option>
+		    <option value="Gharbia">Gharbia</option>
+		    <option value="Dakahlia">Dakahlia</option>
+		    <option value="Sharqia">Sharqia</option>
+		    <option value="Monufia">Monufia</option>
+		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
                     </Form.Select>
                     <div className="text-danger">{validationErrors.area}</div>
                   </div>
@@ -361,11 +424,50 @@ const DoctorProfile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Specialization</option>
-                      <option value="Cardiology">Cardiology</option>
-                      <option value="Orthopedics">Orthopedics</option>
-                      <option value="Dermatology">Dermatology</option>
-                      <option value="Pediatrics">Pediatrics</option>
-                      
+                      <option value="Dermatology">Dermatology (Skin)</option>
+                      <option value="Dentistry">Dentistry (Teeth)</option>
+                      <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
+                      <option value="Pediatrics">Pediatrics and New Born (Child)</option>
+                      <option value="Neurology">Neurology (Brain & Nerves)</option>
+                      <option value="Orthopedics">Orthopedics (Bones)</option>
+                      <option value="Gynecology">Gynecology and Infertility</option>
+                      <option value="ENT">Ear, Nose and Throat</option>
+                      <option value="Cardiology">Cardiology and Vascular Disease (Heart)</option>
+                      <option value="Allergy">Allergy and Immunology (Sensitivity and Immunity)</option>
+                      <option value="Andrology">Andrology and Male Infertility</option>
+                      <option value="Audiology">Audiology</option>
+                      <option value="CardiacSurgery">Cardiology and Thoracic Surgery (Heart & Chest)</option>
+                      <option value="VascularSurgery">Vascular Surgery (Arteries and Vein Surgery)</option>
+                      <option value="ChestRespiratory">Chest and Respiratory</option>
+                      <option value="Diabetes">Diabetes and Endocrinology</option>
+                      <option value="Radiology">Diagnostic Radiology (Scan Centers)</option>
+                      <option value="Dietitian">Dietitian and Nutrition</option>
+                      <option value="FamilyMedicine">Family Medicine</option>
+                      <option value="Gastroenterology">Gastroenterology and Endoscopy</option>
+                      <option value="GeneralPractice">General Practice</option>
+                      <option value="GeneralSurgery">General Surgery</option>
+                      <option value="Geriatrics">Geriatrics (Old People Health)</option>
+                      <option value="Hematology">Hematology</option>
+                      <option value="Hepatology">Hepatology (Liver Doctor)</option>
+                      <option value="InternalMedicine">Internal Medicine</option>
+                      <option value="InterventionalRadiology">Interventional Radiology (Interventional Radiology)</option>
+                      <option value="IVF">IVF and Infertility</option>
+                      <option value="Laboratories">Laboratories</option>
+                      <option value="Nephrology">Nephrology</option>
+                      <option value="Neurosurgery">Neurosurgery (Brain & Nerves Surgery)</option>
+                      <option value="Obesity">Obesity and Laparoscopic Surgery</option>
+                      <option value="Oncology">Oncology (Tumor)</option>
+                      <option value="OncologySurgery">Oncology Surgery (Tumor Surgery)</option>
+                      <option value="Ophthalmology">Ophthalmology (Eyes)</option>
+                      <option value="Osteopathy">Osteopathy (Osteopathic Medicine)</option>
+                      <option value="PainManagement">Pain Management</option>
+                      <option value="PediatricSurgery">Pediatric Surgery</option>
+                      <option value="Phoniatrics">Phoniatrics (Speech)</option>
+                      <option value="Physiotherapy">Physiotherapy and Sport Injuries</option>
+                      <option value="PlasticSurgery">Plastic Surgery</option>
+                      <option value="Rheumatology">Rheumatology</option>
+                      <option value="SpinalSurgery">Spinal Surgery</option>
+                      <option value="Urology">Urology (Urinary System)</option>
                     </Form.Select>
                     <div className="text-danger">{validationErrors.specialization}</div>
                   </div>
@@ -390,7 +492,6 @@ const DoctorProfile = () => {
                       <option value="MD">MD</option>
                       <option value="MS">MS</option>
                       <option value="PhD">PhD</option>
-                      
                     </Form.Select>
                     <div className="text-danger">{validationErrors.degree}</div>
                   </div>
