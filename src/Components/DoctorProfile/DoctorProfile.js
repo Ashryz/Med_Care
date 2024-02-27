@@ -1,417 +1,550 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
+import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Input } from "../utils/inputs/inputText";
-import DSidebar from "./DSideBar/DSidebar";
+import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faEnvelope, faPhoneAlt, faCalendarAlt, faMapMarkerAlt, faDollarSign, faGraduationCap, faBrain } from "@fortawesome/free-solid-svg-icons";
+import {
+  faUser,
+  faEnvelope,
+  faPhoneAlt,
+  faCalendarAlt,
+  faMapMarkerAlt,
+  faDollarSign,
+  faGraduationCap,
+  faBrain,
+   faCamera,
+   faInfoCircle,
+   faVenusMars
+} from "@fortawesome/free-solid-svg-icons";
+import DSidebar from "./DSideBar/DSidebar";
 import { Validations } from "../utils/validations/validation";
+
 const DoctorProfile = () => {
-  const [fname, setFname] = useState({ value: "", isValid: true, message: "" });
-  const [lname, setLname] = useState({ value: "", isValid: true, message: "" });
-  const [email, setEmail] = useState({ value: "", isValid: true, message: "" });
-  const [phone, setPhone] = useState({ value: "", isValid: true, message: "" });
-  const [age, setAge] = useState({ value: "", isValid: true, message: "" });
-  const [gender, setGender] = useState("male");
-  const [specialization, setSpecialization] = useState({ value: "", isValid: true, message: "" });
-  const [degree, setDegree] = useState({ value: "", isValid: true, message: "" });
-  const [area, setArea] = useState({ value: "", isValid: true, message: "" });
-  const [fees, setFees] = useState({ value: "", isValid: true, message: "" });
+  const [doctorData, setDoctorData] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    age: "",
+    area: "",
+    fees: "",
+    specialization: "",
+    degree: "",
+    Image: "",
+  });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showModal, setShowModal] = useState(false);
+  const fileInputRef = useRef(null);
+  const [validationErrors, setValidationErrors] = useState({
+    fname: "",
+    lname: "",
+    email: "",
+    phone: "",
+    age: "",
+    area: "",
+    fees: "",
+    specialization: "",
+    degree: "",
+  });
 
   useEffect(() => {
-    const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
-    if (currentUserData) {
-      setFname({ ...fname, value: currentUserData.fname });
-      setLname({ ...lname, value: currentUserData.lname });
-      setEmail({ ...email, value: currentUserData.email });
-      setPhone({ ...phone, value: currentUserData.phone });
-      setAge({ ...age, value: currentUserData.age });
-      setGender(currentUserData.gender);
-      setSpecialization({ ...specialization, value: currentUserData.specialization });
-      setDegree({ ...degree, value: currentUserData.degree });
-      setArea({ ...area, value: currentUserData.area });
-      setFees({ ...fees, value: currentUserData.fees });
-    }
+    fetchDoctorData();
   }, []);
+
+  const fetchDoctorData = async () => {
+    try {
+      const response = await axios.get(
+        "https://retoolapi.dev/46yPXc/doctors"
+      );
+      if (response.data.length > 0) {
+        const currentDoctorData = response.data[2];
+        setDoctorData(currentDoctorData);
+      }
+    } catch (error) {
+      console.error("Error fetching doctor data:", error);
+    }
+  };
+
+  const handleChooseProfilePicture = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click(); // Trigger file input click
+      setShowModal(false); // Close modal after clicking "Choose Profile Picture"
+    }
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    setDoctorData((prevDoctorData) => ({
+      ...prevDoctorData,
+      Image: file.name,
+    }));
+    setShowModal(false); // Close modal after choosing profile picture
+  };
+  
+  const handleDeleteProfilePicture = () => {
+    setDoctorData((prevDoctorData) => ({
+      ...prevDoctorData,
+      Image: "",
+    }));
+    setShowModal(false);
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    let isValid = true;
-    let message = "";
+    setDoctorData((prevDoctorData) => ({
+      ...prevDoctorData,
+      [name]: value,
+    }));
 
+    // Perform validation
+    validateField(name, value);
+  };
+
+  const validateField = (name, value) => {
+    let errorMessage = "";
     switch (name) {
       case "fname":
       case "lname":
-        // Validate first name and last name
-        const nameValidationResult = Validations.nameValid(value);
-        isValid = nameValidationResult.isValid;
-        message = nameValidationResult.message;
-        if (name === "fname") {
-          setFname({ value, isValid, message });
-        } else {
-          setLname({ value, isValid, message });
-        }
+        errorMessage = Validations.nameValid(value).message;
         break;
       case "email":
-
-        const emailValidationResult = Validations.emailValid(value);
-        isValid = emailValidationResult.isValid;
-        message = emailValidationResult.message;
-        setEmail({ value, isValid, message });
+        errorMessage = Validations.emailValid(value).message;
         break;
       case "phone":
-
-        const phoneValidationResult = Validations.phoneValid(value);
-        isValid = phoneValidationResult.isValid;
-        message = phoneValidationResult.message;
-        setPhone({ value, isValid, message });
+        errorMessage = Validations.phoneValid(value).message;
         break;
       case "age":
-
-        const ageValidationResult = Validations.ageValid(parseInt(value));
-        isValid = ageValidationResult.isValid;
-        message = ageValidationResult.message;
-        setAge({ value, isValid, message });
-        break;
-      case "gender":
-
-        setGender(value);
-        break;
-      case "degree":
-        setDegree({ value });
-        break;
-      case "area":
-        setArea({ value });
-        break;
-      case "specialization":
-        setSpecialization({ value });
+        errorMessage = Validations.ageValid(value).message;
         break;
       case "fees":
-        setFees({ value });
+        if (value <= 200) {
+          errorMessage = "Fees must be greater than 200";
+        }
         break;
       default:
         break;
     }
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
   };
 
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    // Check if there are any validation errors
+    const isValid = Object.values(validationErrors).every((error) => error === "");
+    if (!isValid) {
+      console.error("Form has validation errors");
+      return;
+    }
 
-    // Validate form before submitting
-    const isFormValid = validateForm();
+    try {
+      const existingDoctorResponse = await axios.get(
+        "https://retoolapi.dev/1qOuQb/Doctorprofile"
+      );
+      const existingDoctor = existingDoctorResponse.data.length > 0;
 
-    if (isFormValid) {
-      const currentUserData = {
-        fname: fname.value,
-        lname: lname.value,
-        email: email.value,
-        phone: phone.value,
-        age: age.value,
-        gender,
-        specialization: specialization.value,
-        degree: degree.value,
-        area: area.value,
-        fees: fees.value,
-      };
-      localStorage.setItem("currentUser", JSON.stringify(currentUserData));
+      const method = existingDoctor ? "put" : "post";
+      const url = existingDoctor
+        ? `https://retoolapi.dev/46yPXc/doctors/${existingDoctorResponse.data[2].id}`
+        : "https://retoolapi.dev/46yPXc/doctors";
+
+      await axios[method](url, doctorData);
+
       setShowSuccessMessage(true);
+    } catch (error) {
+      console.error("Error saving doctor data:", error);
     }
-  };
-
-  const validateForm = () => {
-    let isFormValid = true;
-
-    // Validate first name
-    if (!fname.isValid) {
-      isFormValid = false;
-    }
-
-    // Validate last name
-    if (!lname.isValid) {
-      isFormValid = false;
-    }
-
-    // Validate email
-    if (!email.isValid) {
-      isFormValid = false;
-    }
-
-    // Implement validation for other fields as needed
-
-    return isFormValid;
   };
 
   return (
-    <div style={{ minHeight: "100vh" }} className="container mt-5">
-      <div className="row">
+    <div className="container mt-5">
+      <div className="row ">
         <div className="col-md-3">
           <DSidebar />
         </div>
         <div className="col-md-9">
-          <div className="card bg-light p-4">
+          <div className="card bg-light m-3">
             <div className="card-header prim-pg text-light">
               <h3 className="text-center mb-0">Manage Profile</h3>
             </div>
             <div className="card-body">
               <form onSubmit={handleSubmit}>
-                {/* First Name */}
+                {/* Image Input */}
+                <div className="mb-3 row justify-content-center align-items-center">
+                  <label
+                    htmlFor="Image"
+                    className="form-label col-12 text-center"
+                  >
+                    <div className="position-relative">
+                      <img
+                        src={doctorData.Image ? doctorData.Image : "/profile.jpeg"}
+                        alt="Doctor"
+                        className="rounded-circle img-thumbnail"
+                        style={{
+                          width: "150px",
+                          height: "150px",
+                          objectFit: "cover",
+                          cursor: "pointer",
+                        }}
+                        onClick={() => setShowModal(true)}
+                      />
+                      <FontAwesomeIcon
+                        icon={faCamera}
+                        className="position-absolute top-50 start-10 translate-middle text-primary"
+                        style={{ fontSize: "24px", cursor: "pointer" }}
+                        onClick={() => setShowModal(true)}
+                      />
+                    </div>
+                  </label>
+                  <input
+                    type="file"
+                    id="Image"
+                    ref={fileInputRef}
+                    onChange={handleImageChange}
+                    className="d-none"
+                    accept="image/*"
+                  />
+                </div>
+                {/* First Name Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="fname"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faUser} /> First Name
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
-                      placeholder="First Name"
-                      value={fname.value}
-                      onChange={handleInputChange}
-                      isValid={fname.isValid}
-                      message={fname.message}
                       name="fname"
-                      className={fname.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required
+                      value={doctorData.fname}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.fname}</div>
                   </div>
                 </div>
-                {/* Last Name */}
+                {/* Last Name Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="lname"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faUser} /> Last Name
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
-                      placeholder="Last Name"
-                      value={lname.value}
-                      onChange={handleInputChange}
-                      isValid={lname.isValid}
-                      message={lname.message}
                       name="lname"
-                      className={lname.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required
+                      value={doctorData.lname}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.lname}</div>
                   </div>
                 </div>
-                {/* Email */}
+                 {/* Bio Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="bio"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faInfoCircle} />Bio
+                  </label>
+                  <div className="col-sm-9">
+                    <textarea
+                      name="bio"
+                      value={doctorData.bio}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
+                    />
+                    <div className="text-danger">{validationErrors.bio}</div>
+                  </div>
+                </div>
+                {/* Email Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="email"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="email"
-                      placeholder="Email Address"
-                      value={email.value}
-                      onChange={handleInputChange}
-                      isValid={email.isValid}
-                      message={email.message}
                       name="email"
-                      className={email.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required
+                      value={doctorData.email}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.email}</div>
                   </div>
                 </div>
-                {/* Phone */}
+                {/* Phone Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="phone"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
-                    <FontAwesomeIcon icon={faPhoneAlt} /> Phone Number
-                    <sup style={{ color: "red" }}> *</sup>
+                    <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
-                      placeholder="Phone Number"
-                      value={phone.value}
-                      onChange={handleInputChange}
-                      isValid={phone.isValid}
-                      message={phone.message}
                       name="phone"
-                      className={phone.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required
+                      value={doctorData.phone}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.phone}</div>
                   </div>
                 </div>
-                {/* Age */}
+                {/* Age Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="age"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
-                    <Input
+                    <input
                       type="text"
-                      placeholder="Age"
-                      value={age.value}
-                      onChange={handleInputChange}
-                      isValid={age.isValid}
-                      message={age.message}
                       name="age"
-                      className={age.isValid ? 'form-control is-valid' : 'form-control is-invalid'}
-                      required
+                      value={doctorData.age}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
+                    <div className="text-danger">{validationErrors.age}</div>
                   </div>
                 </div>
-                {/* Gender */}
-                <div className="mb-3 row">
-                  <label
-                    htmlFor="gender"
-                    className="form-label col-sm-3 sec-color"
-                  >
-                    <FontAwesomeIcon icon={faUser} /> Gender
-                    <sup style={{ color: "red" }}> *</sup>
+                 <div className="mb-3 row">
+                  <label htmlFor="gender" className="form-label col-sm-3 text-primary">
+                    <FontAwesomeIcon icon={faVenusMars} /> Gender
                   </label>
                   <div className="col-sm-9">
-                    <select
+                    <Form.Select
+                      value={doctorData.gender}
                       name="gender"
-                      value={gender}
-                      onChange={(e) => setGender(e.target.value)}
-                      className="form-select"
-                      required
+                      onChange={handleInputChange}
+                      className="form-select form-control-blue"
                     >
+                      <option value="">Select Gender</option>
                       <option value="male">Male</option>
                       <option value="female">Female</option>
-                    </select>
+                     
+                    </Form.Select>
+                    
                   </div>
                 </div>
-
-                <div className="mb-3 row">
-                  <label
-                    htmlFor="specialization"
-                    className="form-label col-sm-3 sec-color"
-                  >
-                    <FontAwesomeIcon icon={faBrain} className="me-2" /> Specialization
-                    <sup style={{ color: "red" }}> *</sup>
-                  </label>
-                  <div className="col-sm-9">
-                    <select
-                      name="specialization"
-                      className='form-select'
-                      value={specialization.value}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select specialization</option>
-                      <option value="Cardiology">Cardiology</option>
-                      <option value="Dermatology">Dermatology</option>
-                      <option value="Neurology">Neurology</option>
-                    </select>
-
-                  </div>
-                </div>
-
-                <div className="mb-3 row">
-                  <label
-                    htmlFor="degree"
-                    className="form-label col-sm-3 sec-color"
-                  >
-                    <FontAwesomeIcon icon={faGraduationCap} className="me-2" /> Degree
-                    <sup style={{ color: "red" }}> *</sup>
-                  </label>
-                  <div className="col-sm-9">
-                    <select
-                      name="degree"
-                      className='form-select'
-                      value={degree.value}
-                      onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select degree</option>
-                      <option value="MD">MD</option>
-                      <option value="PhD">PhD</option>
-                      <option value="MBBS">MBBS</option>
-                    </select>
-
-                  </div>
-                </div>
-
+                {/* Area Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="area"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
                     <FontAwesomeIcon icon={faMapMarkerAlt} /> Area
-                    <sup style={{ color: "red" }}> *</sup>
                   </label>
                   <div className="col-sm-9">
-                    <select
+                    <Form.Select
+                      value={doctorData.area}
                       name="area"
-                      className='form-select'
-                      value={area.value}
                       onChange={handleInputChange}
-                      required
+                      className="form-select form-control-blue"
                     >
-                      <option value="">Select area</option>
-                      <option value="Cairo">Cairo</option>
-                      <option value="BNS">BNS</option>
-                      <option value="Aswan">Aswan</option>
-                    </select>
-
+                      <option value="">Select Area</option>
+                      <option value="">Select Area</option>
+                       <option value="Cairo">Cairo</option>
+		    <option value="Alexandria">Alexandria</option>
+		    <option value="Giza">Giza</option>
+		    <option value="Port Said">Port Said</option>
+		    <option value="Suez">Suez</option>
+		    <option value="Luxor">Luxor</option>
+		    <option value="Asyut">Asyut</option>
+		    <option value="Ismailia">Ismailia</option>
+		    <option value="Faiyum">Faiyum</option>
+		    <option value="Beni Suef">Beni Suef</option>
+		    <option value="Mansoura">Mansoura</option>
+		    <option value="Damietta">Damietta</option>
+		    <option value="Assiut">Assiut</option>
+		    <option value="Minya">Minya</option>
+		    <option value="Sohag">Sohag</option>
+		    <option value="Qena">Qena</option>
+		    <option value="Aswan">Aswan</option>
+		    <option value="Beheira">Beheira</option>
+		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+		    <option value="Matruh">Matruh</option>
+		    <option value="New Valley">New Valley</option>
+		    <option value="North Sinai">North Sinai</option>
+		    <option value="South Sinai">South Sinai</option>
+		    <option value="Red Sea">Red Sea</option>
+		    <option value="Gharbia">Gharbia</option>
+		    <option value="Dakahlia">Dakahlia</option>
+		    <option value="Sharqia">Sharqia</option>
+		    <option value="Monufia">Monufia</option>
+		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                    </Form.Select>
+                    <div className="text-danger">{validationErrors.area}</div>
                   </div>
                 </div>
-
+                {/* Fees Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="fees"
-                    className="form-label col-sm-3 sec-color"
+                    className="form-label col-sm-3 text-primary"
                   >
-                    <FontAwesomeIcon icon={faDollarSign} className="me-2" /> Fees
-                    <sup style={{ color: "red" }}> *</sup>
+                    <FontAwesomeIcon icon={faDollarSign} /> Fees
                   </label>
                   <div className="col-sm-9">
-                    <select
+                    <input
+                      type="text"
                       name="fees"
-                      className='form-select'
-                      value={fees.value}
+                      value={doctorData.fees}
                       onChange={handleInputChange}
-                      required
-                    >
-                      <option value="">Select fees</option>
-                      <option value="50">$50</option>
-                      <option value="100">$100</option>
-                      <option value="150">$150</option>
-                    </select>
-
+                      className="form-control form-control-blue"
+                    />
+                    <div className="text-danger">{validationErrors.fees}</div>
                   </div>
                 </div>
-
+                {/* Specialization Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="specialization"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faGraduationCap} /> Specialization
+                  </label>
+                  <div className="col-sm-9">
+                    <Form.Select
+                      value={doctorData.specialization}
+                      name="specialization"
+                      onChange={handleInputChange}
+                      className="form-select form-control-blue"
+                    >
+                      <option value="">Select Specialization</option>
+                      <option value="Dermatology">Dermatology (Skin)</option>
+                      <option value="Dentistry">Dentistry (Teeth)</option>
+                      <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
+                      <option value="Pediatrics">Pediatrics and New Born (Child)</option>
+                      <option value="Neurology">Neurology (Brain & Nerves)</option>
+                      <option value="Orthopedics">Orthopedics (Bones)</option>
+                      <option value="Gynecology">Gynecology and Infertility</option>
+                      <option value="ENT">Ear, Nose and Throat</option>
+                      <option value="Cardiology">Cardiology and Vascular Disease (Heart)</option>
+                      <option value="Allergy">Allergy and Immunology (Sensitivity and Immunity)</option>
+                      <option value="Andrology">Andrology and Male Infertility</option>
+                      <option value="Audiology">Audiology</option>
+                      <option value="CardiacSurgery">Cardiology and Thoracic Surgery (Heart & Chest)</option>
+                      <option value="VascularSurgery">Vascular Surgery (Arteries and Vein Surgery)</option>
+                      <option value="ChestRespiratory">Chest and Respiratory</option>
+                      <option value="Diabetes">Diabetes and Endocrinology</option>
+                      <option value="Radiology">Diagnostic Radiology (Scan Centers)</option>
+                      <option value="Dietitian">Dietitian and Nutrition</option>
+                      <option value="FamilyMedicine">Family Medicine</option>
+                      <option value="Gastroenterology">Gastroenterology and Endoscopy</option>
+                      <option value="GeneralPractice">General Practice</option>
+                      <option value="GeneralSurgery">General Surgery</option>
+                      <option value="Geriatrics">Geriatrics (Old People Health)</option>
+                      <option value="Hematology">Hematology</option>
+                      <option value="Hepatology">Hepatology (Liver Doctor)</option>
+                      <option value="InternalMedicine">Internal Medicine</option>
+                      <option value="InterventionalRadiology">Interventional Radiology (Interventional Radiology)</option>
+                      <option value="IVF">IVF and Infertility</option>
+                      <option value="Laboratories">Laboratories</option>
+                      <option value="Nephrology">Nephrology</option>
+                      <option value="Neurosurgery">Neurosurgery (Brain & Nerves Surgery)</option>
+                      <option value="Obesity">Obesity and Laparoscopic Surgery</option>
+                      <option value="Oncology">Oncology (Tumor)</option>
+                      <option value="OncologySurgery">Oncology Surgery (Tumor Surgery)</option>
+                      <option value="Ophthalmology">Ophthalmology (Eyes)</option>
+                      <option value="Osteopathy">Osteopathy (Osteopathic Medicine)</option>
+                      <option value="PainManagement">Pain Management</option>
+                      <option value="PediatricSurgery">Pediatric Surgery</option>
+                      <option value="Phoniatrics">Phoniatrics (Speech)</option>
+                      <option value="Physiotherapy">Physiotherapy and Sport Injuries</option>
+                      <option value="PlasticSurgery">Plastic Surgery</option>
+                      <option value="Rheumatology">Rheumatology</option>
+                      <option value="SpinalSurgery">Spinal Surgery</option>
+                      <option value="Urology">Urology (Urinary System)</option>
+                    </Form.Select>
+                    <div className="text-danger">{validationErrors.specialization}</div>
+                  </div>
+                </div>
+                {/* Degree Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="degree"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faBrain} /> Degree
+                  </label>
+                  <div className="col-sm-9">
+                    <Form.Select
+                      value={doctorData.degree}
+                      name="degree"
+                      onChange={handleInputChange}
+                      className="form-select form-control-blue"
+                    >
+                      <option value="">Select Degree</option>
+                      <option value="MBBS">MBBS</option>
+                      <option value="MD">MD</option>
+                      <option value="MS">MS</option>
+                      <option value="PhD">PhD</option>
+                    </Form.Select>
+                    <div className="text-danger">{validationErrors.degree}</div>
+                  </div>
+                </div>
+                
                 <div className="text-center">
-                  <button type="submit" className="main-btn btn me-2">
+                  <button type="submit" className="btn main-btn me-2">
                     Save
                   </button>
-                  <button type="button" className=" btn sec-btn ">
+                  <button type="button" className="btn sec-btn">
                     Cancel
                   </button>
                 </div>
+                {/* Success message */}
+                {showSuccessMessage && (
+                  <div className="alert alert-success mt-3" role="alert">
+                    Profile updated successfully!
+                  </div>
+                )}
               </form>
             </div>
           </div>
         </div>
       </div>
-      {showSuccessMessage && (
-        <div className="alert alert-success" role="alert" style={{ backgroundColor: '#d4edda', borderColor: '#c3e6cb', color: '#155724' }}>
-          <strong>Profile Updated</strong> Profile updated successfully!
-          <button type="button" className="btn-close" aria-label="Close" onClick={() => setShowSuccessMessage(false)}></button>
-        </div>
-      )}
+
+      <Modal show={showModal} onHide={() => setShowModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Profile Picture Options</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="text-center">
+            {/* Display the profile picture */}
+            {doctorData.Image && (
+              <img
+                src={doctorData.Image}
+                alt="Profile"
+                className="img-fluid rounded"
+                style={{ maxHeight: "400px" }}
+              />
+            )}
+            {/* Display a message if no profile picture is available */}
+            {!doctorData.Image && <p>No profile picture available</p>}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="danger" onClick={handleDeleteProfilePicture}>
+            Delete 
+          </Button>
+          <Button variant="secondary" onClick={handleChooseProfilePicture}>
+            Choose Profile Picture
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 };

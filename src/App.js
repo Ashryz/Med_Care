@@ -5,7 +5,9 @@ import SignIn from './Pages/SignIn/SignIn.js'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ForgotPassword from './Pages/SignIn/ForgotPassword.js';
 import Userprofile from './Components/UserProfile/Userprofile';
-import ChangePass from './Components/ChangePass/ChangePass';
+import ChangePass from './Components/UserProfile/ChangePass/ChangePass';
+import ChangeDPass from './Components/DoctorProfile/ChangeDPass/ChangeDPass';
+import MyInsurance from './Components/UserProfile/MyInsurance/MyInsurance';
 import NavbarComp from './Components/Navbar/Navbar.js';
 import Home from './Home.js';
 import ListDoctor from './Components/ListDoctor/ListDoctor.js';
@@ -31,6 +33,8 @@ function App() {
           <Route path='/SignUp' element={<SelectReg />} />
           <Route exact path="/Userprofile" element={<Userprofile />} />
           <Route exact path="/changepassword" element={<ChangePass />} />
+          <Route exact path="/changedDpassword" element={<ChangeDPass />} />
+          <Route exact path="/MyInsurance" element={<MyInsurance />} />
           <Route exact path="/Listdoctor" element={<ListDoctor />} />
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
           <Route exact path="/search/:query" element={<SearchResults />} />
