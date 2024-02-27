@@ -15,6 +15,8 @@ import FooterComp from './Components/Footer/Footer.js';
 import Error from './Components/Error/Error.js';
 import SearchResults from './Components/Search/SearchResults.js';
 import Review from './Pages/review/Review.js';
+import DoctorCard from './Components/Doctors/DoctorCard.js';
+import DoctorDetails from './Components/Doctors/DoctorDetails.js';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
           <Route exact path="/search/:query" element={<SearchResults />} />
           <Route exact path="/Hero" element={<Hero />} />
           <Route exact path='/review' element={<Review />} />
+          <Route exact path='/DoctorCard' element={<DoctorCard/>}/>
+          <Route exact path="/DoctorDetails/:id" element={<DoctorDetails/>}/> 
           <Route path='*' element={<Error />} />
         </Routes>
         <FooterComp />

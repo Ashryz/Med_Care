@@ -6,32 +6,32 @@ import { faVenusMars, faCalendarWeek, faStethoscope, faMoneyBill1Wave } from '@f
 import './filter.css'
 function Filter() {
   return (
-      <Card style={{ width: '25rem' }} className='ms-5'>
-        <Card.Header className='main-bg-2 text-center text-white fw-bold'><h3>Select Your Search</h3></Card.Header>
+      <Card style={{ width: '20rem' }} className='ms-5'>
+        <Card.Header className='main-bg-2 text-center text-white fw-bold'><h3><i class="bi bi-funnel-fill"></i> Filter</h3></Card.Header>
         <Card.Body>
-        <Accordion defaultActiveKey={['0']} alwaysOpen id='acc' style={{width:'22.5rem'}}>
+        <Accordion defaultActiveKey={['0']} alwaysOpen id='acc' style={{width:'17.5rem'}}>
       <Accordion.Item eventKey="0">
         <Accordion.Header style={{backgroundColor:'mediumseagreen'}}><h4><i className="bi bi-mortarboard-fill"></i>&nbsp;Title</h4></Accordion.Header>
         <Accordion.Body>
             <Form.Check
             type={'checkbox'}
             id={'check1'}
-            label={'Medical Professor'}
+            label={'Professor'}
           />
             <Form.Check
             type={'checkbox'}
             id={'check2'}
-            label={'Medical Lecturer'}
+            label={'Lecturer'}
           />
             <Form.Check
             type={'checkbox'}
             id={'check3'}
-            label={'Medical Consultant'}
+            label={'Consultant'}
           />
             <Form.Check
             type={'checkbox'}
             id={'check4'}
-            label={'Medical Specialist'}
+            label={'Specialist'}
           />
         </Accordion.Body>
       </Accordion.Item>
@@ -86,7 +86,7 @@ function Filter() {
         </Accordion.Body>
       </Accordion.Item>
       <Accordion.Item eventKey="4">
-        <Accordion.Header><h4><FontAwesomeIcon icon={faMoneyBill1Wave}/>&nbsp;Examination Price</h4></Accordion.Header>
+        <Accordion.Header><h4><FontAwesomeIcon icon={faMoneyBill1Wave}/>&nbsp;Examination Fee</h4></Accordion.Header>
         <Accordion.Body>
         <Form.Check
             type={'radio'}
