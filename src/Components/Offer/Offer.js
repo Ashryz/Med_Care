@@ -11,7 +11,7 @@ function OfferSlider() {
   useEffect(() => {    
     const fetchOffers = async () => {
       try {
-        const response = await axios.get('https://retoolapi.dev/uoCFj8/offer');
+        const response = await axios.get('https://retoolapi.dev/MAno2q/offer');
         setOffers(response.data);
       } catch (error) {
         console.error('Error fetching offers:', error);
@@ -56,7 +56,7 @@ function OfferSlider() {
   );
 }
 
-// Function to calculate the discount percentage
+
 function calculateDiscount(originalPrice, discountPrice) {
   return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
 }
