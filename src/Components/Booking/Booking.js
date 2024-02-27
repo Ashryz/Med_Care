@@ -1,5 +1,5 @@
 import Carousel from 'react-bootstrap/Carousel';
-import './Boking.css'
+import './Booking.css'
 import { Button } from 'react-bootstrap';
 function Booking() {
   return (

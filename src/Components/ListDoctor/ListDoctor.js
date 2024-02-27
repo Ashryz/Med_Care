@@ -1,71 +1,54 @@
-import Dropdown from 'react-bootstrap/Dropdown';
-import DropdownButton from 'react-bootstrap/DropdownButton';
-import {  Button, Col, Row } from 'react-bootstrap';
-import Booking from '../Boking/Booking';
-import Filter from '../Filter/Filter';
-import DoctorDetal from '../DoctorDetalis/DoctorDetal';
-import AboutDoctor from '../AboutDoctor/AboutDoctor';
-import PastionReview from '../PastionReview/PastionReview';
+import {  Button, Col, Container, Row, Pagination } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
-import Pagination from '../Pagination/Pagination';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CardDoctor  from '../CardDoctor/CardDoctor';
+import DoctorCard from '../Doctors/DoctorCard';
 function ListDoctor() {
 
-  const obj ={
-    
-    "id": 1,
-    "age": "32",
-    "area": "Giza",
-    "fees": "600",
-    "Image": "person.jpg",
-    "email": "yusuf@gmail.com",
-    "fname": "Yusuf",
-    "lname": "Mohammad",
-    "phone": "0102525600",
-    "degree": "Consultant",
-    "gender": "Male",
-    "password": "Py12345",
-    "specialization": "Cardiology and Thoracic Surgery (Heart & Chest)"
-  
-}
-const [doctor,setdoctor]=useState([])
+const [doctor,setDoctor]=useState([])
+const [currentPage, setCurrentPage] = useState(1);
+const [totalPages, setTotalPages] = useState(0);
+
 useEffect(()=>{
 
-  axios.get("https://retoolapi.dev/46yPXc/doctors")
-  .then((res)=>setdoctor(res.data))
+  axios.get(`https://retoolapi.dev/46yPXc/doctors?_page=${currentPage}&_limit=10`)
+  .then((res) => {
+    console.log(res.data)
+    setDoctor(res.data);
+    setTotalPages(Math.ceil(res.headers["x-total-count"] / 10));
+    console.log(res)
+})
   .catch((err)=>console.log(err))
 
-},[])
+},[currentPage])
 console.log(doctor);
+const handlePageChange = (page) => {
+  setCurrentPage(page);
+};
   return (
-    <>
-   {doctor.map((doc,index)=>{
-
-return(
-  <>
-  
-  
-  <CardDoctor doc={doc}/>
-
-  
-
-  </>
-  
-)
-
-
-
-   })}
-
-<Pagination/>
-{/* <Filter/> */}
-
-
- {/* <DoctorDetal/> */}
-   </>
+    <Container fluid className="mt-5 mb-5">
+    <Row >
+    {doctor.map((doctor) => (
+        <DoctorCard doctor={doctor }/>
+    ))}
+</Row>
+<Pagination className="mt-3 justify-content-center">
+    <Pagination.First onClick={() => handlePageChange(1)} />
+    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
+    {Array.from({ length: totalPages }, (_, index) => (
+        <Pagination.Item
+            key={index + 1}
+            active={index + 1 === currentPage}
+            onClick={() => handlePageChange(index + 1)}
+        >
+            {index + 1}
+        </Pagination.Item>
+    ))}
+    <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
+    <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+</Pagination>
+</Container>
   )
-}
-
+  }
 export default ListDoctor;

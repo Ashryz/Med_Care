@@ -33,7 +33,7 @@ function SignIn() {
     })
     const dataChange = (e) => {
 
-        if (e.target.name == 'email') {
+        if (e.target.name === 'email') {
             setData({
                 ...data,
                 email: e.target.value
