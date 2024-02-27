@@ -1,10 +1,28 @@
 import './DoctorDetal.css'
+import AboutDoctor from '../AboutDoctor/AboutDoctor';
+import PastionReview from '../PastionReview/PastionReview';
 function DoctorDetal(){
-
+    const obj ={
+    
+        "id": 1,
+        "age": "32",
+        "area": "Giza",
+        "fees": "600",
+        "Image": "person.jpg",
+        "email": "yusuf@gmail.com",
+        "fname": "Yusuf",
+        "lname": "Mohammad",
+        "phone": "0102525600",
+        "degree": "Consultant",
+        "gender": "Male",
+        "password": "Py12345",
+        "specialization": "Cardiology and Thoracic Surgery (Heart & Chest)"
+      
+    }
 return(
     <>
-    <div className="container p-0">
-<div className="row ser-card sm=8 border p-3 rounded-3 shadow me-3 mb-2">
+    <div className="container p-0 ">
+<div className="row ser-card sm=8 border p-3 rounded-3 shadow me-3 mb-2 maindetal">
 
 <div className='col col-2'>
    <img id='img' src='person.jpg'></img>
@@ -45,6 +63,9 @@ return(
    </div>
 </div>
     </div>
+    <AboutDoctor/>
+    <PastionReview/>
+
     </>
 )
 

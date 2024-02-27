@@ -14,6 +14,7 @@ import Hero from './Components/Hero/Hero.js';
 import FooterComp from './Components/Footer/Footer.js';
 import Error from './Components/Error/Error.js';
 import Review from './Pages/review/Review.js';
+import DoctorDetal from './Components/DoctorDetalis/DoctorDetal.js';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
           <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
           <Route exact path="/Hero" element={<Hero />} />
           <Route exact path='/review' element={<Review />} />
+          <Route exact path='/detal' element={<DoctorDetal />} />
+
           <Route path='*' element={<Error />} />
         </Routes>
         <FooterComp />

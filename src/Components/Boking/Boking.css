@@ -2,7 +2,7 @@
     border: 1px solid;
 }
 #cer{
-    width: 100%;
+    width: 30%;
 }
 #day{
     background-color: blue;
@@ -11,6 +11,10 @@
 #btn{
     width: 100%;
 }
-#appo{
-    height: 300px;
+
+.book{
+    width: 10%;
+}
+.booking{
+    width: 100%;
 }

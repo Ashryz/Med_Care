@@ -1,0 +1,26 @@
+#img{
+    width: 100px;
+    border-radius: 50%;
+}
+
+
+.doc_card:hover,
+.doc_card:focus {
+  background-color:rgb(222, 203, 203) !important;
+  /* color: white !important;*/
+  transition: background-color 0.3s ease, color 1s ease; 
+  cursor: pointer;
+  svg {
+    color: white !important;
+    transition: color 0.3s ease;
+  }
+}
+
+.doc_card {
+  background-color: white !important;
+  color: black !important;
+  transition: background-color 0.3s ease, color 1s ease;
+  cursor: pointer;
+}
+
+
