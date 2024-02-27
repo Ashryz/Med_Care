@@ -20,10 +20,14 @@ import Review from './Pages/review/Review.js';
 import DoctorCard from './Components/Doctors/DoctorCard.js';
 import DoctorDetails from './Components/Doctors/DoctorDetails.js';
 import DoctorDetal from './Components/DoctorDetalis/DoctorDetal.js';
+import { ViewAppointment } from './Components/ViewAppointment/ViewAppointment.js';
+import { Schadule } from './Components/ViewAppointment/Schadule.js';
+import Dashboard from './Components/ViewAppointment/Dashboard.js';
 
 function App() {
   return (
     <div className="App">
+     
       <BrowserRouter>
         <NavbarComp />
         <Routes>
@@ -46,9 +50,13 @@ function App() {
           <Route exact path="/DoctorDetl" element={<DoctorDetal/>}/> 
 
           <Route path='*' element={<Error />} />
+          <Route exact path='/viewappointment' element={<ViewAppointment/>} />
+          <Route exact path='/Schadule' element={<Schadule/>}/>
+          <Route exact path='/Dashboard' element={<Dashboard/>}/>
         </Routes>
         <FooterComp />
       </BrowserRouter>
+      
       {/* <SelectReg/> */}
     </div>
   );
