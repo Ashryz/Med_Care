@@ -1,7 +1,7 @@
 import { Button, Row } from 'react-bootstrap';
 import './ListDoctor.css'
 import { Link } from 'react-router-dom';
-import Booking from '../Boking/Booking';
+import Booking from '../Booking/Booking';
 function CardDoctor({doc}){
     return(
         <div className='container p-0 w-70'>

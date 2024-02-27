@@ -11,9 +11,7 @@ function DoctorCard({ doctor }) {
                 </Col>
                 <Col md={6}>
                     <h3><span className='fs-5'>Doctor </span>{doctor.fname} {doctor.lname}</h3>
-                    <p>{doctor.degree} at {doctor.specialization}</p>
-                    <p>Area: {doctor.area}</p>
-                    
+                    <p>{doctor.degree} at {doctor.specialization}</p> 
                 </Col>
                 <Col md={4}>
                     <Button className='btn w-25 m-2 mt-5 sm-3 main-btn'>Booking</Button>

@@ -15,7 +15,7 @@ function ForgotPassword() {
 
     })
     const inputChange = (e) => {
-        if (e.target.name == 'email') {
+        if (e.target.name === 'email') {
             console.log(e.target.value);
             setData({
                 ...data,
