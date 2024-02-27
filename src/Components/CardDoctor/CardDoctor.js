@@ -8,7 +8,7 @@ function CardDoctor({doc}){
 <Row className='doc_card border p-3 rounded-3 shadow me-3 mb-2'>
    <div className='col col-sm-3 p-0'>
    <img id='img' src={doc.Image}></img><br></br>
-   <Link to='/detal'><Button className='btn w-25 m-2 mt-5 sm-4 sec-btn'>Details</Button></Link> 
+   <Link to='/DoctorDetl'><Button className='btn w-25 m-2 mt-5 sm-4 sec-btn'>Details</Button></Link> 
 
    </div>
    <div className='col p-0'>

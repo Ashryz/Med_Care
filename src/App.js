@@ -19,6 +19,7 @@ import SearchResults from './Components/Search/SearchResults.js';
 import Review from './Pages/review/Review.js';
 import DoctorCard from './Components/Doctors/DoctorCard.js';
 import DoctorDetails from './Components/Doctors/DoctorDetails.js';
+import DoctorDetal from './Components/DoctorDetalis/DoctorDetal.js';
 
 function App() {
   return (
@@ -42,6 +43,8 @@ function App() {
           <Route exact path='/review' element={<Review />} />
           <Route exact path='/DoctorCard' element={<DoctorCard/>}/>
           <Route exact path="/DoctorDetails/:id" element={<DoctorDetails/>}/> 
+          <Route exact path="/DoctorDetl" element={<DoctorDetal/>}/> 
+
           <Route path='*' element={<Error />} />
         </Routes>
         <FooterComp />
