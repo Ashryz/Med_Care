@@ -15,10 +15,14 @@ import Hero from './Components/Hero/Hero.js';
 import FooterComp from './Components/Footer/Footer.js';
 import Error from './Components/Error/Error.js';
 import Review from './Pages/review/Review.js';
+import { ViewAppointment } from './Components/ViewAppointment/ViewAppointment.js';
+import { Schadule } from './Components/ViewAppointment/Schadule.js';
+import Dashboard from './Components/ViewAppointment/Dashboard.js';
 
 function App() {
   return (
     <div className="App">
+     
       <BrowserRouter>
         <NavbarComp />
         <Routes>
@@ -35,9 +39,13 @@ function App() {
           <Route exact path="/Hero" element={<Hero />} />
           <Route exact path='/review' element={<Review />} />
           <Route path='*' element={<Error />} />
+          <Route exact path='/viewappointment' element={<ViewAppointment/>} />
+          <Route exact path='/Schadule' element={<Schadule/>}/>
+          <Route exact path='/Dashboard' element={<Dashboard/>}/>
         </Routes>
         <FooterComp />
       </BrowserRouter>
+      
       {/* <SelectReg/> */}
     </div>
   );
