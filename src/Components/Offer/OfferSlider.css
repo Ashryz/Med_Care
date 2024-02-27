@@ -1,0 +1,55 @@
+.offer-slider {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.offer-card {
+  max-width: 240px;
+  text-align: center;
+  position: relative;
+}
+
+.discount-label {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+
+  color: white;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.offer-image {
+   width: 100%; 
+  height: 200px; 
+  object-fit: cover; 
+}
+
+.offer-details {
+  padding: 10px;
+}
+
+.offer-title {
+  margin: 0;
+  font-size: 1rem;
+}
+
+.offer-price {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.original-price {
+  text-decoration: line-through;
+  margin-right: 5px;
+  color: gray;
+}
+
+.discounted-price {
+  color: red;
+}
+
