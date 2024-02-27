@@ -1,0 +1,28 @@
+specialty,imageUrl,originalPrice,discountPrice
+Cardiology,Cardiology.jpg,200,150
+Dermatology,Cardiology.jpg,180,120
+Orthopedics,Cardiology.jpg,250,200
+Ophthalmology,Cardiology.jpg,150,100
+Pediatrics,Cardiology.jpg,160,110
+Neurology,Cardiology.jpg,220,180
+Gastroenterology,Cardiology.jpg,190,140
+ENT ,Cardiology.jpg,180,130
+Urology,Cardiology.jpg,210,160
+Obstetrics ,Cardiology.jpg,240,190
+Endocrinology,Cardiology.jpg,200,150
+Psychiatry,Psychiatry.jpg,180,130
+Rheumatology,Cardiology.jpg,190,140
+Dentistry,Cardiology.jpg,170,120
+Oncology,Cardiology.jpg,250,200
+Radiology,Radiology.jpg,220,170
+Plastic Surgery,Cardiology.jpg,280,230
+Physical Therapy,Cardiology.jpg,150,100
+Dietetics,Cardiology.jpg,160,110
+Allergy and Immunology,Cardiology.jpg,190,140
+Anesthesiology,Cardiology.jpg,200,150
+Emergency Medicine,Cardiology.jpg,180,130
+Family Medicine,Cardiology.jpg,170,120
+Geriatrics,Cardiology.jpg,190,140
+Hematology,Cardiology.jpg,220,170
+Infectious Disease,Cardiology.jpg,200,150
+Internal Medicine,Cardiology.jpg,240,190
