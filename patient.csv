@@ -1,0 +1,8 @@
+id,fname,lname,email,age,area,type,Image,phone,gender,password
+1,Ahmed,Ali,ahmed@gmail.com,30,Aswan,User,image.png,01134234567,female,Aa2417med
+2,Karim,Hassan,karim@gmail.com,25,Cairo,User,profile.png,01234567890,male,Ka1234rim
+3,Lina,Saleh,lina@gmail.com,28,Alexandria,User,avatar.png,01012345678,female,Li5678na
+4,Youssef,Khalil,youssef@gmail.com,35,Luxor,User,pic.png,01567890123,male,Yo6789ussef
+5,Fatma,Mohamed,fatma@gmail.com,40,Giza,User,picture.png,01987654321,female,Fa4321tma
+6,Aya,Ahmed,aya@gmail.com,22,Aswan,User,photo.png,01876543210,female,Ay8765a
+

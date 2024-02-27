@@ -4,8 +4,6 @@ import {
     faHandHoldingMedical,
     faNewspaper,
     faUserDoctor,
-    faUserMd,
-    faUserNurse,
     faStar
 } from '@fortawesome/free-solid-svg-icons';
 import './service-grid.css';

@@ -1,38 +1,65 @@
-import React from 'react'
-import { useState } from 'react';
-import { Modal } from 'react-bootstrap';
-import ReviewComponent from '../../Components/review/ReviewComponent';
+import React, { useEffect } from "react";
+import { useState } from "react";
+// import { Modal } from 'react-bootstrap';
+import ReviewCard from "../../Components/review/Review";
+import ReviewAdd from "../../Components/review/ReviewAdd";
+// import EditableReview from '../../Components/review/EditableReview';
+// import ReviewDel from '../../Components/review/ReviewDel';
+// import ReviewAdd from '../../Components/review/ReviewAdd';
+import axios from "axios";
+import { Button } from "react-bootstrap";
 function Review() {
-    const [showModal, setShowModal] = useState(false);
-    const [revType, setRevType] = useState('');
+  //const [showModal, setShowModal] = useState(false);
+  // const revObj = {
+  //     patint: 'Mohamed',
+  //     rating: 3,
+  //     date: '12-12-2020',
+  //     review: "Dr. Ahmed is a very professional doctor. He is very kind and helpful. I highly recommend him.",
+  //     patiant_id: 1,
+  //     doctor_id: 1,
+  //     patiant_img: 'person.jpg',
+  // };
 
-    const handleReview = (type) => {
-        setShowModal(true);
-        setRevType(type);
-    }
+  const [add, setAdd] = useState(false);
 
-    const handleCloseReview = () => {
-        setShowModal(false);
-    }
+  const [data, setData] = useState([]);
 
-    return (
-        <div className='container-fluid' style={{ height: '53.9vh' }}>
-            <h1>review Components</h1>
-            <div className='row p-3'>
-                <button className='col btn btn-success m-2' onClick={() => handleReview('add')}>Add review</button>
-                <button className='col btn btn-primary m-2' onClick={() => handleReview('view')}>View review</button>
-                <button className='col btn btn-warning m-2' onClick={() => handleReview('update')}>Update review</button>
-                <button className='col btn btn-danger m-2' onClick={() => handleReview('delete')}>Delete review</button>
-            </div>
-            <Modal show={showModal} onHide={handleCloseReview} size='md'  >
-                <Modal.Header className='prim-pg' closeButton>
-                </Modal.Header>
-                <Modal.Body className="rounded-5">
-                        <ReviewComponent action={revType} onClose={handleCloseReview} />
-                </Modal.Body>
-            </Modal>
+  useEffect(() => {
+    axios
+      .get("https://retoolapi.dev/bGDaxE/feedback")
+      .then((response) => {
+        const filteredData = response.data.filter((row) => row.doc_id !== null);
+        setData(filteredData);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  return (
+    <div className="container">
+      <h1 className="text-center mb-5">
+        Review Components Tests
+       
+      </h1>
+      <div className="row justify-content-center">
+      <Button onClick={() => setAdd(!add)} className="text-center mb-2" >Add</Button>
+        <hr />
         </div>
-    )
+      
+      {add && <ReviewAdd />}
+
+      <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5 row-gap-5">
+        {data.map((revObj) => {
+          return (
+            <div className="col" key={revObj.id}>
+              <ReviewCard revObj={revObj} />
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
 }
 
-export default Review
+export default Review;
