@@ -26,14 +26,16 @@ function OfferSlider() {
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
-  const visibleOffers = offers.slice(currentIndex, currentIndex + 4);
+  const visibleOffers = offers.slice(currentIndex, currentIndex + 5);
 
   return (
     <div>
       <h2 className="text-center mb-4 mt-4"> Offers</h2>
       <div className="container-fluid mt-3">
         <div className="d-flex justify-content-between align-items-center">
+        <div className="m-5">
           <button onClick={handlePrev} className="slider-nav prev btn main-btn"> <FontAwesomeIcon icon={faChevronLeft} /></button>
+        </div>
           <div className="offer-slider">
             {visibleOffers.map((offer, index) => (
               <div key={index} className="offer-card mb-4 bg-light">
@@ -49,7 +51,9 @@ function OfferSlider() {
               </div>
             ))}
           </div>
-          <button onClick={handleNext} className="slider-nav next btn main-btn"><FontAwesomeIcon icon={faChevronRight} /></button>
+          <div className="m-5">
+          <button onClick={handleNext} className="slider-nav next btn main-btn "><FontAwesomeIcon icon={faChevronRight} /></button>
+        </div>
         </div>
       </div>
     </div>

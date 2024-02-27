@@ -14,8 +14,7 @@ function HealthcareServices() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Your form submission logic here
-    // For demonstration, let's just show the success message
+  
     setShowSuccessMessage(true);
   };
 
