@@ -4,7 +4,6 @@ import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import axios from "axios";
 
-
 function EditableReview({ revObj, onClose }) {
   const [reviewText, setReviewText] = useState(revObj.review);
   const [starRating, setStarRating] = useState(revObj.rating);
@@ -61,7 +60,6 @@ function EditableReview({ revObj, onClose }) {
         <Row className="align-items-center justify-content-center mt-5 p-1">
           <div className="col-sm-6 text-center">
             <div className="rounded-5 shadow p-2 main-btn">
-              
               <p className="mb-0">
                 <span className="bg-warning badge rounded-pill text-dark">
                   !
