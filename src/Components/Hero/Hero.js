@@ -42,7 +42,6 @@ const Hero = () => {
                 {!isLoggedIn && (
                   <Link to='/SignIn' className='btn sec-btn btn-lg'>Login</Link>
                 )}
-                <Link to="/review" className='btn sec-btn btn-lg ms-4'>Review</Link>
               </div>
 
             </div>

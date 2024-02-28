@@ -10,7 +10,6 @@ const ReviewCard = ({ revObj }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [action, setAction] = React.useState(null);
 
-  console.log("Image Path:", revObj.patiant_img);
   const handleClose = () => {
     setShowModal(false);
     setAction(null);
