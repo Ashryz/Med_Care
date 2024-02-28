@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLocationDot } from "@fortawesome/free-solid-svg-icons";
+import { faLocationDot, faPhone } from "@fortawesome/free-solid-svg-icons";
 import myimage from "../../img/doctor4.jpeg";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
@@ -53,7 +53,7 @@ function DoctorCard({ doctor }) {
 
           <Row className="p-5 my-auto text-center">
             <h3 className="fs-4 ">
-              <span className="fs-3 sec-color">Dr</span>
+              <span className="fs-3 sec-color">Dr. </span>
               {doctor.fname} {doctor.lname}
             </h3>
             <div className="">
@@ -65,12 +65,17 @@ function DoctorCard({ doctor }) {
                   style={{ color: "dodgerblue" }}
                   icon={faLocationDot}
                 />
-                {doctor.area}
+                  &nbsp; {doctor.area}
               </p>
             </div>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
               <span style={{ color: "dodgerblue" }}>
-                <FontAwesomeIcon icon={faMoneyBill1Wave} /> {doctor.fees}
+                <FontAwesomeIcon icon={faMoneyBill1Wave} />  &nbsp; {doctor.fees}
+              </span>
+            </p>
+            <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
+              <span style={{ color: "dodgerblue" }}>
+              <FontAwesomeIcon icon={faPhone} />  &nbsp; {doctor.phone}
               </span>
             </p>
             <p className="col-12 text-center">
@@ -100,8 +105,7 @@ function DoctorCard({ doctor }) {
               <span className="fs-6 ">About</span>
             </div>
             <p className="text-start ps-5 pt-2">
-              loreminpsum loreminpsum loreminpsum loreminpsum doc ahmed
-              specialization
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fusce id velit ut tortor pretium viverra suspendisse potenti. Orci nulla pellentesque dignissim enim sit amet venenatis urna. Praesent semper feugiat nibh sed pulvinar. Quis lectus nulla at volutpat diam ut venenatis tellus in. Auctor neque vitae tempus quam pellentesque nec. Ante in nibh mauris cursus mattis. Nunc consequat interdum varius sit. Nulla facilisi morbi tempus iaculis. Felis imperdiet proin fermentum leo vel orci porta non. In fermentum posuere urna nec tincidunt praesent. Sapien nec sagittis aliquam malesuada. Urna porttitor rhoncus dolor purus non. Mauris augue neque gravida in fermentum et sollicitudin ac. Sed ullamcorper morbi tincidunt ornare massa eget. Placerat in egestas erat imperdiet sed euismod nisi.
             </p>
           </div>
           {/* end about sec */}
