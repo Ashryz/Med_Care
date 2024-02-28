@@ -19,7 +19,9 @@ import SearchResults from "./Components/Search/SearchResults.js";
 import Review from "./Pages/review/Review.js";
 import DoctorCard from "./Components/Doctors/DoctorCard.js";
 import DoctorDetails from "./Components/Doctors/DoctorDetails.js";
-import DoctorDetal from "./Components/DoctorDetalis/DoctorDetal.js";
+import { ViewAppointment } from "./Components/ViewAppointment/ViewAppointment.js";
+import { Schadule } from "./Components/ViewAppointment/Schadule.js";
+import Dashboard from "./Components/ViewAppointment/Dashboard.js";
 
 function App() {
   return (
@@ -44,11 +46,14 @@ function App() {
           <Route exact path="/DoctorCard" element={<DoctorCard />} />
           <Route exact path="/DoctorDetails/:id" element={<DoctorDetails />} />
           {/* <Route exact path="/DoctorDetl" element={<DoctorDetal/>}/>  */}
-
+          <Route exact path="/viewappointment" element={<ViewAppointment />} />
+          <Route exact path="/Schadule" element={<Schadule />} />
+          <Route exact path="/Dashboard" element={<Dashboard />} />
           <Route path="*" element={<Error />} />
         </Routes>
         <FooterComp />
       </BrowserRouter>
+
       {/* <SelectReg/> */}
     </div>
   );

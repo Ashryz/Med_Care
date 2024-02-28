@@ -33,7 +33,7 @@ function SignIn() {
     })
     const dataChange = (e) => {
 
-        if (e.target.name == 'email') {
+        if (e.target.name === 'email') {
             setData({
                 ...data,
                 email: e.target.value
@@ -109,7 +109,7 @@ function SignIn() {
 
 
     return (
-        <div className='container  my-2 text-center  p-2  justify-content-center  bg-light' >
+        <div className='container  my-2 text-center  p-2  justify-content-center ' >
             <Form onSubmit={handleLogin} className=" w-25 mx-auto text-start  rounded-4 bg-white shadow " style={{ minWidth: "360px" }}>
                 <div className='prim-pg text-center text-white p-1' style={{ borderRadius: "11px 11px 0px 0px" }}><span className='fw-light'>Login</span></div>
                 <div className='mx-4 my-4'>
