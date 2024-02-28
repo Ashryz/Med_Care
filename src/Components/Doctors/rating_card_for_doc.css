@@ -1,0 +1,68 @@
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration-line: none;
+}
+/*RATING CARD*/
+.grid {
+  column-width: 250px;
+  column-gap: 5px;
+}
+.rating__card {
+  cursor: pointer;
+  display: inline-block;
+  box-shadow: 0px 15px 50px -18px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+  font-family: Lato, sans-serif;
+  color: var(--p-color);
+  font-weight: 400;
+  width: 100%;
+  max-width: 300px;
+  margin: 10px;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+
+}
+
+
+.rating__card__quote {
+  text-align: center;
+  padding: 20px;
+  line-height: 1.2;
+  font-size: 14px;
+  line-height: 1.54;
+}
+
+.fa-star {
+  color: #545454;
+}
+
+.checked {
+  color: #f1c40f;
+}
+
+.rating__card__stars {
+  margin: auto;
+  display: block;
+  text-align: center;
+}
+
+.rating__card__stars__name {
+  font-size: 16px;
+  margin: 0 0 0 5px;
+}
+
+.rating__card__bottomText {
+  margin: 30px auto 15px;
+  text-align: center;
+  font-size: 14px;
+}
+.rating__card:hover {
+  box-shadow: 0px 15px 50px -18px rgba(0, 0, 0, 0.3);
+  transform: scale(1.05);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+

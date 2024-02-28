@@ -9,6 +9,7 @@ import "./Review.css";
 const ReviewCard = ({ revObj }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [action, setAction] = React.useState(null);
+  
 
   const handleClose = () => {
     setShowModal(false);
@@ -20,7 +21,6 @@ const ReviewCard = ({ revObj }) => {
     setAction(action);
   };
 
-  
 
   return (
     <div
@@ -112,10 +112,10 @@ const ReviewCard = ({ revObj }) => {
           style={{ border: "none", backgroundColor: "transparent" }}
         >
           {action === "edit" && (
-            <EditableReview revObj={revObj} onClose={handleClose} />
+            <EditableReview revObj={revObj} onClose={ handleClose } />
           )}
           {action === "del" && (
-            <ReviewDel revObj={revObj} onClose={handleClose} />
+            <ReviewDel revObj={revObj} onClose={ handleClose } />
           )}
         </Modal.Body>
       </Modal>

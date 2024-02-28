@@ -63,8 +63,7 @@ return(
    </div>
 </div>
     </div>
-    <AboutDoctor/>
-    <PastionReview/>
+    
 
     </>
 )
