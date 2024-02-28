@@ -192,7 +192,7 @@ const Userprofile = () => {
                       />
                       <FontAwesomeIcon
                         icon={faCamera}
-                        className="position-absolute top-50 start-50 translate-middle text-primary"
+                        className="position-absolute top-50 start-10 translate-middle text-primary"
                         style={{ fontSize: "24px", cursor: "pointer" }}
                         onClick={() => setShowModal(true)}
                       />
@@ -374,10 +374,10 @@ const Userprofile = () => {
 
       {/* Profile Picture Options Modal */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
-        <Modal.Header closeButton>
+        <Modal.Header  className="bg-white" closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-white">
           <div className="text-center">
             {/* Display the profile picture */}
             {userData.Image && (
@@ -392,7 +392,7 @@ const Userprofile = () => {
             {!userData.Image && <p>No profile picture available</p>}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="bg-white">
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
             Delete 
           </Button>

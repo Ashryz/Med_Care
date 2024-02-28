@@ -518,10 +518,10 @@ const DoctorProfile = () => {
       </div>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header closeButton>
+        <Modal.Header  className="bg-white" closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="bg-white">
           <div className="text-center">
             {/* Display the profile picture */}
             {doctorData.Image && (
@@ -536,7 +536,7 @@ const DoctorProfile = () => {
             {!doctorData.Image && <p>No profile picture available</p>}
           </div>
         </Modal.Body>
-        <Modal.Footer>
+        <Modal.Footer className="bg-white">
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
             Delete 
           </Button>
