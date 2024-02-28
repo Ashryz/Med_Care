@@ -27,7 +27,7 @@ const handlePageChange = (page) => {
   setCurrentPage(page);
 };
   return (
-    <Container fluid className="mt-5 mb-5">
+    <Container className="mt-5 mb-5">
     <Row >
     {doctor.map((doctor) => (
         <CardSmallDoc key={doctor.id} doc={doctor} />
