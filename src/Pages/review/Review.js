@@ -38,15 +38,14 @@ function Review() {
 
   return (
     <div className="container">
-      <h1 className="text-center mb-5">
-        Review Components Tests
-       
-      </h1>
+      <h1 className="text-center mb-5">Review Components Tests</h1>
       <div className="row justify-content-center">
-      <Button onClick={() => setAdd(!add)} className="text-center mb-2" >Add</Button>
+        <Button onClick={() => setAdd(!add)} className="text-center mb-2">
+          Add
+        </Button>
         <hr />
-        </div>
-      
+      </div>
+
       {add && <ReviewAdd />}
 
       <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center mt-5 row-gap-5">

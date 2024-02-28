@@ -22,10 +22,8 @@
   width: 100%;
   max-width: 300px;
   margin: 10px;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
-
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
-
 
 .rating__card__quote {
   text-align: center;
@@ -65,4 +63,14 @@
   transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
+.add:hover {
+  color: dodgerblue;
+  transform: scale(1.1);
+  box-shadow: 0px 15px 50px -18px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+}
 
+.delete:hover {
+  transform: scale(1.1);
+  color: red;
+}

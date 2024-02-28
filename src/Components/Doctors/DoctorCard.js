@@ -9,13 +9,14 @@ import { AiFillBulb } from "react-icons/ai";
 import { faMoneyBill1Wave } from "@fortawesome/free-solid-svg-icons";
 import { GoStarFill } from "react-icons/go";
 import RatingCardForDoc from "./RatingCardForDoc";
-
+import { FaPlus } from "react-icons/fa6";
+import ReviewAdd from "../review/ReviewAdd";
 import axios from "axios";
+import "./rating_card_for_doc.css";
 
 function DoctorCard({ doctor }) {
-  
-
   const [data, setData] = useState([]);
+  const [add, setAdd] = useState(false);
 
   useEffect(() => {
     axios
@@ -109,20 +110,26 @@ function DoctorCard({ doctor }) {
           <div className="mt-1 p-3 ">
             <div className="text-start sec-color">
               <GoStarFill className="me-2 fs-3" />
-              <span className="fs-6 ">Rating & Reviews</span>
+              <span className="fs-6 ">
+                Rating & Reviews{" "}
+                <FaPlus
+                  onClick={() => setAdd(!add)}
+                  className="add prim-color"
+                  size={20}
+                />
+              </span>
             </div>
             <div className="text-center ps-5 pt-2">
-                {data.map((revObj) => {
-                    return (
-                    <RatingCardForDoc revObj={revObj} />
-                    );
-                })}
+              {data.map((revObj) => {
+                return <RatingCardForDoc revObj={revObj} />;
+              })}
             </div>
           </div>
           {/* end rating sec */}
           <hr className="w-75 mx-auto sec-color shadow" />
         </Row>
       </Card>
+      {add && <ReviewAdd />}
     </Container>
   );
 }

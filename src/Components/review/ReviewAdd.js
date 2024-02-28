@@ -64,7 +64,7 @@ function ReviewAdd() {
   }, []);
 
   return (
-    <Modal show={showModal} onHide={handleClose}>
+    <Modal show={showModal} onHide={handleClose} centered>
       <Modal.Body>
         <div
           className="light-bg border rounded-3 "
