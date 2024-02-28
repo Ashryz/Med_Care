@@ -4,6 +4,7 @@ import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import axios from "axios";
 
+
 function EditableReview({ revObj, onClose }) {
   const [reviewText, setReviewText] = useState(revObj.review);
   const [starRating, setStarRating] = useState(revObj.rating);
@@ -44,7 +45,7 @@ function EditableReview({ revObj, onClose }) {
       style={{ position: "relative", margin: "0 auto", maxWidth: "400px" }}
     >
       <img
-        src={revObj.patiant_img}
+        src={"/" + revObj.patiant_img}
         className="rounded-circle shadow"
         style={{
           width: "100px",

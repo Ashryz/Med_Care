@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, Card, Modal, Row } from "react-bootstrap";
+import { Card, Modal, Row } from "react-bootstrap";
 import EditableReview from "./EditableReview";
 import ReviewDel from "./ReviewDel";
 
@@ -9,18 +9,12 @@ import "./Review.css";
 const ReviewCard = ({ revObj }) => {
   const [showModal, setShowModal] = React.useState(false);
   const [action, setAction] = React.useState(null);
-  
 
+  console.log("Image Path:", revObj.patiant_img);
   const handleClose = () => {
     setShowModal(false);
     setAction(null);
   };
-
-  const handleShow = (action) => {
-    setShowModal(true);
-    setAction(action);
-  };
-
 
   return (
     <div
@@ -33,7 +27,7 @@ const ReviewCard = ({ revObj }) => {
       }}
     >
       <img
-        src={revObj.patiant_img}
+        src={"/" + revObj.patiant_img}
         className="rounded-circle shadow"
         style={{
           width: "100px",
@@ -47,7 +41,7 @@ const ReviewCard = ({ revObj }) => {
       />
       <Card.Body>
         <Row className="align-items-center m-0 p-3 justify-content-center mt-5">
-          <div className="col-sm-6 text-center">
+          {/* <div className="col-sm-6 text-center">
             <Button
               className="btn main-btn rounded-5 shadow-lg p-2"
               style={{ width: "80%", fontSize: "1rem" }}
@@ -64,7 +58,7 @@ const ReviewCard = ({ revObj }) => {
             >
               Delete
             </Button>
-          </div>
+          </div> */}
         </Row>
         <Row className="justify-content-center align-items-center m-0 p-3">
           <div className="col-12 text-center">
@@ -87,7 +81,7 @@ const ReviewCard = ({ revObj }) => {
           </div>
         </Row>
         <Row className="justify-content-center m-0 p-3 h-50">
-          <div className="col-12 text-center bg-light p-3 rounded-5 shadow-lg">
+          <div className="col-12 text-center bg-light p-3 rounded-3 shadow-lg">
             <h6>{revObj.review}</h6>
           </div>
         </Row>
@@ -112,10 +106,10 @@ const ReviewCard = ({ revObj }) => {
           style={{ border: "none", backgroundColor: "transparent" }}
         >
           {action === "edit" && (
-            <EditableReview revObj={revObj} onClose={ handleClose } />
+            <EditableReview revObj={revObj} onClose={handleClose} />
           )}
           {action === "del" && (
-            <ReviewDel revObj={revObj} onClose={ handleClose } />
+            <ReviewDel revObj={revObj} onClose={handleClose} />
           )}
         </Modal.Body>
       </Modal>

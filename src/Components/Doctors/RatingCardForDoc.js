@@ -6,8 +6,11 @@ import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditableReview from "../review/EditableReview";
 import ReviewDel from "../review/ReviewDel";
+import ReviewCard from "../review/Review";
+import { FaEye } from "react-icons/fa";
 function RatingCardForDoc({ revObj }) {
   const [action, setAction] = useState(false);
+
   return (
     <>
       <div className="rating__card">
@@ -26,7 +29,13 @@ function RatingCardForDoc({ revObj }) {
             <FaStar key={index} color="lightgray" className="m-1" size={20} />
           ))}
         </div>
-        <p className="rating__card__date">{revObj.date}</p>
+        <p
+          className="rating__card__date text-muted mt-2"
+          style={{ fontSize: "12px" }}
+        >
+          Last update: {revObj.date}
+        </p>
+        <FaEye className="add mt-2" onClick={() => setAction("view")} />
       </div>
       <Modal show={action === "mod"} onHide={() => setAction(false)} centered>
         <Modal.Body>
@@ -40,6 +49,12 @@ function RatingCardForDoc({ revObj }) {
       >
         <Modal.Body>
           <ReviewDel revObj={revObj} onClose={() => setAction(false)} />
+        </Modal.Body>
+      </Modal>
+
+      <Modal show={action === "view"} onHide={() => setAction(false)} centered>
+        <Modal.Body>
+          <ReviewCard revObj={revObj} />
         </Modal.Body>
       </Modal>
     </>

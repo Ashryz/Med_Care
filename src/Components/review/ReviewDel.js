@@ -20,7 +20,7 @@ function ReviewDel({ revObj, onClose }) {
       style={{ position: "relative", maxWidth: "400px", margin: "0 auto" }}
     >
       <img
-        src={revObj.patiant_img}
+        src={"/" + revObj.patiant_img}
         className="rounded-circle shadow"
         style={{
           width: "100px",
