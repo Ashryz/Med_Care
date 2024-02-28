@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 function HealthcareServices() {
   const [showModal, setShowModal] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -14,7 +13,6 @@ function HealthcareServices() {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-  
     setShowSuccessMessage(true);
   };
 
@@ -43,26 +41,24 @@ function HealthcareServices() {
 
       {/* Modal */}
       {showModal && (
-        <div className="modal fade show" style={{ display: 'block' }}>
-          <div className="modal" tabIndex="-1" role="dialog" style={{ display: 'block', paddingRight: '15px' }}>
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title">Ask a Medical Question</h5>
-                  <button type="button" className="btn-close" onClick={handleCloseModal}></button>
-                </div>
-                <div className="modal-body">
-                  <form onSubmit={handleSubmit}>
-                    <div className="mb-3">
-                      <label htmlFor="question" className="form-label">Your Question</label>
-                      <textarea className="form-control" id="question" rows="3" required></textarea>
-                    </div>
-                    <div className="modal-footer">
-                      <button type="button" className="btn bg-danger" onClick={handleCloseModal}>Close</button>
-                      <button type="submit" className="btn main-btn">Submit</button>
-                    </div>
-                  </form>
-                </div>
+        <div className=" modal fade show"   style={{ display: 'block' }}>
+          <div className="modal-dialog modal-dialog-centered  ">
+            <div className="modal-content border rounded-3 opacity-1 shadow  ">
+              <div className="modal-header bg-white">
+                <h5 className="modal-title">Ask a Medical Question</h5>
+                <button type="button" className="btn-close" onClick={handleCloseModal}></button>
+              </div>
+              <div className="modal-body bg-white">
+                <form onSubmit={handleSubmit}>
+                  <div className="mb-3">
+                    <label htmlFor="question" className="form-label">Your Question</label>
+                    <textarea className="form-control" id="question" rows="3" required></textarea>
+                  </div>
+                  <div className="modal-footer">
+                    <button type="button" className="btn bg-danger" onClick={handleCloseModal}>Close</button>
+                    <button type="submit" className="btn main-btn">Submit</button>
+                  </div>
+                </form>
               </div>
             </div>
           </div>
@@ -81,4 +77,3 @@ function HealthcareServices() {
 }
 
 export default HealthcareServices;
-

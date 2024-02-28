@@ -26,7 +26,7 @@ function OfferSlider() {
     setCurrentIndex((prevIndex) => prevIndex - 1);
   };
 
-  const visibleOffers = offers.slice(currentIndex, currentIndex + 5);
+  const visibleOffers = offers.slice(currentIndex, currentIndex + 4);
 
   return (
     <div>
