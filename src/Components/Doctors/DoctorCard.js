@@ -7,7 +7,7 @@ import { CiStar } from "react-icons/ci";
 import { AiFillBulb } from "react-icons/ai";
 import { faMoneyBill1Wave } from "@fortawesome/free-solid-svg-icons";
 import { GoStarFill } from "react-icons/go";
-import RatingCardForDoc from "./RatingCardForDoc";
+import RatingCardForDoc from "../../Pages/Doctors/RatingCardForDoc";
 import { FaPlus } from "react-icons/fa6";
 import ReviewAdd from "../review/ReviewAdd";
 import axios from "axios";
@@ -37,7 +37,7 @@ function DoctorCard({ doctor }) {
             <img
               className="rounded-circle shadow border-2"
               id="img"
-              src={"/" + doctor.Image}
+              src={"img/" + doctor.Image}
               alt="person"
               style={{
                 width: "100px",

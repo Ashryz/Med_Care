@@ -16,7 +16,7 @@ function CardSmallDoc({ doc }) {
       <Row className="doc_card border p-3 rounded-3 shadow me-3 mb-2">
         <Col md={2}>
           <img id="img"
-           src={"/" + doc.Image} 
+           src={"img/" + doc.Image} 
            alt="doctor" 
             className="img-fluid rounded-circle shadow-lg"
             style={{ width: "100px", height: "100px" }}

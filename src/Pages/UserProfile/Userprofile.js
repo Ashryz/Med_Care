@@ -15,10 +15,10 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 
-import Sidebar from "./SideBar/Sidebar";
+import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
 
 
-import { Validations } from "../utils/validations/validation";
+import { Validations } from "../../Components/utils/validations/validation";
 
 const Userprofile = () => {
   
@@ -179,7 +179,7 @@ const Userprofile = () => {
                   <label htmlFor="Image" className="form-label col-12 text-center">
                     <div className="position-relative">
                       <img
-                        src={userData.Image ? userData.Image : "/profile.jpeg"}
+                        src={userData.Image ? userData.Image : "img/profile.jpeg"}
                         alt="User"
                         className="rounded-circle img-thumbnail"
                         style={{

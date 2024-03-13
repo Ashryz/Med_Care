@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
-import '../css/signup.css'
+import './signup.css'
 import { useState, } from 'react'
-import { Input } from '../inputs/inputText.js'
+import { Input } from '../../Components/SignUp/utils/inputs/inputText.js'
 import { Button, Form, } from 'react-bootstrap'
-import { Validations } from '../validations/validation.js'
-import AlertNew from '../alert/alertNew.js'
+import { Validations } from '../../Components/SignUp/utils/validations/validation.js'
+import AlertNew from '../../Components/SignUp/utils/alert/alertNew.js'
 import { useNavigate } from 'react-router-dom'
 
 class Person {

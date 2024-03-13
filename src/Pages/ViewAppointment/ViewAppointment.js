@@ -1,4 +1,4 @@
-import { CardAppointment } from "./CardAppointment";
+import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";

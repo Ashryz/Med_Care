@@ -16,8 +16,8 @@ import {
    faInfoCircle,
    faVenusMars
 } from "@fortawesome/free-solid-svg-icons";
-import DSidebar from "./DSideBar/DSidebar";
-import { Validations } from "../utils/validations/validation";
+import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
+import { Validations } from "../../Components/utils/validations/validation";
 
 const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({

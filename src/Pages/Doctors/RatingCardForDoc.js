@@ -4,9 +4,9 @@ import { Modal } from "react-bootstrap";
 import { useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
-import EditableReview from "../review/EditableReview";
-import ReviewDel from "../review/ReviewDel";
-import ReviewCard from "../review/Review";
+import EditableReview from "../../Components/review/EditableReview";
+import ReviewDel from "../../Components/review/ReviewDel";
+import ReviewCard from "../../Components/review/Review";
 import { FaEye } from "react-icons/fa";
 function RatingCardForDoc({ revObj }) {
   const [action, setAction] = useState(false);

@@ -42,7 +42,7 @@ function OfferSlider() {
             {visibleOffers.map((offer, index) => (
               <div key={index} className="offer-card mb-4 bg-light">
                 <div className="btn main-btn discount-label">{calculateDiscount(offer.originalPrice, offer.discountPrice)}% Off</div>
-                <img className="offer-image" src={"../../img/"+offer.imageUrl} alt={offer.specialty} />
+                <img className="offer-image" src={"../../img/"+ offer.imageUrl} alt={offer.specialty} />
                 {/* {`../../img/${offer.imageUrl}`} */}
                 {/* {"../../img/"+offer.imageUrl} */}
                 <div className="offer-details">

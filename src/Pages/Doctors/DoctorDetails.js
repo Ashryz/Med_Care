@@ -1,7 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import DoctorCard from "./DoctorCard";
+import DoctorCard from "../../Components/Doctors/DoctorCard";
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { FaHourglassStart } from "react-icons/fa";

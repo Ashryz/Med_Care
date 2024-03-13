@@ -4,7 +4,7 @@ import { Container } from "react-bootstrap";
 import AppointmentsCard from "./AppointmentsCard";
 import RatingsCard from "./RatingsCard";
 
-import { ViewAppointment } from "./ViewAppointment";
+import { ViewAppointment } from "../../Pages/ViewAppointment/ViewAppointment";
 
 const Dashboard = () => {
   // Mock data, replace with actual API fetch
