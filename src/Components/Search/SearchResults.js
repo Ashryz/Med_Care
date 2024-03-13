@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Container, Row, Col, Card, Pagination } from "react-bootstrap";
+import { Container, Row, Col, Pagination} from "react-bootstrap";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import Filter from "../Filter/Filter";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faStethoscope, faMoneyBill1Wave, faLocationDot } from '@fortawesome/free-solid-svg-icons';
+import CardSmallDoc from "../CardDoctor/CardSmallDoc";
 
 function SearchResults() {
     const { query } = useParams();
@@ -42,17 +41,10 @@ function SearchResults() {
                 <Filter />
             </Col>
             <Col md={9}>
-                    <Row className="row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <Row className="row-cols-1 g-4">
                         {searchResults.map((doctor) => (
                             <Col key={doctor.id}>
-                                <Card style={{height:'13rem'}}>
-                                    <Card.Body>
-                                        <Card.Title className="text-center fs-2">{doctor.fname} {doctor.lname}</Card.Title>
-                                        <Card.Text><span style={{color:'dodgerblue'}}><FontAwesomeIcon icon={faStethoscope} />&nbsp;Speciality: </span> {doctor.specialization}</Card.Text>
-                                        <Card.Text><span style={{color:'dodgerblue'}}><FontAwesomeIcon icon={faLocationDot} />&nbsp;Area: </span> {doctor.area}</Card.Text>
-                                        <Card.Text><span style={{color:'dodgerblue'}}><FontAwesomeIcon icon={faMoneyBill1Wave}/>&nbsp;Fees: </span> EGP {doctor.fees}</Card.Text>
-                                    </Card.Body>
-                                </Card>
+                                <CardSmallDoc doc={doctor} />
                             </Col>
                         ))}
                     </Row>

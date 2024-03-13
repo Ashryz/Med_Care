@@ -1,12 +1,15 @@
+.my-container {
+  height: 17.5rem;
+}
+
 #img{
-    width: 100px;
+    width: 60%;
     border-radius: 50%;
 }
 
-
 .doc_card:hover,
 .doc_card:focus {
-  background-color:rgb(222, 203, 203) !important;
+  background-color:lightgray !important;
   /* color: white !important;*/
   transition: background-color 0.3s ease, color 1s ease; 
   cursor: pointer;

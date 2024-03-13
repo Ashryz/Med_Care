@@ -1,38 +1,70 @@
-import { Button, Row } from "react-bootstrap";
+import { Button, Col, Container, Row } from "react-bootstrap";
 import "./ListDoctor.css";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faStethoscope,
+  faMoneyBill1Wave,
+  faLocationDot,
+  faPhone,
+} from "@fortawesome/free-solid-svg-icons";
 
 function CardSmallDoc({ doc }) {
+  console.log(doc);
   return (
-    <div className="container p-0 w-70">
+    <Container className="my-container">
       <Row className="doc_card border p-3 rounded-3 shadow me-3 mb-2">
-        <div className="col col-sm-3 p-0">
-          <img id="img" src={doc.Image} alt="docimg"></img>
-          <br></br>
-          {/* <Route exact path="/DoctorDetails/:id" element={<DoctorDetails />} /> */}
+        <Col md={2}>
+          <img id="img"
+           src={"/" + doc.Image} 
+           alt="doctor" 
+            className="img-fluid rounded-circle shadow-lg"
+            style={{ width: "100px", height: "100px" }}
+           />
+        </Col>
+        <Col md={6}>
+          <h2>
+            <span className="fs-5 sec-color">Doctor </span>
+            {doc.fname} {doc.lname}
+          </h2>
+          <p>
+            <span style={{ color: "dodgerblue" }}>
+              <FontAwesomeIcon icon={faStethoscope} />
+              &nbsp;
+            </span>{" "}
+            {doc.specialization}
+          </p>
+          <hr className="text-muted" />
+          <p>
+            <span style={{ color: "dodgerblue" }}>
+              <FontAwesomeIcon icon={faLocationDot} />
+              &nbsp;Area:{" "}
+            </span>{" "}
+            {doc.area}
+          </p>
+          <p>
+            <span style={{ color: "dodgerblue" }}>
+              <FontAwesomeIcon icon={faMoneyBill1Wave} />
+              &nbsp;Fees:{" "}
+            </span>{" "}
+            EGP {doc.fees}
+          </p>
+          <p>
+            <span style={{ color: "dodgerblue" }}>
+              <FontAwesomeIcon icon={faPhone} />
+              &nbsp;Mobile Phone:{" "}
+            </span>{" "}
+            {doc.phone}
+          </p>
+        </Col>
+        <Col md={4} className="d-flex justify-content-center align-items-center">
           <Link to={`/DoctorDetails/${doc.id}`}>
-            <Button className="btn w-25 m-2 mt-5 sm-4 sec-btn">Details</Button>
+            <Button className="btn me-2 sec-btn">Details</Button>
           </Link>
-        </div>
-        <div className="col p-0">
-          <h5>{doc.fname + " " + doc.lname}</h5>
-          <p>{doc.specialization}</p>
-          <p>Endocrinologist Specialized in Adult Diabetes and Endocrinology</p>
-          <img src="com.png" alt="star"></img>
-          <img id="docimg" src="com.png" alt="star"></img>
-          <img id="docimg" src="com.png" alt="star"></img>
-          <img id="docimg" src="com.png" alt="star"></img>
-          <img id="docimg" src="com.png" alt="star"></img>
-          <p>{doc.area}</p>
-          <p>Fees:{doc.fees}</p>
-          <p>{doc.phone}-cost-of-regular-call </p>
-        </div>
-        <div className="col p-0 col-4">
-          {/* <Booking/>  */}
-          {/* <Button className='btn w-25 m-2 mt-5 sm-3 main-btn' >Boking</Button>{' '} */}
-        </div>
+          <Button className="btn main-btn">Booking</Button>
+        </Col>
       </Row>
-    </div>
+    </Container>
   );
 }
 export default CardSmallDoc;
