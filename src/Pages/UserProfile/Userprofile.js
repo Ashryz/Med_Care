@@ -179,7 +179,7 @@ const Userprofile = () => {
                   <label htmlFor="Image" className="form-label col-12 text-center">
                     <div className="position-relative">
                       <img
-                        src={userData.Image ? userData.Image : "img/profile.jpeg"}
+                        src={+userData.Image ? userData.Image : "img/profile.jpeg"}
                         alt="User"
                         className="rounded-circle img-thumbnail"
                         style={{

@@ -37,7 +37,7 @@ function DoctorCard({ doctor }) {
             <img
               className="rounded-circle shadow border-2"
               id="img"
-              src={"img/" + doctor.Image}
+              src={ "../../img/"+doctor.Image}
               alt="person"
               style={{
                 width: "100px",

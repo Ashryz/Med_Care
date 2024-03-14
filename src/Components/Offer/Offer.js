@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OfferSlider.css';
+// import sa from'../../img/'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -42,7 +43,7 @@ function OfferSlider() {
             {visibleOffers.map((offer, index) => (
               <div key={index} className="offer-card mb-4 bg-light">
                 <div className="btn main-btn discount-label">{calculateDiscount(offer.originalPrice, offer.discountPrice)}% Off</div>
-                <img className="offer-image" src={"../../img/"+ offer.imageUrl} alt={offer.specialty} />
+                <img className="offer-image" src={"img/"+ offer.imageUrl} alt={offer.specialty} />
                 {/* {`../../img/${offer.imageUrl}`} */}
                 {/* {"../../img/"+offer.imageUrl} */}
                 <div className="offer-details">
