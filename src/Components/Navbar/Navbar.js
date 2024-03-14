@@ -8,6 +8,12 @@ import { Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './Navbar.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { themesAction } from '../../Store/Actions/Actions';
+
+
+
+
 function NavbarComp() {
   const navigate = useNavigate()
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -16,9 +22,14 @@ function NavbarComp() {
   const [currentUser, setCurrentUser] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
 
+
+  const dispatch = useDispatch();
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
+    dispatch(themesAction(myTheme === 'light' ? 'dark' : 'light'))
   };
+  const myTheme = useSelector ((state) => state.combineThemes.theme)
+
   useEffect(() => {
     const loggedIn = localStorage.getItem("isLoggedIn") === "true";
     setIsLoggedIn(loggedIn);
@@ -41,7 +52,7 @@ function NavbarComp() {
 
   return (
     <Navbar expand="lg" bg='primary' id='nv-bar'  >
-      <Container>
+      <Container >
         <Navbar.Brand className='fw-bold fs-2 text-white'><Link className='text-decoration-none text-white' to="/"><i className="bi bi-hospital"></i> MED-CARE </Link></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
@@ -64,7 +75,7 @@ function NavbarComp() {
           </Nav>
           )}
           <Nav className='ms-auto g-2'>
-            <Button variant="outline-light" onClick={toggleDarkMode} className='me-2'>
+            <Button variant="outline-light" onClick={()=>toggleDarkMode(myTheme)} className='me-2'>
               {isDarkMode ? (
                 <i className="bi bi-moon-fill"></i>
               ) : (

@@ -1,3 +1,5 @@
+
+
 export const Login = (email , password) => ({
     type:"LOGIN",
     payload:{email,password}
@@ -22,3 +24,8 @@ export const removeAppointmentSchadule = (appointment) =>{
         payload:appointment
     }
 };
+
+export const themesAction = (payload) => ({
+    type:'CHANGE_THEME',
+    payload
+});

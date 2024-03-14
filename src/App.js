@@ -24,10 +24,13 @@ import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/ViewAppointment/Dashboard.js";
+import { useSelector } from "react-redux";
 
 function App() {
+
+  const myTheme = useSelector((state) => state.combineThemes.theme)
   return (
-    <div className="App">
+    <div className={`App ${myTheme === "light"? "":"bg-dark text-white"}`}>
       <BrowserRouter>
         <NavbarComp />
         <Routes>

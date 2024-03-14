@@ -134,7 +134,7 @@ function SignIn() {
                                 ) :
                                     (
                                         // position-absolute top-50 end-0 translate-middle-y
-                                        <FiEyeOff onClick={togglePasswordVisibility} className="position-absolute top-0 end-0 fs-5 me-4 mt-2 " style={{ cursor: 'pointer' }} />
+                                        <FiEyeOff onClick={togglePasswordVisibility} className="position-absolute top-0 end-0 fs-5 me-4 mt-2 text-muted" style={{ cursor: 'pointer' }} />
                                     )}
                             </div>
 
@@ -146,7 +146,7 @@ function SignIn() {
                         </Button>
                     </Row>
                     <div className='d-flex  justify-content-between mx-1' style={{ fontSize: "14px" }}>
-                        <div>
+                        <div className="text-muted">
                             <Form.Check name='check' type="checkbox" label="Remember Me" />
                         </div>
                         <div className='mb-4'>
