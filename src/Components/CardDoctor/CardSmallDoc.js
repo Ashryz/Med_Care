@@ -15,17 +15,18 @@ function CardSmallDoc({ doc }) {
     <Container className="my-container">
       <Row className="doc_card border p-3 rounded-3 shadow me-3 mb-2">
         <Col md={2}>
-          <img id="img"
-           src={"img/" + doc.Image} 
-           alt="doctor" 
+          <img
+            id="img"
+            src={"img/" + doc.Image}
+            alt="doctor"
             className="img-fluid rounded-circle shadow-lg"
             style={{ width: "100px", height: "100px" }}
-           />
+          />
         </Col>
         <Col md={6}>
           <h2>
             <span className="fs-5 sec-color">Doctor </span>
-            {doc.fname} {doc.lname}
+            {doc.first_name} {doc.user.last_name}
           </h2>
           <p>
             <span style={{ color: "dodgerblue" }}>
@@ -54,10 +55,13 @@ function CardSmallDoc({ doc }) {
               <FontAwesomeIcon icon={faPhone} />
               &nbsp;Mobile Phone:{" "}
             </span>{" "}
-            {doc.phone}
+            {doc.user.phone}
           </p>
         </Col>
-        <Col md={4} className="d-flex justify-content-center align-items-center">
+        <Col
+          md={4}
+          className="d-flex justify-content-center align-items-center"
+        >
           <Link to={`/DoctorDetails/${doc.id}`}>
             <Button className="btn me-2 sec-btn">Details</Button>
           </Link>

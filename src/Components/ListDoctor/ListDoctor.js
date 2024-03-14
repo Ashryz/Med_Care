@@ -12,7 +12,7 @@ const [totalPages, setTotalPages] = useState(0);
 
 useEffect(()=>{
 
-  axios.get(`https://retoolapi.dev/46yPXc/doctors?_page=${currentPage}&_limit=10`)
+  axios.get(`http://127.0.0.1:8000/doctors/doctors/`)
   .then((res) => {
     console.log(res.data)
     setDoctor(res.data);
