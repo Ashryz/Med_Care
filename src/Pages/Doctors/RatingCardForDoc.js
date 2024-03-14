@@ -37,8 +37,20 @@ function RatingCardForDoc({ revObj }) {
         </p>
         <FaEye className="add mt-2" onClick={() => setAction("view")} />
       </div>
-      <Modal show={action === "mod"} onHide={() => setAction(false)} centered>
-        <Modal.Body>
+      <Modal
+        show={action === "mod"}
+        onHide={() => setAction(false)}
+        centered
+        className="p-0"
+      >
+        <Modal.Body
+        style={{
+          backgroundColor: "none",
+          width: "100%",
+          margin: "auto",
+          padding: "0",
+        }}
+        >
           <EditableReview revObj={revObj} onClose={() => setAction(false)} />
         </Modal.Body>
       </Modal>
@@ -46,6 +58,7 @@ function RatingCardForDoc({ revObj }) {
         show={action === "delete"}
         onHide={() => setAction(false)}
         centered
+        className="trans-bg-custom"
       >
         <Modal.Body>
           <ReviewDel revObj={revObj} onClose={() => setAction(false)} />

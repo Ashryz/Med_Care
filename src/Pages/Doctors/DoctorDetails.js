@@ -13,10 +13,9 @@ function DoctorDetails() {
 
   useEffect(() => {
     axios
-      .get(`https://retoolapi.dev/46yPXc/doctors/${id}`)
+      .get(`https://retoolapi.dev/46yPXc/doctors/1`)
       .then((res) => {
         // console.log(res.data)
-        console.log(`https://retoolapi.dev/46yPXc/doctors/${id}`);
         setDoctor(res.data);
       })
       .catch((err) => console.log(err));

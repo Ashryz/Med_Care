@@ -101,7 +101,7 @@ const ReviewCard = ({ revObj }) => {
         style={{ border: "none" }}
       >
         <Modal.Body
-          className="mymodal"
+          className="mymodal "
           style={{ border: "none", backgroundColor: "transparent" }}
         >
           {action === "edit" && (

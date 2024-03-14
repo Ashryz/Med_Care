@@ -37,7 +37,7 @@ function DoctorCard({ doctor }) {
             <img
               className="rounded-circle shadow border-2"
               id="img"
-              src={ "../../img/"+doctor.Image}
+              src={"../../img/" + doctor.Image}
               alt="person"
               style={{
                 width: "100px",
@@ -135,7 +135,7 @@ function DoctorCard({ doctor }) {
                 />
               </span>
             </div>
-            <div className="text-center ps-5 pt-2">
+            <div className="text-center ">
               {data.map((revObj) => {
                 return <RatingCardForDoc revObj={revObj} />;
               })}

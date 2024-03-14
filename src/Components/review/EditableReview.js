@@ -3,6 +3,7 @@ import { Button, Card, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import axios from "axios";
+import './Review.css'
 
 
 function EditableReview({ revObj, onClose }) {
@@ -42,7 +43,7 @@ function EditableReview({ revObj, onClose }) {
   return (
     <div
       className="light-bg border rounded-3 "
-      style={{ position: "relative", margin: "0 auto", maxWidth: "400px" }}
+      style={{ position: "relative", margin: "0 ", width: "100%" }}
     >
       <img
         src={"/" + revObj.patiant_img}
