@@ -6,20 +6,21 @@ import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import { Dropdown } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect,useState} from 'react';
 import './Navbar.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { themesAction } from '../../Store/Actions/Actions';
-
+import { AuthContext } from '../../context/AuthContext';
 
 
 
 function NavbarComp() {
-  const navigate = useNavigate()
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const authContext = useContext(AuthContext); // Access the authentication context
+  const navigate = useNavigate();
+  const isLoggedIn = authContext.currentUser ? true : false;
+  const currentUser = authContext.currentUser;
   const [showDropdown, setShowDropdown] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const [searchQuery, setSearchQuery] = useState('');
 
 
@@ -31,18 +32,13 @@ function NavbarComp() {
   const myTheme = useSelector ((state) => state.combineThemes.theme)
 
   useEffect(() => {
-    const loggedIn = localStorage.getItem("isLoggedIn") === "true";
-    setIsLoggedIn(loggedIn);
-    setCurrentUser(JSON.parse(localStorage.getItem('currentUser')) || {})
     setShowDropdown(false);
-  }, []);
+  }, [isLoggedIn]);
 
-  const handleLogout = () => {
-    localStorage.removeItem("isLoggedIn");
-    localStorage.removeItem('currentUser');
-    setIsLoggedIn(false);
-    navigate("/");
-  };
+ const handleLogout = () => {
+        authContext.logout(); 
+        localStorage.removeItem("isLoggedIn");
+    };
 
   const handleSearch = () => {
     if (searchQuery.trim() !== "") {
@@ -111,7 +107,10 @@ function NavbarComp() {
                     </Link>
                   </Dropdown.Item>
                   <Dropdown.Divider />
-                  <Dropdown.Item eventKey="Option 2" onClick={handleLogout}><i className="bi bi-box-arrow-right"></i> Logout </Dropdown.Item>
+                  {isLoggedIn && (
+  		  <Dropdown.Item eventKey="Option 2" onClick={handleLogout}><i className="bi bi-box-arrow-right"></i> Logout </Dropdown.Item>
+		    )}
+				
                 </Dropdown.Menu>
               </Dropdown>
             )}

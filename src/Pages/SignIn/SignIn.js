@@ -3,17 +3,16 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { useState, useEffect } from 'react';
+import { useContext, useEffect,useState} from 'react';
 import { FiEye, FiEyeOff } from 'react-icons/fi';
 import { Link } from 'react-router-dom';
 import { useNavigate } from "react-router-dom";
-
+import { AuthContext } from '../../context/AuthContext';
 
 
 function SignIn() {
-
-
-
+    const authContext = useContext(AuthContext); 
+    const navigate = useNavigate();
     // State to toggle password visibility
     const [showPassword, setShowPassword] = useState(false);
     const togglePasswordVisibility = () => {
@@ -50,7 +49,7 @@ function SignIn() {
 
 
     }
-    const navigate = useNavigate();
+
     // const [isLoggedIn, setIsLoggedIn] = useState(false);
     useEffect(() => {
         const isLoggedIn = localStorage.getItem("isLoggedIn");
@@ -84,9 +83,8 @@ function SignIn() {
         if (userFound) {
 
             if (userFound.password === data.password) {
-
+                authContext.login(userFound);
                 console.log(userFound);
-                localStorage.setItem("currentUser", JSON.stringify(userFound))
                 localStorage.setItem("isLoggedIn", "true")
                 navigate("/")
             } else {
