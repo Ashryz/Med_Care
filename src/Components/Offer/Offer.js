@@ -7,6 +7,7 @@ import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons
 function OfferSlider() {
   const [offers, setOffers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [numVisibleOffers, setNumVisibleOffers] = useState(4);
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -20,19 +21,41 @@ function OfferSlider() {
     fetchOffers();
   }, []);
 
+  useEffect(() => {
+    const handleResize = () => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth >= 1200) {
+        setNumVisibleOffers(4);
+      } else if (screenWidth >= 992) {
+        setNumVisibleOffers(3); // Set to 3 for medium screens
+      } else if (screenWidth >= 768) {
+        setNumVisibleOffers(2);
+      } else {
+        setNumVisibleOffers(1);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
+
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => prevIndex + 1);
+    setCurrentIndex((prevIndex) => Math.min(prevIndex + 1, offers.length - numVisibleOffers));
   };
 
   const handlePrev = () => {
-    setCurrentIndex((prevIndex) => prevIndex - 1);
+    setCurrentIndex((prevIndex) => Math.max(prevIndex - 1, 0));
   };
 
-  const maxIndex = offers.length - 4; // Assuming 4 visible offers at a time
+  const maxIndex = offers.length - numVisibleOffers;
   const isPrevDisabled = currentIndex === 0;
   const isNextDisabled = currentIndex >= maxIndex;
 
-  const visibleOffers = offers.slice(currentIndex, currentIndex + 4);
+  const visibleOffers = offers.slice(currentIndex, currentIndex + numVisibleOffers);
 
   return (
     <div>
@@ -44,9 +67,9 @@ function OfferSlider() {
               <FontAwesomeIcon icon={faChevronLeft} />
             </button>
           </div>
-          <div className="offer-slider">
+          <div className="offer-slider row">
             {visibleOffers.map((offer, index) => (
-              <div key={index} className="offer-card mb-4 bg-light">
+              <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
                 <div className="btn main-btn discount-label">{calculateDiscount(offer.originalPrice, offer.discountPrice)}% Off</div>
                 <img className="offer-image" src={"img/" + offer.imageUrl} alt={offer.specialty} />
                 <div className="offer-details">
