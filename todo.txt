@@ -9,7 +9,7 @@
          III- view appointments
 
          IV -  ratings
-
+--------------------------------
       b- patient
          I- view appointments
 
@@ -26,7 +26,6 @@
 4- rating (easy) (mohamed)
 
 5- search pagination (easy) (yussef abo alam)
-
 
 -----------------not implemented--------------
 
