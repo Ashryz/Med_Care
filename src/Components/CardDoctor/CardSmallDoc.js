@@ -26,7 +26,7 @@ function CardSmallDoc({ doc }) {
         <Col md={6}>
           <h2>
             <span className="fs-5 sec-color">Doctor </span>
-            {doc.first_name} {doc.user.last_name}
+            {doc.user.first_name} {doc.user.last_name}
           </h2>
           <p>
             <span style={{ color: "dodgerblue" }}>
