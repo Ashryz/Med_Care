@@ -5,36 +5,36 @@ const AuthContext = createContext();
 const AuthProvider = ({ children }) => {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
     const [currentUser, setCurrentUser] = useState(false);
-    const [users, setUsers] = useState([]);
+    const [token, setToken] = useState("");
 
     useEffect(() => {
-        const ckuser = JSON.parse(localStorage.getItem('currentUser'));
-        setIsLoggedIn(!!ckuser);
-        const localUsers = JSON.parse(localStorage.getItem('users'));
-        setUsers(localUsers || []);
-        setCurrentUser(ckuser ? ckuser : false);
+        const token = localStorage.getItem("token");
+        if (token) {
+            setIsLoggedIn(true);
+            setToken(token);
+        }
     }
-        , []);
+    , []);
 
-    const login = (user) => {
+    const login = (token, user) => {
         setIsLoggedIn(true);
+        setToken(token);
+        localStorage.setItem("token", token);
         setCurrentUser(user);
-    };
-
-    useEffect(() => {
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        localStorage.setItem('users', JSON.stringify(users));
-    }, [currentUser, users]);
+    }
 
     const logout = () => {
-        
-        localStorage.removeItem('currentUser');
         setIsLoggedIn(false);
-        setCurrentUser(false);
-    };
+        setToken("");
+        localStorage.removeItem("token");
+    }
 
+
+
+
+    
     return (
-        <AuthContext.Provider value={{ isLoggedIn, login, logout, currentUser, users, setUsers, setCurrentUser }}>
+        <AuthContext.Provider value={{ isLoggedIn, currentUser, setCurrentUser, token, setToken , login, logout ,setIsLoggedIn }}>
             {children}
         </AuthContext.Provider>
     );
