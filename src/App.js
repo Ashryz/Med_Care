@@ -1,4 +1,5 @@
 import "./App.css";
+import { AuthProvider } from './context/AuthContext'; // Import the AuthProvider
 import "bootstrap/dist/css/bootstrap.min.css";
 import SelectReg from "./Pages/SignUp/selectReg.js";
 import SignIn from "./Pages/SignIn/SignIn.js";
@@ -32,6 +33,7 @@ function App() {
   return (
     <div className={`App ${myTheme === "light"? "":"bg-dark text-white"}`}>
       <BrowserRouter>
+      <AuthProvider>
         <NavbarComp />
         <Routes>
           <Route path="/main" element={<Home />} />
@@ -57,6 +59,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
         <FooterComp />
+        </AuthProvider>
       </BrowserRouter>
 
       {/* <SelectReg/> */}
