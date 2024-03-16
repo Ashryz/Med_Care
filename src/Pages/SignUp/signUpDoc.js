@@ -160,69 +160,66 @@ export function SignUpDoc({ userType, onClose }) {
     e.preventDefault();
 
     try {
-        if (
-            fname.isValid &&
-            lname.isValid &&
-            email.isValid &&
-            phone.isValid &&
-            password.isValid &&
-            confirmPassword.isValid &&
-            age.isValid
-        ) {
-            const newUser = {
-                first_name: fname.value,
-                last_name: lname.value,
-                username: fname.value + "_" + lname.value,
-                email: email.value,
-                password: password.value,
-                age: age.value,
-                gender: gender,
-                phone: phone.value,
-                is_doctor: userType === "Doctor",
-                is_patient: userType === "Patient",
-                imgleink: "default img",
-            };
+      if (
+        fname.isValid &&
+        lname.isValid &&
+        email.isValid &&
+        phone.isValid &&
+        password.isValid &&
+        confirmPassword.isValid &&
+        age.isValid
+      ) {
+        const newUser = {
+          first_name: fname.value,
+          last_name: lname.value,
+          username: fname.value + "_" + lname.value,
+          email: email.value,
+          password: password.value,
+          age: age.value,
+          gender: gender,
+          phone: phone.value,
+          is_doctor: userType === "Doctor",
+          is_patient: userType === "Patient",
+          imgleink: "default img",
+        };
 
-            const response = await axios.post(
-                "http://127.0.0.1:8000/auth/register/",
-                newUser
-            );
+        const response = await axios.post(
+          "http://127.0.0.1:8000/auth/register/",
+          newUser
+        );
 
-            // Check if the registration was successful 
-            if (response.status === 200) {
-              setSignedUp(true);
-              
-            } else {
-                
-                
-                setAlertTitle("Error");
-                setAlertMessage("Registration failed. Please try again later.");
-                setShowAlert(true);
-            }
-        } else {
-            setAlertTitle("Error");
-            setAlertMessage("Please fill all the fields correctly");
-            setShowAlert(true);
+        // Check if the registration was successful
+        if (response.status === 200) {
+          setSignedUp(true);
         }
-    } catch (error) {
-      let errorMessage = "";
-      for (const key in error.response.data) {
-        errorMessage += `${key}: ${error.response.data[key]}\n`;
+      } else {
+        setAlertTitle("Error");
+        setAlertMessage("Please fill all the fields correctly");
+        setShowAlert(true);
       }
-        
+    } catch (error) {
+      if (!error.response.data) {
+        setAlertTitle("Error");
+        setAlertMessage("Registration failed. Please try again later.");
+        setShowAlert(true);
+      } else {
+        let errorMessage = "";
+        for (const key in error.response.data) {
+          errorMessage += `${key}: ${error.response.data[key]}\n`;
+        }
+
         console.error("Error:", error);
         setAlertTitle("Error");
         setAlertMessage(errorMessage);
         setShowAlert(true);
+      }
     }
-};
-
+  };
 
   useEffect(() => {
     if (signedUp) {
       navigate("/SignIn");
     }
-
   }, [signedUp, navigate]);
 
   return (
