@@ -10,7 +10,6 @@ const Sidebar = () => {
   return (
     <ListGroup className='list-group listStyle m-3 col'>
         <Link className="text-decoration-none rounded-top" to="/Userprofile">
-
         <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
           <FontAwesomeIcon icon={faUser} className="me-2" />
           <span className='spanStyle'>Profile</span>

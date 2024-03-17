@@ -1,5 +1,5 @@
 import "./App.css";
-import { AuthProvider } from './context/AuthContext'; // Import the AuthProvider
+import { AuthProvider } from "./context/AuthContext"; // Import the AuthProvider
 import "bootstrap/dist/css/bootstrap.min.css";
 import SelectReg from "./Pages/SignUp/selectReg.js";
 import SignIn from "./Pages/SignIn/SignIn.js";
@@ -24,48 +24,48 @@ import DoctorCard from "./Components/Doctors/DoctorCard.js";
 import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
-import Dashboard from "./Components/ViewAppointment/Dashboard.js";
+import Dashboard from "./Components/Dashboard/Dashboard.js";
+import  Appointments from "./Components/Dashboard/Appointments.js";
+import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
+import AddSchedule from "./Components/Dashboard/AddSchedule.js"
+
 import { useSelector } from "react-redux";
-import Midical from "./Pages/Flink/Medical.js";
-import Contact from "./Pages/Flink/Contactus/Contact.js";
-import Teams from "./Pages/Flink/Teams/Teams.js";
+
+
 function App() {
-
-  const myTheme = useSelector((state) => state.combineThemes.theme)
+  const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
-    <div className={`App ${myTheme === "light"? "":"bg-dark text-white"}`}>
+    <div className={`App ${myTheme === "light" ? "" : "bg-dark text-white"}`}>
       <BrowserRouter>
-      <AuthProvider>
-        <NavbarComp />
-        <Routes>
-          <Route path="/main" element={<Home />} />
-          <Route path="/" element={<Home />} />
-          <Route path="/ForgotPassword" element={<ForgotPassword />} />
-          <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/SignUp" element={<SelectReg />} />
-          <Route exact path="/Userprofile" element={<Userprofile />} />
-          <Route exact path="/changepassword" element={<ChangePass />} />
-          <Route exact path="/changedDpassword" element={<ChangeDPass />} />
-          <Route exact path="/MyInsurance" element={<MyInsurance />} />
-          <Route exact path="/Listdoctor" element={<ListDoctor />} />
-          <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
-          <Route exact path="/search/:query" element={<SearchResults />} />
-          <Route exact path="/Hero" element={<Hero />} />
-          <Route exact path="/review" element={<Review />} />
-          <Route exact path="/DoctorCard" element={<DoctorCard />} />
-          <Route exact path="/DoctorDetails/:id" element={<DoctorDetails />} />
-          {/* <Route exact path="/DoctorDetl" element={<DoctorDetal/>}/>  */}
-          <Route exact path="/viewappointment" element={<ViewAppointment />} />
-          <Route exact path="/Schadule" element={<Schadule />} />
-          <Route exact path="/Dashboard" element={<Dashboard />} />
-          <Route exact path="/midical" element={<Midical/>} />
-          <Route exact path="/team" element={<Teams/>} />
-
-          <Route exact path="/contact" element={<Contact/>} />
-
-          <Route path="*" element={<Error />} />
-        </Routes>
-        <FooterComp />
+        <AuthProvider>
+          <NavbarComp />
+          <Routes>
+            <Route path="/main" element={<Home />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/ForgotPassword" element={<ForgotPassword />} />
+            <Route path="/SignIn" element={<SignIn />} />
+            <Route path="/SignUp" element={<SelectReg />} />
+            <Route exact path="/Userprofile" element={<Userprofile />} />
+            <Route exact path="/changepassword" element={<ChangePass />} />
+            <Route exact path="/changedDpassword" element={<ChangeDPass />} />
+            <Route exact path="/MyInsurance" element={<MyInsurance />} />
+            <Route exact path="/Listdoctor" element={<ListDoctor />} />
+            <Route exact path="/DoctorProfile" element={<DoctorProfile />} />
+            <Route exact path="/search/:query" element={<SearchResults />} />
+            <Route exact path="/Hero" element={<Hero />} />
+            <Route exact path="/review" element={<Review />} />
+            <Route exact path="/DoctorCard" element={<DoctorCard />} />
+            <Route exact path="/DoctorDetails/:id"element={<DoctorDetails />}/>
+            <Route exact path="/viewappointment"element={<ViewAppointment />}/>
+            <Route exact path="/Schadule" element={<Schadule />} />
+            <Route exact path="/Dashboard" element={<Dashboard />} />
+            <Route exact path="/Appointments" element={< Appointments  />} />
+            <Route exact path="/MainDashboard" element={<MainDashboard/>} />
+            <Route exact path="/AddSchedule" element={<AddSchedule/>} />
+            <Route exact path="/" element={<Dashboard />} />
+            <Route path="*" element={<Error />} />
+          </Routes>
+          <FooterComp />
         </AuthProvider>
       </BrowserRouter>
 

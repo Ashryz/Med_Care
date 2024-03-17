@@ -8,18 +8,19 @@ const AuthProvider = ({ children }) => {
     const [token, setToken] = useState("");
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+        
         if (token) {
             setIsLoggedIn(true);
             setToken(token);
         }
     }
-    , []);
+    , [token]);
 
     const login = (token, user) => {
         setIsLoggedIn(true);
         setToken(token);
         localStorage.setItem("token", token);
+        localStorage.setItem("user", JSON.stringify(user));
         setCurrentUser(user);
     }
 
@@ -27,8 +28,8 @@ const AuthProvider = ({ children }) => {
         setIsLoggedIn(false);
         setToken("");
         localStorage.removeItem("token");
+        localStorage.removeItem("user");
     }
-
 
 
 
