@@ -8,6 +8,7 @@ import {
   faCalendarAlt,
   faHospital,
   faClock,
+  faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
@@ -38,8 +39,7 @@ const Sidebar = () => {
         className="text-decoration-none"
       >
       <ListGroup.Item className='list-group-item listgroupItem prim-color'>
-      
-        <FontAwesomeIcon icon={faKey} className="prim-color"/> Additional Information
+       <FontAwesomeIcon icon={faInfoCircle} className="prim-color"/>Additional Information
         </ListGroup.Item>
       </Link>
   </ListGroup>
