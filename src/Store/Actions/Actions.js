@@ -1,3 +1,4 @@
+import { axiosInstance } from "../../Network/axiosInstance";
 
 
 export const Login = (email , password) => ({
@@ -29,3 +30,13 @@ export const themesAction = (payload) => ({
     type:'CHANGE_THEME',
     payload
 });
+
+export const getDoctorsList = () => (dispatch)  => {
+
+    return axiosInstance.get("/doctors/doctors/")
+    .then((res) => dispatch({
+        type: "GET_DOCTORS_LIST",
+        payload: res.data
+    })) 
+    .catch((err) => console.log(err))
+}
