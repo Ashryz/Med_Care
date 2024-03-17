@@ -28,6 +28,7 @@ import Dashboard from "./Components/Dashboard/Dashboard.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
 import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
+import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
 
 import { useSelector } from "react-redux";
 
@@ -62,6 +63,7 @@ function App() {
             <Route exact path="/Appointments" element={< Appointments  />} />
             <Route exact path="/MainDashboard" element={<MainDashboard/>} />
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
+            <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
