@@ -22,7 +22,7 @@ function RatingCardForDoc({ revObj, refresh }) {
           {currentUser.id === revObj.user.id && (
             <FaPen className="add" onClick={() => setAction("mod")} />
           )}
-          <blockquote className="rating__card__quote">
+          <blockquote className="rating__card__quote text-center">
             “{revObj.comment}”
           </blockquote>
           {currentUser.id === revObj.user.id && (
