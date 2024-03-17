@@ -29,6 +29,7 @@ import  Appointments from "./Components/Dashboard/Appointments.js";
 import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
 
 import { useSelector } from "react-redux";
+import Report from "./Components/Dashboard/Report.js";
 
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
