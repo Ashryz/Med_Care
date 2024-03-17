@@ -28,10 +28,10 @@ import Dashboard from "./Components/Dashboard/Dashboard.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
 import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
-
+import Midical from "./Pages/Flink/Medical.js";
 import { useSelector } from "react-redux";
-
-
+import Contact from "./Pages/Flink/Contactus/Contact.js";
+import Teams from "./Pages/Flink/Teams/Teams.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
@@ -60,6 +60,10 @@ function App() {
             <Route exact path="/Schadule" element={<Schadule />} />
             <Route exact path="/Dashboard" element={<Dashboard />} />
             <Route exact path="/Appointments" element={< Appointments  />} />
+            <Route exact path="/Midical" element={<Midical/>} />
+            <Route exact path="/contact" element={<Contact/>} />
+            <Route exact path="/tems" element={<Teams/>} />
+
             <Route exact path="/MainDashboard" element={<MainDashboard/>} />
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
             <Route exact path="/" element={<Dashboard />} />
