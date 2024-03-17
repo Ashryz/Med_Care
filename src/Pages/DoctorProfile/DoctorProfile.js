@@ -158,6 +158,9 @@ try {
 
   
   await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
+  if (doctorData.fname !== doctorData.fname) {
+    console.log("First name is updated");
+  }
 
   setShowSuccessMessage(true);
 } catch (error) {

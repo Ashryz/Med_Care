@@ -148,7 +148,7 @@ const handleSubmit = async (e) => {
                       <option value="">Select Area</option>
                       <option value="">Select Area</option>
                        <option value="Cairo">Cairo</option>
-		    <option value="Alexandria">Alexandria</option>
+		       <option value="Alexandria">Alexandria</option>
 		    <option value="Giza">Giza</option>
 		    <option value="Port Said">Port Said</option>
 		    <option value="Suez">Suez</option>

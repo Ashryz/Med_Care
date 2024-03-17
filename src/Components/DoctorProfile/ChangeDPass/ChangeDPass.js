@@ -1,187 +1,147 @@
-import "./changepass.css";
-import { useState, useEffect } from "react";
-import ListGroup from "react-bootstrap/ListGroup";
+import React, { useState } from "react";
+import { Form, Modal, Button } from "react-bootstrap";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { axiosInstance } from "../../../Network/axiosInstance";
+import { faKey } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../DSideBar/DSidebar";
-import axios from "axios";
-
-const ChangeDPass = () => {
-  const [user, setUser] = useState({
+const ChangePassword = () => {
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [validationErrors, setValidationErrors] = useState({
     password: "",
     confirmPassword: "",
   });
-  const [err, setErr] = useState({
-    errorPassword: null,
-    errorConfirmation: null,
-  });
-  const [successMessage, setSuccessMessage] = useState("");
 
-  useEffect(() => {
-    // Fetch user data including password from the API
-    fetchUserData();
-  }, []);
-
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get(
-        "https://retoolapi.dev/1qOuQb/Doctorprofile/4"
-      );
-      if (response.data) {
-        setUser({
-          ...response.data,
-          password: "", // Clear password for security reasons
-          confirmPassword: "",
-        });
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "password") {
+      setPassword(value);
+    } else if (name === "confirmPassword") {
+      setConfirmPassword(value);
     }
+
+    // Perform validation
+    validateField(name, value);
   };
 
-  const inputChange = (e) => {
-  const passRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}$/;
-  if (e.target.name === "password") {
-    setUser({
-      ...user,
-      password: e.target.value,
-    });
-    setErr({
-      ...err,
-      errorPassword: passRegex.test(e.target.value)
-        ? ""
-        : "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 6 characters long",
-    });
-  } else if (e.target.name === "confirmation") {
-    setUser({
-      ...user,
-      confirmPassword: e.target.value,
-    });
-    setErr({
-      ...err,
-      errorConfirmation:
-        e.target.value === user.password ? "" : "Passwords do not match",
-    });
+ const validateField = (name, value) => {
+  let errorMessage = "";
+  switch (name) {
+    case "password":
+      if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(value)) {
+        errorMessage =
+          "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 6 characters long";
+      }
+      break;
+    case "confirmPassword":
+      if (value !== password) {
+        errorMessage = "Passwords do not match";
+      }
+      break;
+    default:
+      break;
   }
+  setValidationErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: errorMessage,
+  }));
 };
 
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if passwords match and meet criteria
-    if (user.password !== user.confirmPassword) {
-      setErr({
-        ...err,
-        errorConfirmation: "Passwords do not match",
-      });
+    // Check if there are any validation errors
+    const isValid = Object.values(validationErrors).every(
+      (error) => error === ""
+    );
+    if (!isValid) {
+      console.error("Form has validation errors");
       return;
     }
 
-    try {
-      // Update the user data including the password in the API
-      await axios.put("https://retoolapi.dev/1qOuQb/Doctorprofile/4", {
-        ...user,
-      });
-      // Reset the input fields and errors
-      setUser({
-        ...user,
-        password: "",
-        confirmPassword: "",
-      });
-      setErr({
-        errorPassword: null,
-        errorConfirmation: null,
-      });
-      // Show success message
-      setSuccessMessage("Password updated successfully!");
-      // Reset success message after 3 seconds
-      setTimeout(() => {
-        setSuccessMessage("");
-      }, 3000);
-    } catch (error) {
-      console.error("Error updating password:", error);
-    }
-  };
-
+ try {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    await axiosInstance.patch(`/auth/users/${userId}/`, { password: password });
+    setShowSuccessMessage(true);
+  } catch (error) {
+    console.error("Error updating password:", error);
+  }
+};
   return (
-    <>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3">
-            <DSidebar  />
-          </div>
-          <div className="col-md-9">
-            <ListGroup className="cardheadlistStyle m-3 " >
-              <ListGroup.Item
-                className="cardhead prim-pg listgroupItem"
-               
-              >
-              <div className="card-header prim-pg text-light">
-                <h4 className="text-center ">
-                  {" "}
-                  Change Password
-                </h4>
-                </div>
-              </ListGroup.Item>
-
-              <ListGroup.Item>
-                <form onSubmit={handleSubmit}>
-                  <div className="p-3">
-                    <label htmlFor="password" className="form-label  text-primary">
-                      Password
-                    </label>
+    <div className="container mt-5">
+      <div className="row">
+              <div className="col-md-3">
+          <DSidebar />
+        </div>
+        <div className="col-md-9">
+          <div className="card bg-light m-3">
+            <div className="card-header prim-pg text-light">
+              <h3 className="text-center mb-0">Change Password</h3>
+            </div>
+            <div className="card-body">
+              <form onSubmit={handleSubmit}>
+                {/* Password Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="password"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faKey} /> Password
+                  </label>
+                  <div className="col-sm-9">
                     <input
                       type="password"
-                      className="form-control"
-                      id="password"
-                      placeholder="Password"
-                      value={user.password}
                       name="password"
-                      onChange={inputChange}
-                      required
+                      value={password}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
-                    <small className="text-danger">{err.errorPassword}</small>
+                    <div className="text-danger">
+                      {validationErrors.password}
+                    </div>
                   </div>
-
-                  <div className="p-3">
-                    <label htmlFor="confirmation" className="form-label  text-primary">
-                     Confirm Password
-                    </label>
+                </div>
+                {/* Confirm Password Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="confirmPassword"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faKey} /> Confirm Password
+                  </label>
+                  <div className="col-sm-9">
                     <input
                       type="password"
-                      className="form-control"
-                      id="confirmation"
-                      placeholder="Confirm password"
-                      value={user.confirmPassword}
-                      name="confirmation"
-                      onChange={inputChange}
-                      required
+                      name="confirmPassword"
+                      value={confirmPassword}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
                     />
-                    <small className="text-danger">
-                      {err.errorConfirmation}
-                    </small>
+                    <div className="text-danger">
+                      {validationErrors.confirmPassword}
+                    </div>
                   </div>
-
-                  <div className="text-center">
-                    <button type="submit" className="btn main-btn me-2">
-                      Save
-                    </button>
-                    <button type="button" className="btn sec-btn ">
-                      Cancel
-                    </button>
-                  </div>
-                </form>
-                {successMessage && (
+                </div>
+                <div className="text-center">
+                  <button type="submit" className="btn main-btn me-2">
+                    Change Password
+                  </button>
+                </div>
+                {/* Success message */}
+                {showSuccessMessage && (
                   <div className="alert alert-success mt-3" role="alert">
-                    {successMessage}
+                    Password updated successfully!
                   </div>
                 )}
-              </ListGroup.Item>
-            </ListGroup>
+              </form>
+            </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
-export default ChangeDPass;
+export default ChangePassword;
 
