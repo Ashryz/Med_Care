@@ -31,7 +31,7 @@ function Sidebar() {
             <span>Add Schedule</span>
           </ListGroup.Item>
         </Link>
-        <Link to="/View Schedule" className="text-decoration-none">
+        <Link to="/ViewSchedule" className="text-decoration-none">
           <ListGroup.Item className='list-group-item listgroupItem lis'>
             <i className="bi bi-calendar2 me-2"></i>
             <span>View Schedule</span>
