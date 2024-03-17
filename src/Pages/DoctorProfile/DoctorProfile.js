@@ -22,6 +22,7 @@ import { Validations } from "../../Components/utils/validations/validation";
 
 const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({
+    username: "",
     fname: "",
     lname: "",
     email: "",
@@ -37,6 +38,7 @@ const DoctorProfile = () => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef(null);
   const [validationErrors, setValidationErrors] = useState({
+    username: "",
     fname: "",
     lname: "",
     email: "",
@@ -52,16 +54,17 @@ const DoctorProfile = () => {
     fetchDoctorData();
   }, []);
 
-  const fetchDoctorData = async () => {
-    try {
-      const userId = JSON.parse(localStorage.getItem("user")).id;
-      const response = await axiosInstance.get(`/auth/users/${userId}/`); 
-      const { username, first_name, last_name, email, phone, age,gender,area, fees, specialization, degree } = response.data;
-      setDoctorData({ username, first_name, last_name, email, phone, age,gender, area, fees, specialization, degree });
-    } catch (error) {
-      console.error("Error fetching doctor data:", error);
-    }
-  };
+const fetchDoctorData = async () => {
+  try {
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+    const response = await axiosInstance.get(`/auth/users/${userId}/`); 
+    const { username, email, phone, age, gender, area, fees, specialization, degree, first_name, last_name } = response.data;
+    setDoctorData({ username, email, phone, age, gender, area, fees, specialization, degree, fname: first_name, lname: last_name });
+  } catch (error) {
+    console.error("Error fetching doctor data:", error);
+  }
+};
+
 
   const handleChooseProfilePicture = () => {
     if (fileInputRef.current) {
@@ -103,6 +106,7 @@ const DoctorProfile = () => {
     switch (name) {
       case "fname":
       case "lname":
+      case "username":
         errorMessage = Validations.nameValid(value).message;
         break;
       case "email":
@@ -136,16 +140,30 @@ const DoctorProfile = () => {
       console.error("Form has validation errors");
       return;
     }
+try {
+  const userId = JSON.parse(localStorage.getItem("user")).id;
 
-    try {
-      await axiosInstance.patch("/auth/users/${userId}/", doctorData); // Update doctor data by ID
-      setShowSuccessMessage(true);
-    } catch (error) {
-      console.error("Error saving doctor data:", error);
-    }
+ 
+  const updatedUserData = {
+    username: doctorData.username,
+    first_name: doctorData.fname,
+    last_name: doctorData.lname,
+    email: doctorData.email,
+    phone: doctorData.phone,
+    age: doctorData.age,
+    city: doctorData.area,
+    Image: doctorData.Image,
+    gender: doctorData.gender
   };
 
+  
+  await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
 
+  setShowSuccessMessage(true);
+} catch (error) {
+  console.error("Error saving doctor data:", error);
+}
+};
   return (
     <div className="container mt-5">
       <div className="row ">
@@ -195,6 +213,25 @@ const DoctorProfile = () => {
                     accept="image/*"
                   />
                 </div>
+                      {/* Username Input */}
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="username"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faUser} /> Username
+                  </label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      name="username"
+                      value={doctorData.username}
+                      onChange={handleInputChange}
+                      className="form-control form-control-blue"
+                    />
+                    <div className="text-danger">{validationErrors.username}</div>
+                  </div>
+                </div>
                 {/* First Name Input */}
                 <div className="mb-3 row">
                   <label
@@ -233,24 +270,7 @@ const DoctorProfile = () => {
                     <div className="text-danger">{validationErrors.lname}</div>
                   </div>
                 </div>
-                 {/* Bio Input */}
-                <div className="mb-3 row">
-                  <label
-                    htmlFor="bio"
-                    className="form-label col-sm-3 text-primary"
-                  >
-                    <FontAwesomeIcon icon={faInfoCircle} />Bio
-                  </label>
-                  <div className="col-sm-9">
-                    <textarea
-                      name="bio"
-                      value={doctorData.bio}
-                      onChange={handleInputChange}
-                      className="form-control form-control-blue"
-                    />
-                    <div className="text-danger">{validationErrors.bio}</div>
-                  </div>
-                </div>
+               
                 {/* Email Input */}
                 <div className="mb-3 row">
                   <label
