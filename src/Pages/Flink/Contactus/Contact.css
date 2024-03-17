@@ -1,0 +1,18 @@
+#conMain{
+    width: 85%;
+    
+    margin: 6%;
+    align-items: center;
+    
+}
+#forml{
+    width: 15%;
+}
+h3{
+    color: rgb(92, 92, 215);
+    font-size: larger;
+}
+.lab{
+    padding: 20px;
+    padding-left: 30px;
+}
