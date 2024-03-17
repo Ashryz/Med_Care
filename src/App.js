@@ -26,7 +26,9 @@ import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/ViewAppointment/Dashboard.js";
 import { useSelector } from "react-redux";
-
+import Midical from "./Pages/Flink/Medical.js";
+import Contact from "./Pages/Flink/Contactus/Contact.js";
+import Teams from "./Pages/Flink/Teams/Teams.js";
 function App() {
 
   const myTheme = useSelector((state) => state.combineThemes.theme)
@@ -56,6 +58,11 @@ function App() {
           <Route exact path="/viewappointment" element={<ViewAppointment />} />
           <Route exact path="/Schadule" element={<Schadule />} />
           <Route exact path="/Dashboard" element={<Dashboard />} />
+          <Route exact path="/midical" element={<Midical/>} />
+          <Route exact path="/team" element={<Teams/>} />
+
+          <Route exact path="/contact" element={<Contact/>} />
+
           <Route path="*" element={<Error />} />
         </Routes>
         <FooterComp />
