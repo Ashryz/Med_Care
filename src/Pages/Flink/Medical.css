@@ -1,0 +1,15 @@
+#card{
+    display: flex;
+}
+#main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#btn{
+    width: 100%;
+    margin-top: 16%;
+}
+#btn1{
+    width: 100%;
+}
