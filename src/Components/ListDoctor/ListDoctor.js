@@ -1,6 +1,5 @@
 import {  Container, Row, Pagination } from 'react-bootstrap';
 import { useSelector, useDispatch } from "react-redux"
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 import CardSmallDoc from '../CardDoctor/CardSmallDoc';
 import { getDoctorsList } from '../../Store/Actions/Actions';
@@ -8,37 +7,24 @@ import { getDoctorsList } from '../../Store/Actions/Actions';
 function ListDoctor() {
   const dispatch = useDispatch()
   const doctors = useSelector((state) => state.combineDoctors.doctors)
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 3
 
-const [doctor,setDoctor]=useState([])
-const [currentPage, setCurrentPage] = useState(1);
-const [totalPages, setTotalPages] = useState(0);
+  useEffect(() => {
+    dispatch(getDoctorsList(currentPage, pageSize));
+  }, [dispatch, currentPage, pageSize]);
 
-useEffect(() => {
-  dispatch(getDoctorsList())
-},[])
+  const totalPages = Math.ceil(doctors.count / pageSize);
 
-
-// useEffect(()=>{
-
-//   axios.get(`/doctors/doctors/`)
-//   .then((res) => {
-//     console.log(res.data)
-//     setDoctor(res.data);
-//     setTotalPages(Math.ceil(res.headers["x-total-count"] / 10));
-//     console.log(res)
-// })
-//   .catch((err)=>console.log(err))
-
-// },[currentPage])
-
-console.log(doctors);
-const handlePageChange = (page) => {
-  setCurrentPage(page);
-};
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
+  console.log(doctors);
+  
   return (
     <Container className="mt-5 mb-5">
     <Row >
-    {doctors.map((doctor) => (
+    {Array.isArray(doctors.results) && doctors.results.map((doctor) => (
         <CardSmallDoc key={doctor.id} doc={doctor} />
     ))}
 </Row>

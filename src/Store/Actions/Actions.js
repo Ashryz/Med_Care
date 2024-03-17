@@ -31,12 +31,13 @@ export const themesAction = (payload) => ({
     payload
 });
 
-export const getDoctorsList = () => (dispatch)  => {
-
-    return axiosInstance.get("/doctors/doctors/")
-    .then((res) => dispatch({
-        type: "GET_DOCTORS_LIST",
-        payload: res.data
-    })) 
-    .catch((err) => console.log(err))
-}
+export const getDoctorsList = (page = 1, pageSize = 10) => (dispatch) => {
+    return axiosInstance.get(`/doctors/doctors/?p=${page}&page_size=${pageSize}`)
+        .then((res) => {
+            dispatch({
+                type: "GET_DOCTORS_LIST",
+                payload: res.data
+            });
+        })
+        .catch((err) => console.log(err));
+};
