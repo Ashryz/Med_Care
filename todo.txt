@@ -27,7 +27,7 @@
 
 5- search pagination (easy) (yussef abo alam)
 
------------------not implemented--------------
+--------------not implemented--------------
 
 1- img 
 2- inform the patient that his appontment is accepted/rejected(by EMAIL)
