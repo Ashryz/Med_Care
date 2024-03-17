@@ -61,7 +61,7 @@ const fetchUserData = async () => {
     const response = await axiosInstance.get(`/auth/users/${userId}/`);
     const userData = response.data;
     
-    // Update user data 
+    // user data 
     setUserData({
       username: userData.username,
       fname: userData.first_name,
@@ -69,7 +69,7 @@ const fetchUserData = async () => {
       email: userData.email,
       phone: userData.phone,
       age: userData.age,
-      city: userData.area,
+      area: userData.city,
       Image: userData.Image,
       gender: userData.gender
     });
