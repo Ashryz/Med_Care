@@ -1,12 +1,14 @@
-import React from "react";
+import React, { useContext } from "react";
 import docimg from '../../img/hero-img.jpg';
 import { Link } from "react-router-dom";
 import './hero.css';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../context/AuthContext";
 const Hero = () => {
   //const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
-  const isLoggedIn = localStorage.getItem("isLoggedIn")
+  const authcontext = useContext(AuthContext)
+  const isLoggedIn = authcontext.isLoggedIn
 
   return (
 

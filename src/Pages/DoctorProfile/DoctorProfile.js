@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef ,useContext} from "react";
+import { AuthContext } from "../../context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -9,12 +9,7 @@ import {
   faEnvelope,
   faPhoneAlt,
   faCalendarAlt,
-  faMapMarkerAlt,
-  faDollarSign,
-  faGraduationCap,
-  faBrain,
   faCamera,
-  faInfoCircle,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
@@ -49,6 +44,8 @@ const DoctorProfile = () => {
     specialization: "",
     degree: "",
   });
+
+  const authContext = useContext(AuthContext);
 
   useEffect(() => {
     fetchDoctorData();
@@ -180,13 +177,20 @@ const DoctorProfile = () => {
         gender: doctorData.gender,
       };
 
-      await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
-
-      setShowSuccessMessage(true);
-    } catch (error) {
-      console.error("Error saving doctor data:", error);
+     const response = await axiosInstance.put(`/auth/users/${userId}/`, updatedUserData);
+      if (response.status === 200) {
+        setShowSuccessMessage(true);
+        authContext.setCurrentUser(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000);
+      }
     }
-  };
+    catch (error) {
+      console.error("Error updating doctor data:", error);
+    }
+  }
   return (
     <div className="container mt-5">
       <div className="row ">
