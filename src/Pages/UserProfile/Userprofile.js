@@ -11,17 +11,14 @@ import {
   faCalendarAlt,
   faMapMarkerAlt,
   faCamera,
-  faVenusMars 
+  faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 
-
 import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
-
 
 import { Validations } from "../../Components/utils/validations/validation";
 
 const Userprofile = () => {
-  
   const [userData, setUserData] = useState({
     username: "",
     fname: "",
@@ -31,11 +28,11 @@ const Userprofile = () => {
     age: "",
     area: "",
     Image: "",
-    gender: "" 
+    gender: "",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
 
   // Validation state variables
   const [usernameError, setUsernameError] = useState("");
@@ -46,39 +43,35 @@ const Userprofile = () => {
   const [ageError, setAgeError] = useState("");
 
   useEffect(() => {
-    
     fetchUserData();
   }, []);
 
- 
-// Function to fetch user data
-const fetchUserData = async () => {
-  try {
-    // Retrieve user ID from local storage
-    const userId = JSON.parse(localStorage.getItem("user")).id;
+  // Function to fetch user data
+  const fetchUserData = async () => {
+    try {
+      // Retrieve user ID from local storage
+      const userId = JSON.parse(localStorage.getItem("user")).id;
 
-    // Fetch user data using the user ID
-    const response = await axiosInstance.get(`/auth/users/${userId}/`);
-    const userData = response.data;
-    
-    // user data 
-    setUserData({
-      username: userData.username,
-      fname: userData.first_name,
-      lname: userData.last_name,
-      email: userData.email,
-      phone: userData.phone,
-      age: userData.age,
-      area: userData.city,
-      Image: userData.Image,
-      gender: userData.gender
-    });
+      // Fetch user data using the user ID
+      const response = await axiosInstance.get(`/auth/users/${userId}/`);
+      const userData = response.data;
 
-  } catch (error) {
-    console.error("Error fetching user data:", error);
-  }
-};
-
+      // user data
+      setUserData({
+        username: userData.username,
+        fname: userData.first_name,
+        lname: userData.last_name,
+        email: userData.email,
+        phone: userData.phone,
+        age: userData.age,
+        area: userData.city,
+        Image: userData.Image,
+        gender: userData.gender,
+      });
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+    }
+  };
 
   // Function to handle profile picture deletion
   const handleDeleteProfilePicture = () => {
@@ -110,11 +103,11 @@ const fetchUserData = async () => {
       setPhoneError(Validations.phoneValid(value).message);
     } else if (name === "age") {
       setAgeError(Validations.ageValid(value).message);
-    }else if (name === "username") { // Add validation for username
+    } else if (name === "username") {
+      // Add validation for username
       setUsernameError(Validations.nameValid(value).message);
     }
   };
-  
 
   // Function to handle choosing profile picture
   const handleChooseProfilePicture = () => {
@@ -165,41 +158,44 @@ const fetchUserData = async () => {
       phoneValidation.isValid &&
       ageValidation.isValid
     ) {
-    try {
-      // Retrieve user ID from local storage
-      const userId = JSON.parse(localStorage.getItem("user")).id;
+      try {
+        // Retrieve user ID from local storage
+        const userId = JSON.parse(localStorage.getItem("user")).id;
 
-      // Update user data with form inputs
-      const updatedUserData = {
-        username: userData.username,
-        first_name: userData.fname,
-        last_name: userData.lname,
-        email: userData.email,
-        phone: userData.phone,
-        age: userData.age,
-        city: userData.area,
-        Image: userData.Image,
-        gender: userData.gender
-      };
+        // Update user data with form inputs
+        const updatedUserData = {
+          username: userData.username,
+          first_name: userData.fname,
+          last_name: userData.lname,
+          email: userData.email,
+          phone: userData.phone,
+          age: userData.age,
+          city: userData.area,
+          Image: userData.Image,
+          gender: userData.gender,
+        };
 
-      // Make API call to update user data
-      const response = await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
-      const updatedUserDataResponse = response.data;
+        // Make API call to update user data
+        const response = await axiosInstance.patch(
+          `/auth/users/${userId}/`,
+          updatedUserData
+        );
+        const updatedUserDataResponse = response.data;
 
-      // Update user data state with the response
-      setUserData(updatedUserDataResponse);
+        // Update user data state with the response
+        setUserData(updatedUserDataResponse);
 
-      setShowSuccessMessage(true); // Show success message after updating user data
+        setShowSuccessMessage(true); // Show success message after updating user data
 
-      // Set timeout to hide success message after 5 seconds
-      setTimeout(() => {
-        setShowSuccessMessage(false);
-      }, 5000);
-    } catch (error) {
-      console.error("Error updating user data:", error);
+        // Set timeout to hide success message after 5 seconds
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 5000);
+      } catch (error) {
+        console.error("Error updating user data:", error);
+      }
     }
-  }
-};
+  };
 
   return (
     <div className="container mt-5">
@@ -216,10 +212,15 @@ const fetchUserData = async () => {
               <form onSubmit={handleSubmit}>
                 {/* Image Input */}
                 <div className="mb-3 row justify-content-center align-items-center">
-                  <label htmlFor="Image" className="form-label col-12 text-center">
+                  <label
+                    htmlFor="Image"
+                    className="form-label col-12 text-center"
+                  >
                     <div className="position-relative">
                       <img
-                        src={+userData.Image ? userData.Image : "img/profile.jpeg"}
+                        src={
+                          +userData.Image ? userData.Image : "img/profile.jpeg"
+                        }
                         alt="User"
                         className="rounded-circle img-thumbnail"
                         style={{
@@ -247,9 +248,13 @@ const fetchUserData = async () => {
                     accept="image/*"
                   />
                 </div>
-                                <div className="mb-3 row">
-                  <label htmlFor="username" className="form-label col-sm-3 text-primary">
-                     <FontAwesomeIcon icon={faUser} />Username
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="username"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                    Username
                   </label>
                   <div className="col-sm-9">
                     <input
@@ -257,14 +262,21 @@ const fetchUserData = async () => {
                       name="username"
                       value={userData.username}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${usernameError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        usernameError && "is-invalid"
+                      }`}
                     />
-                    {usernameError && <div className="invalid-feedback">{usernameError}</div>}
+                    {usernameError && (
+                      <div className="invalid-feedback">{usernameError}</div>
+                    )}
                   </div>
                 </div>
                 {/* First Name Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="fname" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="fname"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faUser} /> First Name
                   </label>
                   <div className="col-sm-9">
@@ -273,14 +285,21 @@ const fetchUserData = async () => {
                       name="fname"
                       value={userData.fname}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${fnameError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        fnameError && "is-invalid"
+                      }`}
                     />
-                    {fnameError && <div className="invalid-feedback">{fnameError}</div>}
+                    {fnameError && (
+                      <div className="invalid-feedback">{fnameError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Last Name Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="lname" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="lname"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faUser} /> Last Name
                   </label>
                   <div className="col-sm-9">
@@ -289,14 +308,21 @@ const fetchUserData = async () => {
                       name="lname"
                       value={userData.lname}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${lnameError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        lnameError && "is-invalid"
+                      }`}
                     />
-                    {lnameError && <div className="invalid-feedback">{lnameError}</div>}
+                    {lnameError && (
+                      <div className="invalid-feedback">{lnameError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Email Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="email" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="email"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
                   </label>
                   <div className="col-sm-9">
@@ -305,14 +331,21 @@ const fetchUserData = async () => {
                       name="email"
                       value={userData.email}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${emailError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        emailError && "is-invalid"
+                      }`}
                     />
-                    {emailError && <div className="invalid-feedback">{emailError}</div>}
+                    {emailError && (
+                      <div className="invalid-feedback">{emailError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Phone Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="phone" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="phone"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                   </label>
                   <div className="col-sm-9">
@@ -321,14 +354,21 @@ const fetchUserData = async () => {
                       name="phone"
                       value={userData.phone}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${phoneError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        phoneError && "is-invalid"
+                      }`}
                     />
-                    {phoneError && <div className="invalid-feedback">{phoneError}</div>}
+                    {phoneError && (
+                      <div className="invalid-feedback">{phoneError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Age Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="age" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="age"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
                   </label>
                   <div className="col-sm-9">
@@ -337,13 +377,20 @@ const fetchUserData = async () => {
                       name="age"
                       value={userData.age}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${ageError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        ageError && "is-invalid"
+                      }`}
                     />
-                    {ageError && <div className="invalid-feedback">{ageError}</div>}
+                    {ageError && (
+                      <div className="invalid-feedback">{ageError}</div>
+                    )}
                   </div>
                 </div>
-                 <div className="mb-3 row">
-                  <label htmlFor="gender" className="form-label col-sm-3 text-primary">
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="gender"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faVenusMars} /> Gender
                   </label>
                   <div className="col-sm-9">
@@ -354,16 +401,17 @@ const fetchUserData = async () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Gender</option>
-                       <option value="M">Male</option>
+                      <option value="M">Male</option>
                       <option value="F">Female</option>
-                     
                     </Form.Select>
-                    
                   </div>
                 </div>
                 {/* Area Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="area" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="area"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faMapMarkerAlt} /> Area
                   </label>
                   <div className="col-sm-9">
@@ -374,35 +422,35 @@ const fetchUserData = async () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Area</option>
-                       <option value="Cairo">Cairo</option>
-		    <option value="Alexandria">Alexandria</option>
-		    <option value="Giza">Giza</option>
-		    <option value="Port Said">Port Said</option>
-		    <option value="Suez">Suez</option>
-		    <option value="Luxor">Luxor</option>
-		    <option value="Asyut">Asyut</option>
-		    <option value="Ismailia">Ismailia</option>
-		    <option value="Faiyum">Faiyum</option>
-		    <option value="Beni Suef">Beni Suef</option>
-		    <option value="Mansoura">Mansoura</option>
-		    <option value="Damietta">Damietta</option>
-		    <option value="Assiut">Assiut</option>
-		    <option value="Minya">Minya</option>
-		    <option value="Sohag">Sohag</option>
-		    <option value="Qena">Qena</option>
-		    <option value="Aswan">Aswan</option>
-		    <option value="Beheira">Beheira</option>
-		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-		    <option value="Matruh">Matruh</option>
-		    <option value="New Valley">New Valley</option>
-		    <option value="North Sinai">North Sinai</option>
-		    <option value="South Sinai">South Sinai</option>
-		    <option value="Red Sea">Red Sea</option>
-		    <option value="Gharbia">Gharbia</option>
-		    <option value="Dakahlia">Dakahlia</option>
-		    <option value="Sharqia">Sharqia</option>
-		    <option value="Monufia">Monufia</option>
-		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                      <option value="Cairo">Cairo</option>
+                      <option value="Alexandria">Alexandria</option>
+                      <option value="Giza">Giza</option>
+                      <option value="Port Said">Port Said</option>
+                      <option value="Suez">Suez</option>
+                      <option value="Luxor">Luxor</option>
+                      <option value="Asyut">Asyut</option>
+                      <option value="Ismailia">Ismailia</option>
+                      <option value="Faiyum">Faiyum</option>
+                      <option value="Beni Suef">Beni Suef</option>
+                      <option value="Mansoura">Mansoura</option>
+                      <option value="Damietta">Damietta</option>
+                      <option value="Assiut">Assiut</option>
+                      <option value="Minya">Minya</option>
+                      <option value="Sohag">Sohag</option>
+                      <option value="Qena">Qena</option>
+                      <option value="Aswan">Aswan</option>
+                      <option value="Beheira">Beheira</option>
+                      <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                      <option value="Matruh">Matruh</option>
+                      <option value="New Valley">New Valley</option>
+                      <option value="North Sinai">North Sinai</option>
+                      <option value="South Sinai">South Sinai</option>
+                      <option value="Red Sea">Red Sea</option>
+                      <option value="Gharbia">Gharbia</option>
+                      <option value="Dakahlia">Dakahlia</option>
+                      <option value="Sharqia">Sharqia</option>
+                      <option value="Monufia">Monufia</option>
+                      <option value="Kafr El Sheikh">Kafr El Sheikh</option>
                     </Form.Select>
                   </div>
                 </div>
@@ -429,7 +477,7 @@ const fetchUserData = async () => {
 
       {/* Profile Picture Options Modal */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
-        <Modal.Header  className="bg-white" closeButton>
+        <Modal.Header className="bg-white" closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-white">
@@ -449,7 +497,7 @@ const fetchUserData = async () => {
         </Modal.Body>
         <Modal.Footer className="bg-white">
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
-            Delete 
+            Delete
           </Button>
           <Button variant="secondary" onClick={handleChooseProfilePicture}>
             Choose Profile Picture
@@ -461,4 +509,3 @@ const fetchUserData = async () => {
 };
 
 export default Userprofile;
-

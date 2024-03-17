@@ -13,9 +13,9 @@ import {
   faDollarSign,
   faGraduationCap,
   faBrain,
-   faCamera,
-   faInfoCircle,
-   faVenusMars
+  faCamera,
+  faInfoCircle,
+  faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
 import { Validations } from "../../Components/utils/validations/validation";
@@ -54,17 +54,40 @@ const DoctorProfile = () => {
     fetchDoctorData();
   }, []);
 
-const fetchDoctorData = async () => {
-  try {
-    const userId = JSON.parse(localStorage.getItem("user")).id;
-    const response = await axiosInstance.get(`/auth/users/${userId}/`); 
-    const { username, email, phone, age, gender, area, fees, specialization, degree, first_name, last_name } = response.data;
-    setDoctorData({ username, email, phone, age, gender, area, fees, specialization, degree, fname: first_name, lname: last_name });
-  } catch (error) {
-    console.error("Error fetching doctor data:", error);
-  }
-};
-
+  const fetchDoctorData = async () => {
+    try {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const response = await axiosInstance.get(`/auth/users/${userId}/`);
+      const {
+        username,
+        email,
+        phone,
+        age,
+        gender,
+        area,
+        fees,
+        specialization,
+        degree,
+        first_name,
+        last_name,
+      } = response.data;
+      setDoctorData({
+        username,
+        email,
+        phone,
+        age,
+        gender,
+        area,
+        fees,
+        specialization,
+        degree,
+        fname: first_name,
+        lname: last_name,
+      });
+    } catch (error) {
+      console.error("Error fetching doctor data:", error);
+    }
+  };
 
   const handleChooseProfilePicture = () => {
     if (fileInputRef.current) {
@@ -81,7 +104,7 @@ const fetchDoctorData = async () => {
     }));
     setShowModal(false); // Close modal after choosing profile picture
   };
-  
+
   const handleDeleteProfilePicture = () => {
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
@@ -135,38 +158,35 @@ const fetchDoctorData = async () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // Check if there are any validation errors
-    const isValid = Object.values(validationErrors).every((error) => error === "");
+    const isValid = Object.values(validationErrors).every(
+      (error) => error === ""
+    );
     if (!isValid) {
       console.error("Form has validation errors");
       return;
     }
-try {
-  const userId = JSON.parse(localStorage.getItem("user")).id;
+    try {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
 
- 
-  const updatedUserData = {
-    username: doctorData.username,
-    first_name: doctorData.fname,
-    last_name: doctorData.lname,
-    email: doctorData.email,
-    phone: doctorData.phone,
-    age: doctorData.age,
-    city: doctorData.area,
-    Image: doctorData.Image,
-    gender: doctorData.gender
+      const updatedUserData = {
+        username: doctorData.username,
+        first_name: doctorData.fname,
+        last_name: doctorData.lname,
+        email: doctorData.email,
+        phone: doctorData.phone,
+        age: doctorData.age,
+        city: doctorData.area,
+        Image: doctorData.Image,
+        gender: doctorData.gender,
+      };
+
+      await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
+
+      setShowSuccessMessage(true);
+    } catch (error) {
+      console.error("Error saving doctor data:", error);
+    }
   };
-
-  
-  await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
-  if (doctorData.fname !== doctorData.fname) {
-    console.log("First name is updated");
-  }
-
-  setShowSuccessMessage(true);
-} catch (error) {
-  console.error("Error saving doctor data:", error);
-}
-};
   return (
     <div className="container mt-5">
       <div className="row ">
@@ -188,7 +208,11 @@ try {
                   >
                     <div className="position-relative">
                       <img
-                        src={+doctorData.Image ? doctorData.Image : "img/profile.jpeg"}
+                        src={
+                          +doctorData.Image
+                            ? doctorData.Image
+                            : "img/profile.jpeg"
+                        }
                         alt="Doctor"
                         className="rounded-circle img-thumbnail"
                         style={{
@@ -216,7 +240,7 @@ try {
                     accept="image/*"
                   />
                 </div>
-                      {/* Username Input */}
+                {/* Username Input */}
                 <div className="mb-3 row">
                   <label
                     htmlFor="username"
@@ -232,7 +256,9 @@ try {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
-                    <div className="text-danger">{validationErrors.username}</div>
+                    <div className="text-danger">
+                      {validationErrors.username}
+                    </div>
                   </div>
                 </div>
                 {/* First Name Input */}
@@ -273,7 +299,7 @@ try {
                     <div className="text-danger">{validationErrors.lname}</div>
                   </div>
                 </div>
-               
+
                 {/* Email Input */}
                 <div className="mb-3 row">
                   <label
@@ -331,8 +357,11 @@ try {
                     <div className="text-danger">{validationErrors.age}</div>
                   </div>
                 </div>
-                 <div className="mb-3 row">
-                  <label htmlFor="gender" className="form-label col-sm-3 text-primary">
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="gender"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faVenusMars} /> Gender
                   </label>
                   <div className="col-sm-9">
@@ -343,15 +372,12 @@ try {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Gender</option>
-                        <option value="M">Male</option>
+                      <option value="M">Male</option>
                       <option value="F">Female</option>
-                     
                     </Form.Select>
-                    
                   </div>
                 </div>
 
-                
                 <div className="text-center">
                   <button type="submit" className="btn main-btn me-2">
                     Save
@@ -373,7 +399,7 @@ try {
       </div>
 
       <Modal show={showModal} onHide={() => setShowModal(false)} centered>
-        <Modal.Header  className="bg-white" closeButton>
+        <Modal.Header className="bg-white" closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-white">
@@ -393,7 +419,7 @@ try {
         </Modal.Body>
         <Modal.Footer className="bg-white">
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
-            Delete 
+            Delete
           </Button>
           <Button variant="secondary" onClick={handleChooseProfilePicture}>
             Choose Profile Picture
@@ -405,4 +431,3 @@ try {
 };
 
 export default DoctorProfile;
-

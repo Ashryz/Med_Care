@@ -12,7 +12,6 @@ const ChangePassword = () => {
     password: "",
     confirmPassword: "",
   });
-
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "password") {
@@ -20,34 +19,32 @@ const ChangePassword = () => {
     } else if (name === "confirmPassword") {
       setConfirmPassword(value);
     }
-
     // Perform validation
     validateField(name, value);
   };
 
- const validateField = (name, value) => {
-  let errorMessage = "";
-  switch (name) {
-    case "password":
-      if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(value)) {
-        errorMessage =
-          "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 6 characters long";
-      }
-      break;
-    case "confirmPassword":
-      if (value !== password) {
-        errorMessage = "Passwords do not match";
-      }
-      break;
-    default:
-      break;
-  }
-  setValidationErrors((prevErrors) => ({
-    ...prevErrors,
-    [name]: errorMessage,
-  }));
-};
-
+  const validateField = (name, value) => {
+    let errorMessage = "";
+    switch (name) {
+      case "password":
+        if (!/(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(value)) {
+          errorMessage =
+            "Password must contain at least one digit, one lowercase letter, one uppercase letter, and be at least 6 characters long";
+        }
+        break;
+      case "confirmPassword":
+        if (value !== password) {
+          errorMessage = "Passwords do not match";
+        }
+        break;
+      default:
+        break;
+    }
+    setValidationErrors((prevErrors) => ({
+      ...prevErrors,
+      [name]: errorMessage,
+    }));
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -60,18 +57,20 @@ const ChangePassword = () => {
       return;
     }
 
- try {
-    const userId = JSON.parse(localStorage.getItem("user")).id;
-    await axiosInstance.patch(`/auth/users/${userId}/`, { password: password });
-    setShowSuccessMessage(true);
-  } catch (error) {
-    console.error("Error updating password:", error);
-  }
-};
+    try {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      await axiosInstance.patch(`/auth/users/${userId}/`, {
+        password: password,
+      });
+      setShowSuccessMessage(true);
+    } catch (error) {
+      console.error("Error updating password:", error);
+    }
+  };
   return (
     <div className="container mt-5">
       <div className="row">
-              <div className="col-md-3">
+        <div className="col-md-3">
           <DSidebar />
         </div>
         <div className="col-md-9">
@@ -144,4 +143,3 @@ const ChangePassword = () => {
 };
 
 export default ChangePassword;
-
