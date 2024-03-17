@@ -1,4 +1,4 @@
-
+import { axiosInstance } from "../../Network/axiosInstance";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -23,6 +23,7 @@ import { Validations } from "../../Components/utils/validations/validation";
 const Userprofile = () => {
   
   const [userData, setUserData] = useState({
+    username: "",
     fname: "",
     lname: "",
     email: "",
@@ -37,6 +38,7 @@ const Userprofile = () => {
   const fileInputRef = useRef(null); 
 
   // Validation state variables
+  const [usernameError, setUsernameError] = useState("");
   const [fnameError, setFnameError] = useState("");
   const [lnameError, setLnameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -48,18 +50,35 @@ const Userprofile = () => {
     fetchUserData();
   }, []);
 
-  // Function to fetch user data
-  const fetchUserData = async () => {
-    try {
-      const response = await axios.get("https://retoolapi.dev/FaXhlL/userprofile");
-      if (response.data.length > 0) {
-        const currentUserData = response.data[2];
-        setUserData(currentUserData);
-      }
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-    }
-  };
+ 
+// Function to fetch user data
+const fetchUserData = async () => {
+  try {
+    // Retrieve user ID from local storage
+    const userId = JSON.parse(localStorage.getItem("user")).id;
+
+    // Fetch user data using the user ID
+    const response = await axiosInstance.get(`/auth/users/${userId}/`);
+    const userData = response.data;
+    
+    // Update user data with first name and last name
+    setUserData({
+      username: userData.username,
+      fname: userData.first_name,
+      lname: userData.last_name,
+      email: userData.email,
+      phone: userData.phone,
+      age: userData.age,
+      area: userData.city,
+      Image: userData.Image,
+      gender: userData.gender
+    });
+
+  } catch (error) {
+    console.error("Error fetching user data:", error);
+  }
+};
+
 
   // Function to handle profile picture deletion
   const handleDeleteProfilePicture = () => {
@@ -91,8 +110,11 @@ const Userprofile = () => {
       setPhoneError(Validations.phoneValid(value).message);
     } else if (name === "age") {
       setAgeError(Validations.ageValid(value).message);
+    }else if (name === "username") { // Add validation for username
+      setUsernameError(Validations.nameValid(value).message);
     }
   };
+  
 
   // Function to handle choosing profile picture
   const handleChooseProfilePicture = () => {
@@ -143,23 +165,34 @@ const Userprofile = () => {
       phoneValidation.isValid &&
       ageValidation.isValid
     ) {
-      try {
-        const existingUserResponse = await axios.get("https://retoolapi.dev/FaXhlL/userprofile");
-        const existingUser = existingUserResponse.data.length > 0;
+ try {
+      // Retrieve user ID from local storage
+      const userId = JSON.parse(localStorage.getItem("user")).id;
 
-        const method = existingUser ? "put" : "post";
-        const url = existingUser
-          ? `https://retoolapi.dev/FaXhlL/userprofile/${existingUserResponse.data[2].id}`
-          : "https://retoolapi.dev/FaXhlL/userprofile";
+      // Update user data with form inputs
+      const updatedUserData = {
+        ...userData,
+        // Add other form inputs here if needed
+      };
 
-        await axios[method](url, userData);
+      // Make API call to update user data
+      const response = await axiosInstance.patch(`/auth/users/${userId}/`, updatedUserData);
+      const updatedUserDataResponse = response.data;
 
-        setShowSuccessMessage(true);
-      } catch (error) {
-        console.error("Error saving user data:", error);
-      }
+      // Update user data state with the response
+      setUserData(updatedUserDataResponse);
+
+      setShowSuccessMessage(true); // Show success message after updating user data
+
+      // Set timeout to hide success message after 5 seconds
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 5000);
+    } catch (error) {
+      console.error("Error updating user data:", error);
     }
-  };
+  }
+};
 
   return (
     <div className="container mt-5">
@@ -206,6 +239,21 @@ const Userprofile = () => {
                     className="d-none"
                     accept="image/*"
                   />
+                </div>
+                                <div className="mb-3 row">
+                  <label htmlFor="username" className="form-label col-sm-3 text-primary">
+                     <FontAwesomeIcon icon={faUser} />Username
+                  </label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      name="username"
+                      value={userData.username}
+                      onChange={handleInputChange}
+                      className={`form-control form-control-blue ${usernameError && "is-invalid"}`}
+                    />
+                    {usernameError && <div className="invalid-feedback">{usernameError}</div>}
+                  </div>
                 </div>
                 {/* First Name Input */}
                 <div className="mb-3 row">
@@ -299,8 +347,8 @@ const Userprofile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                       <option value="M">Male</option>
+                      <option value="F">Female</option>
                      
                     </Form.Select>
                     
