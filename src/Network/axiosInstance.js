@@ -10,8 +10,10 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(function (config) {
-    config.headers["Authorization"] = "6d9243bfb4651cf12a3653531269af58a60f4780"
+    config.headers["Authorization"] = `Token ${localStorage.getItem("token")}`
     return config;
   }, function (error) {
     return Promise.reject(error);
   });
+
+

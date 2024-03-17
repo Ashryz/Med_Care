@@ -198,16 +198,18 @@ export function SignUpDoc({ userType, onClose }) {
         setShowAlert(true);
       }
     } catch (error) {
-      if (!error.response.data) {
+      if (!error.response) {
+        // No response from server
         setAlertTitle("Error");
-        setAlertMessage("Registration failed. Please try again later.");
+        setAlertMessage("Server is not responding. Please try again later.");
         setShowAlert(true);
       } else {
+        // Server responded with an error
         let errorMessage = "";
         for (const key in error.response.data) {
           errorMessage += `${key}: ${error.response.data[key]}\n`;
         }
-
+    
         console.error("Error:", error);
         setAlertTitle("Error");
         setAlertMessage(errorMessage);

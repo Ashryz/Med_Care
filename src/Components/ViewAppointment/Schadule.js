@@ -13,8 +13,6 @@ export const Schadule = () => {
     const SchaduleItem = (appointment) => {
 
         return (
-
-
             <div className="container mx-auto w-75 my-3 p-0 text-start  rounded-4  shadow" key={appointment.id} style={{ backgroundImage: `url(${background})`, backgroundSize: 'cover' }}>
 
                 <div className='prim-pg text-center text-white p-2 ' style={{ borderRadius: "11px 11px 0px 0px" }}><span className='fw-bold'>Appointment</span></div>

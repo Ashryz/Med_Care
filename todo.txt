@@ -1,0 +1,37 @@
+
+1- dashboard
+      a- doctor****
+         I- add schedual
+            1- form to add schedual
+
+         II- view schedual
+
+         III- view appointments
+
+         IV -  ratings
+--------------------------------
+      b- patient
+         I- view appointments
+
+2- doctors list(at the end no one will do it now)
+      a- patient can book appointments from the doctor detals page ()
+
+3- profile (easy) not demanding (israa)
+      for both basic info section
+
+      a- doctor
+         I- additional info
+
+
+4- rating (easy) (mohamed)
+
+5- search pagination (easy) (yussef abo alam)
+
+--------------not implemented--------------
+
+1- img 
+2- inform the patient that his appontment is accepted/rejected(by EMAIL)
+1- auth
+      a- reset password
+      b- activation email
+1- payment
