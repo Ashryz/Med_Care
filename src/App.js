@@ -25,6 +25,9 @@ import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
+import  Appointments from "./Components/Dashboard/Appointments.js";
+import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
+
 import { useSelector } from "react-redux";
 
 function App() {
@@ -50,18 +53,13 @@ function App() {
             <Route exact path="/Hero" element={<Hero />} />
             <Route exact path="/review" element={<Review />} />
             <Route exact path="/DoctorCard" element={<DoctorCard />} />
-            <Route
-              exact
-              path="/DoctorDetails/:id"
-              element={<DoctorDetails />}
-            />
-            <Route
-              exact
-              path="/viewappointment"
-              element={<ViewAppointment />}
-            />
+            <Route exact path="/DoctorDetails/:id"element={<DoctorDetails />}/>
+            <Route exact path="/viewappointment"element={<ViewAppointment />}/>
             <Route exact path="/Schadule" element={<Schadule />} />
             <Route exact path="/Dashboard" element={<Dashboard />} />
+            <Route exact path="/Appointments" element={< Appointments  />} />
+            <Route exact path="/MainDashboard" element={<MainDashboard/>} />
+            <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
           <FooterComp />
