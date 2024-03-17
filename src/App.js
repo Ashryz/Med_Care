@@ -26,6 +26,7 @@ import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
 import { useSelector } from "react-redux";
+import Report from "./Components/Dashboard/Report.js";
 
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
@@ -50,6 +51,7 @@ function App() {
             <Route exact path="/Hero" element={<Hero />} />
             <Route exact path="/review" element={<Review />} />
             <Route exact path="/DoctorCard" element={<DoctorCard />} />
+            {/* <Route path="/report" element={<Report />} /> */}
             <Route
               exact
               path="/DoctorDetails/:id"

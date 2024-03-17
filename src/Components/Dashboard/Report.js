@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, Row, Col } from 'react-bootstrap';
 
-function MainDashboard() {
+function Report() {
   return (  
     <div className="container main-dashboard-container">
       <Row>
@@ -36,4 +36,4 @@ function MainDashboard() {
   );
 }
 
-export default MainDashboard;
+export default Report;

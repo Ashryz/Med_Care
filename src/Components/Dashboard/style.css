@@ -29,10 +29,21 @@
   border-radius: 0;
   display: flex; /* Add flex display */
   align-items: center; 
+  transition: transform .3s; 
+ 
+ 
+}
+
+.list-group-item:hover{
+  background-color: mediumseagreen;
+  border-radius: 8px;
+  transform: scale(1.1);
+  
 }
 
 .list-group-item i {
   margin-right: 20px;
+  
 }
 
 
