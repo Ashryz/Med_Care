@@ -22,12 +22,7 @@ const Sidebar = () => {
         </ListGroup.Item>
       </Link>
 
-       <Link className="text-decoration-none" to="/MyInsurance">
-        <ListGroup.Item className='list-group-item listgroupItem prim-color'>
-          <FontAwesomeIcon icon={faShieldAlt} className="me-2" />
-          <span className='spanStyle'>My Insurance</span>
-        </ListGroup.Item>
-        </Link>
+      
 
     </ListGroup>
   );
