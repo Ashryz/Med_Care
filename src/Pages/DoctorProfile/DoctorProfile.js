@@ -179,7 +179,7 @@ const DoctorProfile = () => {
                   >
                     <div className="position-relative">
                       <img
-                        src={doctorData.Image ? doctorData.Image : "/profile.jpeg"}
+                        src={+doctorData.Image ? doctorData.Image : "img/profile.jpeg"}
                         alt="Doctor"
                         className="rounded-circle img-thumbnail"
                         style={{

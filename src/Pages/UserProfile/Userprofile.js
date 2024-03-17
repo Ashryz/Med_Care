@@ -172,12 +172,12 @@ const fetchUserData = async () => {
       // Update user data with form inputs
       const updatedUserData = {
         username: userData.username,
-        first_name: userData.fname, 
-        last_name: userData.lname,  
+        first_name: userData.fname,
+        last_name: userData.lname,
         email: userData.email,
         phone: userData.phone,
         age: userData.age,
-        city: userData.area, 
+        city: userData.area,
         Image: userData.Image,
         gender: userData.gender
       };
