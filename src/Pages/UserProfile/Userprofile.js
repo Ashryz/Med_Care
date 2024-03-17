@@ -61,7 +61,7 @@ const fetchUserData = async () => {
     const response = await axiosInstance.get(`/auth/users/${userId}/`);
     const userData = response.data;
     
-    // Update user data with first name and last name
+    // Update user data 
     setUserData({
       username: userData.username,
       fname: userData.first_name,
@@ -69,7 +69,7 @@ const fetchUserData = async () => {
       email: userData.email,
       phone: userData.phone,
       age: userData.age,
-      area: userData.city,
+      city: userData.area,
       Image: userData.Image,
       gender: userData.gender
     });
@@ -165,14 +165,21 @@ const fetchUserData = async () => {
       phoneValidation.isValid &&
       ageValidation.isValid
     ) {
- try {
+    try {
       // Retrieve user ID from local storage
       const userId = JSON.parse(localStorage.getItem("user")).id;
 
       // Update user data with form inputs
       const updatedUserData = {
-        ...userData,
-        // Add other form inputs here if needed
+        username: userData.username,
+        first_name: userData.fname, 
+        last_name: userData.lname,  
+        email: userData.email,
+        phone: userData.phone,
+        age: userData.age,
+        city: userData.area, 
+        Image: userData.Image,
+        gender: userData.gender
       };
 
       // Make API call to update user data
