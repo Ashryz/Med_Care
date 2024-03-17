@@ -16,10 +16,6 @@ function Appointments() {
               <Sidebar />
             </div>
             <div className="col-md-9 mt-3">
-              {/* <div style={{ textAlign: 'center' }}>
-                <i className="bi bi-speedometer2" style={{ fontSize: '48px', marginBottom: '20px' }}></i>
-                <h1>Welcome to your Appointments</h1>
-              </div> */}
               <ViewAppointment/>
             </div>
           </div>
