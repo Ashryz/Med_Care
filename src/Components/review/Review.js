@@ -81,13 +81,13 @@ const ReviewCard = ({ revObj }) => {
         </Row>
         <Row className="justify-content-center m-0 p-3 h-50">
           <div className="col-12 text-center bg-light p-3 rounded-3 shadow-lg">
-            <h6>{revObj.review}</h6>
+            <h6>{revObj.comment}</h6>
           </div>
         </Row>
         <Row className="justify-content-center m-0 p-3">
           <div className="col-12 text-center">
             <p className="text-muted small fs-8 text-center">
-              Last update: {revObj.date}
+              Last update: {revObj.created_at.split("T")[0]}
             </p>
           </div>
         </Row>

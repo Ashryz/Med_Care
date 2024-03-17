@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import DoctorCard from "../../Components/Doctors/DoctorCard";
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { FaHourglassStart } from "react-icons/fa";
+import { axiosInstance } from "../../Network/axiosInstance";
 
 function DoctorDetails() {
   const { id } = useParams();
@@ -12,14 +12,13 @@ function DoctorDetails() {
   const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`https://retoolapi.dev/46yPXc/doctors/1`)
-      .then((res) => {
-        // console.log(res.data)
-        setDoctor(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, [id]);
+    axiosInstance.get(`/doctors/doctor/${id}`).then((response) => {
+      setDoctor(response.data);
+      console.log(doctor);
+    }
+    );
+  }
+  , [id]);
 
   if (!doctor) {
     return (
