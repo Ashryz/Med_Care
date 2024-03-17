@@ -34,7 +34,7 @@
  
 }
 
-.list-group-item:hover{
+.lis:hover{
   background-color: mediumseagreen;
   border-radius: 8px;
   transform: scale(1.1);
