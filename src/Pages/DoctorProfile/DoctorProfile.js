@@ -3,6 +3,7 @@ import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { axiosInstance } from "../../Network/axiosInstance";
 import {
   faUser,
   faEnvelope,
@@ -53,13 +54,10 @@ const DoctorProfile = () => {
 
   const fetchDoctorData = async () => {
     try {
-      const response = await axios.get(
-        "https://retoolapi.dev/46yPXc/doctors"
-      );
-      if (response.data.length > 0) {
-        const currentDoctorData = response.data[2];
-        setDoctorData(currentDoctorData);
-      }
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+      const response = await axiosInstance.get(`/auth/users/${userId}/`); 
+      const { username, first_name, last_name, email, phone, age,gender,area, fees, specialization, degree } = response.data;
+      setDoctorData({ username, first_name, last_name, email, phone, age,gender, area, fees, specialization, degree });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
     }
@@ -140,23 +138,13 @@ const DoctorProfile = () => {
     }
 
     try {
-      const existingDoctorResponse = await axios.get(
-        "https://retoolapi.dev/1qOuQb/Doctorprofile"
-      );
-      const existingDoctor = existingDoctorResponse.data.length > 0;
-
-      const method = existingDoctor ? "put" : "post";
-      const url = existingDoctor
-        ? `https://retoolapi.dev/46yPXc/doctors/${existingDoctorResponse.data[2].id}`
-        : "https://retoolapi.dev/46yPXc/doctors";
-
-      await axios[method](url, doctorData);
-
+      await axiosInstance.patch("/auth/users/${userId}/", doctorData); // Update doctor data by ID
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Error saving doctor data:", error);
     }
   };
+
 
   return (
     <div className="container mt-5">
@@ -332,8 +320,8 @@ const DoctorProfile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
+                        <option value="M">Male</option>
+                      <option value="F">Female</option>
                      
                     </Form.Select>
                     

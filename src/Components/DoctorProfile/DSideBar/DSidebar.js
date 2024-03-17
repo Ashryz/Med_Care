@@ -33,6 +33,15 @@ const Sidebar = () => {
         <FontAwesomeIcon icon={faKey} className="prim-color"/> Change Password
         </ListGroup.Item>
       </Link>
+            <Link
+       to="/additionalinfo"
+        className="text-decoration-none"
+      >
+      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+      
+        <FontAwesomeIcon icon={faKey} className="prim-color"/> Additional Information
+        </ListGroup.Item>
+      </Link>
   </ListGroup>
   );
 };
