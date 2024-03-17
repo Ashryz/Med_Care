@@ -25,7 +25,6 @@ function SearchResults() {
 
     return (
         <Container fluid className="mt-5 mb-5">
-            <SearchBar/>
         <Row >
             <Col md={3} className="d-none d-xl-block">
                 <Filter />
