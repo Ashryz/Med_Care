@@ -5,44 +5,41 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faUser,
   faKey,
-  faCalendarAlt,
-  faHospital,
-  faClock,
   faInfoCircle,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Sidebar = () => {
   return (
-    <ListGroup className='list-group listStyle m-3 col'>
+    <ListGroup className='list-group listStyle m-3 col border'>
     
       <Link
         to="/DoctorProfile"
-        className="text-decoration-none"
+        className="text-decoration-none rounded-top"
       >
-      <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
-      
-        <FontAwesomeIcon icon={faUser} /> Profile
-      </ListGroup.Item>
-        </Link>
+        <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white '>
+          <FontAwesomeIcon icon={faUser} /> Profile
+        </ListGroup.Item>
+      </Link>
         
       <Link
-       to="/changedDpassword"
+        to="/changedDpassword"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+        <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+          <FontAwesomeIcon icon={faKey} className="me-2"/> Change Password
+        </ListGroup.Item>
+      </Link>
       
-        <FontAwesomeIcon icon={faKey} className="prim-color"/> Change Password
-        </ListGroup.Item>
-      </Link>
-            <Link
-       to="/additionalinfo"
+      <Link
+        to="/additionalinfo"
         className="text-decoration-none"
       >
-      <ListGroup.Item className='list-group-item listgroupItem prim-color'>
-       <FontAwesomeIcon icon={faInfoCircle} className="prim-color"/>Additional Information
+        <ListGroup.Item className='list-group-item listgroupItem prim-color'>
+          <FontAwesomeIcon icon={faInfoCircle} className="me-2"/> Additional Information
         </ListGroup.Item>
       </Link>
-  </ListGroup>
+      
+    </ListGroup>
   );
 };
 

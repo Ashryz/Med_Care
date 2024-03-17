@@ -1,8 +1,8 @@
-import "./changepass.css";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import ListGroup from "react-bootstrap/ListGroup";
 import Sidebar from "../SideBar/Sidebar";
 import axios from "axios";
+import "./changepass.css"; // Import the CSS file for styling
 
 const ChangePass = () => {
   const [user, setUser] = useState({
@@ -103,22 +103,18 @@ const ChangePass = () => {
 
   return (
     <>
-      <div className="container">
+      <div className="container mt-5">
         <div className="row">
           <div className="col-md-3">
             <Sidebar />
           </div>
-          <div className="col-md-9">
-            <ListGroup className="cardheadlistStyle m-3 " >
+          <div className="col-md-9  mx-auto">
+            <ListGroup className="border rounded m-3  " >
               <ListGroup.Item
-                className="cardhead prim-pg listgroupItem"
-               
+                className="cardhead prim-pg  text-center"
               >
-              <div className="card-header prim-pg text-light">
-                <h4 className="text-center ">
-                  {" "}
-                  Change Password
-                </h4>
+                <div className="card-header prim-pg text-light">
+                  <h3 className="text-center mb-0">Change Password</h3>
                 </div>
               </ListGroup.Item>
 
