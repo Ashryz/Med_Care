@@ -31,8 +31,20 @@ export const themesAction = (payload) => ({
     payload
 });
 
-export const getDoctorsList = (page = 1, pageSize = 10) => (dispatch) => {
-    return axiosInstance.get(`/doctors/doctors/?p=${page}&page_size=${pageSize}`)
+// export const getDoctorsList = (page = 1, pageSize = 10) => (dispatch) => {
+//     return axiosInstance.get(`/doctors/doctors/?p=${page}&page_size=${pageSize}`)
+//         .then((res) => {
+//             dispatch({
+//                 type: "GET_DOCTORS_LIST",
+//                 payload: res.data
+//             });
+//         })
+//         .catch((err) => console.log(err));
+// };
+export const getDoctorsList = (page = 1, pageSize = 10, query = '') => (dispatch) => {
+    const url = `/doctors/doctors/?p=${page}&page_size=${pageSize}&q=${query}`;
+
+    return axiosInstance.get(url)
         .then((res) => {
             dispatch({
                 type: "GET_DOCTORS_LIST",

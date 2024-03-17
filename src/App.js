@@ -26,6 +26,7 @@ import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
 import { useSelector } from "react-redux";
+import SearchBar from "./Components/Search/searchbar.js";
 
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
@@ -62,6 +63,7 @@ function App() {
             />
             <Route exact path="/Schadule" element={<Schadule />} />
             <Route exact path="/Dashboard" element={<Dashboard />} />
+            <Route exact path="/searchbar" element={<SearchBar/>} />
             <Route path="*" element={<Error />} />
           </Routes>
           <FooterComp />
