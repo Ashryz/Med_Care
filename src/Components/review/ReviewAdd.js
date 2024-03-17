@@ -1,23 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { Button, Card, Modal, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
 import "./Review.css";
-import axios from "axios";
-function ReviewAdd() {
+
+import { AuthContext } from "../../context/AuthContext";
+import { axiosInstance } from "../../Network/axiosInstance";
+function ReviewAdd({ doctor_id, onClose, refresh }) {
   // const revobj
   //6,john@gmail.com,1,6,ahmedp@gmail.com,Dr. John is very good,2025-09-20,5,person.jpg
   const [animated, setAnimated] = useState("");
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext.currentUser;
   const revobg = {
-    id: "",
-    doc_mail: "example@gmail.com",
-    doc_id: 1,
-    patient_id: 1,
-    patient_mail: "jojo@gmail.com",
-    review: "",
-    date: new Date().toISOString().slice(0, 10),
-    rating: 0,
-    patiant_img: "person.jpg",
+    user: currentUser.id,
+    doctor: doctor_id,
+    comment: "",
+    rating: "",
   };
 
   const [reviewText, setReviewText] = useState("");
@@ -46,15 +45,15 @@ function ReviewAdd() {
       }, 500);
       return;
     }
-    const updatedRevObj = { ...revobg, review: reviewText, rating: starRating };
-    axios
-      .post("https://retoolapi.dev/bGDaxE/feedback", updatedRevObj)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    const updatedRevObj = {
+      ...revobg,
+      comment: reviewText,
+      rating: starRating,
+    };
+    axiosInstance.post("/ratings/", updatedRevObj).then((response) => {
+      console.log(response.data);
+      refresh();
+    });
 
     handleClose();
   };

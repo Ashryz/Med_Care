@@ -1,25 +1,33 @@
 import { FaStar } from "react-icons/fa";
 import "./rating_card_for_doc.css";
 import { Modal } from "react-bootstrap";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { FaPen } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import EditableReview from "../../Components/review/EditableReview";
 import ReviewDel from "../../Components/review/ReviewDel";
 import ReviewCard from "../../Components/review/Review";
 import { FaEye } from "react-icons/fa";
-function RatingCardForDoc({ revObj }) {
+import { AuthContext } from "../../context/AuthContext";
+function RatingCardForDoc({ revObj, refresh }) {
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext.currentUser;
   const [action, setAction] = useState(false);
+  console.log(revObj);
 
   return (
     <>
       <div className="rating__card">
         <div className="d-flex justify-content-between">
-          <FaPen className="add" onClick={() => setAction("mod")} />
+          {currentUser.id === revObj.user.id && (
+            <FaPen className="add" onClick={() => setAction("mod")} />
+          )}
           <blockquote className="rating__card__quote">
-            “{revObj.review}”
+            “{revObj.comment}”
           </blockquote>
-          <MdDelete className="delete" onClick={() => setAction("delete")} />
+          {currentUser.id === revObj.user.id && (
+            <MdDelete className="delete" onClick={() => setAction("delete")} />
+          )}
         </div>
         <div className="rating__card__stars">
           {[...Array(revObj.rating)].map((_, index) => (
@@ -33,7 +41,8 @@ function RatingCardForDoc({ revObj }) {
           className="rating__card__date text-muted mt-2"
           style={{ fontSize: "12px" }}
         >
-          Last update: {revObj.date}
+          Last update: {/* show only the date and not the time */}
+          {revObj.created_at.split("T")[0]}
         </p>
         <FaEye className="add mt-2" onClick={() => setAction("view")} />
       </div>
@@ -44,14 +53,18 @@ function RatingCardForDoc({ revObj }) {
         className="p-0"
       >
         <Modal.Body
-        style={{
-          backgroundColor: "none",
-          width: "100%",
-          margin: "auto",
-          padding: "0",
-        }}
+          style={{
+            backgroundColor: "none",
+            width: "100%",
+            margin: "auto",
+            padding: "0",
+          }}
         >
-          <EditableReview revObj={revObj} onClose={() => setAction(false)} />
+          <EditableReview
+            revObj={revObj}
+            onClose={() => setAction(false)}
+            refresh={refresh}
+          />
         </Modal.Body>
       </Modal>
       <Modal
@@ -61,7 +74,7 @@ function RatingCardForDoc({ revObj }) {
         className="trans-bg-custom"
       >
         <Modal.Body>
-          <ReviewDel revObj={revObj} onClose={() => setAction(false)} />
+          <ReviewDel revObj={revObj} onClose={() => setAction(false)} refresh={refresh} />
         </Modal.Body>
       </Modal>
 
