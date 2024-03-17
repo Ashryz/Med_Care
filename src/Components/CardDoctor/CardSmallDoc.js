@@ -62,7 +62,7 @@ function CardSmallDoc({ doc }) {
           md={4}
           className="d-flex justify-content-center align-items-center"
         >
-          <Link to={`/DoctorDetails/${doc.id}`}>
+          <Link to={`/DoctorDetails/${doc.user.id}`}>
             <Button className="btn me-2 sec-btn">Details</Button>
           </Link>
           <Button className="btn main-btn">Booking</Button>

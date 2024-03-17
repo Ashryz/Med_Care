@@ -8,7 +8,7 @@ import { faUser, faLock, faShieldAlt } from '@fortawesome/free-solid-svg-icons';
 
 const Sidebar = () => {
   return (
-    <ListGroup className='list-group listStyle m-3 col'>
+    <ListGroup className='list-group listStyle m-3 col border '>
         <Link className="text-decoration-none rounded-top" to="/Userprofile">
         <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
           <FontAwesomeIcon icon={faUser} className="me-2" />
@@ -22,12 +22,7 @@ const Sidebar = () => {
         </ListGroup.Item>
       </Link>
 
-       <Link className="text-decoration-none" to="/MyInsurance">
-        <ListGroup.Item className='list-group-item listgroupItem prim-color'>
-          <FontAwesomeIcon icon={faShieldAlt} className="me-2" />
-          <span className='spanStyle'>My Insurance</span>
-        </ListGroup.Item>
-        </Link>
+      
 
     </ListGroup>
   );

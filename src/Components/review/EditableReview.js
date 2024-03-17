@@ -2,14 +2,13 @@ import React, { useEffect, useState } from "react";
 import { Button, Card, Row } from "react-bootstrap";
 import { FaStar } from "react-icons/fa";
 import { CiStar } from "react-icons/ci";
-import axios from "axios";
-import './Review.css'
+import "./Review.css";
+import { axiosInstance } from "../../Network/axiosInstance";
 
-
-function EditableReview({ revObj, onClose }) {
-  const [reviewText, setReviewText] = useState(revObj.review);
+function EditableReview({ revObj, onClose ,refresh}) {
+  const [reviewText, setReviewText] = useState(revObj.comment);
   const [starRating, setStarRating] = useState(revObj.rating);
-
+  console.log(revObj)
   const handleReviewChange = (event) => {
     setReviewText(event.target.value);
   };
@@ -20,18 +19,16 @@ function EditableReview({ revObj, onClose }) {
 
   const handelSubmit = (e) => {
     e.preventDefault();
-    axios
-      .patch(`https://retoolapi.dev/bGDaxE/feedback/${revObj.id}`, {
-        review: reviewText,
-        rating: starRating,
-        date: new Date().toISOString().slice(0, 10),
-      })
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axiosInstance.put(`/ratings/${revObj.id}/`, {
+      doctor: revObj.doctor,
+      user: revObj.user.id,
+      rating: starRating,
+      comment: reviewText,
+    }).then((response) => {
+      console.log(response.data);
+      refresh();
+    
+    });
     onClose();
   };
   const handelCancel = () => {
@@ -62,7 +59,6 @@ function EditableReview({ revObj, onClose }) {
         <Row className="align-items-center justify-content-center mt-5 p-1">
           <div className="col-sm-6 text-center">
             <div className="rounded-5 shadow p-2 main-btn">
-              
               <p className="mb-0">
                 <span className="bg-warning badge rounded-pill text-dark">
                   !
