@@ -23,7 +23,7 @@ import DoctorCard from "./Components/Doctors/DoctorCard.js";
 import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
-import Dashboard from "./Components/ViewAppointment/Dashboard.js";
+import Dashboard from "./Components/Dashboard/Dashboard.js";
 import { useSelector } from "react-redux";
 
 function App() {

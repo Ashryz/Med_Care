@@ -1,0 +1,51 @@
+/* style.css */
+
+.sidebar {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 400px;
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.brand-name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+.sidebar-divider {
+  border-top: 1px solid #ccc;
+}
+
+.list-group-item {
+  background-color: transparent;
+  border: none;
+  border-radius: 0;
+  display: flex; /* Add flex display */
+  align-items: center; 
+}
+
+.list-group-item i {
+  margin-right: 20px;
+}
+
+
+  
+  /* MainDashboard styles */
+  .main-dashboard-container {
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 20px;
+    background-color: #f8f9fa;
+  }
+  
+  .card {
+    margin-bottom: 20px;
+  }
+  
