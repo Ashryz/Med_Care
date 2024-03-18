@@ -8,7 +8,6 @@ import { axiosInstance } from "../../Network/axiosInstance";
 function EditableReview({ revObj, onClose ,refresh}) {
   const [reviewText, setReviewText] = useState(revObj.comment);
   const [starRating, setStarRating] = useState(revObj.rating);
-  console.log(revObj)
   const handleReviewChange = (event) => {
     setReviewText(event.target.value);
   };

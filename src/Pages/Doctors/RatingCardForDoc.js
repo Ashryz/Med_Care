@@ -13,7 +13,7 @@ function RatingCardForDoc({ revObj, refresh }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
   const [action, setAction] = useState(false);
-  console.log(revObj);
+  
 
   return (
     <>
@@ -74,7 +74,7 @@ function RatingCardForDoc({ revObj, refresh }) {
         className="trans-bg-custom"
       >
         <Modal.Body>
-          <ReviewDel revObj={revObj} onClose={() => setAction(false)} refresh={refresh} />
+          <ReviewDel revObj={revObj} onClose={() => setAction(false)} refresh= {refresh}/>
         </Modal.Body>
       </Modal>
 

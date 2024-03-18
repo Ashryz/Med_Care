@@ -20,24 +20,52 @@ function DoctorCard({ doctor }) {
   const [add, setAdd] = useState(false);
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
-  
+  const [noRating, setNoRating] = useState(false);
+
   const getRating = () => {
-    axiosInstance.get(`/ratings/doctor/${doctor.user.id}`).then((response) => {
-      setData(response.data);
-    });
+    axiosInstance
+      .get(`/ratings/doctor/${doctor.user.id}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Rating not found for the doctor");
+          // You can set data to some default value or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching rating:", error);
+        }
+      });
   };
 
   const refresh = () => {
     getRating();
   };
 
-
   useEffect(() => {
-    axiosInstance.get(`/ratings/doctor/${doctor.user.id}`).then((response) => {
-      setData(response.data);
-    });
-  }, [doctor, add, currentUser]);
+    axiosInstance
+      .get(`/ratings/doctor/${doctor.user.id}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Rating not found for the doctor");
+          setNoRating(true);
+          // You can set data to some default value or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching rating:", error);
+        }
+      });
 
+    if (data.length === 0) {
+      setNoRating(true);
+    }
+  }, [doctor, add, currentUser, data.length]);
   return (
     <Container className="mt-4">
       <Card className="mt-5 p-3 shadow">
@@ -136,6 +164,12 @@ function DoctorCard({ doctor }) {
               </span>
             </div>
             <div className="text-center ">
+              {data.length === 0 && (
+                <div className="text-center">
+                  <h5 className="text-muted">No reviews yet</h5>
+                </div>
+              )}
+
               {data.map((revObj) => {
                 return <RatingCardForDoc revObj={revObj} refresh={refresh} />;
               })}
