@@ -6,22 +6,22 @@ function Teams() {
         <h2>WEBSITE TERMS OF USE</h2>
         <p>
           Thank you for using our services. To govern the relationship
-          established by your use of Vezeeta.com ("Site"), or our application
-          Vezeeta, ("Application") and the Services offered by Vezeeta therein,
+          established by your use of MidCare.com ("Site"), or our application
+          MidCare, ("Application") and the Services offered by MidCare therein,
           these Terms of Use ("Terms") constitute a legally binding agreement
           made between you, either in your capacity as an individual or on
           behalf of an organization or entity you legally represent ("you,"
-          "your", "yours"), and Vezeeta LLC, the owner and operator of Vezeeta
-          ("Vezeeta", "us", "our"). These Terms apply to all users of the site,
+          "your", "yours"), and MidCare LLC, the owner and operator of MidCare
+          ("MidCare", "us", "our"). These Terms apply to all users of the site,
           including without limitation browsers, vendors, customers, providers,
-          and/or contributors of content ("Users"). You understand that Vezeeta
-          or any of Vezeeta's affiliates reserves the right to limit or
+          and/or contributors of content ("Users"). You understand that MidCare
+          or any of MidCare's affiliates reserves the right to limit or
           discontinue your use of the online services if you do not abide by
-          these Terms or at the sole discretion of Vezeeta. By accessing or
+          these Terms or at the sole discretion of MidCare. By accessing or
           using any part of the Site or Application, you agree that you have
           read, understand and agree to be bound by these Terms, as well as
           additional available guidelines, policies, or rules as applicable to
-          the Site and Application, including, without limitation, the Vezeeta
+          the Site and Application, including, without limitation, the MidCare
           Privacy Policy, which are incorporated by reference into this Terms.
           IF YOU DO NOT AGREE TO BE BOUND BY THESE TERMS AND TO FOLLOW ALL
           APPLICABLE LAWS, GUIDELINES AND POLICIES, DO NOT ACCESS OR USE THE
@@ -42,7 +42,7 @@ function Teams() {
           search and book an appointment with a Provider. You acknowledge that
           some of the Services are made available under various names. You also
           acknowledge that the Services may be made available under (i) certain
-          Vezeeta subsidiaries and affiliates or (ii) independent Providers
+          MidCare subsidiaries and affiliates or (ii) independent Providers
           <br />
         </p>
         <p id="sb">
@@ -96,8 +96,8 @@ function Teams() {
           will be protected and kept private as well and cannot be shared with
           third parties. The supplier doctor will keep it under your name on his
           account for building your Medical Record at the clinic. In case you do
-          not agree to keep a Medical Record of your data, you can send Vezeeta
-          your request expressing your desire not to share, and Vezeeta shall
+          not agree to keep a Medical Record of your data, you can send MidCare
+          your request expressing your desire not to share, and MidCare shall
           comply with this request.
         </p>
         <p>
@@ -113,13 +113,13 @@ function Teams() {
           constitute neither a Provider's judgment nor the product of medical
           science. You should understand that the Evaluations expressed therein
           are of those who provide the same, that it does not reflect the
-          opinions of Vezeeta, and does not in any way constitute or imply our
-          endorsement or recommendation thereof. Thus, Vezeeta shall not assume
+          opinions of MidCare, and does not in any way constitute or imply our
+          endorsement or recommendation thereof. Thus, MidCare shall not assume
           any liability for any of the posted Evaluations. Further, you should
           bear in mind that Evaluations are subject to errors and biases that
           are common in anecdotal first- hand accounts, and should not to be
           presumed to be reliable or error-free. Any Content that you obtain or
-          receive from Vezeeta, its employees, contractors, partners, sponsors,
+          receive from MidCare, its employees, contractors, partners, sponsors,
           advertisers, licensors or otherwise through the Services, is for
           informational, scheduling and payment purposes only. All information
           is for informational purposes only, and does not constitute medical
@@ -134,7 +134,7 @@ function Teams() {
         </p>
         <h2>2. PRIVACY AND SECURITY POLICY</h2>
         <p>
-          2.1 Vezeeta and its affiliates consider the privacy of your health
+          2.1 MidCare and its affiliates consider the privacy of your health
           information to be one of the most important elements in our
           relationship with you. Our responsibility to maintain the
           confidentiality of your health information is one that we take very
@@ -145,7 +145,7 @@ function Teams() {
           as described here. You are the owner of the data and you share it when
           you need through our Site.
           <br /> 2.2 To further protect the confidentiality, integrity and
-          availability of the information housed and shared on Vezeeta, as well
+          availability of the information housed and shared on MidCare, as well
           as the stability of our Services, you agree to the following
           additional safeguards. Accordingly, you agree that you will not, nor
           will you attempt to:
@@ -227,10 +227,10 @@ function Teams() {
         <p id="tb">3.2 Refund Policy</p>
         <p id="fb">
           3.2.1 Charges paid by you are final and non-refundable, unless
-          otherwise determined by Vezeeta.
+          otherwise determined by MidCare.
           <br /> 3.2.2 The refund will be made on the same payment method, if
           applicable.
-          <br /> 3.2.3 Vezeeta reserves its right to refund any amounts into the
+          <br /> 3.2.3 MidCare reserves its right to refund any amounts into the
           users account to be used in other services at its sole discretion.
           <br /> 3.2.4 Refunds are not applicable if the User is unsatisfied
           with the medical service provided.
@@ -246,7 +246,7 @@ function Teams() {
         <p id="eb">
           4.1 You must comply with these Terms, any policies referred to on the
           Site, any laws, regulations, rules, License or Restrictions approved
-          by Vezeeta.
+          by MidCare.
         </p>
         <h2>5. LICENSE</h2>
         <p id="eb">
@@ -254,7 +254,7 @@ function Teams() {
           revocable, non-exclusive right to use the Services, Content and
           materials on the Site in the normal course of your use of the Site.
           You may not use any third party's intellectual property without the
-          express written permission of the such third party.<br/><br/> 5.2 Vezeeta will
+          express written permission of the such third party.<br/><br/> 5.2 MidCare will
           retain ownership of its intellectual property rights and you may not
           obtain any rights therein by virtue of these Terms or otherwise,
           except as expressly set forth in these Terms. You will have no right
