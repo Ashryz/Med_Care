@@ -77,11 +77,11 @@ function Contact() {
    </div>
    <div className='col col-4 lab'>
 <h3>Call Us</h3>
-<p>16676 Cost of regular call
+<p>0244625637 Cost of regular call
 
 </p>
 <p>From outside Egypt call:<br/>
-+2 02 259 83 999</p>
+01069433663</p>
 <h3>Address</h3>
 <p>124 Othman Ibn Affan St. behind Military college - Heliopolis
 
