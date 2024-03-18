@@ -1,5 +1,5 @@
 import { axiosInstance } from "../../Network/axiosInstance";
-import React, { useState, useEffect, useRef,useContext } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,8 +13,6 @@ import {
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/AuthContext";
-
-
 
 import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
 
@@ -182,25 +180,22 @@ const Userprofile = () => {
           `/auth/users/${userId}/`,
           updatedUserData
         );
-          if (response.status === 200) {
-            // Show success message
-            setShowSuccessMessage(true);
-            authContext.setCurrentUser(response.data);
-            // Hide success message after 3 seconds
-            
+        if (response.status === 200) {
+          // Show success message
+          setShowSuccessMessage(true);
+          authContext.setCurrentUser(response.data);
+          // Hide success message after 3 seconds
 
-            localStorage.setItem("user", JSON.stringify(response.data));
-            setTimeout(() => {
-              setShowSuccessMessage(false);
-            }, 3000);
-          }
-      }
-      catch (error) {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+          }, 3000);
+        }
+      } catch (error) {
         console.error("Error updating user data:", error);
       }
     }
-  }
-
+  };
 
   return (
     <div className="container mt-5">
