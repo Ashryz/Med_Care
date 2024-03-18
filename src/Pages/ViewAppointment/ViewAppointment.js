@@ -1,16 +1,19 @@
 import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Pagination } from "react-bootstrap";
 import { axiosInstance } from "../../Network/axiosInstance";
+import { AuthContext } from "../../context/AuthContext";
 // import { Link } from "react-router-dom";
 
 export const ViewAppointment = () => {
   const [appointments, setappointments] = useState([]);
   // const [currentPage, setCurrentPage] = useState(1);
   // const [totalPages, setTotalPages] = useState(0);
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext.currentUser;
   useEffect(() => {
     axiosInstance
-      .get("/appointments/all_app/doctor/2/")
+      .get(`/appointments/all_app/doctor/${currentUser.id}`)
       .then((res) => {
         setappointments(res.data);
         // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
