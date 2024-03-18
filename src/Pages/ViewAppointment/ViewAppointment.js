@@ -5,41 +5,38 @@ import { axiosInstance } from "../../Network/axiosInstance";
 // import { Link } from "react-router-dom";
 
 export const ViewAppointment = () => {
-    const [appointments, setappointments] = useState([])
-    // const [currentPage, setCurrentPage] = useState(1);
-    // const [totalPages, setTotalPages] = useState(0);
-    useEffect(() => {
-        axiosInstance.get("/appointments/all_app/doctor/2/")
-            .then((res) => {
-                setappointments(res.data);
-                // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
-                console.log(res.data)
-            })
-            .catch((err) => console.log(err))
-    }, []) //currentPage
-    // const handlePageChange = (page) => {
-    //     setCurrentPage(page);
-    // };
+  const [appointments, setappointments] = useState([]);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [totalPages, setTotalPages] = useState(0);
+  useEffect(() => {
+    axiosInstance
+      .get("/appointments/all_app/doctor/2/")
+      .then((res) => {
+        setappointments(res.data);
+        // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
+        console.log(res.data);
+      })
+      .catch((err) => console.log(err));
+  }, []); //currentPage
+  // const handlePageChange = (page) => {
+  //     setCurrentPage(page);
+  // };
 
-    return (
-        <div className="container">
-            <div className="row">
-              
-                <div className="mb-3 ">
-                    {
-                        appointments.map((appointment) => {
-                            return (
-                                <div key={appointment.id}>
-                                    <CardAppointment appointment={appointment} />
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-            </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="mb-3 ">
+          {appointments.map((appointment) => {
+            return (
+              <div key={appointment.id}>
+                <CardAppointment appointment={appointment} />
+              </div>
+            );
+          })}
+        </div>
+      </div>
 
-
-            {/* <Pagination className="mt-3 justify-content-center">
+      {/* <Pagination className="mt-3 justify-content-center">
                 <Pagination.First onClick={() => handlePageChange(1)} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -54,9 +51,6 @@ export const ViewAppointment = () => {
                 <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} />
             </Pagination> */}
-        </div>
-
-    );
-
-
-}
+    </div>
+  );
+};
