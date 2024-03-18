@@ -92,14 +92,7 @@ function NavbarComp() {
                 <i className="bi bi-moon"></i>
               )}
             </Button>
-            <Dropdown className="me-2 fw-bold">
-              <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-                English
-              </Dropdown.Toggle>
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="Option 1">Arabic</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
+            
             {!isLoggedIn ? (
               <>
                 <Link to="/SignIn">
