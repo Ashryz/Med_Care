@@ -3,10 +3,12 @@ import { CiCalendarDate, CiAlarmOn } from "react-icons/ci";
 import { useContext, useState, useEffect } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../Network/axiosInstance";
+import { useNavigate } from "react-router-dom";
 
 function AppDocCard({ appointments }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
+  const navigate = useNavigate();
   const handleBookAppointment = (appointmentId, doctorId) => {
     const newAppointment = {
       schedule: appointmentId,
@@ -19,7 +21,7 @@ function AppDocCard({ appointments }) {
       .post("/appointments/all_app/", newAppointment)
       .then((response) => {
         // Display success alert
-        alert("Appointment booked successfully!");
+        navigate("/Appointments");
         console.log("Appointment booked successfully!", response.data);
       })
       .catch((error) => {
@@ -56,11 +58,14 @@ function AppDocCard({ appointments }) {
                   <span className="text-capitalize">Status: </span>
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
-                <button className="btn sec-btn shadow"
-                onClick={() =>
-                  handleBookAppointment(appointment.id, appointment.doctor)
-                }
-                >Book</button>
+                <button
+                  className="btn sec-btn shadow"
+                  onClick={() =>
+                    handleBookAppointment(appointment.id, appointment.doctor)
+                  }
+                >
+                  Book
+                </button>
               </div>
             </div>
           </div>

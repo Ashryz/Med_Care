@@ -33,9 +33,12 @@ done
 
 --------------not implemented--------------
 
-1- img 1
-2- inform the patient that his appontment is accepted/rejected(by EMAIL) 2
-1- auth 3
-      a- reset password
-      b- activation email
+1- img 1 yussef
+2- inform the patient that his appontment is accepted/rejected(by EMAIL) 
+1- auth
+      a- reset password 2
+      b- activation email *** mohamed
 1- payment 4
+
+
+1- search
