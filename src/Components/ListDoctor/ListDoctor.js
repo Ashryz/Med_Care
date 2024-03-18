@@ -25,7 +25,7 @@ function ListDoctor() {
     <Container className="mt-5 mb-5">
     <Row >
     {Array.isArray(doctors.results) && doctors.results.map((doctor) => (
-        <CardSmallDoc key={doctor.id} doc={doctor} />
+        <CardSmallDoc key={doctor.user.id} doc={doctor} />
     ))}
 </Row>
 <Pagination className="mt-3 justify-content-center">
