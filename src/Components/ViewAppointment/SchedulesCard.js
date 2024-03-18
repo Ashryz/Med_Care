@@ -4,7 +4,8 @@ import { Card } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
-const SchadulesCard = () => {
+const SchadulesCard = (props) => {
+  const { schedule } = props;
   const appointments = useSelector((state => state.combineSchadule.appointments))
   return (
     <Card className='rounded-2 shadow'>
@@ -12,19 +13,19 @@ const SchadulesCard = () => {
         <div className="p-3 ">
           <div className="d-flex" >
             <span className="fs-5 fw-bold  ">Number :</span>
-            <span className="ms-2 fs-5 text-muted"> { }</span>
+            <span className="ms-2 fs-5 text-muted"> { schedule.id}</span>
           </div>
           <div className="d-flex">
             <span className="fs-5 fw-bold ">Day :</span>
-            <span className="ms-2 fs-5 text-muted"> { }</span>
+            <span className="ms-2 fs-5 text-muted"> {schedule.day }</span>
           </div>
           <div className="d-flex">
             <span className="fs-5 fw-bold ">Start Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { }</span>
+            <span className="ms-2 fs-5 text-muted"> { schedule.start_time}</span>
           </div>
           <div className="d-flex">
             <span className="fs-5 fw-bold ">End Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { }</span>
+            <span className="ms-2 fs-5 text-muted"> { schedule.end_time}</span>
           </div>
         </div>
         <div className='d-flex'>

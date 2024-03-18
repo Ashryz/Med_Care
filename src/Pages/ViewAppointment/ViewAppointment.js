@@ -13,7 +13,7 @@ export const ViewAppointment = () => {
             .then((res) => {
                 setappointments(res.data);
                 // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
-                console.log(res)
+                console.log(res.data)
             })
             .catch((err) => console.log(err))
     }, []) //currentPage
