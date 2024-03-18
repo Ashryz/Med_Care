@@ -9,7 +9,7 @@ import './style.css';
 function Rating() {
   return (
     <>
-      <div className="App">
+      <div className="App" style={{ minHeight: '75vh' }}>
         <div className="container-fluid">
           <div className="row">
             <hr />
@@ -19,8 +19,11 @@ function Rating() {
             <div className="col-md-9">
               <div style={{ textAlign: 'center' }}>
                 <i className="bi bi-speedometer2" style={{ fontSize: '48px', marginBottom: '20px' }}></i>
-                <h1>Welcome to your Rating</h1>
+                <h2>Patients Feedback</h2>
                
+              </div>
+              <div className="bg-danger">
+                sadsad
               </div>
             </div>
           </div>

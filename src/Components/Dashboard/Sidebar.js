@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 function Sidebar() {
   return (
-    <div className='list-group-wrapper '>
+    <div className='list-group-wrapper shadow'>
       <ListGroup className='list-group listStyle m-3 col border border-light'>
         <Link to="/Dashboard" className="text-decoration-none rounded-top" >
           <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
