@@ -6,8 +6,12 @@ import Form from 'react-bootstrap/Form';
 import Sidebar from './Sidebar';
 import './style.css';
 import { useState } from 'react';
+import { axiosInstance } from '../../Network/axiosInstance';
+import { useNavigate } from 'react-router-dom';
 
 function AddSchedule() {
+
+
 
     const [formData, setFormData] = useState({
 
@@ -22,19 +26,21 @@ function AddSchedule() {
         setFormData({ ...formData, [name]: value });
     };
 
+
+    const navigate = useNavigate();
     const handleSubmit = (e) => {
         e.preventDefault();
-    }
-    //     axios.post('your_backend_endpoint', formData) // Replace 'your_backend_endpoint' with your actual backend endpoint
-    //         .then((response) => {
-    //             console.log('Schedule created successfully');
-    //             // Handle success, such as redirecting to another page
-    //         })
-    //         .catch((error) => {
-    //             console.error('Error creating schedule:', error);
-    //             // Handle error, such as displaying an error message
-    //         });
-    // };
+        const userId = JSON.parse(localStorage.getItem("user")).id;
+        axiosInstance.post(`/schedules/all_sch/doctor/${userId}/`, formData) // Replace 'your_backend_endpoint' with your actual backend endpoint
+            .then((response) => {
+                console.log('Schedule created successfully');
+               navigate("/ViewSchedule")
+            })
+            .catch((error) => {
+                console.error('Error creating schedule:', error);
+                // Handle error, such as displaying an error message
+            });
+    };
     return (
         <>
             <div className="App">

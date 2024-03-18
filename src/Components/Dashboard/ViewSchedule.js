@@ -11,7 +11,8 @@ function ViewSchedule() {
     // const [currentPage, setCurrentPage] = useState(1);
     // const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
-        axiosInstance.get("/schedules/all_sch/doctor/2/")
+        const userId = JSON.parse(localStorage.getItem("user")).id;
+        axiosInstance.get(`/schedules/all_sch/doctor/${userId}/`)
             .then((res) => {
                 setschedules(res.data);
                 // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
@@ -32,18 +33,17 @@ function ViewSchedule() {
                             <Sidebar />
                         </div>
                         <div className="col-md-9 mt-3">
-                            <div className='row' >
-                                <div className="col-md-4">
+                            <div className='row d-flex' >
                                     {
                                         schedules.map((schedule) => {
                                             return (
-                                                <div key={schedule.id}>
+                                                <div key={schedule.id} className='col-md-4' >
                                                     <SchadulesCard schedule={schedule} />
                                                 </div>
                                             )
                                         })
                                     }
-                                </div>
+                              
                             </div>
 
 

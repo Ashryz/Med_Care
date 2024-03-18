@@ -29,6 +29,7 @@ import  Appointments from "./Components/Dashboard/Appointments.js";
 import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
 import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
+import Rating from "./Components/Dashboard/Rating.js"
 import { useSelector } from "react-redux";
 import Contact from "./Pages/Flink/Contactus/Contact.js";
 import Teams from "./Pages/Flink/Teams/Teams.js";
@@ -68,6 +69,7 @@ function App() {
             <Route exact path="/MainDashboard" element={<MainDashboard/>} />
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
             <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
+            <Route exact path="/Rating" element={<Rating/>} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
