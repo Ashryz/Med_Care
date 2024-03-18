@@ -1,6 +1,6 @@
 import React from "react";
 import { CiCalendarDate, CiAlarmOn } from "react-icons/ci";
-import { useContext, useState, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
