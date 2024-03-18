@@ -40,7 +40,7 @@ function FooterComp() {
                         <Col>
                             <h2 className='text-white fs-3 fw-bold'>Need Help ? </h2>
                             <ul className="list-unstyled fs-5">
-                                <li><Link className='text-white text-decoration-none' to={"Midical"}>Medical Library</Link></li>
+                                <li><Link className='text-white text-decoration-none' to={"Medical"}>Medical Library</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={"contact"}>Contact Us</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={'tems'}>Terms of Use</Link></li>
                                 <li><Link className='text-white text-decoration-none'>Privacy Policy</Link></li>
