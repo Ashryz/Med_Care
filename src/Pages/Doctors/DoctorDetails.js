@@ -12,13 +12,23 @@ function DoctorDetails() {
   const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    axiosInstance.get(`/doctors/doctor/${id}`).then((response) => {
-      setDoctor(response.data);
-      console.log(doctor);
-    }
-    );
-  }
-  , [id]);
+    axiosInstance
+      .get(`/doctors/doctor/${id}`)
+      .then((response) => {
+        setDoctor(response.data);
+        console.log(response.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Doctor not found");
+          // You can set doctor state to null or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching doctor:", error);
+        }
+      });
+  }, [id]);
 
   if (!doctor) {
     return (

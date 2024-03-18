@@ -1,15 +1,24 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Row } from "react-bootstrap";
-import axios from "axios";
 import { axiosInstance } from "../../Network/axiosInstance";
+
 function ReviewDel({ revObj, onClose ,refresh}) {
+
+  const [deleted , setDeleted] = useState(false);
+
   const handleSubmit = () => {
     axiosInstance.delete(`/ratings/${revObj.id}/`).then((response) => {
       console.log(response.data);
-      refresh();
-    });
+      setDeleted(true);
+      refresh()
+    }
+    );
     onClose();
-  };
+  }
+
+  useEffect(() => {}, [revObj]);
+
 
   return (
     <div

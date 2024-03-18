@@ -1,6 +1,5 @@
 import { axiosInstance } from "../../Network/axiosInstance";
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import React, { useState, useEffect, useRef,useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -13,6 +12,9 @@ import {
   faCamera,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
+import { AuthContext } from "../../context/AuthContext";
+
+
 
 import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
 
@@ -45,7 +47,7 @@ const Userprofile = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
-
+  const authContext = useContext(AuthContext);
   // Function to fetch user data
   const fetchUserData = async () => {
     try {
@@ -180,22 +182,25 @@ const Userprofile = () => {
           `/auth/users/${userId}/`,
           updatedUserData
         );
-        const updatedUserDataResponse = response.data;
+          if (response.status === 200) {
+            // Show success message
+            setShowSuccessMessage(true);
+            authContext.setCurrentUser(response.data);
+            // Hide success message after 3 seconds
+            
 
-        // Update user data state with the response
-        setUserData(updatedUserDataResponse);
-
-        setShowSuccessMessage(true); // Show success message after updating user data
-
-        // Set timeout to hide success message after 5 seconds
-        setTimeout(() => {
-          setShowSuccessMessage(false);
-        }, 5000);
-      } catch (error) {
+            localStorage.setItem("user", JSON.stringify(response.data));
+            setTimeout(() => {
+              setShowSuccessMessage(false);
+            }, 3000);
+          }
+      }
+      catch (error) {
         console.error("Error updating user data:", error);
       }
     }
-  };
+  }
+
 
   return (
     <div className="container mt-5">
