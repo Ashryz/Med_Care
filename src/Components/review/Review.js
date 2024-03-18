@@ -81,7 +81,9 @@ const ReviewCard = ({ revObj }) => {
         </Row>
         <Row className="justify-content-center m-0 p-3 h-50">
           <div className="col-12 text-center bg-light p-3 rounded-3 shadow-lg">
-            <h6>{revObj.comment}</h6>
+            <p className="text-capitalize" style={{ wordWrap: "break-word" }}>
+              {revObj.comment}
+            </p>
           </div>
         </Row>
         <Row className="justify-content-center m-0 p-3">

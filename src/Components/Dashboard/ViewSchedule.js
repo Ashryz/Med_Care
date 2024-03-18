@@ -33,6 +33,7 @@ function ViewSchedule() {
                             <Sidebar />
                         </div>
                         <div className="col-md-9 mt-3">
+                            <h1 className="text-center text-capitalize">View Schedule</h1>
                             <div className='row d-flex' >
                                     {
                                         schedules.map((schedule) => {
@@ -43,7 +44,6 @@ function ViewSchedule() {
                                             )
                                         })
                                     }
-                              
                             </div>
 
 

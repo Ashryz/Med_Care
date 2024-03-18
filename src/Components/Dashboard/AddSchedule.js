@@ -30,16 +30,13 @@ function AddSchedule() {
     e.preventDefault();
     const userId = JSON.parse(localStorage.getItem("user")).id;
     axiosInstance
-      .post(`/schedules/all_sch/doctor/${userId}/`, formData) // Replace 'your_backend_endpoint' with your actual backend endpoint
+      .post(`/schedules/all_sch/doctor/${userId}/`, formData) 
       .then((response) => {
         console.log("Schedule created successfully");
-        console.log(formData);
         navigate("/ViewSchedule");
       })
       .catch((error) => {
         console.error("Error creating schedule:", error);
-        console.log(formData);
-        // Handle error, such as displaying an error message
       });
   };
   return (

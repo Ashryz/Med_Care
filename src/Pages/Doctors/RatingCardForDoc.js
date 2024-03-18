@@ -13,17 +13,25 @@ function RatingCardForDoc({ revObj, refresh }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
   const [action, setAction] = useState(false);
-  
 
   return (
     <>
       <div className="rating__card">
-        <div className="d-flex justify-content-between">
+        {/* <div className="d-flex justify-content-center align-items-center"> */}
+        <div
+          className={`d-flex ${
+            currentUser.id === revObj.user.id
+              ? "justify-content-between"
+              : "justify-content-center"
+          } align-items-center`}
+        >
           {currentUser.id === revObj.user.id && (
             <FaPen className="add" onClick={() => setAction("mod")} />
           )}
-          <blockquote className="rating__card__quote text-center">
-            “{revObj.comment}”
+          <blockquote className="rating__card__quote text-center mb-0 w-100">
+            <span style={{ wordWrap: "break-word" }} className="text-center">
+              {revObj.comment}
+            </span>
           </blockquote>
           {currentUser.id === revObj.user.id && (
             <MdDelete className="delete" onClick={() => setAction("delete")} />
@@ -38,7 +46,7 @@ function RatingCardForDoc({ revObj, refresh }) {
           ))}
         </div>
         <p
-          className="rating__card__date text-muted mt-2"
+          className="rating__card__date text-muted mt-2 text-center"
           style={{ fontSize: "12px" }}
         >
           Last update: {/* show only the date and not the time */}
@@ -74,7 +82,11 @@ function RatingCardForDoc({ revObj, refresh }) {
         className="trans-bg-custom"
       >
         <Modal.Body>
-          <ReviewDel revObj={revObj} onClose={() => setAction(false)} refresh= {refresh}/>
+          <ReviewDel
+            revObj={revObj}
+            onClose={() => setAction(false)}
+            refresh={refresh}
+          />
         </Modal.Body>
       </Modal>
 

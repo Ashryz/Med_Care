@@ -13,7 +13,10 @@
 }
 .rating__card {
   cursor: pointer;
-  display: inline-block;
+  display: flex; /* Change display property to flex */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
   box-shadow: 0px 15px 50px -18px rgba(0, 0, 0, 0.3);
   padding: 10px;
   font-family: Lato, sans-serif;
@@ -27,10 +30,14 @@
 
 .rating__card__quote {
   text-align: center;
-  padding: 20px;
+  padding: 30px;
   line-height: 1.2;
   font-size: 14px;
-  line-height: 1.54;
+  color: #545454;
+  max-width: 75%;
+  overflow: hidden;
+  text-overflow: ellipsis; /* Truncate long text with ellipsis */
+  white-space: nowrap; /* Prevent wrapping */
 }
 
 .fa-star {
