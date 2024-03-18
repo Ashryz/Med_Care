@@ -4,7 +4,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 
 function Sidebar() {
   return (
-    <div className='list-group-wrapper '>
+    <div className='list-group-wrapper shadow'>
       <ListGroup className='list-group listStyle m-3 col border border-light'>
         <Link to="/Dashboard" className="text-decoration-none rounded-top" >
           <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
@@ -31,7 +31,7 @@ function Sidebar() {
             <span>Add Schedule</span>
           </ListGroup.Item>
         </Link>
-        <Link to="/View Schedule" className="text-decoration-none">
+        <Link to="/ViewSchedule" className="text-decoration-none">
           <ListGroup.Item className='list-group-item listgroupItem lis'>
             <i className="bi bi-calendar2 me-2"></i>
             <span>View Schedule</span>

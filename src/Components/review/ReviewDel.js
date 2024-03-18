@@ -1,18 +1,24 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Button, Card, Row } from "react-bootstrap";
-import axios from "axios";
-function ReviewDel({ revObj, onClose }) {
+import { axiosInstance } from "../../Network/axiosInstance";
+
+function ReviewDel({ revObj, onClose ,refresh}) {
+
+  const [deleted , setDeleted] = useState(false);
+
   const handleSubmit = () => {
-    axios
-      .delete(`https://retoolapi.dev/bGDaxE/feedback/${revObj.id}`)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    axiosInstance.delete(`/ratings/${revObj.id}/`).then((response) => {
+      console.log(response.data);
+      setDeleted(true);
+      refresh()
+    }
+    );
     onClose();
-  };
+  }
+
+  useEffect(() => {}, [revObj]);
+
 
   return (
     <div

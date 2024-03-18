@@ -10,7 +10,12 @@ export const axiosInstance = axios.create({
 })
 
 axiosInstance.interceptors.request.use(function (config) {
-    config.headers["Authorization"] = `Token ${localStorage.getItem("token")}`
+    if (localStorage.getItem("token"))
+    {
+        config.headers.Authorization = `Token ${localStorage.getItem("token")}`;
+    }
+    
+    
     return config;
   }, function (error) {
     return Promise.reject(error);

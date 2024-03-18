@@ -32,15 +32,16 @@ export const CardAppointment = (props) => {
                     </div>
                     <div className="d-flex">
                         <span className="fs-5 fw-bold text-white">Patient Name :</span>
-                        <span className="ms-2 fs-5 text-muted"> {appointment.name}</span>
+                        <span className="ms-2 fs-5 text-muted"> {appointment.user.first_name}</span>
+                        <span className="ms-2 fs-5 text-muted"> {appointment.user.last_name}</span>
                     </div>
                     <div className="d-flex">
                         <span className="fs-5 fw-bold text-white">Patient Email :</span>
-                        <span className="ms-2 fs-5 text-muted"> {appointment.email}</span>
+                        <span className="ms-2 fs-5 text-muted"> {appointment.user.email}</span>
                     </div>
                     <div className="d-flex">
                         <span className="fs-5 fw-bold text-white">Date  :</span>
-                        <span className="ms-2 fs-5 text-muted"> {appointment.date}</span>
+                        <span className="ms-2 fs-5 text-muted"> {appointment.create_at}</span>
                     </div>
                     <div className="my-3 py-2 d-flex justify-content-center">
                         <Button onClick={()=> handleToggleSchadule(appointment)} className="prim-pg border-0 me-2" value=''>{isItemInSchadule(appointment) ?  <span>Remove</span> : <span>Accept</span> } </Button>

@@ -10,25 +10,62 @@ import { GoStarFill } from "react-icons/go";
 import RatingCardForDoc from "../../Pages/Doctors/RatingCardForDoc";
 import { FaPlus } from "react-icons/fa6";
 import ReviewAdd from "../review/ReviewAdd";
-import axios from "axios";
 import "./rating_card_for_doc.css";
+import { axiosInstance } from "../../Network/axiosInstance";
+import { AuthContext } from "../../context/AuthContext";
+import { useContext } from "react";
 
 function DoctorCard({ doctor }) {
   const [data, setData] = useState([]);
   const [add, setAdd] = useState(false);
+  const authContext = useContext(AuthContext);
+  const currentUser = authContext.currentUser;
+  const [noRating, setNoRating] = useState(false);
 
-  useEffect(() => {
-    axios
-      .get("https://retoolapi.dev/bGDaxE/feedback")
+  const getRating = () => {
+    axiosInstance
+      .get(`/ratings/doctor/${doctor.user.id}`)
       .then((response) => {
-        const filteredData = response.data.filter((row) => row.doc_id !== null);
-        setData(filteredData);
+        setData(response.data);
       })
       .catch((error) => {
-        console.log(error);
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Rating not found for the doctor");
+          // You can set data to some default value or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching rating:", error);
+        }
       });
-  }, []);
+  };
 
+  const refresh = () => {
+    getRating();
+  };
+
+  useEffect(() => {
+    axiosInstance
+      .get(`/ratings/doctor/${doctor.user.id}`)
+      .then((response) => {
+        setData(response.data);
+      })
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Rating not found for the doctor");
+          setNoRating(true);
+          // You can set data to some default value or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching rating:", error);
+        }
+      });
+
+    if (data.length === 0) {
+      setNoRating(true);
+    }
+  }, [doctor, add, currentUser, data.length]);
   return (
     <Container className="mt-4">
       <Card className="mt-5 p-3 shadow">
@@ -51,12 +88,12 @@ function DoctorCard({ doctor }) {
           </Col>
 
           <Row className="p-5 my-auto text-center">
-            <h3 className="fs-4 ">
-              <span className="fs-3 sec-color">Dr. </span>
-              {doctor.fname} {doctor.lname}
+            <h3 className="fs-4 text-capitalize">
+              <span className="fs-3 sec-color ">Dr. </span>
+              {doctor.user.first_name} {doctor.user.last_name}
             </h3>
             <div className="">
-              <p className="">
+              <p className="text-capitalize">
                 {doctor.degree} at {doctor.specialization}
               </p>
               <p>
@@ -74,7 +111,7 @@ function DoctorCard({ doctor }) {
             </p>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
               <span style={{ color: "dodgerblue" }}>
-                <FontAwesomeIcon icon={faPhone} /> &nbsp; {doctor.phone}
+                <FontAwesomeIcon icon={faPhone} /> &nbsp; {doctor.user.phone}
               </span>
             </p>
             <p className="col-12 text-center">
@@ -104,40 +141,37 @@ function DoctorCard({ doctor }) {
               <span className="fs-6 ">About</span>
             </div>
             <p className="text-start ps-5 pt-2">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Fusce
-              id velit ut tortor pretium viverra suspendisse potenti. Orci nulla
-              pellentesque dignissim enim sit amet venenatis urna. Praesent
-              semper feugiat nibh sed pulvinar. Quis lectus nulla at volutpat
-              diam ut venenatis tellus in. Auctor neque vitae tempus quam
-              pellentesque nec. Ante in nibh mauris cursus mattis. Nunc
-              consequat interdum varius sit. Nulla facilisi morbi tempus
-              iaculis. Felis imperdiet proin fermentum leo vel orci porta non.
-              In fermentum posuere urna nec tincidunt praesent. Sapien nec
-              sagittis aliquam malesuada. Urna porttitor rhoncus dolor purus
-              non. Mauris augue neque gravida in fermentum et sollicitudin ac.
-              Sed ullamcorper morbi tincidunt ornare massa eget. Placerat in
-              egestas erat imperdiet sed euismod nisi.
+              {doctor.bio}
+              <br />
             </p>
           </div>
           {/* end about sec */}
           <hr className="w-75 mx-auto sec-color shadow" />
+
           {/* start rating section */}
           <div className="mt-1 p-3 ">
             <div className="text-start sec-color">
               <GoStarFill className="me-2 fs-3" />
               <span className="fs-6 ">
                 Rating & Reviews{" "}
-                <FaPlus
-                  onClick={() => setAdd(!add)}
-                  className="add prim-color"
-                  size={20}
-                />
+                {currentUser.is_patient && (
+                  <FaPlus
+                    className="add"
+                    onClick={() => setAdd(!add)}
+                    style={{ cursor: "pointer" }}
+                  />
+                )}
               </span>
             </div>
             <div className="text-center ">
+              {data.length === 0 && (
+                <div className="text-center">
+                  <h5 className="text-muted">No reviews yet</h5>
+                </div>
+              )}
+
               {data.map((revObj) => {
-                return <RatingCardForDoc revObj={revObj} />;
+                return <RatingCardForDoc revObj={revObj} refresh={refresh} />;
               })}
             </div>
           </div>
@@ -145,7 +179,7 @@ function DoctorCard({ doctor }) {
           <hr className="w-75 mx-auto sec-color shadow" />
         </Row>
       </Card>
-      {add && <ReviewAdd />}
+      {add && <ReviewAdd doctor_id={doctor.user.id} refresh={refresh} />}
     </Container>
   );
 }

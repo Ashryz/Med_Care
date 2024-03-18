@@ -1,10 +1,10 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import axios from "axios";
 import DoctorCard from "../../Components/Doctors/DoctorCard";
 import { Container, Row } from "react-bootstrap";
 import { useState, useEffect } from "react";
 import { FaHourglassStart } from "react-icons/fa";
+import { axiosInstance } from "../../Network/axiosInstance";
 
 function DoctorDetails() {
   const { id } = useParams();
@@ -12,13 +12,22 @@ function DoctorDetails() {
   const [doctor, setDoctor] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`https://retoolapi.dev/46yPXc/doctors/1`)
-      .then((res) => {
-        // console.log(res.data)
-        setDoctor(res.data);
+    axiosInstance
+      .get(`/doctors/doctor/${id}`)
+      .then((response) => {
+        setDoctor(response.data);
+        console.log(response.data);
       })
-      .catch((err) => console.log(err));
+      .catch((error) => {
+        if (error.response && error.response.status === 404) {
+          // Handle 404 error here
+          console.log("Doctor not found");
+          // You can set doctor state to null or handle the error in another way
+        } else {
+          // Handle other errors
+          console.error("Error fetching doctor:", error);
+        }
+      });
   }, [id]);
 
   if (!doctor) {

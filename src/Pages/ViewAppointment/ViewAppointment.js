@@ -1,25 +1,25 @@
 import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { Pagination } from "react-bootstrap";
+import { axiosInstance } from "../../Network/axiosInstance";
 // import { Link } from "react-router-dom";
 
 export const ViewAppointment = () => {
     const [appointments, setappointments] = useState([])
-    const [currentPage, setCurrentPage] = useState(1);
-    const [totalPages, setTotalPages] = useState(0);
+    // const [currentPage, setCurrentPage] = useState(1);
+    // const [totalPages, setTotalPages] = useState(0);
     useEffect(() => {
-        axios.get(`https://retoolapi.dev/8LxhW1/appointment?_page=${currentPage}&_limit=3`)
+        axiosInstance.get("/appointments/all_app/doctor/2/")
             .then((res) => {
                 setappointments(res.data);
-                setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
-                console.log(res)
+                // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
+                console.log(res.data)
             })
             .catch((err) => console.log(err))
-    }, [currentPage])
-    const handlePageChange = (page) => {
-        setCurrentPage(page);
-    };
+    }, []) //currentPage
+    // const handlePageChange = (page) => {
+    //     setCurrentPage(page);
+    // };
 
     return (
         <div className="container">
@@ -39,7 +39,7 @@ export const ViewAppointment = () => {
             </div>
 
 
-            <Pagination className="mt-3 justify-content-center">
+            {/* <Pagination className="mt-3 justify-content-center">
                 <Pagination.First onClick={() => handlePageChange(1)} />
                 <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
                 {Array.from({ length: totalPages }, (_, index) => (
@@ -53,7 +53,7 @@ export const ViewAppointment = () => {
                 ))}
                 <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
                 <Pagination.Last onClick={() => handlePageChange(totalPages)} />
-            </Pagination>
+            </Pagination> */}
         </div>
 
     );

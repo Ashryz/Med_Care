@@ -1,6 +1,5 @@
-
-import React, { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import { axiosInstance } from "../../Network/axiosInstance";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -11,18 +10,17 @@ import {
   faCalendarAlt,
   faMapMarkerAlt,
   faCamera,
-  faVenusMars 
+  faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
-
+import { AuthContext } from "../../context/AuthContext";
 
 import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
-
 
 import { Validations } from "../../Components/utils/validations/validation";
 
 const Userprofile = () => {
-  
   const [userData, setUserData] = useState({
+    username: "",
     fname: "",
     lname: "",
     email: "",
@@ -30,13 +28,14 @@ const Userprofile = () => {
     age: "",
     area: "",
     Image: "",
-    gender: "" 
+    gender: "",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
-  const fileInputRef = useRef(null); 
+  const fileInputRef = useRef(null);
 
   // Validation state variables
+  const [usernameError, setUsernameError] = useState("");
   const [fnameError, setFnameError] = useState("");
   const [lnameError, setLnameError] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -44,18 +43,31 @@ const Userprofile = () => {
   const [ageError, setAgeError] = useState("");
 
   useEffect(() => {
-    
     fetchUserData();
   }, []);
-
+  const authContext = useContext(AuthContext);
   // Function to fetch user data
   const fetchUserData = async () => {
     try {
-      const response = await axios.get("https://retoolapi.dev/FaXhlL/userprofile");
-      if (response.data.length > 0) {
-        const currentUserData = response.data[2];
-        setUserData(currentUserData);
-      }
+      // Retrieve user ID from local storage
+      const userId = JSON.parse(localStorage.getItem("user")).id;
+
+      // Fetch user data using the user ID
+      const response = await axiosInstance.get(`/auth/users/${userId}/`);
+      const userData = response.data;
+
+      // user data
+      setUserData({
+        username: userData.username,
+        fname: userData.first_name,
+        lname: userData.last_name,
+        email: userData.email,
+        phone: userData.phone,
+        age: userData.age,
+        area: userData.city,
+        Image: userData.Image,
+        gender: userData.gender,
+      });
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
@@ -91,6 +103,9 @@ const Userprofile = () => {
       setPhoneError(Validations.phoneValid(value).message);
     } else if (name === "age") {
       setAgeError(Validations.ageValid(value).message);
+    } else if (name === "username") {
+      // Add validation for username
+      setUsernameError(Validations.nameValid(value).message);
     }
   };
 
@@ -144,19 +159,40 @@ const Userprofile = () => {
       ageValidation.isValid
     ) {
       try {
-        const existingUserResponse = await axios.get("https://retoolapi.dev/FaXhlL/userprofile");
-        const existingUser = existingUserResponse.data.length > 0;
+        // Retrieve user ID from local storage
+        const userId = JSON.parse(localStorage.getItem("user")).id;
 
-        const method = existingUser ? "put" : "post";
-        const url = existingUser
-          ? `https://retoolapi.dev/FaXhlL/userprofile/${existingUserResponse.data[2].id}`
-          : "https://retoolapi.dev/FaXhlL/userprofile";
+        // Update user data with form inputs
+        const updatedUserData = {
+          username: userData.username,
+          first_name: userData.fname,
+          last_name: userData.lname,
+          email: userData.email,
+          phone: userData.phone,
+          age: userData.age,
+          city: userData.area,
+          Image: userData.Image,
+          gender: userData.gender,
+        };
 
-        await axios[method](url, userData);
+        // Make API call to update user data
+        const response = await axiosInstance.patch(
+          `/auth/users/${userId}/`,
+          updatedUserData
+        );
+        if (response.status === 200) {
+          // Show success message
+          setShowSuccessMessage(true);
+          authContext.setCurrentUser(response.data);
+          // Hide success message after 3 seconds
 
-        setShowSuccessMessage(true);
+          localStorage.setItem("user", JSON.stringify(response.data));
+          setTimeout(() => {
+            setShowSuccessMessage(false);
+          }, 3000);
+        }
       } catch (error) {
-        console.error("Error saving user data:", error);
+        console.error("Error updating user data:", error);
       }
     }
   };
@@ -176,10 +212,15 @@ const Userprofile = () => {
               <form onSubmit={handleSubmit}>
                 {/* Image Input */}
                 <div className="mb-3 row justify-content-center align-items-center">
-                  <label htmlFor="Image" className="form-label col-12 text-center">
+                  <label
+                    htmlFor="Image"
+                    className="form-label col-12 text-center"
+                  >
                     <div className="position-relative">
                       <img
-                        src={+userData.Image ? userData.Image : "img/profile.jpeg"}
+                        src={
+                          +userData.Image ? userData.Image : "img/profile.jpeg"
+                        }
                         alt="User"
                         className="rounded-circle img-thumbnail"
                         style={{
@@ -207,9 +248,35 @@ const Userprofile = () => {
                     accept="image/*"
                   />
                 </div>
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="username"
+                    className="form-label col-sm-3 text-primary"
+                  >
+                    <FontAwesomeIcon icon={faUser} />
+                    Username
+                  </label>
+                  <div className="col-sm-9">
+                    <input
+                      type="text"
+                      name="username"
+                      value={userData.username}
+                      onChange={handleInputChange}
+                      className={`form-control form-control-blue ${
+                        usernameError && "is-invalid"
+                      }`}
+                    />
+                    {usernameError && (
+                      <div className="invalid-feedback">{usernameError}</div>
+                    )}
+                  </div>
+                </div>
                 {/* First Name Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="fname" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="fname"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faUser} /> First Name
                   </label>
                   <div className="col-sm-9">
@@ -218,14 +285,21 @@ const Userprofile = () => {
                       name="fname"
                       value={userData.fname}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${fnameError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        fnameError && "is-invalid"
+                      }`}
                     />
-                    {fnameError && <div className="invalid-feedback">{fnameError}</div>}
+                    {fnameError && (
+                      <div className="invalid-feedback">{fnameError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Last Name Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="lname" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="lname"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faUser} /> Last Name
                   </label>
                   <div className="col-sm-9">
@@ -234,14 +308,21 @@ const Userprofile = () => {
                       name="lname"
                       value={userData.lname}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${lnameError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        lnameError && "is-invalid"
+                      }`}
                     />
-                    {lnameError && <div className="invalid-feedback">{lnameError}</div>}
+                    {lnameError && (
+                      <div className="invalid-feedback">{lnameError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Email Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="email" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="email"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faEnvelope} /> Email Address
                   </label>
                   <div className="col-sm-9">
@@ -250,14 +331,21 @@ const Userprofile = () => {
                       name="email"
                       value={userData.email}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${emailError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        emailError && "is-invalid"
+                      }`}
                     />
-                    {emailError && <div className="invalid-feedback">{emailError}</div>}
+                    {emailError && (
+                      <div className="invalid-feedback">{emailError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Phone Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="phone" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="phone"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faPhoneAlt} /> Phone
                   </label>
                   <div className="col-sm-9">
@@ -266,14 +354,21 @@ const Userprofile = () => {
                       name="phone"
                       value={userData.phone}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${phoneError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        phoneError && "is-invalid"
+                      }`}
                     />
-                    {phoneError && <div className="invalid-feedback">{phoneError}</div>}
+                    {phoneError && (
+                      <div className="invalid-feedback">{phoneError}</div>
+                    )}
                   </div>
                 </div>
                 {/* Age Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="age" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="age"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faCalendarAlt} /> Age
                   </label>
                   <div className="col-sm-9">
@@ -282,13 +377,20 @@ const Userprofile = () => {
                       name="age"
                       value={userData.age}
                       onChange={handleInputChange}
-                      className={`form-control form-control-blue ${ageError && "is-invalid"}`}
+                      className={`form-control form-control-blue ${
+                        ageError && "is-invalid"
+                      }`}
                     />
-                    {ageError && <div className="invalid-feedback">{ageError}</div>}
+                    {ageError && (
+                      <div className="invalid-feedback">{ageError}</div>
+                    )}
                   </div>
                 </div>
-                 <div className="mb-3 row">
-                  <label htmlFor="gender" className="form-label col-sm-3 text-primary">
+                <div className="mb-3 row">
+                  <label
+                    htmlFor="gender"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faVenusMars} /> Gender
                   </label>
                   <div className="col-sm-9">
@@ -299,16 +401,17 @@ const Userprofile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Gender</option>
-                      <option value="male">Male</option>
-                      <option value="female">Female</option>
-                     
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
                     </Form.Select>
-                    
                   </div>
                 </div>
                 {/* Area Input */}
                 <div className="mb-3 row">
-                  <label htmlFor="area" className="form-label col-sm-3 text-primary">
+                  <label
+                    htmlFor="area"
+                    className="form-label col-sm-3 text-primary"
+                  >
                     <FontAwesomeIcon icon={faMapMarkerAlt} /> Area
                   </label>
                   <div className="col-sm-9">
@@ -319,35 +422,35 @@ const Userprofile = () => {
                       className="form-select form-control-blue"
                     >
                       <option value="">Select Area</option>
-                       <option value="Cairo">Cairo</option>
-		    <option value="Alexandria">Alexandria</option>
-		    <option value="Giza">Giza</option>
-		    <option value="Port Said">Port Said</option>
-		    <option value="Suez">Suez</option>
-		    <option value="Luxor">Luxor</option>
-		    <option value="Asyut">Asyut</option>
-		    <option value="Ismailia">Ismailia</option>
-		    <option value="Faiyum">Faiyum</option>
-		    <option value="Beni Suef">Beni Suef</option>
-		    <option value="Mansoura">Mansoura</option>
-		    <option value="Damietta">Damietta</option>
-		    <option value="Assiut">Assiut</option>
-		    <option value="Minya">Minya</option>
-		    <option value="Sohag">Sohag</option>
-		    <option value="Qena">Qena</option>
-		    <option value="Aswan">Aswan</option>
-		    <option value="Beheira">Beheira</option>
-		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
-		    <option value="Matruh">Matruh</option>
-		    <option value="New Valley">New Valley</option>
-		    <option value="North Sinai">North Sinai</option>
-		    <option value="South Sinai">South Sinai</option>
-		    <option value="Red Sea">Red Sea</option>
-		    <option value="Gharbia">Gharbia</option>
-		    <option value="Dakahlia">Dakahlia</option>
-		    <option value="Sharqia">Sharqia</option>
-		    <option value="Monufia">Monufia</option>
-		    <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                      <option value="Cairo">Cairo</option>
+                      <option value="Alexandria">Alexandria</option>
+                      <option value="Giza">Giza</option>
+                      <option value="Port Said">Port Said</option>
+                      <option value="Suez">Suez</option>
+                      <option value="Luxor">Luxor</option>
+                      <option value="Asyut">Asyut</option>
+                      <option value="Ismailia">Ismailia</option>
+                      <option value="Faiyum">Faiyum</option>
+                      <option value="Beni Suef">Beni Suef</option>
+                      <option value="Mansoura">Mansoura</option>
+                      <option value="Damietta">Damietta</option>
+                      <option value="Assiut">Assiut</option>
+                      <option value="Minya">Minya</option>
+                      <option value="Sohag">Sohag</option>
+                      <option value="Qena">Qena</option>
+                      <option value="Aswan">Aswan</option>
+                      <option value="Beheira">Beheira</option>
+                      <option value="Kafr El Sheikh">Kafr El Sheikh</option>
+                      <option value="Matruh">Matruh</option>
+                      <option value="New Valley">New Valley</option>
+                      <option value="North Sinai">North Sinai</option>
+                      <option value="South Sinai">South Sinai</option>
+                      <option value="Red Sea">Red Sea</option>
+                      <option value="Gharbia">Gharbia</option>
+                      <option value="Dakahlia">Dakahlia</option>
+                      <option value="Sharqia">Sharqia</option>
+                      <option value="Monufia">Monufia</option>
+                      <option value="Kafr El Sheikh">Kafr El Sheikh</option>
                     </Form.Select>
                   </div>
                 </div>
@@ -374,7 +477,7 @@ const Userprofile = () => {
 
       {/* Profile Picture Options Modal */}
       <Modal show={showModal} onHide={handleCloseModal} centered>
-        <Modal.Header  className="bg-white" closeButton>
+        <Modal.Header className="bg-white" closeButton>
           <Modal.Title>Profile Picture Options</Modal.Title>
         </Modal.Header>
         <Modal.Body className="bg-white">
@@ -394,7 +497,7 @@ const Userprofile = () => {
         </Modal.Body>
         <Modal.Footer className="bg-white">
           <Button variant="danger" onClick={handleDeleteProfilePicture}>
-            Delete 
+            Delete
           </Button>
           <Button variant="secondary" onClick={handleChooseProfilePicture}>
             Choose Profile Picture
@@ -406,4 +509,3 @@ const Userprofile = () => {
 };
 
 export default Userprofile;
-
