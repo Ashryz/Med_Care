@@ -1,6 +1,5 @@
 import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
 import { useEffect, useState, useContext } from "react";
-import { Pagination } from "react-bootstrap";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
 // import { Link } from "react-router-dom";
@@ -12,19 +11,24 @@ export const ViewAppointment = () => {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
   useEffect(() => {
-    axiosInstance
-      .get(`/appointments/all_app/doctor/${currentUser.id}`)
-      .then((res) => {
-        setappointments(res.data);
-        // setTotalPages(Math.ceil(res.headers["x-total-count"] / 10))
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-  }, []); //currentPage
-  // const handlePageChange = (page) => {
-  //     setCurrentPage(page);
-  // };
+    if (currentUser.is_doctor) {
+      axiosInstance
+        .get(`/appointments/all_app/doctor/${currentUser.id}`)
+        .then((res) => {
+          setappointments(res.data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      axiosInstance
+        .get(`/appointments/all_app/user/${currentUser.id}`)
+        .then((res) => {
+          setappointments(res.data);
 
+          console.log(res.data);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, []);
   return (
     <div className="container">
       <div className="row">

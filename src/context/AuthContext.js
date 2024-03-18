@@ -40,6 +40,11 @@ const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
+  useEffect(() => {
+    setCurrentUser(localStorage.getItem("user"));
+  }
+  , []);
+
   return (
     <AuthContext.Provider
       value={{
