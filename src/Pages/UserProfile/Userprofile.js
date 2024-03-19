@@ -19,6 +19,7 @@ import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
 import { Validations } from "../../Components/utils/validations/validation";
 
 const Userprofile = () => {
+
   const [userData, setUserData] = useState({
     username: "",
     fname: "",
@@ -28,6 +29,7 @@ const Userprofile = () => {
     age: "",
     area: "",
     Image: "",
+    ImageFile: null, 
     gender: "",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
@@ -44,35 +46,53 @@ const Userprofile = () => {
 
   useEffect(() => {
     fetchUserData();
+    
+
   }, []);
+
   const authContext = useContext(AuthContext);
   // Function to fetch user data
   const fetchUserData = async () => {
     try {
       // Retrieve user ID from local storage
       const userId = JSON.parse(localStorage.getItem("user")).id;
-
+      
+    
       // Fetch user data using the user ID
       const response = await axiosInstance.get(`/auth/users/${userId}/`);
-      const userData = response.data;
 
-      // user data
+ const {
+        username,
+        email,
+        phone,
+        age,
+        gender,
+        area,
+        fees,
+        specialization,
+        degree,
+        first_name,
+        last_name,
+       img, 
+      } = response.data;
       setUserData({
-        username: userData.username,
-        fname: userData.first_name,
-        lname: userData.last_name,
-        email: userData.email,
-        phone: userData.phone,
-        age: userData.age,
-        area: userData.city,
-        Image: userData.Image,
-        gender: userData.gender,
+        username,
+        email,
+        phone,
+        age,
+        gender,
+        area,
+        fees,
+        specialization,
+        degree,
+        fname: first_name,
+        lname: last_name,
+        Image:img, 
       });
     } catch (error) {
-      console.error("Error fetching user data:", error);
+      console.error("Error fetching doctor data:", error);
     }
   };
-
   // Function to handle profile picture deletion
   const handleDeleteProfilePicture = () => {
     // Clear profile picture from state
@@ -116,22 +136,22 @@ const Userprofile = () => {
       setShowModal(false); // Close modal after clicking "Choose Profile Picture"
     }
   };
-
+console.log( "here", userData );
   // Function to handle modal closure
   const handleCloseModal = () => {
     setShowModal(false);
   };
 
-  // Function to handle image change
-  const handleImageChange = (e) => {
+
+const handleImageChange = (e) => {
     const file = e.target.files[0];
     setUserData((prevUserData) => ({
       ...prevUserData,
-      Image: file.name,
+      Image: URL.createObjectURL(file), 
+      ImageFile: file, 
     }));
-    setShowModal(false); // Close modal after choosing profile picture
+    setShowModal(false); 
   };
-
   // Function to handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -158,45 +178,40 @@ const Userprofile = () => {
       phoneValidation.isValid &&
       ageValidation.isValid
     ) {
-      try {
-        // Retrieve user ID from local storage
-        const userId = JSON.parse(localStorage.getItem("user")).id;
+     try {
+      const userId = JSON.parse(localStorage.getItem("user")).id;
 
-        // Update user data with form inputs
-        const updatedUserData = {
-          username: userData.username,
-          first_name: userData.fname,
-          last_name: userData.lname,
-          email: userData.email,
-          phone: userData.phone,
-          age: userData.age,
-          city: userData.area,
-          Image: userData.Image,
-          gender: userData.gender,
-        };
+      const formData = new FormData();
+      formData.append("username", userData.username);
+      formData.append("first_name", userData.fname);
+      formData.append("last_name", userData.lname);
+      formData.append("email", userData.email);
+      formData.append("phone", userData.phone);
+      formData.append("age", userData.age);
+      formData.append("city", userData.area);
+      formData.append("img", userData.ImageFile); 
 
-        // Make API call to update user data
-        const response = await axiosInstance.patch(
-          `/auth/users/${userId}/`,
-          updatedUserData
-        );
-        if (response.status === 200) {
-          // Show success message
-          setShowSuccessMessage(true);
-          authContext.setCurrentUser(response.data);
-          // Hide success message after 3 seconds
-
-          localStorage.setItem("user", JSON.stringify(response.data));
-          setTimeout(() => {
-            setShowSuccessMessage(false);
-          }, 3000);
+      const response = await axiosInstance.patch(
+        `/auth/users/${userId}/`,
+        formData, 
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
         }
-      } catch (error) {
-        console.error("Error updating user data:", error);
+      );
+      if (response.status === 200) {
+        setShowSuccessMessage(true);
+        authContext.setCurrentUser(response.data);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+        setTimeout(() => {
+          setShowSuccessMessage(false);
+        }, 3000);
       }
-    }
+    } catch (error) {
+      console.error("Error updating user data:", error);
+    }}
   };
-
   return (
     <div className="container mt-5">
       <div className="row">
@@ -218,9 +233,10 @@ const Userprofile = () => {
                   >
                     <div className="position-relative">
                       <img
-                        src={
-                          +userData.Image ? userData.Image : "img/profile.jpeg"
-                        }
+                        src={userData.Image? `http://localhost:8000${userData.Image}` : ''}
+
+
+
                         alt="User"
                         className="rounded-circle img-thumbnail"
                         style={{
@@ -229,7 +245,7 @@ const Userprofile = () => {
                           objectFit: "cover",
                           cursor: "pointer",
                         }}
-                        onClick={() => setShowModal(true)}
+                       
                       />
                       <FontAwesomeIcon
                         icon={faCamera}
@@ -459,9 +475,7 @@ const Userprofile = () => {
                   <button type="submit" className="btn main-btn me-2">
                     Save
                   </button>
-                  <button type="button" className="btn sec-btn">
-                    Cancel
-                  </button>
+                
                 </div>
                 {/* Success message */}
                 {showSuccessMessage && (
@@ -485,14 +499,14 @@ const Userprofile = () => {
             {/* Display the profile picture */}
             {userData.Image && (
               <img
-                src={userData.Image}
+                src={userData.Image? `http://localhost:8000${userData.Image}` : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`}
                 alt="Profile"
                 className="img-fluid rounded"
                 style={{ maxHeight: "400px" }}
               />
             )}
             {/* Display a message if no profile picture is available */}
-            {!userData.Image && <p>No profile picture available</p>}
+            {!userData.Image  && <p>No profile picture available</p>}
           </div>
         </Modal.Body>
         <Modal.Footer className="bg-white">
