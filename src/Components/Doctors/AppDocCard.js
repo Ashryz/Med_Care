@@ -27,7 +27,6 @@ function AppDocCard({ appointments }) {
       .catch((error) => {
         // Handle error
         console.error("Error booking appointment:", error);
-        alert("Failed to book appointment. Please try again.");
       });
   };
 
@@ -58,7 +57,8 @@ function AppDocCard({ appointments }) {
                   <span className="text-capitalize">Status: </span>
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
-                <button
+                {currentUser.is_patient && (
+                  <button
                   className="btn sec-btn shadow"
                   onClick={() =>
                     handleBookAppointment(appointment.id, appointment.doctor)
@@ -66,6 +66,7 @@ function AppDocCard({ appointments }) {
                 >
                   Book
                 </button>
+                )}
               </div>
             </div>
           </div>
