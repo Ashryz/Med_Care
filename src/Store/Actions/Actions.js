@@ -53,3 +53,16 @@ export const getDoctorsList = (page = 1, pageSize = 10, query = '') => (dispatch
         })
         .catch((err) => console.log(err));
 };
+
+export const getAppoitmentListbydoctor = (page = 1, pageSize = 10, id) => (dispatch) => {
+    const url = `/appointments/all_app/doctor/${id}/?p=${page}&page_size=${pageSize}`;
+
+    return axiosInstance.get(url)
+        .then((res) => {
+            dispatch({
+                type: "GET_APPOINTMENT_DOCTORS_LIST",
+                payload: res.data
+            });
+        })
+        .catch((err) => console.log(err));
+};
