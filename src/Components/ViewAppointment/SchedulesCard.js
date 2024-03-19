@@ -1,25 +1,27 @@
 // src/components/AppointmentsCard.js
 import React, { useEffect, useState } from "react";
-import {  Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import { PencilFill, TrashFill } from "react-bootstrap-icons";
 import { axiosInstance } from "../../Network/axiosInstance";
+
 // import { useSelector } from 'react-redux';
 
 const SchadulesCard = (props) => {
   const { schedule } = props;
-  console.log("===============the schedual=====================");
-  console.log(schedule);
-  console.log("====================================");
 
   // const appointments = useSelector((state => state.combineSchadule.appointments))
+  
   const handleDelete = () => {
+   
     axiosInstance.delete(`/schedules/schedule/${schedule.id}/`)
-    .then((response) => {
-      console.log(response.data);
+      .then((response) => {
+        console.log(response.data);
 
-    }
-    );
+      }
+      );
+ 
   };
+
 
   return (
     <>
@@ -50,12 +52,11 @@ const SchadulesCard = (props) => {
               <span className="ms-2 fs-5 text-muted"> {schedule.end_time}</span>
             </div>
           </div>
-          <div className="mt-2">
-            <div className="mx-3 d-flex justify-content-between align-items-center">
-              <PencilFill className="pencil fs-5 " onClick={handleDelete} />
-
-              <TrashFill className="trash fs-5" />
+          <div className="mt-3">
+            <div className="mx-3 d-flex justify-content-center align-items-center">
+              <TrashFill className="trash fs-4" onClick={handleDelete} />
             </div>
+            
           </div>
           {/* <div className='d-flex'>
           <NavLink to={'/Schadule'} className='btn main-btn text-decoration-none mx-auto position-relative '>My Appointment
@@ -64,6 +65,7 @@ const SchadulesCard = (props) => {
         </div> */}
         </Card.Body>
       </Card>
+     
     </>
   );
 };

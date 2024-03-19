@@ -20,14 +20,8 @@ function Appointments() {
               <Sidebar />
             </div>
             <div className="col-md-9 mt-3">
-              <h1 className="text-center d-inline-block text-capitalize col-8">View Appointments</h1>
-              <div className='d-inline-block '>
-               
-                <NavLink to={'/Schadule'} className='btn main-btn text-decoration-none mx-auto position-relative '>My Appointment
-                  <span class=" position-absolute top-0 start-25 translate-middle badge rounded-pill bg-danger ">{appointments.length}</span>
-                </NavLink>
-              
-              </div>
+              <h1 className="text-center  text-capitalize ">View Appointments</h1>
+             
               <ViewAppointment />
             </div>
           </div>

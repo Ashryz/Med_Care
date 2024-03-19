@@ -1,28 +1,47 @@
 import { Button } from "react-bootstrap";
-import background from '../../img/bg_doctor.jpg'
-import { useDispatch, useSelector, } from "react-redux";
-import { addAppointmentSchadule, removeAppointmentSchadule } from "../../Store/Actions/Actions";
+import background from "../../img/bg_doctor.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAppointmentSchadule,
+  removeAppointmentSchadule,
+} from "../../Store/Actions/Actions";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { axiosInstance } from "../../Network/axiosInstance";
 
-
-
 export const CardAppointment = (props) => {
-    const { appointment } = props;
+  const { appointment } = props;
 
-    const dispatch = useDispatch();
-    const appointments = useSelector((state => state.combineSchadule.appointments))
+    // const dispatch = useDispatch();
+    // const appointments = useSelector((state => state.combineSchadule.appointments))
 
-    const isItemInSchadule = (item) => {
-        return appointments.some((appointment) => appointment.id === item.id);
+    // const isItemInSchadule = (item) => {
+    //     return appointments.some((appointment) => appointment.id === item.id);
 
-    }
-    const handleToggleSchadule = (appointment) => {
-        isItemInSchadule(appointment) ? dispatch(removeAppointmentSchadule(appointment)) :
-            dispatch(addAppointmentSchadule(appointment))
+    // }
+    // const handleToggleSchadule = (appointment) => {
+    //     isItemInSchadule(appointment) ? dispatch(removeAppointmentSchadule(appointment)) :
+    //         dispatch(addAppointmentSchadule(appointment))
        
         
+
+    // }
+    const handleAccept =()=>{
+        console.log(appointment);
+        axiosInstance.put(`/appointments/appointment/${appointment.id}/`,{
+            "doctor":appointment.doctor,
+            "schedule":appointment.schedule,
+            "user":appointment.user.id,
+            "is_accepted":true
+        } )
+    }
+    const handleReject = ()=>{
+        axiosInstance.put(`/appointments/appointment/${appointment.id}/`,{
+            "doctor":appointment.doctor,
+            "schedule":appointment.schedule,
+            "user":appointment.user.id,
+            "is_accepted":false
+        } )
 
     }
     const authContext = useContext(AuthContext);
@@ -55,8 +74,9 @@ export const CardAppointment = (props) => {
                             <span className="ms-2 fs-5 text-muted"> {appointment.schedule}</span>
                         </div>
                         <div className="my-3 py-2 d-flex justify-content-center">
-                            <Button onClick={() => handleToggleSchadule(appointment)} className="prim-pg border-0 me-2" value=''>{isItemInSchadule(appointment) ? <span>Remove</span> : <span>Accept</span>} </Button>
-                            <Button className="ms-2"> Reject</Button>
+                          
+                            <Button onClick={handleAccept} >Accept</Button>
+                            <Button className="ms-2" onClick={handleReject} > Reject</Button>
                         </div>
                     </div>
                 </div>
@@ -99,6 +119,5 @@ export const CardAppointment = (props) => {
             </div>
         );
     }
-
 
 }

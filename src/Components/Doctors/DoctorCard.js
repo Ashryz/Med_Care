@@ -94,7 +94,7 @@ function DoctorCard({ doctor }) {
             <img
               className="rounded-circle shadow border-2"
               id="img"
-              src={"../../img/" + doctor.Image}
+              src={`http://localhost:8000${doctor.user.img}`}
               alt="person"
               style={{
                 width: "100px",

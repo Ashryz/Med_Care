@@ -19,7 +19,7 @@ function ViewSchedule() {
                 console.log(res)
             })
             .catch((err) => console.log(err))
-    }, []) //currentPage
+    }, [schedules]) //currentPage
     // const handlePageChange = (page) => {
     //     setCurrentPage(page);
     // };
