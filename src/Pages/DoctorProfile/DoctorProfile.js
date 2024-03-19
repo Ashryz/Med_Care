@@ -68,7 +68,7 @@ const DoctorProfile = () => {
         degree,
         first_name,
         last_name,
-        Image, 
+        img, 
       } = response.data;
       setDoctorData({
         username,
@@ -82,7 +82,7 @@ const DoctorProfile = () => {
         degree,
         fname: first_name,
         lname: last_name,
-        Image, 
+        Image:img, 
       });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
@@ -156,7 +156,7 @@ const DoctorProfile = () => {
       [name]: errorMessage,
     }));
   };
-
+  console.log(doctorData.Image,"here")
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -223,10 +223,11 @@ const DoctorProfile = () => {
                     <div className="position-relative">
                       <img
                         src={
-                          +doctorData.Image
-                            ? doctorData.Image
-                            : "img/profile.jpeg"
+                          doctorData.Image
+                            ? `http://localhost:8000${doctorData.Image}`
+                            : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
                         }
+                        
                         alt="Doctor"
                         className="rounded-circle img-thumbnail"
                         style={{
@@ -396,9 +397,7 @@ const DoctorProfile = () => {
                   <button type="submit" className="btn main-btn me-2">
                     Save
                   </button>
-                  <button type="button" className="btn sec-btn">
-                    Cancel
-                  </button>
+                 
                 </div>
                 {/* Success message */}
                 {showSuccessMessage && (
@@ -421,7 +420,11 @@ const DoctorProfile = () => {
             {/* Display the profile picture */}
             {doctorData.Image && (
               <img
-                src={doctorData.Image}
+                src={
+                          +doctorData.Image
+                            ? `http://localhost:8000${doctorData.Image}`
+                            : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
+                        }
                 alt="Profile"
                 className="img-fluid rounded"
                 style={{ maxHeight: "400px" }}
