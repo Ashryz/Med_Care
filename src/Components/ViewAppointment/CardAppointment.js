@@ -51,7 +51,7 @@ export const CardAppointment = (props) => {
                             <span className="ms-2 fs-5 text-muted"> {appointment.create_at}</span>
                         </div>
                         <div className="d-flex">
-                            <span className="fs-5 fw-bold text-white">schedule_id  :</span>
+                            <span className="fs-5 fw-bold text-white">schedule  :</span>
                             <span className="ms-2 fs-5 text-muted"> {appointment.schedule}</span>
                         </div>
                         <div className="my-3 py-2 d-flex justify-content-center">
