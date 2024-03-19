@@ -1,30 +1,52 @@
 // src/components/AppointmentsCard.js
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { Button, Card, Modal } from 'react-bootstrap';
+import { PencilFill, TrashFill } from 'react-bootstrap-icons';
+import { axiosInstance } from '../../Network/axiosInstance';
+// import { useSelector } from 'react-redux';
 
 const SchadulesCard = (props) => {
   const { schedule } = props;
-  const appointments = useSelector((state => state.combineSchadule.appointments))
+ 
+  // const appointments = useSelector((state => state.combineSchadule.appointments))
+  const handleDelete = () =>{
+    axiosInstance.delete(`/schedules/schedule/${schedule.id}/`)
+    .then((response) => {
+      console.log(response.data);
+     
+      
+    }
+    );
+  }
+
+  
+
+  
   return (
-    <Card className='rounded-2 shadow'>
+    <>
+    <Card className='rounded-3 shadow 'style={{ backgroundImage: 'linear-gradient(to bottom,MediumSeaGreen 130px , dodgerBlue 250px )' }}>
       <Card.Body>
-        <div className="p-3 ">
-          <div className="d-flex" >
-            <span className="fs-5 fw-bold  ">Number :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.id}</span>
+        <h5 class="card-title text-center">Schedule ( {schedule.id} ) </h5>
+        <hr/>
+        <div className="px-2 ">
+          <div className="d-flex">
+            <span className="fs-5  ">Day :</span>
+            <span className="ms-2 fs-5 text-muted"> {schedule.day}</span>
           </div>
           <div className="d-flex">
-            <span className="fs-5 fw-bold ">Day :</span>
-            <span className="ms-2 fs-5 text-muted"> {schedule.day }</span>
+            <span className="fs-5 ">Start Time :</span>
+            <span className="ms-2 fs-5 text-muted"> {schedule.start_time}</span>
           </div>
           <div className="d-flex">
-            <span className="fs-5 fw-bold ">Start Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.start_time}</span>
+            <span className="fs-5 ">End Time :</span>
+            <span className="ms-2 fs-5 text-muted"> {schedule.end_time}</span>
           </div>
-          <div className="d-flex">
-            <span className="fs-5 fw-bold ">End Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.end_time}</span>
+        </div>
+        <div className='mt-2'>
+          <div className='mx-3 d-flex justify-content-between align-items-center'>
+            <PencilFill className='pencil fs-5 ' onClick={handleDelete()}/>
+            
+            <TrashFill className='trash fs-5' />
           </div>
         </div>
         {/* <div className='d-flex'>
@@ -34,6 +56,9 @@ const SchadulesCard = (props) => {
         </div> */}
       </Card.Body>
     </Card>
+    
+    </>
+    
   );
 };
 
