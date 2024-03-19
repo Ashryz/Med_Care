@@ -15,9 +15,9 @@ function CardSmallDoc({ doc }) {
     <Container className="my-container">
       <Row className="doc_card border p-3 rounded-3 shadow me-3 mb-2">
         <Col md={2}>
-          <img
+        <img
             id="img"
-            src={"img/" + doc.Image}
+            src={doc.Image ? `http://127.0.0.1:8000//media/profile_images/${doc.Image}` : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`}
             alt="doctor"
             className="img-fluid rounded-circle shadow-lg"
             style={{ width: "100px", height: "100px" }}
