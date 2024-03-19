@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef ,useContext} from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Form, Modal, Button } from "react-bootstrap";
@@ -27,7 +27,8 @@ const DoctorProfile = () => {
     fees: "",
     specialization: "",
     degree: "",
-    Image: "",
+    Image: "", // Store image URL here
+    ImageFile: null, // Store image file here
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -67,6 +68,7 @@ const DoctorProfile = () => {
         degree,
         first_name,
         last_name,
+        Image, 
       } = response.data;
       setDoctorData({
         username,
@@ -80,6 +82,7 @@ const DoctorProfile = () => {
         degree,
         fname: first_name,
         lname: last_name,
+        Image, 
       });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
@@ -88,8 +91,8 @@ const DoctorProfile = () => {
 
   const handleChooseProfilePicture = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger file input click
-      setShowModal(false); // Close modal after clicking "Choose Profile Picture"
+      fileInputRef.current.click(); 
+      setShowModal(false); 
     }
   };
 
@@ -97,15 +100,17 @@ const DoctorProfile = () => {
     const file = e.target.files[0];
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
-      Image: file.name,
+      Image: URL.createObjectURL(file), 
+      ImageFile: file, 
     }));
-    setShowModal(false); // Close modal after choosing profile picture
+    setShowModal(false); 
   };
 
   const handleDeleteProfilePicture = () => {
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
-      Image: "",
+      Image: "", // Clear image URL
+      ImageFile: null, // Clear image file
     }));
     setShowModal(false);
   };
@@ -154,7 +159,7 @@ const DoctorProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if there are any validation errors
+    
     const isValid = Object.values(validationErrors).every(
       (error) => error === ""
     );
@@ -165,19 +170,25 @@ const DoctorProfile = () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
 
-      const updatedUserData = {
-        username: doctorData.username,
-        first_name: doctorData.fname,
-        last_name: doctorData.lname,
-        email: doctorData.email,
-        phone: doctorData.phone,
-        age: doctorData.age,
-        city: doctorData.area,
-        Image: doctorData.Image,
-        gender: doctorData.gender,
-      };
+      const formData = new FormData();
+      formData.append("username", doctorData.username);
+      formData.append("first_name", doctorData.fname);
+      formData.append("last_name", doctorData.lname);
+      formData.append("email", doctorData.email);
+      formData.append("phone", doctorData.phone);
+      formData.append("age", doctorData.age);
+      formData.append("city", doctorData.area);
+      formData.append("img", doctorData.ImageFile); 
 
-     const response = await axiosInstance.put(`/auth/users/${userId}/`, updatedUserData);
+      const response = await axiosInstance.put(
+        `/auth/users/${userId}/`,
+        formData, 
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       if (response.status === 200) {
         setShowSuccessMessage(true);
         authContext.setCurrentUser(response.data);
@@ -186,11 +197,10 @@ const DoctorProfile = () => {
           setShowSuccessMessage(false);
         }, 3000);
       }
-    }
-    catch (error) {
+    } catch (error) {
       console.error("Error updating doctor data:", error);
     }
-  }
+  };
   return (
     <div className="container mt-5">
       <div className="row ">
