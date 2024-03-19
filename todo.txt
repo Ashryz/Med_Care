@@ -33,11 +33,11 @@ done
 
 --------------not implemented--------------
 
-1- img 1 yussef
-2- inform the patient that his appontment is accepted/rejected(by EMAIL) 
+1- img 1 yussef done
+2- inform the patient that his appontment is accepted/rejected(by EMAIL)  done
 1- auth
       a- reset password 2
-      b- activation email *** mohamed
+      b- activation email *** mohamed done
 1- payment 4
 
 

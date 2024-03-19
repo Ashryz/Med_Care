@@ -42,7 +42,7 @@ function EditableReview({ revObj, onClose ,refresh}) {
       style={{ position: "relative", margin: "0 ", width: "100%" }}
     >
       <img
-        src={"/" + revObj.patiant_img}
+        src={`http://localhost:8000${revObj.user.img}`}
         className="rounded-circle shadow"
         style={{
           width: "100px",

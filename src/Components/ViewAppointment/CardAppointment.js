@@ -1,15 +1,16 @@
 import { Button } from "react-bootstrap";
-import background from '../../img/bg_doctor.jpg'
-import { useDispatch, useSelector, } from "react-redux";
-import { addAppointmentSchadule, removeAppointmentSchadule } from "../../Store/Actions/Actions";
+import background from "../../img/bg_doctor.jpg";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addAppointmentSchadule,
+  removeAppointmentSchadule,
+} from "../../Store/Actions/Actions";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
 import { axiosInstance } from "../../Network/axiosInstance";
 
-
-
 export const CardAppointment = (props) => {
-    const { appointment } = props;
+  const { appointment } = props;
 
     // const dispatch = useDispatch();
     // const appointments = useSelector((state => state.combineSchadule.appointments))
@@ -118,6 +119,5 @@ export const CardAppointment = (props) => {
             </div>
         );
     }
-
 
 }
