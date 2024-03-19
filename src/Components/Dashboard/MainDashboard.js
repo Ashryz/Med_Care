@@ -6,36 +6,19 @@ import Sidebar from './Sidebar';
 import './style.css';
 
 const MainDashboard = () => {
-  const [appointments, setAppointments] = useState([]);
-  const [numAppointments, setNumAppointments] = useState(0);
-
-  useEffect(() => {
-    // Fetch appointment data from your backend
-    axios.get('/api/appointments')
-      .then(response => {
-        setAppointments(response.data);
-        setNumAppointments(response.data.length);
-      })
-      .catch(error => {
-        console.error('Error fetching appointment data:', error);
-      });
-  }, []);
-
-  // DashboardCard component defined inside MainDashboard
-  const DashboardCard = ({ title, number, chartData }) => {
+    const DashboardCard = ({ title, number, chartData }) => {
     return (
       <div className="col-md-4">
         <div className="card shadow-sm mb-4">
           <div className="card-body">
             <h5 className="card-title">{title}</h5>
             <p className="card-text">{number}</p>
-            {/* Render your chart here using chartData */}
           </div>
         </div>
       </div>
     );
   };
-
+ 
   return (
     <div className="App" >
       <div className="container-fluid">
@@ -62,6 +45,6 @@ const MainDashboard = () => {
       </div>
     </div>
   );
-};
+}
 
 export default MainDashboard;

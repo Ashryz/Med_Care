@@ -23,6 +23,7 @@ import DoctorCard from "./Components/Doctors/DoctorCard.js";
 // import DoctorDetails from "./Components/Doctors/DoctorDetails.js";
 import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
+import  AppointmentCount  from "./Pages/ViewAppointment/AppointmentCount.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
@@ -69,6 +70,8 @@ function App() {
             <Route exact path="/MainDashboard" element={<MainDashboard/>} />
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
             <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
+            <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />
+
             <Route exact path="/Rating" element={<Rating/>} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
