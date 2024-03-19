@@ -420,10 +420,7 @@ const DoctorProfile = () => {
             {/* Display the profile picture */}
             {doctorData.Image && (
               <img
-                src={
-                          +doctorData.Image
-                            ? `http://localhost:8000${doctorData.Image}`
-                            : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
+                src={ doctorData.Image? `http://localhost:8000${doctorData.Image}`: `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
                         }
                 alt="Profile"
                 className="img-fluid rounded"
