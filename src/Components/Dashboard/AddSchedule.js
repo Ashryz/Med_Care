@@ -14,7 +14,7 @@ function AddSchedule() {
 
   const [formData, setFormData] = useState({
     doctor: authContext.currentUser.id,
-    day: "",
+    day: "saturday",
     start_time: "",
     end_time: "",
     is_active: true,
