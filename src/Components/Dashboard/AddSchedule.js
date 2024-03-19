@@ -57,7 +57,7 @@ function AddSchedule() {
                   className="prim-pg text-center text-white p-1"
                   style={{ borderRadius: "11px 11px 0px 0px" }}
                 >
-                  <span className="fw-light">App Schedule</span>
+                  <span className="fw-light">Add Schedule</span>
                 </div>
                 <div className="p-2 m-2">
                   <Form.Group className="mb-3" controlId="formBasicEmail">

@@ -1,58 +1,67 @@
-import React from 'react';
-import { Card, Row, Col } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import { XYPlot, VerticalBarSeries, XAxis, YAxis, VerticalGridLines, HorizontalGridLines, ChartLabel } from 'react-vis';
+import 'react-vis/dist/style.css';
 import Sidebar from './Sidebar';
+import './style.css';
 
-function MainDashboard() {
+const MainDashboard = () => {
+  const [appointments, setAppointments] = useState([]);
+  const [numAppointments, setNumAppointments] = useState(0);
+
+  useEffect(() => {
+    // Fetch appointment data from your backend
+    axios.get('/api/appointments')
+      .then(response => {
+        setAppointments(response.data);
+        setNumAppointments(response.data.length);
+      })
+      .catch(error => {
+        console.error('Error fetching appointment data:', error);
+      });
+  }, []);
+
+  // DashboardCard component defined inside MainDashboard
+  const DashboardCard = ({ title, number, chartData }) => {
+    return (
+      <div className="col-md-4">
+        <div className="card shadow-sm mb-4">
+          <div className="card-body">
+            <h5 className="card-title">{title}</h5>
+            <p className="card-text">{number}</p>
+            {/* Render your chart here using chartData */}
+          </div>
+        </div>
+      </div>
+    );
+  };
+
   return (
-    <>
-      <div className="App">
-        <div className="container-fluid">
-          <div className="row">
-            <hr />
-            <div className="side col-md-3">
-              <Sidebar />
-            </div>
-            <div className="col-md-9 mt-3">
-
-              <div className="container main-dashboard-container">
-                <Row>
-                  <Col md={4}>
-                    <Card className="dashboard-card">
-                      <Card.Body>
-                        <Card.Title className="dashboard-card-title">Number of Appointments</Card.Title>
-                        <Card.Text className="dashboard-card-text">...</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                  <Col md={4}>
-                    <Card className="dashboard-card">
-                      <Card.Body>
-                        <Card.Title className="dashboard-card-title">Total Reviews</Card.Title>
-                        <Card.Text className="dashboard-card-text">...</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
-                <Row>
-                  <Col md={4}>
-                    <Card className="dashboard-card">
-                      <Card.Body>
-                        <Card.Title className="dashboard-card-title">Avg Rating</Card.Title>
-                        <Card.Text className="dashboard-card-text">...</Card.Text>
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                </Row>
+    <div className="App" >
+      <div className="container-fluid">
+        <div className="row">
+          <hr />
+          <div className="side col-md-3">
+            <Sidebar />
+          </div>
+          <div className="col-md-9 mt-6">
+            <div className="  rounded p-3">
+              <div
+                className="prim-pg text-center text-white p-1"
+                style={{ borderRadius: "11px 11px 0px 0px" }} >
+                <i className="bi bi-file-earmark-text" style={{ fontSize: "20px", marginRight: "15px", marginTop: "10px" }}></i>
+                <span style={{ marginTop: "15px" }}> Report </span>
               </div>
-
+              <div className="row mt-4">
+                <DashboardCard title="Number of Appointments" number={10} />
+                <DashboardCard title="Total Reviews" number={20} />
+              </div>
             </div>
           </div>
         </div>
       </div>
-    </>
-
-
+    </div>
   );
-}
+};
 
 export default MainDashboard;

@@ -6,18 +6,19 @@ import { AuthContext } from '../../context/AuthContext';
 function Sidebar() {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
-  if (currentUser.is_doctor) 
-  {
+  if (currentUser.is_doctor) {
     return (
       <div className='list-group-wrapper '>
+
         <ListGroup className='list-group listStyle m-3 col border border-light'>
-          
+
+          <Link to="/Dashboard" className="text-decoration-none">
             <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
               <i className="bi bi-speedometer2"></i>
               <span className='spanStyle'>Dashboard</span>
             </ListGroup.Item>
-         
-  
+          </Link>
+
           <Link to="/MainDashboard" className="text-decoration-none">
             <ListGroup.Item className='list-group-item listgroupItem lis'>
               <i className="bi bi-file-earmark-text me-2"></i>
@@ -52,31 +53,30 @@ function Sidebar() {
       </div>
     );
   }
-  else
-  {
-    return(
+  else {
+    return (
       <div className='list-group-wrapper '>
         <ListGroup className='list-group listStyle m-3 col border border-light'>
-          
-            <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
-              <i className="bi bi-speedometer2"></i>
-              <span className='spanStyle'>Dashboard</span>
-            </ListGroup.Item>
-         
-  
-       
+
+          <ListGroup.Item className='list-group-item listgroupItem prim-pg text-white'>
+            <i className="bi bi-speedometer2"></i>
+            <span className='spanStyle'>Dashboard</span>
+          </ListGroup.Item>
+
+
+
           <Link to="/Appointments" className="text-decoration-none">
             <ListGroup.Item className='list-group-item listgroupItem lis'>
               <i className="bi bi-table me-2"></i>
               <span>Appointments</span>
             </ListGroup.Item>
           </Link>
-        
+
         </ListGroup>
       </div>
     );
   }
-  
+
 }
 
 export default Sidebar;
