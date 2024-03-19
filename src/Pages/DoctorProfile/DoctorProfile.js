@@ -68,7 +68,7 @@ const DoctorProfile = () => {
         degree,
         first_name,
         last_name,
-        Image, // Retrieve image URL
+        Image, 
       } = response.data;
       setDoctorData({
         username,
@@ -82,7 +82,7 @@ const DoctorProfile = () => {
         degree,
         fname: first_name,
         lname: last_name,
-        Image, // Set image URL
+        Image, 
       });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
@@ -91,8 +91,8 @@ const DoctorProfile = () => {
 
   const handleChooseProfilePicture = () => {
     if (fileInputRef.current) {
-      fileInputRef.current.click(); // Trigger file input click
-      setShowModal(false); // Close modal after clicking "Choose Profile Picture"
+      fileInputRef.current.click(); 
+      setShowModal(false); 
     }
   };
 
@@ -100,10 +100,10 @@ const DoctorProfile = () => {
     const file = e.target.files[0];
     setDoctorData((prevDoctorData) => ({
       ...prevDoctorData,
-      Image: URL.createObjectURL(file), // Set image URL
-      ImageFile: file, // Set image file
+      Image: URL.createObjectURL(file), 
+      ImageFile: file, 
     }));
-    setShowModal(false); // Close modal after choosing profile picture
+    setShowModal(false); 
   };
 
   const handleDeleteProfilePicture = () => {
@@ -159,7 +159,7 @@ const DoctorProfile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // Check if there are any validation errors
+    
     const isValid = Object.values(validationErrors).every(
       (error) => error === ""
     );
@@ -178,11 +178,11 @@ const DoctorProfile = () => {
       formData.append("phone", doctorData.phone);
       formData.append("age", doctorData.age);
       formData.append("city", doctorData.area);
-      formData.append("img", doctorData.ImageFile); // Append image file
+      formData.append("img", doctorData.ImageFile); 
 
       const response = await axiosInstance.put(
         `/auth/users/${userId}/`,
-        formData, // Send formData instead of updatedUserData
+        formData, 
         {
           headers: {
             "Content-Type": "multipart/form-data",
