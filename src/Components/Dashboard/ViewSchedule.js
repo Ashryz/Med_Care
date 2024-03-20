@@ -19,7 +19,7 @@ function ViewSchedule() {
                 console.log(res)
             })
             .catch((err) => console.log(err))
-    }, []) //currentPage
+    }, [schedules]) //currentPage
     // const handlePageChange = (page) => {
     //     setCurrentPage(page);
     // };
@@ -38,7 +38,7 @@ function ViewSchedule() {
                                     {
                                         schedules.map((schedule) => {
                                             return (
-                                                <div key={schedule.id} className='col-md-4' >
+                                                <div key={schedule.id} className='col-md-6' >
                                                     <SchadulesCard schedule={schedule} />
                                                 </div>
                                             )

@@ -1,40 +1,72 @@
 // src/components/AppointmentsCard.js
-import React from 'react';
-import { Card } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { Card } from "react-bootstrap";
+import { PencilFill, TrashFill } from "react-bootstrap-icons";
+import { axiosInstance } from "../../Network/axiosInstance";
+
+// import { useSelector } from 'react-redux';
 
 const SchadulesCard = (props) => {
   const { schedule } = props;
-  const appointments = useSelector((state => state.combineSchadule.appointments))
+
+  // const appointments = useSelector((state => state.combineSchadule.appointments))
+  
+  const handleDelete = () => {
+   
+    axiosInstance.delete(`/schedules/schedule/${schedule.id}/`)
+      .then((response) => {
+        console.log(response.data);
+
+      }
+      );
+ 
+  };
+
+
   return (
-    <Card className='rounded-2 shadow'>
-      <Card.Body>
-        <div className="p-3 ">
-          <div className="d-flex" >
-            <span className="fs-5 fw-bold  ">Number :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.id}</span>
+    <>
+      <Card
+        className="rounded-3 shadow "
+        style={{
+          backgroundImage:
+            "linear-gradient(to bottom,MediumSeaGreen 130px , dodgerBlue 250px )",
+        }}
+      >
+        <Card.Body>
+          <h5 class="card-title text-center">Schedule ( {schedule.id} ) </h5>
+          <hr />
+          <div className="px-2 ">
+            <div className="d-flex">
+              <span className="fs-5  ">Day :</span>
+              <span className="ms-2 fs-5 text-muted"> {schedule.day}</span>
+            </div>
+            <div className="d-flex">
+              <span className="fs-5 ">Start Time :</span>
+              <span className="ms-2 fs-5 text-muted">
+                {" "}
+                {schedule.start_time}
+              </span>
+            </div>
+            <div className="d-flex">
+              <span className="fs-5 ">End Time :</span>
+              <span className="ms-2 fs-5 text-muted"> {schedule.end_time}</span>
+            </div>
           </div>
-          <div className="d-flex">
-            <span className="fs-5 fw-bold ">Day :</span>
-            <span className="ms-2 fs-5 text-muted"> {schedule.day }</span>
+          <div className="mt-3">
+            <div className="mx-3 d-flex justify-content-center align-items-center">
+              <TrashFill className="trash fs-4" onClick={handleDelete} />
+            </div>
+            
           </div>
-          <div className="d-flex">
-            <span className="fs-5 fw-bold ">Start Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.start_time}</span>
-          </div>
-          <div className="d-flex">
-            <span className="fs-5 fw-bold ">End Time :</span>
-            <span className="ms-2 fs-5 text-muted"> { schedule.end_time}</span>
-          </div>
-        </div>
-        <div className='d-flex'>
+          {/* <div className='d-flex'>
           <NavLink to={'/Schadule'} className='btn main-btn text-decoration-none mx-auto position-relative '>My Appointment
             <span class=" position-absolute top-0 start-25 translate-middle badge rounded-pill bg-danger ">{appointments.length}</span>
           </NavLink>
-        </div>
-      </Card.Body>
-    </Card>
+        </div> */}
+        </Card.Body>
+      </Card>
+     
+    </>
   );
 };
 

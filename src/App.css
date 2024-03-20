@@ -94,3 +94,14 @@ body {
     transform: rotate(360deg);
   }
 }
+.pencil:hover{
+  
+  color: mediumseagreen;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+.trash:hover{
+  color: #dc3545;
+  cursor: pointer;
+  transform: scale(1.2);
+}

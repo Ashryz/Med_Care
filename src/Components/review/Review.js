@@ -26,7 +26,7 @@ const ReviewCard = ({ revObj }) => {
       }}
     >
       <img
-        src={"/" + revObj.patiant_img}
+        src={`http://localhost:8000${revObj.user.img}`}
         className="rounded-circle shadow"
         style={{
           width: "100px",

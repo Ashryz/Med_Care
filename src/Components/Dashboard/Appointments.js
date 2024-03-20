@@ -5,7 +5,11 @@ import Sidebar from './Sidebar';
 import './style.css';
 import { ViewAppointment } from '../../Pages/ViewAppointment/ViewAppointment';
 
+import { useSelector } from 'react-redux';
+import { NavLink } from 'react-router-dom';
+
 function Appointments() {
+  const appointments = useSelector((state => state.combineSchadule.appointments))
   return (
     <>
       <div className="App">
@@ -16,7 +20,9 @@ function Appointments() {
               <Sidebar />
             </div>
             <div className="col-md-9 mt-3">
-              <ViewAppointment/>
+              <h1 className="text-center  text-capitalize ">View Appointments</h1>
+             
+              <ViewAppointment />
             </div>
           </div>
         </div>

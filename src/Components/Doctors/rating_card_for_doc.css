@@ -74,3 +74,12 @@
   transform: scale(1.1);
   color: red;
 }
+
+
+.app-doc-bg{
+  background-color: #77ffe84b;
+  padding: 20px;
+  border-radius: 1px;
+  margin: 20px 0;
+  box-shadow: 0px 15px 50px -18px rgba(0, 0, 0, 0.3);
+}

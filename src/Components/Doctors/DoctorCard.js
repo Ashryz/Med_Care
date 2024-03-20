@@ -14,13 +14,15 @@ import "./rating_card_for_doc.css";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
 import { useContext } from "react";
-
+import { PiAlarmFill } from "react-icons/pi";
+import AppDocCard from "./AppDocCard";
 function DoctorCard({ doctor }) {
   const [data, setData] = useState([]);
   const [add, setAdd] = useState(false);
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
   const [noRating, setNoRating] = useState(false);
+  const [appointments, setAppointments] = useState([]);
 
   const getRating = () => {
     axiosInstance
@@ -39,6 +41,22 @@ function DoctorCard({ doctor }) {
         }
       });
   };
+
+  const getAppointments = () => {
+    axiosInstance
+      .get(`/schedules/all_sch/doctor/${doctor.user.id}`)
+      .then((response) => {
+        setAppointments(response.data);
+      })
+      .catch((error) => {
+        console.error("Error fetching appointments:", error);
+      });
+  };
+
+  useEffect(() => {
+    getRating();
+    getAppointments();
+  }, []);
 
   const refresh = () => {
     getRating();
@@ -62,6 +80,8 @@ function DoctorCard({ doctor }) {
         }
       });
 
+    getAppointments();
+
     if (data.length === 0) {
       setNoRating(true);
     }
@@ -74,7 +94,7 @@ function DoctorCard({ doctor }) {
             <img
               className="rounded-circle shadow border-2"
               id="img"
-              src={"../../img/" + doctor.Image}
+              src={`http://localhost:8000${doctor.user.img}`}
               alt="person"
               style={{
                 width: "100px",
@@ -133,6 +153,21 @@ function DoctorCard({ doctor }) {
               ))}
             </p>
           </Row>
+          {/* ***** appointments section */}
+          <hr className="w-75 mx-auto sec-color shadow rounded-5" />
+          <div className="text-start sec-color pb-3">
+            <PiAlarmFill className="me-2 fs-3" />
+            <span className="fs-6 ">Appointments</span>
+          </div>
+          <div className="text-center mb-2">
+            {appointments.length === 0 && (
+              <div className="text-center">
+                <h5 className="text-muted">No appointments yet</h5>
+              </div>
+            )}
+            <AppDocCard appointments={appointments} />
+          </div>
+          {/* End  appointments */}
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
           {/* about sec */}
           <div className="mt-1 p-3 ">

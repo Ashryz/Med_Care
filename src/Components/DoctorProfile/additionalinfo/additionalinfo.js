@@ -39,6 +39,7 @@ const AdditionalInfo = () => {
       const userId = JSON.parse(localStorage.getItem("user")).id;
       const response = await axiosInstance.get(`/doctors/doctor/${userId}/`); // Fetch doctor data by ID using axiosInstance
       const { specialization, bio, degree, area, fees } = response.data;
+      console.log(response.data);
       setUserData({ specialization, bio, degree, area, fees });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
@@ -195,6 +196,7 @@ const AdditionalInfo = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+                    
                     <div className="text-danger">{validationErrors.fees}</div>
                   </div>
                 </div>

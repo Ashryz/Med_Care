@@ -1,3 +1,8 @@
 .trans-bg-custom{
       background: rgba(0, 0, 0, 0) !important;
 }
+
+.modal-content{
+      background-color: transparent !important;
+      border: 0;
+}
