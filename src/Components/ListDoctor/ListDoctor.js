@@ -22,28 +22,34 @@ function ListDoctor() {
   console.log(doctors);
   
   return (
-    <Container className="mt-5 mb-5">
-    <Row >
-    {Array.isArray(doctors.results) && doctors.results.map((doctor) => (
-        <CardSmallDoc key={doctor.user.id} doc={doctor} />
-    ))}
-</Row>
-<Pagination className="mt-3 justify-content-center">
-    <Pagination.First onClick={() => handlePageChange(1)} />
-    <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
-    {Array.from({ length: totalPages }, (_, index) => (
-        <Pagination.Item
-            key={index + 1}
-            active={index + 1 === currentPage}
-            onClick={() => handlePageChange(index + 1)}
-        >
-            {index + 1}
-        </Pagination.Item>
-    ))}
-    <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
-    <Pagination.Last onClick={() => handlePageChange(totalPages)} />
-</Pagination>
-</Container>
-  )
-  }
+<Container className="mt-5 mb-5">
+      {doctors.results && doctors.results.length > 0 ? (
+        <>
+          <Row>
+            {Array.isArray(doctors.results) && doctors.results.map((doctor) => (
+              <CardSmallDoc key={doctor.user.id} doc={doctor} />
+            ))}
+          </Row>
+          <Pagination className="mt-3 justify-content-center">
+            <Pagination.First onClick={() => handlePageChange(1)} />
+            <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
+            <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
+            <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+          </Pagination>
+        </>
+      ) : (
+        <><h1 className='mb-5'>No Doctors available</h1><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/></>
+      )}
+    </Container>
+  );
+}
 export default ListDoctor;
