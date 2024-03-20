@@ -13,3 +13,4 @@ export default function appointmentdoctorReducer(state= INITIAL_VALUE, action){
            return state
     }
 }
+
