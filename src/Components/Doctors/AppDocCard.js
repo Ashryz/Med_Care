@@ -11,8 +11,12 @@ function AppDocCard({ appointments }) {
   const currentUser = authContext.currentUser;
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
   const handleBookAppointment = (appointmentId, doctorId) => {
+    setLoading(true);
+    setShowModal(true); // Show modal when booking appointment
+
     const newAppointment = {
       schedule: appointmentId,
       user: currentUser.id,
