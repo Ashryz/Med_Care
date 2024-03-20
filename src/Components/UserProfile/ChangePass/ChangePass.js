@@ -61,7 +61,7 @@ const ChangePassword = () => {
 
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
-      await axiosInstance.patch(`/auth/users/${userId}/`, {
+      await axiosInstance.patch(`/auth/users/change-password/${userId}/`, {
         password: password,
       });
       setShowSuccessMessage(true);
