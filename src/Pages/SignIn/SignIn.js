@@ -9,12 +9,14 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 function SignIn() {
   const authContext = useContext(AuthContext);
   const navigate = useNavigate();
   // State to toggle password visibility
   const [showPassword, setShowPassword] = useState(false);
   const isLoggedIn = authContext.isLoggedIn;
+  const dispatch = useDispatch();
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -58,7 +60,7 @@ function SignIn() {
         emailErrors: "This Field is Required",
         passwordErrors: "This Field is Required",
       });
-      return; 
+      return;
     }
 
     try {
@@ -68,14 +70,22 @@ function SignIn() {
       );
       if (response.status === 200) {
         authContext.login(response.data.token, response.data.user);
-        navigate("/");
-      } 
-    } catch (error) {
-        setErrors({
-          ...errors,
-          emailErrors: "Invalid Email",
-          passwordErrors: "Invalid Password",
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            strong: "Welcome Back",
+            txt: " You have successfully logged in",
+            type: "success",
+          },
         });
+        navigate("/");
+      }
+    } catch (error) {
+      setErrors({
+        ...errors,
+        emailErrors: "Invalid Email",
+        passwordErrors: "Invalid Password",
+      });
     }
   };
 
