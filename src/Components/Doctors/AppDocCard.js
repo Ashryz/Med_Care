@@ -1,11 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { CiCalendarDate, CiAlarmOn } from "react-icons/ci";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import { FaHourglassStart } from "react-icons/fa";
+import { Modal, Button } from "react-bootstrap";
 function AppDocCard({ appointments }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
