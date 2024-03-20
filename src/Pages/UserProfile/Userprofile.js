@@ -14,6 +14,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/AuthContext";
 import { Validations } from "../../Components/utils/validations/validation";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const Userprofile = () => {
   const [doctorData, setDoctorData] = useState({
@@ -36,6 +38,8 @@ const Userprofile = () => {
   const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
   const [msg, setMsg] = useState({ msg: "", type: "success" });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [validationErrors, setValidationErrors] = useState({
     username: "",
     fname: "",
@@ -168,7 +172,7 @@ const Userprofile = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    
     const isValid = Object.values(validationErrors).every(
       (error) => error === ""
     );
@@ -209,6 +213,15 @@ const Userprofile = () => {
           msg: "Profile updated successfully",
           type: "success",
         }));
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            strong: "Congratulations!",
+            txt: " Profile updated successfully",
+            type: "success",
+          },
+        });
+        navigate("/");
         setShowSuccessMessage(true);
         authContext.setCurrentUser(response.data);
         setTimeout(() => {
@@ -232,7 +245,7 @@ const Userprofile = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchDoctorData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (showSuccessMessage) {
@@ -295,7 +308,9 @@ const Userprofile = () => {
                     />
                   </div>
                   {/* Username Input */}
-                  <div className="mb-3 row">
+                  <div className="mb-3 row"
+                   style={{ display:"none" }}
+                  >
                     <label
                       htmlFor="username"
                       className="form-label col-sm-3 text-primary"

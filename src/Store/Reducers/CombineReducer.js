@@ -4,6 +4,7 @@ import ThemesReducer from './ThemesReducer';
 import doctorsReducer from './DoctorsReducers';
 import appointmentdoctorReducer from './AppointmentsReducer';
 import appointmentuserReducer from './AppointmentUserReducer';
+import AlertReducer from './AlertReducer';
 
 
 
@@ -14,5 +15,6 @@ export default combineReducers({
     combineDoctors:doctorsReducer,
     combinedocAppointment:appointmentdoctorReducer,
     combineuserAppointment:appointmentuserReducer,
+    combineAlert:AlertReducer
     
 })

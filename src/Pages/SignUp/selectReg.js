@@ -29,10 +29,10 @@ function YourComponent() {
                         </div>
 
                         {showSignUp && (
-                            <Modal show={showSignUp} onHide={handleCloseSignUp} size='md' centered >
+                            <Modal show={showSignUp} onHide={handleCloseSignUp} size='md' centered  >
                                 <Modal.Header className='prim-pg' closeButton>
                                 </Modal.Header>
-                                <Modal.Body className="rounded-5">
+                                <Modal.Body className='bg-light '>
                                     <SignUpDoc userType={userType} onClose={handleCloseSignUp} />
                                 </Modal.Body>
                             </Modal>

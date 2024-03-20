@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { axiosInstance } from "../../../Network/axiosInstance";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import Sidebar from "../SideBar/Sidebar";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -11,6 +13,10 @@ const ChangePassword = () => {
     password: "",
     confirmPassword: "",
   });
+
+  
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -49,6 +55,8 @@ const ChangePassword = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    // disable the button
+    
     // Check if there are any validation errors
     const isValid = Object.values(validationErrors).every(
       (error) => error === ""
@@ -63,13 +71,25 @@ const ChangePassword = () => {
       await axiosInstance.patch(`/auth/users/change-password/${userId}/`, {
         password: password,
       });
+      dispatch({
+        type: "SET_ALERT",
+        payload: {
+          strong: "Success!",
+          txt: "Password updated successfully",
+          type: "success",
+        },
+      });
+      navigate("/");
+
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Error updating password:", error);
     }
   };
   return (
-    <div className="container mt-5">
+    <div className="container mt-5"
+     style={{ minHeight: "50vh" }}
+    >
       <div className="row">
         <div className="col-md-3">
           <Sidebar />

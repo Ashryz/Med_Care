@@ -1,7 +1,7 @@
 // src/components/AppointmentsCard.js
-import React, { useEffect, useState } from "react";
+
 import { Card } from "react-bootstrap";
-import { PencilFill, TrashFill } from "react-bootstrap-icons";
+import { TrashFill } from "react-bootstrap-icons";
 import { axiosInstance } from "../../Network/axiosInstance";
 
 // import { useSelector } from 'react-redux';
@@ -16,7 +16,7 @@ const SchadulesCard = (props) => {
     axiosInstance.delete(`/schedules/schedule/${schedule.id}/`)
       .then((response) => {
         console.log(response.data);
-
+        props.setRefresh(!props.refresh);
       }
       );
  

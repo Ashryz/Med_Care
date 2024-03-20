@@ -85,3 +85,9 @@ export const getAppoitmentListbyuser =
       })
       .catch((err) => console.log(err));
   };
+
+
+export const alertAction = (payload) => ({
+  type: "SET_ALERT",
+  payload,
+});

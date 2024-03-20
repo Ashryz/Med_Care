@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { axiosInstance } from "../../../Network/axiosInstance";
 import { faKey } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../DSideBar/DSidebar";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 const ChangePassword = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -11,6 +13,9 @@ const ChangePassword = () => {
     password: "",
     confirmPassword: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     if (name === "password") {
@@ -32,21 +37,30 @@ const ChangePassword = () => {
         }
         break;
       case "confirmPassword":
-        if (value !== password) {
+        if (value !== password || value === "") {
           errorMessage = "Passwords do not match";
+          //disable the button
+          
         }
         break;
       default:
+        //enable the button
         break;
     }
+
+
     setValidationErrors((prevErrors) => ({
       ...prevErrors,
       [name]: errorMessage,
     }));
+
+
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    //disable the button
+    
     // Check if there are any validation errors
     const isValid = Object.values(validationErrors).every(
       (error) => error === ""
@@ -61,13 +75,23 @@ const ChangePassword = () => {
       await axiosInstance.patch(`/auth/users/change-password/${userId}/`, {
         password: password,
       });
+      dispatch({
+        type: "SET_ALERT",
+        payload: {
+          strong: "Success!",
+          txt: "Password updated successfully",
+          type: "success",
+        },
+      });
+      navigate("/");
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Error updating password:", error);
     }
   };
   return (
-    <div className="container mt-5">
+    <div className="container mt-5"
+      style={{ minHeight: "50vh" }}>
       <div className="row">
         <div className="col-md-3">
           <DSidebar />
@@ -122,7 +146,7 @@ const ChangePassword = () => {
                   </div>
                 </div>
                 <div className="text-center">
-                  <button type="submit" className="btn main-btn me-2">
+                  <button id="changepasssub" type="submit" className="btn main-btn me-2" >
                     Change Password
                   </button>
                 </div>

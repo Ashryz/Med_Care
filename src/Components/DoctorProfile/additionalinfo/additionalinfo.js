@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Modal, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { axiosInstance } from "../../../Network/axiosInstance";
 import {
@@ -34,12 +35,14 @@ const AdditionalInfo = () => {
     fetchUserData();
   }, []);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const fetchUserData = async () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
       const response = await axiosInstance.get(`/doctors/doctor/${userId}/`); // Fetch doctor data by ID using axiosInstance
       const { specialization, bio, degree, area, fees } = response.data;
-      console.log(response.data);
       setUserData({ specialization, bio, degree, area, fees });
     } catch (error) {
       console.error("Error fetching doctor data:", error);
@@ -92,6 +95,15 @@ const AdditionalInfo = () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
       await axiosInstance.put(`/doctors/doctor/${userId}/`, userData); // Update doctor profile by ID using axiosInstance
+      dispatch({
+        type: "SET_ALERT",
+        payload: {
+          strong: "Congratulations!",
+          txt: " Profile updated successfully",
+          type: "success",
+        },
+      });
+      navigate("/");
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Error updating doctor profile:", error);
@@ -196,7 +208,7 @@ const AdditionalInfo = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
-                    
+
                     <div className="text-danger">{validationErrors.fees}</div>
                   </div>
                 </div>

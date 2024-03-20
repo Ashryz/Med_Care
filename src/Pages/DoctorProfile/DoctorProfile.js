@@ -14,6 +14,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
 import { Validations } from "../../Components/utils/validations/validation";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({
@@ -51,6 +53,9 @@ const DoctorProfile = () => {
 
   const authContext = useContext(AuthContext);
   const localuser = JSON.parse(localStorage.getItem("user"));
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
 
   const fetchDoctorData = () => {
     return new Promise((resolve, reject) => {
@@ -205,6 +210,15 @@ const DoctorProfile = () => {
       if (response.status === 200) {
         setShowSuccessMessage(true);
         authContext.setCurrentUser(response.data);
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            strong: "Congratulations!",
+            txt: " Profile updated successfully",
+            type: "success",
+          },
+        });
+        navigate("/");
         setTimeout(() => {
           setShowSuccessMessage(false);
         }, 3000);
@@ -217,7 +231,7 @@ const DoctorProfile = () => {
   useEffect(() => {
     setIsLoading(true);
     fetchDoctorData();
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
     if (showSuccessMessage) {

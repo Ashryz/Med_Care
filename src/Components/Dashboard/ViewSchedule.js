@@ -10,6 +10,7 @@ function ViewSchedule() {
     const [schedules, setschedules] = useState([])
     // const [currentPage, setCurrentPage] = useState(1);
     // const [totalPages, setTotalPages] = useState(0);
+    const [refresh, setRefresh] = useState(false);
     useEffect(() => {
         const userId = JSON.parse(localStorage.getItem("user")).id;
         axiosInstance.get(`/schedules/all_sch/doctor/${userId}/`)
@@ -19,13 +20,12 @@ function ViewSchedule() {
                 console.log(res)
             })
             .catch((err) => console.log(err))
-    }, [schedules]) //currentPage
-    // const handlePageChange = (page) => {
-    //     setCurrentPage(page);
-    // };
+    }, [refresh])
     return (
         <>
-            <div className="App">
+            <div className="App"
+            style={{minHeight: "75vh"}}>
+            
                 <div className="container-fluid">
                     <div className="row">
                         <hr />
@@ -39,7 +39,7 @@ function ViewSchedule() {
                                         schedules.map((schedule) => {
                                             return (
                                                 <div key={schedule.id} className='col-md-6' >
-                                                    <SchadulesCard schedule={schedule} />
+                                                    <SchadulesCard schedule={schedule} refresh={refresh} setRefresh={setRefresh} />
                                                 </div>
                                             )
                                         })
