@@ -22,7 +22,7 @@ function ListDoctor() {
   console.log(doctors);
 
   return (
-    <Container className="mt-5 mb-5" style={{ minHeight: "75vh" }}>
+    <Container className="mt-5 mb-5" style={{ minHeight: "31vh" }}>
       {doctors.results && doctors.results.length > 0 ? (
         <>
           <Row>

@@ -73,6 +73,10 @@ export const CardAppointment = (props) => {
                             <span className="fs-5 fw-bold text-white">schedule  :</span>
                             <span className="ms-2 fs-5 text-muted"> {appointment.schedule}</span>
                         </div>
+                        <div className="d-flex">
+                            <span className="fs-5 fw-bold text-white">Payment :</span>
+                            <span className="ms-2 fs-5 text-muted"> Paid</span>
+                        </div>
                         <div className="my-3 py-2 d-flex justify-content-center">
                           
                             <Button onClick={handleAccept} >Accept</Button>
@@ -109,9 +113,12 @@ export const CardAppointment = (props) => {
                             <span className="fs-5 fw-bold text-white">Date  :</span>
                             <span className="ms-2 fs-5 text-muted"> {appointment.create_at}</span>
                         </div>
+                        <div className="d-flex">
+                            <span className="fs-5 fw-bold text-white">Payment :</span>
+                            <span className="ms-2 fs-5 text-muted"> Paid</span>
+                        </div>
                         <div className="my-3 py-2 d-flex justify-content-center">
                             <Button className="prim-pg border-0 me-2" value=''>{appointment.is_accepted? <span>Accepted</span> : <span>Pending</span>} </Button>
-                           
                         </div>
                     </div>
                 </div>

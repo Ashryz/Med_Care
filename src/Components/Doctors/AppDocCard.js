@@ -4,11 +4,14 @@ import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 function AppDocCard({ appointments }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const handleBookAppointment = (appointmentId, doctorId) => {
     const newAppointment = {
       schedule: appointmentId,
@@ -20,12 +23,20 @@ function AppDocCard({ appointments }) {
     axiosInstance
       .post("/appointments/all_app/", newAppointment)
       .then((response) => {
+
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            strong: "Congratulations!",
+            txt: " Appointment booked successfully!",
+            type: "success",
+          },
+        });
         
-        navigate("/Appointments");
+        navigate("/");
         console.log("Appointment booked successfully!", response.data);
       })
       .catch((error) => {
-        
         console.error("Error booking appointment:", error);
       });
   };
@@ -59,13 +70,13 @@ function AppDocCard({ appointments }) {
                 </p>
                 {currentUser.is_patient && (
                   <button
-                  className="btn sec-btn shadow"
-                  onClick={() =>
-                    handleBookAppointment(appointment.id, appointment.doctor)
-                  }
-                >
-                  Book
-                </button>
+                    className="btn sec-btn shadow"
+                    onClick={() =>
+                      handleBookAppointment(appointment.id, appointment.doctor)
+                    }
+                  >
+                    Book
+                  </button>
                 )}
               </div>
             </div>
