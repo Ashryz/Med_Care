@@ -36,11 +36,12 @@ function AppDocCard({ appointments }) {
             type: "success",
           },
         });
-        
+        setLoading(false);
         navigate("/");
         console.log("Appointment booked successfully!", response.data);
       })
       .catch((error) => {
+        setLoading(false);
         console.error("Error booking appointment:", error);
       });
   };
