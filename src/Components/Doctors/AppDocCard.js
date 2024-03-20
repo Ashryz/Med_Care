@@ -69,13 +69,17 @@ function AppDocCard({ appointments }) {
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
                 {currentUser.is_patient && (
-                  <button
+                 <button
                     className="btn sec-btn shadow"
                     onClick={() =>
-                      handleBookAppointment(appointment.id, appointment.doctor)
+                      handleBookAppointment(
+                        appointment.id,
+                        appointment.doctor
+                      )
                     }
+                    disabled={loading}
                   >
-                    Book
+                    {loading ? "Booking..." : "Book"}
                   </button>
                 )}
               </div>
