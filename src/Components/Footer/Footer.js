@@ -22,9 +22,9 @@ function FooterComp() {
                         <Col>
                             <h2 className='text-white fs-3 fw-bold'>About Us</h2>
                             <ul className="list-unstyled fs-5">
-                                <li><Link className='text-white text-decoration-none'>Our Team</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Contact Us</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Sign In</Link></li>
+                                <li><Link className='text-white text-decoration-none' to={'Our'}>Our Team</Link></li>
+                                <li><Link className='text-white text-decoration-none' to={'contact'}>Contact Us</Link></li>
+                                <li><Link className='text-white text-decoration-none' to={'SignIn'}>Sign In</Link></li>
                             </ul>
                         </Col>
                         <Col>
@@ -43,7 +43,7 @@ function FooterComp() {
                                 <li><Link className='text-white text-decoration-none' to={"Medical"}>Medical Library</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={"contact"}>Contact Us</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={'tems'}>Terms of Use</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Privacy Policy</Link></li>
+                                <li><Link className='text-white text-decoration-none'to={'pri'}>Privacy Policy</Link></li>
                                 <li><Link className='text-white text-decoration-none'>Doctors Privacy Policy</Link></li>
                             </ul>
                         </Col>
