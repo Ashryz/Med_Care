@@ -15,7 +15,6 @@ import {
 import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
 import { Validations } from "../../Components/utils/validations/validation";
 
-
 const DoctorProfile = () => {
   const [doctorData, setDoctorData] = useState({
     username: "",
@@ -28,7 +27,7 @@ const DoctorProfile = () => {
     fees: "",
     specialization: "",
     degree: "",
-    gender:"",
+    gender: "",
     Image: "",
     ImageFile: null,
   });
@@ -45,7 +44,7 @@ const DoctorProfile = () => {
     age: "",
     area: "",
     fees: "",
-    gender:"",
+    gender: "",
     specialization: "",
     degree: "",
   });
@@ -58,7 +57,6 @@ const DoctorProfile = () => {
       axiosInstance
         .get(`/auth/users/${localuser.id}/`)
         .then((response) => {
-          
           const {
             username,
             email,
@@ -286,16 +284,21 @@ const DoctorProfile = () => {
                     <label
                       htmlFor="username"
                       className="form-label col-sm-3 text-primary"
+                      style={{ display: "none" }}
                     >
                       <FontAwesomeIcon icon={faUser} /> Username
                     </label>
-                    <div className="col-sm-9">
+                    <div
+                      className="col-sm-9"
+                      style={{ display: "none" }}
+                    >
                       <input
                         type="text"
                         name="username"
                         value={doctorData.username}
                         onChange={handleInputChange}
                         className="form-control form-control-blue"
+                        disabled
                       />
                       <div className="text-danger">
                         {validationErrors.username}

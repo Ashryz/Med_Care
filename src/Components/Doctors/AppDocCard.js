@@ -20,12 +20,12 @@ function AppDocCard({ appointments }) {
     axiosInstance
       .post("/appointments/all_app/", newAppointment)
       .then((response) => {
-        // Display success alert
+        
         navigate("/Appointments");
         console.log("Appointment booked successfully!", response.data);
       })
       .catch((error) => {
-        // Handle error
+        
         console.error("Error booking appointment:", error);
       });
   };
