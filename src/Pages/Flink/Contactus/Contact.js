@@ -3,7 +3,7 @@ import Card from 'react-bootstrap/Card';
 import './Contact.css'
 function Contact() {
   return (
-    <div id='conMain' className='container-fluid border p-2 rounded-3 shadow me-3 mb-2'>
+    <div id='conMain' >
 <Row>
    <div className='col lab'>
     <h3>
