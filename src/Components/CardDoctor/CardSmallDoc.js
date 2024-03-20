@@ -60,12 +60,12 @@ function CardSmallDoc({ doc }) {
         </Col>
         <Col
           md={4}
-          className="d-flex justify-content-center align-items-center"
+          className="d-flex justify-content-center align-items-center flex-column"
         >
           <Link to={`/DoctorDetails/${doc.user.id}`}>
             <Button className="btn me-2 sec-btn">Details</Button>
           </Link>
-          <Button className="btn main-btn">Booking</Button>
+          
         </Col>
       </Row>
     </Container>

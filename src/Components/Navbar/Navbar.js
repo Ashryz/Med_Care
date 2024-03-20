@@ -85,6 +85,7 @@ function NavbarComp() {
               variant="outline-light"
               onClick={() => toggleDarkMode(myTheme)}
               className="me-2"
+              style={{ maxWidth: "80px" }}
             >
               {isDarkMode ? (
                 <i className="bi bi-moon-fill"></i>
@@ -92,7 +93,7 @@ function NavbarComp() {
                 <i className="bi bi-moon"></i>
               )}
             </Button>
-            
+
             {!isLoggedIn ? (
               <>
                 <Link to="/SignIn">

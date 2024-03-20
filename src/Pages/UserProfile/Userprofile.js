@@ -9,17 +9,13 @@ import {
   faEnvelope,
   faPhoneAlt,
   faCalendarAlt,
-  faMapMarkerAlt,
   faCamera,
   faVenusMars,
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/AuthContext";
-
-import Sidebar from "../../Components/UserProfile/SideBar/Sidebar";
-
 import { Validations } from "../../Components/utils/validations/validation";
 
-const Userprofile =() => {
+const Userprofile = () => {
   const [doctorData, setDoctorData] = useState({
     username: "",
     fname: "",
@@ -29,6 +25,7 @@ const Userprofile =() => {
     age: "",
     area: "",
     fees: "",
+    gender: "",
     specialization: "",
     degree: "",
     Image: "",
@@ -38,7 +35,7 @@ const Userprofile =() => {
   const [showModal, setShowModal] = useState(false);
   const fileInputRef = useRef(null);
   const [isLoading, setIsLoading] = useState(false);
-  const [msg, setMsg] = useState({ msg: "" , type: "success" });
+  const [msg, setMsg] = useState({ msg: "", type: "success" });
   const [validationErrors, setValidationErrors] = useState({
     username: "",
     fname: "",
@@ -48,6 +45,7 @@ const Userprofile =() => {
     age: "",
     area: "",
     fees: "",
+    gender: "",
     specialization: "",
     degree: "",
   });
@@ -60,7 +58,7 @@ const Userprofile =() => {
       axiosInstance
         .get(`/auth/users/${localuser.id}/`)
         .then((response) => {
-          console.log("Response from API:", response.data);
+          
           const {
             username,
             email,
@@ -189,6 +187,7 @@ const Userprofile =() => {
       formData.append("phone", doctorData.phone);
       formData.append("age", doctorData.age);
       formData.append("city", doctorData.area);
+      formData.append("gender", doctorData.gender);
 
       // Check if ImageFile is not null before appending
       if (doctorData.ImageFile) {
@@ -205,7 +204,11 @@ const Userprofile =() => {
         }
       );
       if (response.status === 200) {
-        setMsg(msg => ({...msg, msg: "Profile updated successfully", type: "success"}));
+        setMsg((msg) => ({
+          ...msg,
+          msg: "Profile updated successfully",
+          type: "success",
+        }));
         setShowSuccessMessage(true);
         authContext.setCurrentUser(response.data);
         setTimeout(() => {
@@ -213,7 +216,11 @@ const Userprofile =() => {
         }, 3000);
       }
     } catch (error) {
-      setMsg(msg => ({...msg, msg: "Error updating doctor data", type: "danger"}));
+      setMsg((msg) => ({
+        ...msg,
+        msg: "Error updating doctor data",
+        type: "danger",
+      }));
       setShowSuccessMessage(true);
       setTimeout(() => {
         setShowSuccessMessage(false);
@@ -426,7 +433,6 @@ const Userprofile =() => {
                         onChange={handleInputChange}
                         className="form-select form-control-blue"
                       >
-                        <option value="">Select Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                       </Form.Select>
@@ -486,6 +492,5 @@ const Userprofile =() => {
     </div>
   );
 };
-
 
 export default Userprofile;

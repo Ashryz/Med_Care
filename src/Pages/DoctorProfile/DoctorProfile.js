@@ -28,6 +28,7 @@ const DoctorProfile = () => {
     fees: "",
     specialization: "",
     degree: "",
+    gender:"",
     Image: "",
     ImageFile: null,
   });
@@ -44,6 +45,7 @@ const DoctorProfile = () => {
     age: "",
     area: "",
     fees: "",
+    gender:"",
     specialization: "",
     degree: "",
   });
@@ -56,7 +58,7 @@ const DoctorProfile = () => {
       axiosInstance
         .get(`/auth/users/${localuser.id}/`)
         .then((response) => {
-          console.log("Response from API:", response.data);
+          
           const {
             username,
             email,
@@ -67,6 +69,7 @@ const DoctorProfile = () => {
             fees,
             specialization,
             degree,
+
             first_name,
             last_name,
             img,
@@ -185,6 +188,7 @@ const DoctorProfile = () => {
       formData.append("phone", doctorData.phone);
       formData.append("age", doctorData.age);
       formData.append("city", doctorData.area);
+      formData.append("gender", doctorData.gender);
 
       // Check if ImageFile is not null before appending
       if (doctorData.ImageFile) {
@@ -416,7 +420,6 @@ const DoctorProfile = () => {
                         onChange={handleInputChange}
                         className="form-select form-control-blue"
                       >
-                        <option value="">Select Gender</option>
                         <option value="M">Male</option>
                         <option value="F">Female</option>
                       </Form.Select>
