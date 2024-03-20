@@ -83,6 +83,16 @@ function AppDocCard({ appointments }) {
           </div>
         ))}
       </div>
+            {/* Modal for loading indicator */}
+	<Modal show={showModal} onHide={() => setShowModal(false)} centered style={{ backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
+	  <Modal.Body className="text-center sec-color" >
+	    <div className="animate__animated animate__flash">
+	      <FaHourglassStart size={100} className="sec-color" />
+	    </div>
+	    <p>Booking appointment...</p>
+	  </Modal.Body>
+	</Modal>
+
     </div>
   );
 }
