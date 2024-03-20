@@ -1,18 +1,15 @@
 import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
 import { useEffect, useState, useContext } from "react";
-import { axiosInstance } from "../../Network/axiosInstance";
 import { AuthContext } from "../../context/AuthContext";
 import { Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppoitmentListbydoctor } from "../../Store/Actions/Actions";
+import { getAppoitmentListbydoctor, getAppoitmentListbyuser } from "../../Store/Actions/Actions";
 
 
 export const ViewAppointment = () => {
-  // const [appointments, setappointments] = useState([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const totalPages = Math.ceil(appointments.count / pageSize);
   const dispatch = useDispatch()
   const appointments = useSelector((state) => state.combinedocAppointment.appointments)
+  const Appointment = useSelector((state) => state.combineuserAppointment.appointments)
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3
   const authContext = useContext(AuthContext);
@@ -25,32 +22,12 @@ export const ViewAppointment = () => {
     }
   }, [dispatch, currentPage, pageSize, currentUser]);
 
-  // useEffect(() => {
-  //   if (currentUser.is_doctor) {
-  //     axiosInstance
-  //       .get(`/appointments/all_app/doctor/${currentUser.id}/`,
-  //        {
-  //   params: {
-  //     p: page,
-  //     page_size: pageSize
-  //   }
-  // })
-  //       .then((res) => {
-  //         console.log(currentUser)
-  //         setappointments(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   } else {
-  //     axiosInstance
-  //       .get(`/appointments/all_app/user/${currentUser.id}`)
-  //       .then((res) => {
-  //         setappointments(res.data);
+  useEffect(() => {
+    if (currentUser && currentUser.id) {
+      dispatch(getAppoitmentListbyuser(currentPage, pageSize, currentUser.id));
+    }
+  }, [dispatch, currentPage, pageSize, currentUser]);
 
-  //         console.log(res.data);
-  //       })
-  //       .catch((err) => console.log(err));
-  //   }
-  // }, [currentPage, pageSize, currentUser]);
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
@@ -58,13 +35,20 @@ export const ViewAppointment = () => {
     <div className="container">
       <div className="row">
         <div className="mb-3 ">
-          {Array.isArray(appointments) && appointments.map((appointment) => {
-            return (
-              <div key={appointment.id}>
-                <CardAppointment appointment={appointment} />
-              </div>
-            );
-          })}
+        {Array.isArray(appointments.results) && appointments.results.map((appointment) => {
+        return (
+          <div key={appointment.id}>
+            <CardAppointment appointment={appointment} />
+          </div>
+        );
+      })}
+      {Array.isArray(Appointment.results) && Appointment.results.map((appointment) => {
+        return (
+          <div key={appointment.id}>
+            <CardAppointment appointment={appointment} />
+          </div>
+        );
+      })}
         </div>
       </div>
       <Pagination className="mt-3 justify-content-center">
