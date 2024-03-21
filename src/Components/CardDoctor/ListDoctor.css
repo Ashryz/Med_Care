@@ -1,26 +1,27 @@
 .my-container {
   height: 17.5rem;
 }
-
+/* 
 #img{
-    width: 60%;
-    border-radius: 50%;
-}
+    width: 80% !important;
+    border-radius: 50% !important;
+
+} */
 
 .doc_card:hover,
 .doc_card:focus {
-  background-color:lightgray !important;
+  background-color:#0b927c36 !important;
   /* color: white !important;*/
   transition: background-color 0.3s ease, color 1s ease; 
   cursor: pointer;
   svg {
-    color: white !important;
+    color: dodgerblue !important;
     transition: color 0.3s ease;
   }
 }
 
 .doc_card {
-  background-color: white !important;
+  background-color: white;
   color: black !important;
   transition: background-color 0.3s ease, color 1s ease;
   cursor: pointer;
