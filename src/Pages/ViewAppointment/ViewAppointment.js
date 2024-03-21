@@ -1,10 +1,14 @@
 import React, { useEffect, useState, useContext } from "react";
-import { CardAppointment } from "../../Components/ViewAppointment/CardAppointment";
+import CardAppointment from "../../Components/ViewAppointment/CardAppointment";
 import { AuthContext } from "../../context/AuthContext";
 import { Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppoitmentListbydoctor } from "../../Store/Actions/Actions.js";
-import { getAppoitmentListbyuser } from "../../Store/Actions/Actions.js";
+import {
+  getAppoitmentListbydoctor,
+  getAppoitmentListbyuser,
+} from "../../Store/Actions/Actions";
+import { axiosInstance } from "../../Network/axiosInstance";
+
 export const ViewAppointment = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
@@ -18,9 +22,6 @@ export const ViewAppointment = () => {
   const userAppointments = useSelector(
     (state) => state.combineuserAppointment.appointments
   );
-
-  console.log(doctorAppointments)
-  console.log(userAppointments)
 
   const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
   const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
@@ -38,29 +39,43 @@ export const ViewAppointment = () => {
     setCurrentPage(page);
   };
 
+  const handleAppointmentAction = (appointment, isAccepted, status) => {
+    console.log(appointment);
+    const response = axiosInstance.put(
+      `/schedules/appointment/${appointment.id}/`,
+      {
+        doctor: appointment.doctor,
+        user: appointment.user.id,
+        schedule: appointment.schedule,
+        is_accepted: isAccepted,
+        status: status,
+      }
+    );
+    if (response) {
+      console.log(response);
+    }
+  };
+
   return (
-    <div className="container" style={{ minHeight: "36.6vh" }}>
-      {(doctorAppointments.results && doctorAppointments.results.length > 0) || (userAppointments.results && userAppointments.results.length > 0)? (
+    <div className="container  " style={{ minHeight: "36.6vh" }}>
+      {doctorAppointments.results?.length > 0 ||
+      userAppointments.results?.length > 0 ? (
         <>
-          <div className="row">
-          <h1 className="text-center  text-capitalize ">View Appointments</h1>
-            <div className="mb-3">
-              {currentUser &&
-                currentUser.is_doctor &&
-                Array.isArray(doctorAppointments.results) &&
-                doctorAppointments.results.map((appointment) => (
-                  <div key={appointment.id}>
-                    <CardAppointment appointment={appointment} />
-                  </div>
-                ))}
-              {currentUser &&
-                currentUser.is_patient &&
-                Array.isArray(userAppointments.results) &&
-                userAppointments.results.map((appointment) => (
-                  <div key={appointment.id}>
-                    <CardAppointment appointment={appointment} />
-                  </div>
-                ))}
+          <div className="">
+            <h1 className="text-center text-capitalize">View Appointments</h1>
+            <div className="mb-3 row row-cols-3" >
+              {(currentUser?.is_doctor
+                ? doctorAppointments.results
+                : userAppointments.results
+              )?.map((appointment) => (
+                <div key={appointment.id}>
+                  <CardAppointment
+                    appointment={appointment}
+                    currentUser={currentUser}
+                    handleAppointmentAction={handleAppointmentAction}
+                  />
+                </div>
+              ))}
             </div>
           </div>
           <Pagination className="mt-3 justify-content-center">
@@ -124,3 +139,5 @@ export const ViewAppointment = () => {
     </div>
   );
 };
+
+export default ViewAppointment;
