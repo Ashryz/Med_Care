@@ -2,8 +2,10 @@
     background-image: linear-gradient(MediumSeaGreen , dodgerBlue) !important; 
 }
 
+
+
 .nv-hover:hover{
     color: black !important;
-    font-weight: bold !important;
-    transform: scale(1.1) !important;
+    
+    transition: 0.5s !important;
 } 
