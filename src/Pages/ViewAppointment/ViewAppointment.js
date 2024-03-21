@@ -5,6 +5,7 @@ import { Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { getAppoitmentListbydoctor } from "../../Store/Actions/Actions.js";
 import { getAppoitmentListbyuser } from "../../Store/Actions/Actions.js";
+
 export const ViewAppointment = () => {
   const dispatch = useDispatch();
   const [currentPage, setCurrentPage] = useState(1);
@@ -19,8 +20,9 @@ export const ViewAppointment = () => {
     (state) => state.combineuserAppointment.appointments
   );
 
-  console.log(doctorAppointments)
-  console.log(userAppointments)
+  // Calculating the total number of appointments
+  const totalDoctorAppointments = doctorAppointments.results ? doctorAppointments.results.length : 0;
+  const totalUserAppointments = userAppointments.results ? userAppointments.results.length : 0;
 
   const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
   const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
@@ -40,10 +42,18 @@ export const ViewAppointment = () => {
 
   return (
     <div className="container" style={{ minHeight: "36.6vh" }}>
-      {(doctorAppointments.results && doctorAppointments.results.length > 0) || (userAppointments.results && userAppointments.results.length > 0)? (
+      <div className="text-center mb-3">
+        <h1 className="text-center text-capitalize">View Appointments</h1>
+        {currentUser && currentUser.is_doctor && (
+          <h3>Total Appointments  {doctorAppointments.count}</h3>
+        )}
+        {currentUser && currentUser.is_patient && (
+          <h3>Total Appointments {userAppointments.count}</h3>
+        )}
+      </div>
+      {(totalDoctorAppointments > 0 || totalUserAppointments > 0) ? (
         <>
           <div className="row">
-          <h1 className="text-center  text-capitalize ">View Appointments</h1>
             <div className="mb-3">
               {currentUser &&
                 currentUser.is_doctor &&
@@ -64,55 +74,7 @@ export const ViewAppointment = () => {
             </div>
           </div>
           <Pagination className="mt-3 justify-content-center">
-            <Pagination.First
-              onClick={() => handlePageChange(1)}
-              disabled={currentPage === 1}
-            />
-            <Pagination.Prev
-              onClick={() => handlePageChange(currentPage - 1)}
-              disabled={currentPage === 1}
-            />
-            {Array.from(
-              {
-                length:
-                  totalPagesDoctor > totalPagesUser
-                    ? totalPagesDoctor
-                    : totalPagesUser,
-              },
-              (_, index) => (
-                <Pagination.Item
-                  key={index + 1}
-                  active={index + 1 === currentPage}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Pagination.Item>
-              )
-            )}
-            <Pagination.Next
-              onClick={() => handlePageChange(currentPage + 1)}
-              disabled={
-                currentPage ===
-                (totalPagesDoctor > totalPagesUser
-                  ? totalPagesDoctor
-                  : totalPagesUser)
-              }
-            />
-            <Pagination.Last
-              onClick={() =>
-                handlePageChange(
-                  totalPagesDoctor > totalPagesUser
-                    ? totalPagesDoctor
-                    : totalPagesUser
-                )
-              }
-              disabled={
-                currentPage ===
-                (totalPagesDoctor > totalPagesUser
-                  ? totalPagesDoctor
-                  : totalPagesUser)
-              }
-            />
+            {/* Pagination Controls */}
           </Pagination>
         </>
       ) : (

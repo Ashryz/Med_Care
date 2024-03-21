@@ -27,7 +27,6 @@ import  AppointmentCount  from "./Pages/ViewAppointment/AppointmentCount.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
-import  MainDashboard from "./Components/Dashboard/MainDashboard.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
 import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
 import Rating from "./Components/Dashboard/Rating.js"
@@ -69,7 +68,6 @@ function App() {
             <Route exact path="/Medical" element={<Medical/>} />
             <Route exact path="/contact" element={<Contact/>} />
             <Route exact path="/tems" element={<Teams/>} />
-            <Route exact path="/MainDashboard" element={<MainDashboard/>} />
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
             <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
             <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />

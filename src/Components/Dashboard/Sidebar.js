@@ -18,13 +18,6 @@ function Sidebar() {
               <span className='spanStyle'>Dashboard</span>
             </ListGroup.Item>
           </Link>
-
-          <Link to="/MainDashboard" className="text-decoration-none">
-            <ListGroup.Item className='list-group-item listgroupItem lis'>
-              <i className="bi bi-file-earmark-text me-2"></i>
-              <span className='spanStyle'>Report</span>
-            </ListGroup.Item>
-          </Link>
           <Link to="/Appointments" className="text-decoration-none">
             <ListGroup.Item className='list-group-item listgroupItem lis'>
               <i className="bi bi-table me-2"></i>
