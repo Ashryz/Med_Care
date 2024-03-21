@@ -39,78 +39,88 @@ export const ViewAppointment = () => {
   };
 
   return (
-    <div className="container">
-      <div className="row">
-        <div className="mb-3">
-          {currentUser &&
-            currentUser.is_doctor &&
-            Array.isArray(doctorAppointments.results) &&
-            doctorAppointments.results.map((appointment) => (
-              <div key={appointment.id}>
-                <CardAppointment appointment={appointment} />
-              </div>
-            ))}
-          {currentUser &&
-            currentUser.is_patient &&
-            Array.isArray(userAppointments.results) &&
-            userAppointments.results.map((appointment) => (
-              <div key={appointment.id}>
-                <CardAppointment appointment={appointment} />
-              </div>
-            ))}
+    <div className="container" style={{ minHeight: "36.6vh" }}>
+      {(doctorAppointments.results && doctorAppointments.results.length > 0) || (userAppointments.results && userAppointments.results.length > 0)? (
+        <>
+          <div className="row">
+          <h1 className="text-center  text-capitalize ">View Appointments</h1>
+            <div className="mb-3">
+              {currentUser &&
+                currentUser.is_doctor &&
+                Array.isArray(doctorAppointments.results) &&
+                doctorAppointments.results.map((appointment) => (
+                  <div key={appointment.id}>
+                    <CardAppointment appointment={appointment} />
+                  </div>
+                ))}
+              {currentUser &&
+                currentUser.is_patient &&
+                Array.isArray(userAppointments.results) &&
+                userAppointments.results.map((appointment) => (
+                  <div key={appointment.id}>
+                    <CardAppointment appointment={appointment} />
+                  </div>
+                ))}
+            </div>
+          </div>
+          <Pagination className="mt-3 justify-content-center">
+            <Pagination.First
+              onClick={() => handlePageChange(1)}
+              disabled={currentPage === 1}
+            />
+            <Pagination.Prev
+              onClick={() => handlePageChange(currentPage - 1)}
+              disabled={currentPage === 1}
+            />
+            {Array.from(
+              {
+                length:
+                  totalPagesDoctor > totalPagesUser
+                    ? totalPagesDoctor
+                    : totalPagesUser,
+              },
+              (_, index) => (
+                <Pagination.Item
+                  key={index + 1}
+                  active={index + 1 === currentPage}
+                  onClick={() => handlePageChange(index + 1)}
+                >
+                  {index + 1}
+                </Pagination.Item>
+              )
+            )}
+            <Pagination.Next
+              onClick={() => handlePageChange(currentPage + 1)}
+              disabled={
+                currentPage ===
+                (totalPagesDoctor > totalPagesUser
+                  ? totalPagesDoctor
+                  : totalPagesUser)
+              }
+            />
+            <Pagination.Last
+              onClick={() =>
+                handlePageChange(
+                  totalPagesDoctor > totalPagesUser
+                    ? totalPagesDoctor
+                    : totalPagesUser
+                )
+              }
+              disabled={
+                currentPage ===
+                (totalPagesDoctor > totalPagesUser
+                  ? totalPagesDoctor
+                  : totalPagesUser)
+              }
+            />
+          </Pagination>
+        </>
+      ) : (
+        <div className="text-center">
+          <h1 className="text-muted">No Appointments Found</h1>
+          <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
-      </div>
-      <Pagination className="mt-3 justify-content-center">
-        <Pagination.First
-          onClick={() => handlePageChange(1)}
-          disabled={currentPage === 1}
-        />
-        <Pagination.Prev
-          onClick={() => handlePageChange(currentPage - 1)}
-          disabled={currentPage === 1}
-        />
-        {Array.from(
-          {
-            length:
-              totalPagesDoctor > totalPagesUser
-                ? totalPagesDoctor
-                : totalPagesUser,
-          },
-          (_, index) => (
-            <Pagination.Item
-              key={index + 1}
-              active={index + 1 === currentPage}
-              onClick={() => handlePageChange(index + 1)}
-            >
-              {index + 1}
-            </Pagination.Item>
-          )
-        )}
-        <Pagination.Next
-          onClick={() => handlePageChange(currentPage + 1)}
-          disabled={
-            currentPage ===
-            (totalPagesDoctor > totalPagesUser
-              ? totalPagesDoctor
-              : totalPagesUser)
-          }
-        />
-        <Pagination.Last
-          onClick={() =>
-            handlePageChange(
-              totalPagesDoctor > totalPagesUser
-                ? totalPagesDoctor
-                : totalPagesUser
-            )
-          }
-          disabled={
-            currentPage ===
-            (totalPagesDoctor > totalPagesUser
-              ? totalPagesDoctor
-              : totalPagesUser)
-          }
-        />
-      </Pagination>
+      )}
     </div>
   );
 };

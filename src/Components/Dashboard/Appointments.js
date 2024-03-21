@@ -20,8 +20,6 @@ function Appointments() {
               <Sidebar />
             </div>
             <div className="col-md-9 mt-3">
-              <h1 className="text-center  text-capitalize ">View Appointments</h1>
-             
               <ViewAppointment />
             </div>
           </div>
