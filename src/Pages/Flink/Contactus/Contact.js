@@ -1,7 +1,35 @@
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import Card from 'react-bootstrap/Card';
+import React, { useEffect, useState } from "react";
+
 import './Contact.css'
 function Contact() {
+  const [formData,setFormdata]=useState({
+
+name:'',
+email:'',
+message:''
+
+  });
+
+  const handeleChange=e=>{
+    setFormdata({ ...formData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async e => {
+    e.preventDefault();
+    try {
+        const response = await fetch('http://127.0.0.1:8000/contact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+        });
+        // Handle success or error
+    } catch (error) {
+        console.error('Error:', error);
+    }
+};
   return (
     <div id='conMain' >
 <Row>
@@ -12,52 +40,31 @@ function Contact() {
 <p>We will be happy to receive your inquiries and suggestions.
 
 </p>
-{/* <div className='row'>
-  <Form>
-<div className='col'>
-<Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
-        <Form.Label column sm="2">
-          Your Name
-        </Form.Label>
-        <Col sm="10">
-        </Col>
-      </Form.Group>
-  </div>
-  <div className='col'>
-
-        <Form.Control type="text" placeholder="First Name last Name" />
 
 
-  </div>
-
-  </Form>
-  
-
-</div> */}
-
-<Form>
+<Form onSubmit={handleSubmit} method='post'>
 <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
         <Form.Label id='forml' column sm="2">
           Your Name
         </Form.Label>
         <Col sm="10">
-        <Form.Control id='formC' type="text" placeholder="First Name last Name" />
+        <Form.Control name='name' id='formC' value={formData.name} onChange={handeleChange} type="text" required={true} placeholder="First Name last Name" />
         </Col>
       </Form.Group>
-<Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
+{/* <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
         <Form.Label id='forml' column sm="2">
           Mobile Number
         </Form.Label>
         <Col sm="10">
         <Form.Control id='formC' type="number" placeholder="Mobile Number" />
         </Col>
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group as={Row} className="mb-3" controlId="formPlaintextEmail">
         <Form.Label id='forml' column sm="2">
           Email Address
         </Form.Label>
         <Col sm="10">
-        <Form.Control  id='formC'type="email" placeholder="email@example.com" />
+        <Form.Control name='email' value={formData.email} onChange={handeleChange} id='formC'type="email"required={true}placeholder="email@example.com" />
         </Col>
       </Form.Group>
 
@@ -66,10 +73,10 @@ function Contact() {
           Comments
         </Form.Label>
         <Col sm="10">
-        <Form.Control  id='formC'as="textarea" rows={3} />
+        <Form.Control name='message' value={formData.message} onChange={handeleChange} required={true} id='formC'as="textarea" rows={3} />
         </Col>
       </Form.Group>
-      <Button variant="danger">Send</Button>{' '}
+      <Button type='submit'  variant="danger">Send</Button>{' '}
 
     </Form>
 
