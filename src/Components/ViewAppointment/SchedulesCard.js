@@ -27,29 +27,26 @@ const SchadulesCard = (props) => {
     <>
       <Card
         className="rounded-3 shadow "
-        style={{
-          backgroundImage:
-            "linear-gradient(to bottom,MediumSeaGreen 130px , dodgerBlue 250px )",
-        }}
+        style={{backgroundColor:'#77ffe84b'}}
       >
         <Card.Body>
-          <h5 class="card-title text-center">Schedule ( {schedule.id} ) </h5>
+          <h5 class="card-title text-center fw-bold"><i className="bi bi-calendar me-2"></i>{schedule.day.charAt(0).toUpperCase() + schedule.day.slice(1)} </h5>
           <hr />
           <div className="px-2 ">
-            <div className="d-flex">
-              <span className="fs-5  ">Day :</span>
-              <span className="ms-2 fs-5 text-muted"> {schedule.day}</span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 ">Start Time :</span>
+            <div className="d-flex mb-2">
+              <span className="fs-5"><i className="bi bi-alarm"></i> Start Time :</span>
               <span className="ms-2 fs-5 text-muted">
                 {" "}
                 {schedule.start_time}
               </span>
             </div>
-            <div className="d-flex">
-              <span className="fs-5 ">End Time :</span>
+            <div className="d-flex mb-2">
+              <span className="fs-5"> <i className="bi bi-alarm-fill"></i> End Time :</span>
               <span className="ms-2 fs-5 text-muted"> {schedule.end_time}</span>
+            </div>
+            <div className="d-flex mb-2">
+              <span className="fs-5"> <i className="bi bi-check2-all"></i> Status :</span>
+              <span className="ms-2 fs-5 text-muted"> {schedule.is_active ? "Active" : "Inactive"}</span>
             </div>
           </div>
           <div className="mt-3">

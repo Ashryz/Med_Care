@@ -7,7 +7,7 @@ import './filter.css'
 function Filter() {
   return (
       <Card style={{ width: '20rem' }} className='ms-5'>
-        <Card.Header className='main-bg-2 text-center text-white fw-bold'><h3><i class="bi bi-funnel-fill"></i> Filter</h3></Card.Header>
+        <Card.Header className='text-center text-white fw-bold'style={{backgroundColor:'mediumseagreen'}}><h3 className='text-white'><i class="bi bi-funnel-fill"></i> Filter</h3></Card.Header>
         <Card.Body>
         <Accordion defaultActiveKey={['0']} alwaysOpen id='acc' style={{width:'17.5rem'}}>
       <Accordion.Item eventKey="0">
