@@ -32,7 +32,10 @@ function DoctorDetails() {
 
   if (!doctor) {
     return (
-      <div className="text-center animate__animated animate__flash  mt-5">
+      <div
+        className="contanier text-center animate__animated animate__flash  mt-5"
+        style={{ minHeight: "30vh" }}
+      >
         <FaHourglassStart size={100} className="sec-color" />
       </div>
     );

@@ -73,13 +73,7 @@ function HealthcareServices() {
                     ></textarea>
                   </div>
                   <div className="modal-footer">
-                    <button
-                      type="button"
-                      className="btn bg-danger"
-                      onClick={handleCloseModal}
-                    >
-                      Close
-                    </button>
+                   
                     <button type="submit" className="btn main-btn">
                       Submit
                     </button>

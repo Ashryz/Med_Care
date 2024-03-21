@@ -1,3 +1,11 @@
 #nv-bar,.main-bg-1{
     background-image: linear-gradient(MediumSeaGreen , dodgerBlue) !important; 
 }
+
+
+
+.nv-hover:hover{
+    color: black !important;
+    
+    transition: 0.5s !important;
+} 

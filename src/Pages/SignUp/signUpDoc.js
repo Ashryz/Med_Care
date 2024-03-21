@@ -7,6 +7,7 @@ import { Validations } from "../../Components/SignUp/utils/validations/validatio
 import AlertNew from "../../Components/SignUp/utils/alert/alertNew.js";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useDispatch } from "react-redux";
 
 export function SignUpDoc({ userType, onClose }) {
   //initializing the local storage
@@ -29,6 +30,7 @@ export function SignUpDoc({ userType, onClose }) {
   const [alertMessage, setAlertMessage] = useState("");
   const [signedUp, setSignedUp] = useState(false);
   const handleCloseAlert = () => setShowAlert(false);
+  const dispatch = useDispatch();
 
   const [fname, setFname] = useState({
     value: "",
@@ -158,6 +160,8 @@ export function SignUpDoc({ userType, onClose }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    e.target[8].disabled = true;
+    
 
     try {
       if (
@@ -191,10 +195,12 @@ export function SignUpDoc({ userType, onClose }) {
         // Check if the registration was successful
         if (response.status === 200) {
           setSignedUp(true);
+          
         }
       } else {
         setAlertTitle("Error");
         setAlertMessage("Please fill all the fields correctly");
+        e.target[8].disabled = false;
         setShowAlert(true);
       }
     } catch (error) {
@@ -203,12 +209,15 @@ export function SignUpDoc({ userType, onClose }) {
         setAlertTitle("Error");
         setAlertMessage("Server is not responding. Please try again later.");
         setShowAlert(true);
+        e.target[8].disabled = false;
       } else {
         // Server responded with an error
         let errorMessage = "";
         for (const key in error.response.data) {
           errorMessage += `${key}: ${error.response.data[key]}\n`;
         }
+
+        e.target[8].disabled = false;
     
         console.error("Error:", error);
         setAlertTitle("Error");
@@ -220,9 +229,19 @@ export function SignUpDoc({ userType, onClose }) {
 
   useEffect(() => {
     if (signedUp) {
-      navigate("/SignIn");
+      
+      dispatch({
+        type: "SET_ALERT",
+        payload: {
+          strong: "Congratulations!",
+          txt: " Please Check your email to verify your account",
+          type: "success",
+        },
+      });
+      navigate("/");
+      
     }
-  }, [signedUp, navigate]);
+  }, [signedUp, navigate, dispatch]);
 
   return (
     <div className="container  mt-2 text-center  p-2  ">

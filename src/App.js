@@ -35,11 +35,13 @@ import { useSelector } from "react-redux";
 import Contact from "./Pages/Flink/Contactus/Contact.js";
 import Teams from "./Pages/Flink/Teams/Teams.js";
 import Medical from "./Pages/Flink/Medical.js";
-
+import OurTeam from "./Pages/Flink/OurTeam/OurTeam.js";
+import Privacy from "./Pages/Flink/privcy/Privacy_Policy.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
     <div className={`App ${myTheme === "light" ? "" : "bg-dark text-white"}`}>
+     
       <BrowserRouter>
         <AuthProvider>
           <NavbarComp />
@@ -73,6 +75,9 @@ function App() {
             <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />
 
             <Route exact path="/Rating" element={<Rating/>} />
+            <Route exact path="/Our" element={<OurTeam/>} />
+            <Route exact path="/pri" element={<Privacy/>} />
+
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Form, Modal, Button } from "react-bootstrap";
+import { Form } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { axiosInstance } from "../../../Network/axiosInstance";
 import {
@@ -33,6 +34,9 @@ const AdditionalInfo = () => {
   useEffect(() => {
     fetchUserData();
   }, []);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const fetchUserData = async () => {
     try {
@@ -91,6 +95,15 @@ const AdditionalInfo = () => {
     try {
       const userId = JSON.parse(localStorage.getItem("user")).id;
       await axiosInstance.put(`/doctors/doctor/${userId}/`, userData); // Update doctor profile by ID using axiosInstance
+      dispatch({
+        type: "SET_ALERT",
+        payload: {
+          strong: "Congratulations!",
+          txt: " Profile updated successfully",
+          type: "success",
+        },
+      });
+      navigate("/");
       setShowSuccessMessage(true);
     } catch (error) {
       console.error("Error updating doctor profile:", error);
@@ -195,6 +208,7 @@ const AdditionalInfo = () => {
                       onChange={handleInputChange}
                       className="form-control form-control-blue"
                     />
+
                     <div className="text-danger">{validationErrors.fees}</div>
                   </div>
                 </div>

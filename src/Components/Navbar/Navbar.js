@@ -43,96 +43,113 @@ function NavbarComp() {
   };
 
   return (
-    <Navbar expand="lg" bg="primary" id="nv-bar">
-      <Container>
-        <Navbar.Brand className="fw-bold fs-2 text-white">
+    <Navbar expand="lg" bg="primary" id="nv-bar" className="">
+      <Container fluid>
+        <Navbar.Brand
+          className="fw-bold fs-2 text-white p-0"
+          style={{ minWidth: "10rem" }}
+        >
           <Link className="text-decoration-none text-white" to="/">
             <i className="bi bi-hospital"></i> MED-CARE{" "}
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse id="basic-navbar-nav">
-          <Nav className="me-auto">
+        <Navbar.Collapse
+          id="basic-navbar-nav"
+          className="justify-content-between"
+        >
+          <Nav>
             <Nav.Link
               as={Link}
-              to="/"
-              className="text-decoration-none text-white fw-bold fs-5"
+              to="/contact"
+              className="text-decoration-none text-white fw-bold fs-5 me-2 nv-hover"
             >
-              Home
+              Contact Us
             </Nav.Link>
           </Nav>
-          {isLoggedIn && currentUser.is_patient && (
-            <Nav className="d-flex justify-content-center">
-              <InputGroup>
-                <Form.Control
-                  placeholder="Search for Doctor's Name"
-                  aria-label="Doctor's Name"
-                  aria-describedby="basic-addon2"
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                />
-                <Button
-                  variant="outline-light"
-                  id="button-addon2"
-                  onClick={handleSearch}
-                >
-                  <i className="bi bi-search"></i>
-                </Button>
-              </InputGroup>
-            </Nav>
+          <Nav className="d-flex align-items-center ms-lg-5">
+            <InputGroup>
+              <Form.Control
+                placeholder="Search for Doctor's Name"
+                aria-label="Doctor's Name"
+                aria-describedby="basic-addon2"
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="rounded-0"
+              />
+              <Button
+                variant="outline-light"
+                id="button-addon2"
+                onClick={handleSearch}
+              >
+                Search
+              </Button>
+            </InputGroup>
+          </Nav>
+          {isLoggedIn && (
+            <div className="d-flex align-items-center ms-lg-5 justify-content-center ">
+              <img
+                src={
+                  currentUser.img
+                    ? `http://localhost:8000${currentUser.img}`
+                    : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
+                }
+                style={{
+                  width: "2.8rem",
+                  border: "3px solid #FFF8DC",
+                  objectFit: "cover",
+                }}
+                className="rounded-circle me-2 shadow p-0"
+                alt="user"
+              />
+              <Link
+                to={currentUser.is_doctor ? "/DoctorProfile" : "/Userprofile"}
+                className="text-dark text-decoration-none me-2 fs-5 fw-bold text-white nv-hover text-capitalize"
+              >
+                {currentUser.first_name}
+              </Link>
+            </div>
           )}
           <Nav className="ms-auto g-2">
-            <Button
+            {!isLoggedIn ? (
+              <div className="d-flex flex-sm-column justify-content-center align-items-center flex-md-row">
+                <Link
+                  to="/SignIn"
+                  variant="outline-light"
+                  className="me-3 fw-bold fs-5 text-white text-decoration-none nv-hover"
+                >
+                  LOGIN
+                </Link>
+                <Link
+                  to="/SignUp"
+                  variant="outline-light"
+                  className="me-2 fw-bold fs-5 text-white text-decoration-none nv-hover"
+                >
+                  REGISTER
+                </Link>
+              </div>
+            ) : (
+              <>
+                <Nav.Link
+                  variant="outline-light"
+                  onClick={handleLogout}
+                  className="fw-bold fs-5 text-white nv-hover text-center me-2 align-content-center"
+                >
+                  LOGOUT
+                </Nav.Link>
+              </>
+            )}
+            <Nav.Link
               variant="outline-light"
               onClick={() => toggleDarkMode(myTheme)}
-              className="me-2"
+              className="me-2 text-white fs-5 align-content-center m-sm-auto m-md-auto m-lg-auto m-xl-auto m-xxl-auto"
+              style={{ maxWidth: "80px" }}
             >
               {isDarkMode ? (
                 <i className="bi bi-moon-fill"></i>
               ) : (
                 <i className="bi bi-moon"></i>
               )}
-            </Button>
-            
-            {!isLoggedIn ? (
-              <>
-                <Link to="/SignIn">
-                  <Button variant="outline-light" className="me-2 fw-bold">
-                    <i className="bi bi-box-arrow-in-right fw-bold"></i> Login
-                  </Button>{" "}
-                </Link>
-                <Link to="/SignUp">
-                  <Button variant="outline-light" className="me-2 fw-bold">
-                    <i className="bi bi-person-fill fw-bold"></i> Register
-                  </Button>{" "}
-                </Link>
-              </>
-            ) : (
-              <Dropdown onClick={() => setShowDropdown(!showDropdown)}>
-                <Dropdown.Toggle variant="outline-light" id="dropdown-basic">
-                  {isLoggedIn && currentUser.first_name}
-                </Dropdown.Toggle>
-                <Dropdown.Menu>
-                  <Dropdown.Item eventKey="Option 1">
-                    <Link
-                      to={
-                        currentUser.is_doctor
-                          ? "/DoctorProfile"
-                          : "/Userprofile"
-                      }
-                      className="text-dark text-decoration-none"
-                    >
-                      Profile
-                    </Link>
-                  </Dropdown.Item>
-                  <Dropdown.Divider />
-                  {isLoggedIn && (
-                    <Dropdown.Item eventKey="Option 2" onClick={handleLogout}>
-                      <i className="bi bi-box-arrow-right"></i> Logout{" "}
-                    </Dropdown.Item>
-                  )}
-                </Dropdown.Menu>
-              </Dropdown>
-            )}
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>
