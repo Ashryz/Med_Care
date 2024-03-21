@@ -65,7 +65,7 @@ function Rating() {
             <div className="col-md-9">
               <div style={{ textAlign: "center" }}>
                 <i
-                  className="bi bi-speedometer2"
+                  className="bi bi-star"
                   style={{ fontSize: "48px", marginBottom: "20px" }}
                 ></i>
                 <h2>Patients Feedback</h2>
