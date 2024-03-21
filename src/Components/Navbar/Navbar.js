@@ -43,21 +43,15 @@ function NavbarComp() {
   };
 
   return (
-    <Navbar expand="lg" bg="primary" id="nv-bar" className="">
+    <Navbar expand="lg" bg="primary" id="nv-bar">
       <Container fluid>
-        <Navbar.Brand
-          className="fw-bold fs-2 text-white p-0"
-          style={{ minWidth: "10rem" }}
-        >
+        <Navbar.Brand className="fw-bold fs-2 text-white" style={{minWidth:'10rem'}}>
           <Link className="text-decoration-none text-white" to="/">
             <i className="bi bi-hospital"></i> MED-CARE{" "}
           </Link>
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
-        <Navbar.Collapse
-          id="basic-navbar-nav"
-          className="justify-content-between"
-        >
+        <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             <Nav.Link
               as={Link}
@@ -67,81 +61,56 @@ function NavbarComp() {
               Contact Us
             </Nav.Link>
           </Nav>
-          <Nav className="d-flex align-items-center ms-lg-5">
-            <InputGroup>
-              <Form.Control
-                placeholder="Search for Doctor's Name"
-                aria-label="Doctor's Name"
-                aria-describedby="basic-addon2"
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="rounded-0"
-              />
-              <Button
-                variant="outline-light"
-                id="button-addon2"
-                onClick={handleSearch}
-              >
-                Search
-              </Button>
-            </InputGroup>
+          <Nav className="ms-lg-5 mb-sm-2">
+              <InputGroup>
+                <Form.Control
+                  placeholder="Search for Doctor's Name"
+                  aria-label="Doctor's Name"
+                  aria-describedby="basic-addon2"
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                />
+                <Button
+                  variant="outline-light"
+                  id="button-addon2"
+                  onClick={handleSearch}
+                >
+                  Search
+                </Button>
+              </InputGroup>
           </Nav>
-          {isLoggedIn && (
-            <div className="d-flex align-items-center ms-lg-5 justify-content-center ">
-              <img
-                src={
-                  currentUser.img
-                    ? `http://localhost:8000${currentUser.img}`
-                    : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`
-                }
-                style={{
-                  width: "2.8rem",
-                  border: "3px solid #FFF8DC",
-                  objectFit: "cover",
-                }}
-                className="rounded-circle me-2 shadow p-0"
-                alt="user"
-              />
-              <Link
-                to={currentUser.is_doctor ? "/DoctorProfile" : "/Userprofile"}
-                className="text-dark text-decoration-none me-2 fs-5 fw-bold text-white nv-hover text-capitalize"
-              >
-                {currentUser.first_name}
-              </Link>
-            </div>
-          )}
           <Nav className="ms-auto g-2">
+            
             {!isLoggedIn ? (
-              <div className="d-flex flex-sm-column justify-content-center align-items-center flex-md-row">
-                <Link
-                  to="/SignIn"
-                  variant="outline-light"
-                  className="me-3 fw-bold fs-5 text-white text-decoration-none nv-hover"
-                >
-                  LOGIN
+              <div className="d-flex justify-content-center align-items-center ">
+                <Link to="/SignIn" variant="outline-light" className="me-3 fw-bold fs-5 text-white text-decoration-none nv-hover">
+                   LOGIN
                 </Link>
-                <Link
-                  to="/SignUp"
-                  variant="outline-light"
-                  className="me-2 fw-bold fs-5 text-white text-decoration-none nv-hover"
-                >
-                  REGISTER
+                <Link to="/SignUp" variant="outline-light" className="me-2 fw-bold fs-5 text-white text-decoration-none nv-hover">
+                    REGISTER
                 </Link>
               </div>
             ) : (
               <>
-                <Nav.Link
-                  variant="outline-light"
-                  onClick={handleLogout}
-                  className="fw-bold fs-5 text-white nv-hover text-center me-2 align-content-center"
+              <div className="d-flex align-items-center">
+                <img src={currentUser.img
+                        ? `http://localhost:8000${currentUser.img}`
+                        : `http://127.0.0.1:8000//media/profile_images/profile.jpeg`} style={{width:"2rem"}} className="rounded-circle me-2"/>
+                <Link
+                  to={currentUser.is_doctor ? "/DoctorProfile" : "/Userprofile"}
+                  className="text-dark text-decoration-none me-2 fs-5 fw-bold text-white nv-hover"
                 >
-                  LOGOUT
-                </Nav.Link>
-              </>
+                {currentUser.first_name}
+                </Link>
+              </div>
+              <Nav.Link variant="outline-light" onClick={handleLogout} className="fw-bold fs-5 text-white nv-hover">
+              LOGOUT
+            </Nav.Link>
+            </>
             )}
             <Nav.Link
               variant="outline-light"
               onClick={() => toggleDarkMode(myTheme)}
-              className="me-2 text-white fs-5 align-content-center m-sm-auto m-md-auto m-lg-auto m-xl-auto m-xxl-auto"
+              className="me-2 text-white fs-5"
               style={{ maxWidth: "80px" }}
             >
               {isDarkMode ? (

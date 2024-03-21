@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import CardAppointment from "../../Components/ViewAppointment/CardAppointment";
+import React, { useEffect, useState, useContext, useCallback } from "react";
+import CardAppDoc from "../../Components/ViewAppointment/CardAppDoc.js";
+import CartAppPat from "../../Components/ViewAppointment/CartAppPat.js";
 import { AuthContext } from "../../context/AuthContext";
 import { Pagination } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,10 +10,11 @@ import { axiosInstance } from "../../Network/axiosInstance.js";
 
 export const ViewAppointment = () => {
   const dispatch = useDispatch();
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 3;
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
+  const [refresh, setRefresh] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 3;
 
   const doctorAppointments = useSelector(
     (state) => state.combinedocAppointment.appointments
@@ -21,46 +23,86 @@ export const ViewAppointment = () => {
     (state) => state.combineuserAppointment.appointments
   );
 
-  // Calculating the total number of appointments
-  const totalDoctorAppointments = doctorAppointments.results
-    ? doctorAppointments.results.length
-    : 0;
-  const totalUserAppointments = userAppointments.results
-    ? userAppointments.results.length
-    : 0;
-
   const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
   const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
 
+  const totalDoctorAppointments = doctorAppointments.count;
+  const totalUserAppointments = userAppointments.count;
+  const handelrefresh = useCallback(() => {
+    setRefresh((prevRefresh) => !prevRefresh);
+  }, []);
+
   useEffect(() => {
-    if (currentUser && currentUser.id) {
-      dispatch(
-        getAppoitmentListbydoctor(currentPage, pageSize, currentUser.id)
-      );
-      dispatch(getAppoitmentListbyuser(currentPage, pageSize, currentUser.id));
-    }
-  }, [dispatch, currentPage, pageSize, currentUser]);
-
-  const handlePageChange = (page) => {
-    setCurrentPage(page);
-  };
-
-  const handleAppointmentAction = (appointment, isAccepted, status) => {
-    console.log(appointment);
-    const response = axiosInstance.put(
-      `/schedules/appointment/${appointment.id}/`,
-      {
-        doctor: appointment.doctor,
-        user: appointment.user.id,
-        schedule: appointment.schedule,
-        is_accepted: isAccepted,
-        status: status,
+    const fetchData = async () => {
+      if (currentUser && currentUser.id) {
+        await Promise.all([
+          dispatch(
+            getAppoitmentListbydoctor(currentPage, pageSize, currentUser.id)
+          ),
+          dispatch(
+            getAppoitmentListbyuser(currentPage, pageSize, currentUser.id)
+          ),
+        ]);
       }
-    );
-    if (response) {
-      console.log(response);
-    }
-  };
+    };
+    fetchData();
+  }, [dispatch, currentPage, pageSize, currentUser, refresh]);
+
+  const handlePageChange = useCallback((page) => {
+    setCurrentPage(page);
+  }, []);
+
+  const handleAppointmentAction = useCallback(
+    async (appointment, isAccepted, status) => {
+      try {
+        const response = await axiosInstance.put(
+          `/schedules/appointment/${appointment.id}/`,
+          {
+            doctor: appointment.doctor,
+            user: appointment.user.id,
+            schedule: appointment.schedule,
+            is_accepted: isAccepted,
+            status: status,
+          }
+        );
+
+        if (response) {
+          console.log(response);
+          handelrefresh();
+        }
+      } catch (error) {
+        console.error("Error occurred while updating appointment:", error);
+      }
+    },
+    [handelrefresh]
+  );
+  // handel payment
+  const handlePayment = useCallback(
+    async (appointment, data) => {
+      try {
+        const response = await axiosInstance.put(
+          `/schedules/appointment/${appointment.id}/`,
+          {
+            doctor: appointment.schedule.doctor,
+            user: appointment.user,
+            schedule: appointment.schedule.id,
+            payment_status: data.payment_status,
+            payment_method: data.payment_method,
+            payment_date: data.payment_date,
+            payment_amount: appointment.doctor.fees,
+          }
+        );
+
+        if (response) {
+          console.log(response);
+          handelrefresh();
+        }
+      } catch (error) {
+        console.error("Error occurred while updating appointment:", error);
+      }
+    },
+    [handelrefresh]
+  );
 
   return (
     <div className="container" style={{ minHeight: "36.6vh" }}>
@@ -77,18 +119,26 @@ export const ViewAppointment = () => {
         <>
           <div className="">
             <div className="mb-3 row row-cols-3">
-              {(currentUser?.is_doctor
-                ? doctorAppointments.results
-                : userAppointments.results
-              )?.map((appointment) => (
-                <div key={appointment.id}>
-                  <CardAppointment
-                    appointment={appointment}
-                    currentUser={currentUser}
-                    handleAppointmentAction={handleAppointmentAction}
-                  />
-                </div>
-              ))}
+              {currentUser.is_doctor &&
+                doctorAppointments.results.map((appointment) => (
+                  <div key={appointment.id} className="col">
+                    <CardAppDoc
+                      appointment={appointment}
+                      handleAppointmentAction={handleAppointmentAction}
+                      refresh={handelrefresh}
+                    />
+                  </div>
+                ))}
+              {currentUser.is_patient &&
+                userAppointments.results.map((appointment) => (
+                  <div key={appointment.id} className="col">
+                    <CartAppPat
+                      appointment={appointment}
+                      handlePayment={handlePayment}
+                      refresh={handelrefresh}
+                    />
+                  </div>
+                ))}
             </div>
           </div>
           <Pagination className="mt-3 justify-content-center">
