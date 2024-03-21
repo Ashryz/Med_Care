@@ -21,7 +21,7 @@ function DoctorCard({ doctor }) {
   const [add, setAdd] = useState(false);
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
-  const [noRating, setNoRating] = useState(false);
+
   const [appointments, setAppointments] = useState([]);
 
   const getRating = () => {
@@ -56,6 +56,7 @@ function DoctorCard({ doctor }) {
   useEffect(() => {
     getRating();
     getAppointments();
+    // eslint-disable-next-line
   }, []);
 
   const refresh = () => {
@@ -70,21 +71,15 @@ function DoctorCard({ doctor }) {
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
-          // Handle 404 error here
           console.log("Rating not found for the doctor");
-          setNoRating(true);
-          // You can set data to some default value or handle the error in another way
         } else {
-          // Handle other errors
           console.error("Error fetching rating:", error);
         }
       });
 
     getAppointments();
 
-    if (data.length === 0) {
-      setNoRating(true);
-    }
+    // eslint-disable-next-line
   }, [doctor, add, currentUser, data.length]);
   return (
     <Container className="mt-4">
@@ -114,7 +109,7 @@ function DoctorCard({ doctor }) {
             </h3>
             <div className="">
               <p className="text-capitalize">
-                {doctor.degree} at {doctor.specialization}
+                {doctor.degree ? doctor.degree : "MD"  } at {doctor.specialization ? doctor.specialization : "General"}
               </p>
               <p>
                 <FontAwesomeIcon
@@ -126,7 +121,7 @@ function DoctorCard({ doctor }) {
             </div>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
               <span style={{ color: "dodgerblue" }}>
-                <FontAwesomeIcon icon={faMoneyBill1Wave} /> &nbsp; {doctor.fees}
+                <FontAwesomeIcon icon={faMoneyBill1Wave} /> &nbsp; {doctor.fees ? doctor.fees : 100} EGP
               </span>
             </p>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>

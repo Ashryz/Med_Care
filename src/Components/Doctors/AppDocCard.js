@@ -6,7 +6,7 @@ import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { FaHourglassStart } from "react-icons/fa";
-import { Modal, Button } from "react-bootstrap";
+import { Modal } from "react-bootstrap";
 function AppDocCard({ appointments }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
@@ -30,7 +30,6 @@ function AppDocCard({ appointments }) {
     axiosInstance
       .post("/appointments/all_app/", newAppointment)
       .then((response) => {
-
         dispatch({
           type: "SET_ALERT",
           payload: {
@@ -47,16 +46,25 @@ function AppDocCard({ appointments }) {
         setLoading(false);
         console.error("Error booking appointment:", error);
         setServerError(true); // Set server error state to true
+        dispatch({
+          type: "SET_ALERT",
+          payload: {
+            strong: "Error!",
+            txt: " Error booking appointment. Please try again later.",
+            type: "danger",
+          },
+        });
+        navigate("/");
       });
   };
 
   return (
     <div className="container">
-	{serverError && (
-	  <div className="alert alert-danger" role="alert">
-	    Server is not responding. Please try again later.
-	  </div>
-	)}
+      {serverError && (
+        <div className="alert alert-danger" role="alert">
+          Server is not responding. Please try again later.
+        </div>
+      )}
       <div className="row row-cols-1 row-cols-md-4  d-flex justify-content-center align-items-center">
         {appointments.map((appointment) => (
           <div key={appointment.id} className="col mb-4">
@@ -83,13 +91,10 @@ function AppDocCard({ appointments }) {
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
                 {currentUser.is_patient && (
-                 <button
+                  <button
                     className="btn sec-btn shadow"
                     onClick={() =>
-                      handleBookAppointment(
-                        appointment.id,
-                        appointment.doctor
-                      )
+                      handleBookAppointment(appointment.id, appointment.doctor)
                     }
                     disabled={loading}
                   >
@@ -101,16 +106,22 @@ function AppDocCard({ appointments }) {
           </div>
         ))}
       </div>
-            {/* Modal for loading indicator */}
-	<Modal show={showModal} onHide={() => setShowModal(false)} centered style={{ backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
-	  <Modal.Body className="text-center sec-color" >
-	    <div className="animate__animated animate__flash">
-	      <FaHourglassStart size={100} className="sec-color" />
-	    </div>
-	    <p>Booking appointment...</p>
-	  </Modal.Body>
-	</Modal>
-
+      {/* Modal for loading indicator */}
+      <Modal
+        show={showModal}
+        onHide={() => setShowModal(false)}
+        centered
+        style={{ backgroundColor: "rgba(255, 255, 255, 0.6)" }}
+        backdrop="static"
+        keyboard={false}
+      >
+        <Modal.Body className="text-center sec-color">
+          <div className="animate__animated animate__flash">
+            <FaHourglassStart size={100} className="sec-color" />
+          </div>
+          <h2 className="mt-3 sec-color">Booking Appointment...</h2>
+        </Modal.Body>
+      </Modal>
     </div>
   );
 }
