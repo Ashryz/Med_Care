@@ -10,21 +10,6 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 
 export function SignUpDoc({ userType, onClose }) {
-  //initializing the local storage
-  if (!localStorage.getItem("docs")) {
-    localStorage.setItem("docs", JSON.stringify([]));
-  }
-  if (!localStorage.getItem("patients")) {
-    localStorage.setItem("patients", JSON.stringify([]));
-  }
-  // eslint-disable-next-line
-  const [localDocs, setLocalDocs] = useState(
-    JSON.parse(localStorage.getItem("docs")) || []
-  );
-  // eslint-disable-next-line
-  const [localPatients, setLocalPatients] = useState(
-    JSON.parse(localStorage.getItem("patients")) || []
-  );
   const [showAlert, setShowAlert] = useState(false);
   const [alertTitle, setAlertTitle] = useState("");
   const [alertMessage, setAlertMessage] = useState("");

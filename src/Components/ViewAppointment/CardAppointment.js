@@ -1,166 +1,106 @@
+import React from "react";
 import { Button } from "react-bootstrap";
-import background from "../../img/bg_doctor.jpg";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  addAppointmentSchadule,
-  removeAppointmentSchadule,
-} from "../../Store/Actions/Actions";
-import { AuthContext } from "../../context/AuthContext";
-import { useContext } from "react";
-import { axiosInstance } from "../../Network/axiosInstance";
 
-export const CardAppointment = (props) => {
-  const { appointment } = props;
+const CardAppointment = ({
+  appointment,
+  currentUser,
+  handleAppointmentAction,
+}) => {
+  const isDoctor = currentUser?.is_doctor;
 
   const handleAccept = () => {
-    console.log(appointment);
-    axiosInstance.put(`/appointments/appointment/${appointment.id}/`, {
-      doctor: appointment.doctor,
-      schedule: appointment.schedule,
-      user: appointment.user.id,
-      is_accepted: true,
-    });
+    handleAppointmentAction(appointment, true, "accepted");
   };
+
   const handleReject = () => {
-    axiosInstance.put(`/appointments/appointment/${appointment.id}/`, {
-      doctor: appointment.doctor,
-      schedule: appointment.schedule,
-      user: appointment.user.id,
-      is_accepted: false,
-    });
+    handleAppointmentAction(appointment, false, "rejected");
   };
-  const authContext = useContext(AuthContext);
-  const currentUser = authContext.currentUser;
-  if (currentUser.is_doctor) {
-    return (
-      <div
-        className="container  mb-3 p-0 text-start  rounded-4  shadow"
-        style={{
-          backgroundImage:
-            "linear-gradient(to top,MediumSeaGreen , dodgerBlue)",
-        }}
-      >
-        <div
-          className="prim-pg text-center text-white p-2 "
-          style={{ borderRadius: "11px 11px 0px 0px" }}
-        >
-          <span className="fw-bold">Appointment</span>
-        </div>
-        <div className="row ms-3 my-3">
-          <div className="p-3 ">
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Number :</span>
-              <span className="ms-2 fs-5 text-muted"> {appointment.id}</span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Patient Name :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.user.first_name}
+
+  return (
+    <div className="card text-white shadow rounded-1 shadow ">
+      <div className="card-body">
+        <div className="row">
+          <div className="col">
+            {isDoctor && (
+              <p className="fs-5 fw-bold  text-muted text-dark mb-0">
+                Phone:
+                <span className="ms-2 fs-5 text-muted">
+                  {appointment.user.phone}
+                </span>
+              </p>
+            )}
+
+            <p className="fs-5 text-muted mb-0">
+              <span className="fw-bold">
+                {isDoctor
+                  ? `ID : ${appointment.id}`
+                  : `Doctor : ${appointment.doctor.user.first_name} ${appointment.doctor.user.last_name}`}
               </span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.user.last_name}
+            </p>
+            <p className="fs-5 fw-bold text-muted mb-0">
+              {isDoctor ? "Patient Name " : " "}
+              <span className="fs-5 text-muted text-capitalize">
+                {isDoctor
+                  ? ` ${appointment.user.first_name} ${appointment.user.last_name}`
+                  : appointment.user.email}
               </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Patient Email :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.user.email}
+            </p>
+
+            <p className="fs-5 fw-bold text-muted mb-0">
+              Date:{" "}
+              <span className="fs-5 text-muted">
+                {appointment.create_at.slice(0, 10)}
               </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Date :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.create_at}
+            </p>
+
+            {!isDoctor && (
+              <>
+                <p className="fs-5 fw-bold text-muted mb-0">
+                  Dr-Phone:
+                  <span className="fs-5 text-muted">
+                    {appointment.doctor.user.phone}
+                  </span>
+                </p>
+              </>
+            )}
+            <p className="fs-5 fw-bold text-muted mb-0">
+              Payment:{" "}
+              <span className="fs-5 text-muted">
+                {appointment.payment_status}
               </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">schedule :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.schedule}
-              </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Payment :</span>
-              <span className="ms-2 fs-5 text-muted"> Paid</span>
-            </div>
-            <div className="my-3 py-2 d-flex justify-content-center">
-              <Button onClick={handleAccept}>Accept</Button>
-              <Button className="ms-2" onClick={handleReject}>
-                {" "}
-                Reject
-              </Button>
-            </div>
-          </div>
-        </div>
-      </div>
-    );
-  } else {
-    return (
-      <div
-        className="container  mb-3 p-0 text-start  rounded-4  shadow"
-        style={{
-          backgroundImage:
-            "linear-gradient(to top,MediumSeaGreen , dodgerBlue)",
-        }}
-      >
-        <div
-          className="prim-pg text-center text-white p-2 "
-          style={{ borderRadius: "11px 11px 0px 0px" }}
-        >
-          <span className="fw-bold">Appointment</span>
-        </div>
-        <div className="row ms-3 my-3">
-          <div className="p-3 ">
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Number :</span>
-              <span className="ms-2 fs-5 text-muted"> {appointment.id}</span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Doctor Name :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.doctor.user.first_name}
-              </span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.doctor.user.last_name}
-              </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Doctor Email :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.doctor.user.email}
-              </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Date :</span>
-              <span className="ms-2 fs-5 text-muted">
-                {" "}
-                {appointment.create_at}
-              </span>
-            </div>
-            <div className="d-flex">
-              <span className="fs-5 fw-bold text-white">Payment :</span>
-              <span className="ms-2 fs-5 text-muted"> Paid</span>
-            </div>
-            <div className="my-3 py-2 d-flex justify-content-center">
-              <Button className="prim-pg border-0 me-2" value="">
+            </p>
+
+            {!isDoctor && (
+              <div className="my-3 d-flex justify-content-center">
+                <Button className="btn btn-primary me-2">
+                  {appointment.status}
+                </Button>
+              </div>
+            )}
+            {isDoctor && (
+              <div className="my-3 d-flex justify-content-center">
                 {appointment.is_accepted ? (
-                  <span>Accepted</span>
+                  <Button
+                    className="btn btn-success me-2"
+                    onClick={handleReject}
+                  >
+                    Accepted
+                  </Button>
                 ) : (
-                  <span>Pending</span>
-                )}{" "}
-              </Button>
-            </div>
+                  <Button
+                    className="btn btn-danger me-2"
+                    onClick={handleAccept}
+                  >
+                    Accept
+                  </Button>
+                )}
+              </div>
+            )}
           </div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 };
+
+export default CardAppointment;
