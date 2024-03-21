@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import { CiCalendarDate, CiAlarmOn } from "react-icons/ci";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContext";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import { FaHourglassStart } from "react-icons/fa";
+import { Modal, Button } from "react-bootstrap";
 function AppDocCard({ appointments }) {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [serverError, setServerError] = useState(false); // State to determine server availability
 
   const handleBookAppointment = (appointmentId, doctorId) => {
+    setLoading(true);
+    setShowModal(true); // Show modal when booking appointment
+
     const newAppointment = {
       schedule: appointmentId,
       user: currentUser.id,
@@ -32,17 +39,24 @@ function AppDocCard({ appointments }) {
             type: "success",
           },
         });
-        
+        setLoading(false);
         navigate("/");
         console.log("Appointment booked successfully!", response.data);
       })
       .catch((error) => {
+        setLoading(false);
         console.error("Error booking appointment:", error);
+        setServerError(true); // Set server error state to true
       });
   };
 
   return (
     <div className="container">
+	{serverError && (
+	  <div className="alert alert-danger" role="alert">
+	    Server is not responding. Please try again later.
+	  </div>
+	)}
       <div className="row row-cols-1 row-cols-md-4  d-flex justify-content-center align-items-center">
         {appointments.map((appointment) => (
           <div key={appointment.id} className="col mb-4">
@@ -69,13 +83,17 @@ function AppDocCard({ appointments }) {
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
                 {currentUser.is_patient && (
-                  <button
+                 <button
                     className="btn sec-btn shadow"
                     onClick={() =>
-                      handleBookAppointment(appointment.id, appointment.doctor)
+                      handleBookAppointment(
+                        appointment.id,
+                        appointment.doctor
+                      )
                     }
+                    disabled={loading}
                   >
-                    Book
+                    {loading ? "Booking..." : "Book"}
                   </button>
                 )}
               </div>
@@ -83,6 +101,16 @@ function AppDocCard({ appointments }) {
           </div>
         ))}
       </div>
+            {/* Modal for loading indicator */}
+	<Modal show={showModal} onHide={() => setShowModal(false)} centered style={{ backgroundColor: "rgba(255, 255, 255, 0.6)" }}>
+	  <Modal.Body className="text-center sec-color" >
+	    <div className="animate__animated animate__flash">
+	      <FaHourglassStart size={100} className="sec-color" />
+	    </div>
+	    <p>Booking appointment...</p>
+	  </Modal.Body>
+	</Modal>
+
     </div>
   );
 }
