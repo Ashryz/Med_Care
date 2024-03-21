@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import Button from "react-bootstrap/Button";
@@ -9,8 +9,10 @@ import { useState } from "react";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../context/AuthContext";
+
 function AddSchedule() {
   const authContext = useContext(AuthContext);
+  const [error, setError] = useState(null);
 
   const [formData, setFormData] = useState({
     doctor: authContext.currentUser.id,
@@ -25,12 +27,40 @@ function AddSchedule() {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [existingDays, setExistingDays] = useState([]);
+
+  useEffect(() => {
+    if (authContext.currentUser && authContext.currentUser.id) {
+      const userId = authContext.currentUser.id;
+      axiosInstance
+        .get(`/schedules/all_sch/doctor/${userId}/`)
+        .then((response) => {
+          const days = response.data.map((schedule) =>
+            schedule.day.toLowerCase()
+          );
+          setExistingDays(days);
+        })
+        .catch((error) => {
+          console.error("Error fetching existing schedules:", error);
+        });
+    }
+  }, [authContext.currentUser]);
+
   const navigate = useNavigate();
   const handleSubmit = (e) => {
     e.preventDefault();
-    const userId = JSON.parse(localStorage.getItem("user")).id;
+    if (existingDays.includes(formData.day.toLowerCase())) {
+      console.error("This day already exists in the schedule.");
+      setError("This day already exists in the schedule.");
+      return;
+    }
+    if (formData.start_time >= formData.end_time) {
+      setError("End time must be after start time.");
+      return;
+    }
+    const userId = authContext.currentUser.id;
     axiosInstance
-      .post(`/schedules/all_sch/doctor/${userId}/`, formData) 
+      .post(`/schedules/all_sch/doctor/${userId}/`, formData)
       .then((response) => {
         console.log("Schedule created successfully");
         navigate("/ViewSchedule");
@@ -39,8 +69,19 @@ function AddSchedule() {
         console.error("Error creating schedule:", error);
       });
   };
+
+  const handleCloseError = () => {
+    setError(null);
+  };
+
   return (
     <>
+   {error && (
+        <div className="alert alert-danger d-flex align-items-center justify-content-between" role="alert">
+          <div>{error}</div>
+          <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseError}></button>
+        </div>
+      )}
       <div className="App">
         <div className="container-fluid">
           <div className="row">
@@ -67,15 +108,14 @@ function AddSchedule() {
                       value={formData.day}
                       onChange={handleChange}
                     >
-                      <option value="saturday" selected>
-                        Saturday
-                      </option>
-                      <option value="sunday">Sunday</option>
-                      <option value="monday">Monday</option>
-                      <option value="tuesday">Tuesday</option>
-                      <option value="wednesday">Wednesday</option>
-                      <option value="thursday">Thursday</option>
-                      <option value="friday">Friday</option>
+                      {["Saturday", "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"].map((day) => (
+                        <option
+                          key={day.toLowerCase()}
+                          value={day.toLowerCase()}
+                        >
+                          {day}
+                        </option>
+                      ))}
                     </Form.Select>
                   </Form.Group>
 
