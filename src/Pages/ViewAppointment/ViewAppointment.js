@@ -21,7 +21,6 @@ export const ViewAppointment = () => {
     (state) => state.combineuserAppointment.appointments
   );
 
-
   // Calculating the total number of appointments
   const totalDoctorAppointments = doctorAppointments.results
     ? doctorAppointments.results.length
@@ -30,8 +29,8 @@ export const ViewAppointment = () => {
     ? userAppointments.results.length
     : 0;
 
-    const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
-    const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
+  const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
+  const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
 
   useEffect(() => {
     if (currentUser && currentUser.id) {
