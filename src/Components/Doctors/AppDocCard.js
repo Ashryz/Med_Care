@@ -14,6 +14,8 @@ function AppDocCard({ appointments }) {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
+  const [serverError, setServerError] = useState(false); // State to determine server availability
+
   const handleBookAppointment = (appointmentId, doctorId) => {
     setLoading(true);
     setShowModal(true); // Show modal when booking appointment
@@ -44,11 +46,17 @@ function AppDocCard({ appointments }) {
       .catch((error) => {
         setLoading(false);
         console.error("Error booking appointment:", error);
+        setServerError(true); // Set server error state to true
       });
   };
 
   return (
     <div className="container">
+	{serverError && (
+	  <div className="alert alert-danger" role="alert">
+	    Server is not responding. Please try again later.
+	  </div>
+	)}
       <div className="row row-cols-1 row-cols-md-4  d-flex justify-content-center align-items-center">
         {appointments.map((appointment) => (
           <div key={appointment.id} className="col mb-4">
