@@ -16,8 +16,6 @@ function Sidebar() {
               <i className="bi bi-speedometer2"></i>
               <span className='spanStyle'>Dashboard</span>
             </ListGroup.Item>
-         
-  
           <Link to="/MainDashboard" className="text-decoration-none">
             <ListGroup.Item className='list-group-item listgroupItem lis'>
               <i className="bi bi-file-earmark-text me-2"></i>
