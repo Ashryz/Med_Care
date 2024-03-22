@@ -65,7 +65,7 @@ function OfferSlider() {
       <h2 className="text-center mb-4 mt-4"> Offers</h2>
       <div className="container-fluid mt-3">
         {error ? ( // Check if there's an error
-          <div className="error-message">{error}</div>
+          <div className="error-message text-center prim-color ">{error}</div>
         ) : (
           <div className="d-flex justify-content-between align-items-center">
             <div className="m-5">
@@ -109,4 +109,4 @@ function calculateDiscount(original_price, discount_price) {
 }
 
 export default OfferSlider;
-
+ 
