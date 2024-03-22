@@ -3,6 +3,7 @@ import axios from 'axios';
 import './OfferSlider.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
+import { axiosInstance } from "../../Network/axiosInstance";
 
 function OfferSlider() {
   const [offers, setOffers] = useState([]);
@@ -12,7 +13,7 @@ function OfferSlider() {
   useEffect(() => {
     const fetchOffers = async () => {
       try {
-        const response = await axios.get('https://retoolapi.dev/MAno2q/offer');
+        const response = await axiosInstance.get('offers/doctors/');
         setOffers(response.data);
       } catch (error) {
         console.error('Error fetching offers:', error);
@@ -68,19 +69,23 @@ function OfferSlider() {
             </button>
           </div>
           <div className="offer-slider row">
-            {visibleOffers.map((offer, index) => (
-              <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
-                <div className="btn main-btn discount-label">{calculateDiscount(offer.originalPrice, offer.discountPrice)}% Off</div>
-                <img className="offer-image" src={"img/" + offer.imageUrl} alt={offer.specialty} />
-                <div className="offer-details">
-                  <h3 className="offer-title">{offer.specialty}</h3>
-                  <div className="offer-price">
-                    <span className="original-price">{offer.originalPrice}EGP</span>
-                    <span className="prim-color">{offer.discountPrice}EGP</span>
+            {offers.length === 0 ? (
+              <div className=" prim-color">No offers available</div>
+            ) : (
+              visibleOffers.map((offer, index) => (
+                <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
+                  <div className="btn main-btn discount-label">{calculateDiscount(offer.original_price, offer.discount_price)}% Off</div>
+                  <img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
+                  <div className="offer-details">
+                    <h3 className="offer-title">{offer.specialization}</h3>
+                    <div className="offer-price">
+                      <span className="original-price">{offer.original_price}EGP</span>
+                      <span className="prim-color">{offer.discount_price}EGP</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))
+            )}
           </div>
           <div className="m-5">
             <button onClick={handleNext} className="slider-nav next btn main-btn" disabled={isNextDisabled}>
@@ -93,8 +98,8 @@ function OfferSlider() {
   );
 }
 
-function calculateDiscount(originalPrice, discountPrice) {
-  return Math.round(((originalPrice - discountPrice) / originalPrice) * 100);
+function calculateDiscount(original_price, discount_price) {
+  return Math.round(((original_price - discount_price) / original_price) * 100);
 }
 
 export default OfferSlider;
