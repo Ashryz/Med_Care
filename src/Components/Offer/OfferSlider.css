@@ -7,11 +7,8 @@
 }
 
 .offer-card {
-<<<<<<< HEAD
   flex: 0 0 auto;
-=======
   max-width: 210px;
->>>>>>> main
   text-align: center;
   position: relative;
   margin-right: 3px;
