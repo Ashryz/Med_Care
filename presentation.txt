@@ -1,0 +1,27 @@
+ايه الى مش هيتعمل
+1- اخر كارد(مش هيتعمل)
+2- الدارك مود
+3- لينكات الفوتر(yussef and tarek)
+4- البجيناشن بتاع المواعيد(yussef and tarek)
+5- الكنوتكت اس
+6- البرايفسي بوليسي
+7- الريدايركت(mohamed)
+https://localhost:3000/Dashboard (mohamed)
+https://localhost:3000/Appointments (mohamed)
+https://localhost:3000/Appointments/* (mohamed)
+https://localhost:3000/AddSchedule (mohamed)
+https://localhost:3000/Rating (mohamed)
+https://localhost:3000/AddOffer (mohamed)
+8- remove filter from search (yussef)
+
+=================================
+3- appointments cards (yussef and tarek)
+4- phone number (mohamed)
+5- slider offers (israa)
+6- offers (israa)
+=================================
+A-presentatian (hager)
+B-docs(all)
+=================================
+I- Demo
+
