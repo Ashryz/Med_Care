@@ -99,6 +99,19 @@ function AddOffer() {
                     <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
                     <option value="ChestRespiratory"> Chest and Respiratory  </option>
                     <option value="Hepatology"> Hepatology (Liver Doctor)</option>
+                    <option value="Obesity">
+                        Obesity and Laparoscopic Surgery
+                    </option>
+                    <option value="Oncology">Oncology (Tumor)</option>
+                    <option value="OncologySurgery">
+                        Oncology Surgery (Tumor Surgery)
+                    </option>
+                    <option value="Ophthalmology">
+                        Ophthalmology (Eyes)
+                    </option>
+                    <option value="Osteopathy">
+                        Osteopathy (Osteopathic Medicine)
+                    </option>
                   </Form.Select>
                 </Form.Group>
 
