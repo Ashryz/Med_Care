@@ -9,6 +9,7 @@ function OfferSlider() {
   const [offers, setOffers] = useState([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [numVisibleOffers, setNumVisibleOffers] = useState(4);
+  const [error, setError] = useState(null); // State to track error
 
   useEffect(() => {
     const fetchOffers = async () => {
@@ -17,6 +18,7 @@ function OfferSlider() {
         setOffers(response.data);
       } catch (error) {
         console.error('Error fetching offers:', error);
+        setError('Error fetching offers. Please try again later.'); // Set error state
       }
     };
     fetchOffers();
@@ -62,37 +64,41 @@ function OfferSlider() {
     <div>
       <h2 className="text-center mb-4 mt-4"> Offers</h2>
       <div className="container-fluid mt-3">
-        <div className="d-flex justify-content-between align-items-center">
-          <div className="m-5">
-            <button onClick={handlePrev} className="slider-nav prev btn main-btn" disabled={isPrevDisabled}>
-              <FontAwesomeIcon icon={faChevronLeft} />
-            </button>
-          </div>
-          <div className="offer-slider row">
-            {offers.length === 0 ? (
-              <div className=" prim-color">No offers available</div>
-            ) : (
-              visibleOffers.map((offer, index) => (
-                <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
-                  <div className="btn main-btn discount-label">{calculateDiscount(offer.original_price, offer.discount_price)}% Off</div>
-                  <img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
-                  <div className="offer-details">
-                    <h3 className="offer-title">{offer.specialization}</h3>
-                    <div className="offer-price">
-                      <span className="original-price">{offer.original_price}EGP</span>
-                      <span className="prim-color">{offer.discount_price}EGP</span>
+        {error ? ( // Check if there's an error
+          <div className="error-message text-center prim-color">{error}</div>
+        ) : (
+          <div className="d-flex justify-content-between align-items-center">
+            <div className="m-5">
+              <button onClick={handlePrev} className="slider-nav prev btn main-btn" disabled={isPrevDisabled}>
+                <FontAwesomeIcon icon={faChevronLeft} />
+              </button>
+            </div>
+            <div className="offer-slider row">
+              {offers.length === 0 ? (
+                <div className=" prim-color">No offers available</div>
+              ) : (
+                visibleOffers.map((offer, index) => (
+                  <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
+                    <div className="btn main-btn discount-label">{calculateDiscount(offer.original_price, offer.discount_price)}% Off</div>
+                    <img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
+                    <div className="offer-details">
+                      <h3 className="offer-title">{offer.specialization}</h3>
+                      <div className="offer-price">
+                        <span className="original-price">{offer.original_price}EGP</span>
+                        <span className="prim-color">{offer.discount_price}EGP</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))
-            )}
+                ))
+              )}
+            </div>
+            <div className="m-5">
+              <button onClick={handleNext} className="slider-nav next btn main-btn" disabled={isNextDisabled}>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </button>
+            </div>
           </div>
-          <div className="m-5">
-            <button onClick={handleNext} className="slider-nav next btn main-btn" disabled={isNextDisabled}>
-              <FontAwesomeIcon icon={faChevronRight} />
-            </button>
-          </div>
-        </div>
+        )}
       </div>
     </div>
   );
