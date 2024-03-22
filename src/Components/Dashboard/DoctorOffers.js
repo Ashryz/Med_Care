@@ -67,27 +67,30 @@ function DoctorOffers() {
             <div className="col-md-3">
               <Sidebar />
             </div>
-            <div className="col-md-9 mt-3 text-center">
+            <div className="col-md-9 mt-3 text-center prim-color">
               <h2>Your Offers ({offers.length})</h2>
               <Row>
                 {currentOffers.map((offer) => (
-                  <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3">
+                  <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
                     <Card >
                       <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
-                      <Card.Body>
-                        <Card.Title>{offer.specialization}</Card.Title>
-                        <Card.Text>
-                          Original Price: {offer.original_price} EGP
-                          <br />
-                          Discount Price: {offer.discount_price} EGP
-                        </Card.Text>
-                        <Button variant="primary" onClick={() => handleEdit(offer.id)}>
-                          <FontAwesomeIcon icon={faEdit} /> 
-                        </Button>{' '}
-                        <Button variant="danger" onClick={() => handleDelete(offer.id)}>
-                          <FontAwesomeIcon icon={faTrash} /> 
-                        </Button>
-                      </Card.Body>
+                     <Card.Body>
+			  <Card.Title>{offer.specialization}</Card.Title>
+			  <Card.Text>
+			    <div style={{ textDecoration: 'line-through' }}> {offer.original_price} EGP</div>
+			    <div> {offer.discount_price} EGP</div>
+			    <div>
+			     {((offer.original_price - offer.discount_price) / offer.original_price * 100).toFixed(2)}% Off
+			    </div>
+			  </Card.Text>
+			  <Button variant="primary" onClick={() => handleEdit(offer.id)}>
+			    <FontAwesomeIcon icon={faEdit} />
+			  </Button>{' '}
+			  <Button variant="danger" onClick={() => handleDelete(offer.id)}>
+			    <FontAwesomeIcon icon={faTrash} />
+			  </Button>
+			</Card.Body>
+
                     </Card>
                   </Col>
                 ))}
