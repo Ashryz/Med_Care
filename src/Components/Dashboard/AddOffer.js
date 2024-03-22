@@ -49,7 +49,7 @@ function AddOffer() {
       .post(`/offers/doctors/${userId}/`, formData)
       .then((response) => {
         console.log('Offer added successfully');
-        // Redirect to another page after successful addition if needed
+
       })
       .catch((error) => {
         console.error('Error adding offer:', error);

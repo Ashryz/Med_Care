@@ -66,8 +66,6 @@ function OfferSlider() {
       <div className="container-fluid mt-3">
         {error ? ( // Check if there's an error
 
-          <div className="error-message text-center prim-color">{error}</div>
-
           <div className="error-message text-center prim-color ">{error}</div>
 
         ) : (
