@@ -42,6 +42,12 @@ function Sidebar() {
               <span>Rating</span>
             </ListGroup.Item>
           </Link>
+          <Link to="/AddOffer" className="text-decoration-none">
+            <ListGroup.Item className='list-group-item listgroupItem lis'>
+              <i className="bi bi-plus me-2"></i>
+              <span>Add Offer</span>
+            </ListGroup.Item>
+          </Link>
         </ListGroup>
       </div>
     );
