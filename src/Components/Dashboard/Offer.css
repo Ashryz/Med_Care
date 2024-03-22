@@ -1,0 +1,29 @@
+.offer-card {
+  position: relative;
+  height: 260px; 
+}
+
+.discount-label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 5px;
+  background-color: #fff; 
+  z-index: 1;
+}
+
+.offer-card .card-img-top {
+  height: 40%; 
+  object-fit: cover;
+}
+
+.offer-card .card-body {
+  padding: 10px;
+}
+
+.price {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+

@@ -6,6 +6,7 @@ import { faEdit, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { AuthContext } from '../../context/AuthContext';
 import { axiosInstance } from '../../Network/axiosInstance';
 import Sidebar from './Sidebar';
+import './Offer.css';
 
 function DoctorOffers() {
   const authContext = useContext(AuthContext);
@@ -32,18 +33,15 @@ function DoctorOffers() {
     fetchOffers();
   }, [userId]);
 
- 
   const handleDelete = async (offerId) => {
     try {
       await axiosInstance.delete(`/offers/doctors/${userId}/${offerId}/`);
       setOffers(offers.filter(offer => offer.id !== offerId));
     } catch (error) {
       console.error('Error deleting offer:', error);
-
     }
   };
 
-  // Pagination Logic
   const indexOfLastOffer = currentPage * offersPerPage;
   const indexOfFirstOffer = indexOfLastOffer - offersPerPage;
   const currentOffers = offers.slice(indexOfFirstOffer, indexOfLastOffer);
@@ -67,30 +65,27 @@ function DoctorOffers() {
             <div className="col-md-9 mt-3 text-center prim-color">
               <h2>Your Offers ({offers.length})</h2>
               <Row>
-                {currentOffers.map((offer) => (
+                {currentOffers.map((offer, index) => (
                   <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
-		 <Card style={{ position: 'relative' }}>
-		  <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
-		    {((offer.original_price - offer.discount_price) / offer.original_price * 100)}% Off
-		  </div>
-		  <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
-		  <Card.Body>
-		    <Card.Title>{offer.specialization}</Card.Title>
-		    <Row>
-		      <Col>
-			<div className="prim-color" style={{ textDecoration: 'line-through' }}> {offer.original_price} EGP</div>
-		      </Col>
-		      <Col>
-			<div> {offer.discount_price} EGP</div>
-		      </Col>
-		    </Row>
-		    
-		    <Button variant="danger" onClick={() => handleDelete(offer.id)}>
-		      <FontAwesomeIcon icon={faTrash} />
-		    </Button>
-		  </Card.Body>
-		</Card>
-
+                    <Card className="offer-card ">
+                      <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
+                        {calculateDiscount(offer.original_price, offer.discount_price)}% Off
+                      </div>
+                      <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
+                      <Card.Body>
+                        <Card.Title className="mt-2">{offer.specialization}</Card.Title>
+                        <div className="price">
+                          <div className="original-price">{offer.original_price} EGP</div>
+                          <div className="prim-color">{offer.discount_price} EGP </div>
+                        </div>
+                        <div className="mt-3">
+                        <Button variant="danger" onClick={() => handleDelete(offer.id)}>
+                          <FontAwesomeIcon icon={faTrash} />
+                        </Button>
+                        </div>
+                      </Card.Body>
+                      
+                    </Card>
                   </Col>
                 ))}
               </Row>
@@ -109,6 +104,10 @@ function DoctorOffers() {
       )}
     </div>
   );
+}
+
+function calculateDiscount(original_price, discount_price) {
+  return Math.round(((original_price - discount_price) / original_price) * 100);
 }
 
 export default DoctorOffers;

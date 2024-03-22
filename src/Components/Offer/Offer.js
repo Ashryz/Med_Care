@@ -75,25 +75,26 @@ function OfferSlider() {
                 <FontAwesomeIcon icon={faChevronLeft} />
               </button>
             </div>
-            <div className="offer-slider row">
-              {offers.length === 0 ? (
-                <div className=" prim-color">No offers available</div>
-              ) : (
-                visibleOffers.map((offer, index) => (
-                  <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
-                    <div className="btn main-btn discount-label">{calculateDiscount(offer.original_price, offer.discount_price)}% Off</div>
-                    <img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
-                    <div className="offer-details">
-                      <h3 className="offer-title">{offer.specialization}</h3>
-                      <div className="offer-price">
-                        <span className="original-price">{offer.original_price}EGP</span>
-                        <span className="prim-color">{offer.discount_price}EGP</span>
-                      </div>
-                    </div>
-                  </div>
-                ))
-              )}
-            </div>
+		<div className="offer-slider row" style={{ '--numVisibleOffers': numVisibleOffers }}>
+		  {offers.length === 0 ? (
+		    <div className=" prim-color">No offers available</div>
+		  ) : (
+		    visibleOffers.map((offer, index) => (
+		      <div key={index} className={`offer-card mb-4 bg-light col-md-${12 / numVisibleOffers}`}>
+			<div className="btn main-btn discount-label">{calculateDiscount(offer.original_price, offer.discount_price)}% Off</div>
+			<img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
+			<div className="offer-details">
+			  <h3 className="offer-title">{offer.specialization}</h3>
+			  <div className="offer-price">
+			    <span className="original-price">{offer.original_price}EGP</span>
+			    <span className="prim-color">{offer.discount_price}EGP</span>
+			  </div>
+			</div>
+		      </div>
+		    ))
+		  )}
+		</div>
+
             <div className="m-5">
               <button onClick={handleNext} className="slider-nav next btn main-btn" disabled={isNextDisabled}>
                 <FontAwesomeIcon icon={faChevronRight} />

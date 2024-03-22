@@ -13,6 +13,9 @@
   margin-right: 3px;
 }
 
+.offer-slider .offer-card {
+  min-width: calc(100% / 4);
+}
 
 
 .offer-card:last-child {
