@@ -37,6 +37,7 @@ import Teams from "./Pages/Flink/Teams/Teams.js";
 import Medical from "./Pages/Flink/Medical.js";
 import OurTeam from "./Pages/Flink/OurTeam/OurTeam.js";
 import Privacy from "./Pages/Flink/privcy/Privacy_Policy.js";
+import DoctorOffers from "./Components/Dashboard/DoctorOffers.js";
 import Success from "./Pages/Success/Success.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
@@ -78,7 +79,7 @@ function App() {
             <Route exact path="/Rating" element={<Rating/>} />
             <Route exact path="/Our" element={<OurTeam/>} />
             <Route exact path="/pri" element={<Privacy/>} />
-
+            <Route exact path="/DoctorOffers" element={<DoctorOffers />} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>

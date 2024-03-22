@@ -1,11 +1,11 @@
 import React, { useContext, useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import { axiosInstance } from '../../Network/axiosInstance';
 import { AuthContext } from '../../context/AuthContext';
-
+import {faGraduationCap,faImage,faMoneyBillAlt,faTags} from "@fortawesome/free-solid-svg-icons";
 function AddOffer() {
   const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ function AddOffer() {
     original_price: false,
     discount_price: false,
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -27,7 +28,7 @@ function AddOffer() {
       setFormData({ ...formData, [name]: value });
       if (name === 'original_price' && value <= 200) {
         setErrors({ ...errors, original_price: true });
-      } else if (name === 'discount_price' && value <= 20) {
+      } else if (name === 'discount_price' && (value <= 20 || value >= formData.original_price)) {
         setErrors({ ...errors, discount_price: true });
       } else {
         setErrors({ ...errors, [name]: false });
@@ -37,19 +38,35 @@ function AddOffer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.original_price <= 200 || formData.discount_price <= 20) {
+    if (formData.original_price <= 200 || formData.discount_price <= 20 || formData.discount_price >= formData.original_price) {
       setErrors({
         original_price: formData.original_price <= 200,
-        discount_price: formData.discount_price <= 20,
+        discount_price: formData.discount_price <= 20 || formData.discount_price >= formData.original_price,
       });
       return;
     }
     const userId = authContext.currentUser.id;
     axiosInstance
-      .post(`/offers/doctors/${userId}/`, formData)
+      .post(`/offers/doctors/${userId}/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
       .then((response) => {
         console.log('Offer added successfully');
-
+        setSuccessMessage('Offer added successfully');
+        // Clear form data
+        setFormData({
+          specialization: '',
+          image_url: '',
+          original_price: '',
+          discount_price: '',
+        });
+        // Reset error state
+        setErrors({
+          original_price: false,
+          discount_price: false,
+        });
       })
       .catch((error) => {
         console.error('Error adding offer:', error);
@@ -66,9 +83,10 @@ function AddOffer() {
           <Card>
             <Card.Header className="prim-pg text-center text-white">Add Offer</Card.Header>
             <Card.Body>
+              {successMessage && <Alert variant="success">{successMessage}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="specialization">
-                  <Form.Label>Specialization</Form.Label>
+                  <Form.Label className="text-primary"> <FontAwesomeIcon icon={faGraduationCap} />Specialization</Form.Label>
                   <Form.Select
                     value={formData.specialization}
                     name="specialization"
@@ -78,15 +96,27 @@ function AddOffer() {
                     <option value="">Select Specialization</option>
                     <option value="Dermatology">Dermatology (Skin)</option>
                     <option value="Dentistry">Dentistry (Teeth)</option>
-                    <option value="Psychiatry">
-                      Psychiatry (Mental, Emotional or Behavioral Disorders)
+                    <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
+                    <option value="ChestRespiratory"> Chest and Respiratory  </option>
+                    <option value="Hepatology"> Hepatology (Liver Doctor)</option>
+                    <option value="Obesity">
+                        Obesity and Laparoscopic Surgery
                     </option>
-                    {/* Add other options as needed */}
+                    <option value="Oncology">Oncology (Tumor)</option>
+                    <option value="OncologySurgery">
+                        Oncology Surgery (Tumor Surgery)
+                    </option>
+                    <option value="Ophthalmology">
+                        Ophthalmology (Eyes)
+                    </option>
+                    <option value="Osteopathy">
+                        Osteopathy (Osteopathic Medicine)
+                    </option>
                   </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="image_url">
-                  <Form.Label>Image File</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faImage} className="me-2" />Image File</Form.Label>
                   <Form.Control
                     type="file"
                     accept="image/*"
@@ -99,7 +129,7 @@ function AddOffer() {
                 </Form.Group>
 
                 <Form.Group controlId="original_price">
-                  <Form.Label>Original Price</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faMoneyBillAlt} className="me-2" />Original Price</Form.Label>
                   <Form.Control
                     type="number"
                     name="original_price"
@@ -112,7 +142,7 @@ function AddOffer() {
                 </Form.Group>
 
                 <Form.Group controlId="discount_price">
-                  <Form.Label>Discount Price</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faTags} className="me-2" />Discount Price</Form.Label>
                   <Form.Control
                     type="number"
                     name="discount_price"
@@ -121,7 +151,7 @@ function AddOffer() {
                     placeholder="Enter discount price"
                     isInvalid={errors.discount_price}
                   />
-                  <Form.Control.Feedback type="invalid">Discount price must be greater than 20</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">Discount price must be greater than 20 and less than original price</Form.Control.Feedback>
                 </Form.Group>
 
                 <div className="text-center mt-3">
