@@ -28,7 +28,7 @@ function AddOffer() {
       setFormData({ ...formData, [name]: value });
       if (name === 'original_price' && value <= 200) {
         setErrors({ ...errors, original_price: true });
-      } else if (name === 'discount_price' && value <= 20) {
+      } else if (name === 'discount_price' && (value <= 20 || value >= formData.original_price)) {
         setErrors({ ...errors, discount_price: true });
       } else {
         setErrors({ ...errors, [name]: false });
@@ -38,10 +38,10 @@ function AddOffer() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (formData.original_price <= 200 || formData.discount_price <= 20) {
+    if (formData.original_price <= 200 || formData.discount_price <= 20 || formData.discount_price >= formData.original_price) {
       setErrors({
         original_price: formData.original_price <= 200,
-        discount_price: formData.discount_price <= 20,
+        discount_price: formData.discount_price <= 20 || formData.discount_price >= formData.original_price,
       });
       return;
     }
@@ -137,7 +137,7 @@ function AddOffer() {
                     placeholder="Enter discount price"
                     isInvalid={errors.discount_price}
                   />
-                  <Form.Control.Feedback type="invalid">Discount price must be greater than 20</Form.Control.Feedback>
+                  <Form.Control.Feedback type="invalid">Discount price must be greater than 20 and less than original price</Form.Control.Feedback>
                 </Form.Group>
 
                 <div className="text-center mt-3">
