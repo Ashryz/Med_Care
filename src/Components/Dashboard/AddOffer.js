@@ -1,5 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { Form, Button, Card } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import { axiosInstance } from '../../Network/axiosInstance';
 import { AuthContext } from '../../context/AuthContext';
@@ -12,6 +14,10 @@ function AddOffer() {
     original_price: '',
     discount_price: '',
   });
+  const [errors, setErrors] = useState({
+    original_price: false,
+    discount_price: false,
+  });
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -19,11 +25,25 @@ function AddOffer() {
       setFormData({ ...formData, [name]: files[0] });
     } else {
       setFormData({ ...formData, [name]: value });
+      if (name === 'original_price' && value <= 200) {
+        setErrors({ ...errors, original_price: true });
+      } else if (name === 'discount_price' && value <= 20) {
+        setErrors({ ...errors, discount_price: true });
+      } else {
+        setErrors({ ...errors, [name]: false });
+      }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (formData.original_price <= 200 || formData.discount_price <= 20) {
+      setErrors({
+        original_price: formData.original_price <= 200,
+        discount_price: formData.discount_price <= 20,
+      });
+      return;
+    }
     const userId = authContext.currentUser.id;
     axiosInstance
       .post(`/offers/doctors/${userId}/`, formData)
@@ -42,8 +62,8 @@ function AddOffer() {
         <div className="col-md-3">
           <Sidebar />
         </div>
-        <div className="col-md-9 mt-3 ">
-          <Card >
+        <div className="col-md-9 mt-3">
+          <Card>
             <Card.Header className="prim-pg text-center text-white">Add Offer</Card.Header>
             <Card.Body>
               <Form onSubmit={handleSubmit}>
@@ -86,7 +106,9 @@ function AddOffer() {
                     value={formData.original_price}
                     onChange={handleChange}
                     placeholder="Enter original price"
+                    isInvalid={errors.original_price}
                   />
+                  <Form.Control.Feedback type="invalid">Original price must be greater than 200</Form.Control.Feedback>
                 </Form.Group>
 
                 <Form.Group controlId="discount_price">
@@ -97,12 +119,16 @@ function AddOffer() {
                     value={formData.discount_price}
                     onChange={handleChange}
                     placeholder="Enter discount price"
+                    isInvalid={errors.discount_price}
                   />
+                  <Form.Control.Feedback type="invalid">Discount price must be greater than 20</Form.Control.Feedback>
                 </Form.Group>
-               <div className="text-center mt-1 ">
-                <Button className=" main-btn" type="submit">
-                  Add Offer
-                </Button>
+
+                <div className="text-center mt-3">
+                  <Button className="main-btn" type="submit">
+                    <FontAwesomeIcon icon={faPlus} className="me-2" />
+                    Add Offer
+                  </Button>
                 </div>
               </Form>
             </Card.Body>
