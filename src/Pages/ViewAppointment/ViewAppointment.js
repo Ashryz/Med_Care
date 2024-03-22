@@ -30,21 +30,22 @@ export const ViewAppointment = () => {
   const totalUserAppointments = userAppointments.count;
   const handelrefresh = useCallback(() => {
     setRefresh((prevRefresh) => !prevRefresh);
+    dispatch(getAppoitmentListbydoctor(currentPage, pageSize, currentUser.id));
+    dispatch(getAppoitmentListbyuser(currentPage, pageSize, currentUser.id));
   }, []);
 
   useEffect(() => {
     const fetchData = async () => {
-      if (currentUser && currentUser.id) {
-        await Promise.all([
-          dispatch(
-            getAppoitmentListbydoctor(currentPage, pageSize, currentUser.id)
-          ),
-          dispatch(
-            getAppoitmentListbyuser(currentPage, pageSize, currentUser.id)
-          ),
-        ]);
+      if (currentUser) {
+        dispatch(
+          getAppoitmentListbydoctor(currentPage, pageSize, currentUser.id)
+        );
+        dispatch(
+          getAppoitmentListbyuser(currentPage, pageSize, currentUser.id)
+        );
       }
     };
+
     fetchData();
   }, [dispatch, currentPage, pageSize, currentUser, refresh]);
 
@@ -76,10 +77,10 @@ export const ViewAppointment = () => {
     },
     [handelrefresh]
   );
+
   // handel payment
   const handlePayment = useCallback(
     async (appointment, data) => {
-      
       try {
         const response = await axiosInstance.put(
           `/appointments/pay/${appointment.id}/`,
@@ -91,6 +92,7 @@ export const ViewAppointment = () => {
             payment_method: data.payment_method,
             payment_date: data.payment_date,
             payment_amount: appointment.doctor.fees,
+            payment_transaction_id: "123456",
           }
         );
 

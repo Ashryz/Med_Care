@@ -6,7 +6,7 @@ import { AuthContext } from '../../context/AuthContext';
 function Sidebar() {
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
-  if (currentUser.is_doctor) {
+  if (currentUser) {
     return (
       <div className='list-group-wrapper '>
 
