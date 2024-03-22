@@ -36,8 +36,14 @@ function DoctorOffers() {
     console.log('Edit offer with ID:', offerId);
   };
 
-  const handleDelete = (offerId) => {
-    console.log('Delete offer with ID:', offerId);
+  const handleDelete = async (offerId) => {
+    try {
+      await axiosInstance.delete(`/offers/doctors/${userId}/${offerId}/`);
+      setOffers(offers.filter(offer => offer.id !== offerId));
+    } catch (error) {
+      console.error('Error deleting offer:', error);
+
+    }
   };
 
   // Pagination Logic
