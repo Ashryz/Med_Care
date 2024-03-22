@@ -51,10 +51,10 @@ function DoctorOffers() {
   return (
     <div>
       {loading ? (
-        <p>Loading...</p>
-      ) : error ? (
-        <p>{error}</p>
-      ) : (
+  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '75vh' }}>Loading...</p>
+) : error ? (
+  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '75vh' }}>{error}</p>
+) : (
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-3">
