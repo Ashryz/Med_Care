@@ -45,15 +45,18 @@ function AddOffer() {
       return;
     }
     const userId = authContext.currentUser.id;
-    axiosInstance
-      .post(`/offers/doctors/${userId}/`, formData)
-      .then((response) => {
-        console.log('Offer added successfully');
+	axiosInstance.post(`/offers/doctors/${userId}/`, formData, {
+	  headers: {
+	    "Content-Type": "multipart/form-data",
+	  },
+	})
+	.then((response) => {
+	  console.log('Offer added successfully');
+	})
+	.catch((error) => {
+	  console.error('Error adding offer:', error);
+	});
 
-      })
-      .catch((error) => {
-        console.error('Error adding offer:', error);
-      });
   };
 
   return (
