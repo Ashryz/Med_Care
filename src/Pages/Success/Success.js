@@ -11,8 +11,7 @@ const Success = () => {
   const urlParams = new URLSearchParams(window.location.search);
   const data = localStorage.getItem("payment");
 
-  console.log(data);
-  console.log(urlParams.size);
+  
   const handlePayment = useCallback(async (data) => {
     try {
       const response = await axiosInstance.put(
