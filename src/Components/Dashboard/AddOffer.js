@@ -5,7 +5,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
 import { axiosInstance } from '../../Network/axiosInstance';
 import { AuthContext } from '../../context/AuthContext';
-
+import {faGraduationCap,faImage,faMoneyBillAlt,faTags} from "@fortawesome/free-solid-svg-icons";
 function AddOffer() {
   const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -86,7 +86,7 @@ function AddOffer() {
               {successMessage && <Alert variant="success">{successMessage}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="specialization">
-                  <Form.Label>Specialization</Form.Label>
+                  <Form.Label className="text-primary"> <FontAwesomeIcon icon={faGraduationCap} />Specialization</Form.Label>
                   <Form.Select
                     value={formData.specialization}
                     name="specialization"
@@ -97,12 +97,13 @@ function AddOffer() {
                     <option value="Dermatology">Dermatology (Skin)</option>
                     <option value="Dentistry">Dentistry (Teeth)</option>
                     <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
-                    {/* Add other options as needed */}
+                    <option value="ChestRespiratory"> Chest and Respiratory  </option>
+                    <option value="Hepatology"> Hepatology (Liver Doctor)</option>
                   </Form.Select>
                 </Form.Group>
 
                 <Form.Group controlId="image_url">
-                  <Form.Label>Image File</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faImage} className="me-2" />Image File</Form.Label>
                   <Form.Control
                     type="file"
                     accept="image/*"
@@ -115,7 +116,7 @@ function AddOffer() {
                 </Form.Group>
 
                 <Form.Group controlId="original_price">
-                  <Form.Label>Original Price</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faMoneyBillAlt} className="me-2" />Original Price</Form.Label>
                   <Form.Control
                     type="number"
                     name="original_price"
@@ -128,7 +129,7 @@ function AddOffer() {
                 </Form.Group>
 
                 <Form.Group controlId="discount_price">
-                  <Form.Label>Discount Price</Form.Label>
+                  <Form.Label className="text-primary"><FontAwesomeIcon icon={faTags} className="me-2" />Discount Price</Form.Label>
                   <Form.Control
                     type="number"
                     name="discount_price"
