@@ -11,11 +11,10 @@
   text-align: center;
   position: relative;
   margin-right: 3px;
+  min-width: 250px;
 }
 
-.offer-slider .offer-card {
-  min-width: calc(100% / 4);
-}
+
 
 
 .offer-card:last-child {
