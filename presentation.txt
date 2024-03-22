@@ -1,5 +1,5 @@
 ايه الى مش هيتعمل
-1- اخر كارد(-------)
+1- اخر كارد(israa)
 2- الدارك مود
 3- لينكات الفوتر(yussef and tarek)
 4- البجيناشن بتاع المواعيد(yussef and tarek)
@@ -13,7 +13,7 @@ https://localhost:3000/AddSchedule (mohamed)
 https://localhost:3000/Rating (mohamed)
 https://localhost:3000/AddOffer (mohamed)
 8- remove filter from search (yussef)
-9- pages height ()
+9- pages height (yussef- tarek)
 =================================
 3- appointments cards (yussef and tarek)
 4- phone number (mohamed)
@@ -21,8 +21,10 @@ https://localhost:3000/AddOffer (mohamed)
 6- offers (israa)xx
 =================================
 A-presentatian (hager)
-B-docs(all)
+B-docs(all) screen shots (hager)
 =================================
 I- Demo (all)
 II- Presentation (all) meeting
+
+
 
