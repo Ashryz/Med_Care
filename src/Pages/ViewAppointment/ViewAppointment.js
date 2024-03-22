@@ -79,9 +79,10 @@ export const ViewAppointment = () => {
   // handel payment
   const handlePayment = useCallback(
     async (appointment, data) => {
+      
       try {
         const response = await axiosInstance.put(
-          `/schedules/appointment/${appointment.id}/`,
+          `/appointments/pay/${appointment.id}/`,
           {
             doctor: appointment.schedule.doctor,
             user: appointment.user,
