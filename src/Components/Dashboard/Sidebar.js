@@ -48,6 +48,12 @@ function Sidebar() {
               <span>Add Offer</span>
             </ListGroup.Item>
           </Link>
+          <Link to="/DoctorOffers" className="text-decoration-none"> 
+            <ListGroup.Item className='list-group-item listgroupItem lis'>
+              <i className="bi bi-card-checklist me-2"></i>
+              <span>View Offers</span>
+            </ListGroup.Item>
+          </Link>
         </ListGroup>
       </div>
     );
