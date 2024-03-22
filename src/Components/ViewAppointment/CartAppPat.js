@@ -1,20 +1,75 @@
 import React from "react";
-import { Button } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
-
+import { axiosInstance } from "../../Network/axiosInstance.js";
+import { useSelector, useDispatch } from "react-redux";
+import "./cardpatapp.css";
 function CartAppPat({ appointment, handlePayment, refresh }) {
   const [data, setData] = useState({
     payment_status: "paid",
-    payment_method: "Visa",
-    payment_date: new Date(),
+    payment_method: "PayMob",
+    
     payment_amount: appointment.doctor.fees,
     payment_transaction_id: "123456",
   });
+
+  const dispatch = useDispatch();
+  const [show, setShow] = useState(false);
+  const [iframeUrl, setIframeUrl] = useState(null);
   // handle payment
-  const handlePay = () => {
-    handlePayment(appointment, data);
-    refresh();
+  // const handlePay = () => {
+  //   handlePayment(appointment, data);
+  //   refresh();
+  // };
+
+  const handleClose = () => setShow(false);
+
+  const getIframeUrl = async () => {
+    try {
+      const response = await axiosInstance.get(`/appointments/iframe/${appointment.id}/`);
+      
+      dispatch({
+        type: "SET_PAYMENT",
+        payload: {
+          appointment_id: appointment.id,
+          doctor: appointment.doctor,
+          user: appointment.user,
+          schedule: appointment.schedule,
+          is_accepted: appointment.is_accepted,
+          payment_status: data.payment_status,
+          payment_method: data.payment_method,
+          payment_amount: appointment.doctor.fees,
+          payment_transaction_id: data.payment_transaction_id,
+        },
+      });
+
+      localStorage.setItem("payment", 
+      JSON.stringify({
+        appointment_id: appointment.id,
+        doctor: appointment.doctor,
+        user: appointment.user,
+        schedule: appointment.schedule,
+        is_accepted: appointment.is_accepted,
+        payment_status: data.payment_status,
+        payment_method: data.payment_method,
+        payment_amount: appointment.doctor.fees,
+        payment_transaction_id: data.payment_transaction_id,
+      })
+      );
+
+
+      return response.data.iframe_url
+    } catch (error) {
+      console.error('Error fetching iframe URL:', error);
+      return null;
+    }
   };
+
+  const openModal = async () => {
+    const url = await getIframeUrl();
+    setIframeUrl(url);
+    setShow(true);
+  }
 
   return (
     <div
@@ -73,14 +128,37 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
             <div className="my-3 d-flex justify-content-center">
               {appointment.payment_status === "pending" &&
                 appointment.status === "accepted" && (
-                  <Button className="btn sec-btn" onClick={handlePay}>
+                  <Button className="btn sec-btn" onClick={openModal}>
                     Pay Now
                   </Button>
                 )}
             </div>
           </div>
         </div>
+        <Modal show={show} onHide={handleClose} className="modal "
+          size="md"
+          aria-labelledby="contained-modal-title-vcenter"
+          centered
+        >
+          <Modal.Header closeButton>
+            <Modal.Title>Payment</Modal.Title>
+          </Modal.Header>
+          <Modal.Body className="text-center bg-light">
+            <iframe
+              title="Payment"
+              src={iframeUrl}
+              width="100%"
+              height="500"
+            ></iframe>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+          </Modal.Footer>
+        </Modal>
       </div>
+
     </div>
   );
 }

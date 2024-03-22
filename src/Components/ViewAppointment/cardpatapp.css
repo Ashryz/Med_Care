@@ -1,0 +1,45 @@
+/* Modal background */
+.modal {
+      background-color: rgba(0, 0, 0, 0.5); /* semi-transparent black */
+    }
+    
+    /* Modal content */
+    .modal-content {
+      background-color: #fff; /* white background */
+      border-radius: 10px; /* rounded corners */
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* drop shadow */
+    }
+    
+    /* Modal header */
+    .modal-header {
+      border-bottom: none; /* remove border bottom */
+      background-color: #fff;
+    }
+    
+    /* Modal title */
+    .modal-title {
+      font-weight: bold; /* make title bold */
+    }
+    
+    /* Modal body */
+    .modal-body {
+      padding: 20px; /* add padding */
+      background-color: #fff; /* white background */
+    }
+    
+    /* Modal footer */
+    .modal-footer {
+      border-top: none; /* remove border top */
+      background-color: #fff;
+    }
+    
+    /* Close button */
+    .close {
+      color: #000; /* black color */
+    }
+    
+    /* Close button hover */
+    .close:hover {
+      color: #333; /* slightly darker color on hover */
+    }
+    
