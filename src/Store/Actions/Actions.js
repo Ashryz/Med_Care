@@ -91,3 +91,9 @@ export const alertAction = (payload) => ({
   type: "SET_ALERT",
   payload,
 });
+
+export const handelpayment = (payload) => ({
+  type: "HANDLE_PAYMENT",
+  payload,
+});
+

@@ -38,6 +38,7 @@ import Medical from "./Pages/Flink/Medical.js";
 import OurTeam from "./Pages/Flink/OurTeam/OurTeam.js";
 import Privacy from "./Pages/Flink/privcy/Privacy_Policy.js";
 import DoctorOffers from "./Components/Dashboard/DoctorOffers.js";
+import Success from "./Pages/Success/Success.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
@@ -52,6 +53,7 @@ function App() {
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SelectReg />} />
+            <Route path="/payment" element={<Success />} />
             <Route exact path="/Userprofile" element={<Userprofile />} />
             <Route exact path="/changepassword" element={<ChangePass />} />
             <Route exact path="/changedDpassword" element={<ChangeDPass />} />
