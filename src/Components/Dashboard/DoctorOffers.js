@@ -54,8 +54,6 @@ function DoctorOffers() {
         <p>Loading...</p>
       ) : error ? (
         <p>{error}</p>
-      ) : offers.length === 0 ? (
-        <p>No offers available for this doctor</p>
       ) : (
         <div className="container-fluid">
           <div className="row">
@@ -64,40 +62,49 @@ function DoctorOffers() {
             </div>
             <div className="col-md-9 mt-3 text-center prim-color">
               <h2>Your Offers ({offers.length})</h2>
-              <Row>
-                {currentOffers.map((offer, index) => (
-                  <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
-                    <Card className="offer-card ">
-                      <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
-                        {calculateDiscount(offer.original_price, offer.discount_price)}% Off
-                      </div>
-                      <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
-                      <Card.Body>
-                        <Card.Title className="mt-2">{offer.specialization}</Card.Title>
-                        <div className="price">
-                          <div className="original-price">{offer.original_price} EGP</div>
-                          <div className="prim-color">{offer.discount_price} EGP </div>
-                        </div>
-                        <div className="mt-3">
-                        <Button variant="danger" onClick={() => handleDelete(offer.id)}>
-                          <FontAwesomeIcon icon={faTrash} />
-                        </Button>
-                        </div>
-                      </Card.Body>
-                      
-                    </Card>
-                  </Col>
-                ))}
-              </Row>
-              <Pagination className="justify-content-center">
-                <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
-                {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
-                  <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
-                    {number + 1}
-                  </Pagination.Item>
-                ))}
-                <Pagination.Next onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(offers.length / offersPerPage)} />
-              </Pagination>
+              {offers.length === 0 ? (
+
+                <p>No offers available </p>
+
+              ) : (
+                <>
+                  <Row>
+                    {currentOffers.map((offer, index) => (
+                      <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
+                        <Card className="offer-card">
+                          <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
+                            {calculateDiscount(offer.original_price, offer.discount_price)}% Off
+                          </div>
+                          <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
+                          <Card.Body>
+                            <Card.Title className="mt-2">{offer.specialization}</Card.Title>
+                            <div className="price">
+                              <div className="original-price">{offer.original_price} EGP</div>
+                              <div className="prim-color">{offer.discount_price} EGP </div>
+                            </div>
+                            <div className="mt-3">
+                              <Button variant="danger" onClick={() => handleDelete(offer.id)}>
+                                <FontAwesomeIcon icon={faTrash} />
+                              </Button>
+                            </div>
+                          </Card.Body>
+                        </Card>
+                      </Col>
+                    ))}
+                  </Row>
+                  {offers.length > offersPerPage && (
+                    <Pagination className="justify-content-center">
+                      <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
+                      {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
+                        <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
+                          {number + 1}
+                        </Pagination.Item>
+                      ))}
+                      <Pagination.Next onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(offers.length / offersPerPage)} />
+                    </Pagination>
+                  )}
+                </>
+              )}
             </div>
           </div>
         </div>
