@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { Form, Button, Card } from 'react-bootstrap';
+import { Form, Button, Card, Alert } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from './Sidebar';
@@ -18,6 +18,7 @@ function AddOffer() {
     original_price: false,
     discount_price: false,
   });
+  const [successMessage, setSuccessMessage] = useState('');
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -45,18 +46,31 @@ function AddOffer() {
       return;
     }
     const userId = authContext.currentUser.id;
-	axiosInstance.post(`/offers/doctors/${userId}/`, formData, {
-	  headers: {
-	    "Content-Type": "multipart/form-data",
-	  },
-	})
-	.then((response) => {
-	  console.log('Offer added successfully');
-	})
-	.catch((error) => {
-	  console.error('Error adding offer:', error);
-	});
-
+    axiosInstance
+      .post(`/offers/doctors/${userId}/`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      })
+      .then((response) => {
+        console.log('Offer added successfully');
+        setSuccessMessage('Offer added successfully');
+        // Clear form data
+        setFormData({
+          specialization: '',
+          image_url: '',
+          original_price: '',
+          discount_price: '',
+        });
+        // Reset error state
+        setErrors({
+          original_price: false,
+          discount_price: false,
+        });
+      })
+      .catch((error) => {
+        console.error('Error adding offer:', error);
+      });
   };
 
   return (
@@ -69,6 +83,7 @@ function AddOffer() {
           <Card>
             <Card.Header className="prim-pg text-center text-white">Add Offer</Card.Header>
             <Card.Body>
+              {successMessage && <Alert variant="success">{successMessage}</Alert>}
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="specialization">
                   <Form.Label>Specialization</Form.Label>
@@ -81,9 +96,7 @@ function AddOffer() {
                     <option value="">Select Specialization</option>
                     <option value="Dermatology">Dermatology (Skin)</option>
                     <option value="Dentistry">Dentistry (Teeth)</option>
-                    <option value="Psychiatry">
-                      Psychiatry (Mental, Emotional or Behavioral Disorders)
-                    </option>
+                    <option value="Psychiatry">Psychiatry (Mental, Emotional or Behavioral Disorders)</option>
                     {/* Add other options as needed */}
                   </Form.Select>
                 </Form.Group>
