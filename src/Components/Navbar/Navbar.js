@@ -4,9 +4,8 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
-import { Dropdown } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import "./Navbar.css";
 import { useDispatch, useSelector } from "react-redux";
 import { themesAction } from "../../Store/Actions/Actions";
@@ -17,7 +16,6 @@ function NavbarComp() {
   const navigate = useNavigate();
   const isLoggedIn = authContext.isLoggedIn;
   const currentUser = authContext.currentUser;
-  const [showDropdown, setShowDropdown] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -27,10 +25,6 @@ function NavbarComp() {
     dispatch(themesAction(myTheme === "light" ? "dark" : "light"));
   };
   const myTheme = useSelector((state) => state.combineThemes.theme);
-
-  useEffect(() => {
-    setShowDropdown(false);
-  }, [isLoggedIn, currentUser]);
 
   const handleLogout = () => {
     authContext.logout();

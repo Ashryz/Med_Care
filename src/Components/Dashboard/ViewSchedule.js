@@ -18,6 +18,7 @@ function ViewSchedule() {
             })
             .catch((err) => console.log(err))
     }, [refresh])
+    console.log(schedules.Results)
     return (
         <>
             <div className="App"
@@ -29,18 +30,22 @@ function ViewSchedule() {
                         <div className="side col-md-3">
                             <Sidebar />
                         </div>
+
                         <div className="col-md-9 mt-3">
-                            <div className='row d-flex' >
-                                {
-                                    schedules.map((schedule) => {
-                                        return (
-                                            <div key={schedule.id} className='col-md-3' >
-                                                <SchadulesCard schedule={schedule} refresh={refresh} setRefresh={setRefresh} />
-                                            </div>
-                                        )
-                                    })
-                                }
-                            </div>
+                            {schedules.length === 0 ? (
+                                <div className="text-center">
+                                    <h1 className="text-muted"><i className="bi bi-calendar me-2"></i><br/>No Schedules Found</h1>
+                                    <hr className="w-75 mx-auto sec-color shadow rounded-5" />
+                                </div>
+                            ) : (
+                                <div className='row d-flex'>
+                                    {schedules.map((schedule) => (
+                                        <div key={schedule.id} className='col-md-3'>
+                                            <SchadulesCard schedule={schedule} refresh={refresh} setRefresh={setRefresh} />
+                                        </div>
+                                    ))}
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
