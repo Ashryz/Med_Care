@@ -70,7 +70,7 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
                   Accept
                 </Button>
               )}
-              {appointment.payment_status==="pending" && (
+              {appointment.payment_status === "pending" && (
                 <Button className="sec-btn" onClick={handleReject}>
                   Reject
                 </Button>
