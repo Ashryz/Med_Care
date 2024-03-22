@@ -26,6 +26,7 @@ import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
 import  AppointmentCount  from "./Pages/ViewAppointment/AppointmentCount.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
+import AddOffer from "./Components/Dashboard/AddOffer.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
 import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
@@ -71,7 +72,7 @@ function App() {
             <Route exact path="/AddSchedule" element={<AddSchedule/>} />
             <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
             <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />
-
+            <Route exact path="/AddOffer" element={<AddOffer />} />
             <Route exact path="/Rating" element={<Rating/>} />
             <Route exact path="/Our" element={<OurTeam/>} />
             <Route exact path="/pri" element={<Privacy/>} />
