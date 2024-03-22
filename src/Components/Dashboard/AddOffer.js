@@ -41,16 +41,24 @@ const handleSubmit = (e) => {
         </div>
         <div className="col-md-9 mt-3">
           <Form onSubmit={handleSubmit}>
-            <Form.Group className="mb-3" controlId="specialization">
-              <Form.Label>Specialization</Form.Label>
-              <Form.Control
-                type="text"
-                name="specialization"
-                value={formData.specialization}
-                onChange={handleChange}
-                placeholder="Enter specialization"
-              />
-            </Form.Group>
+<Form.Group className="mb-3" controlId="specialization">
+  <Form.Label>Specialization</Form.Label>
+  <Form.Select
+    value={formData.specialization}
+    name="specialization"
+    onChange={handleChange}
+    placeholder="Select specialization"
+  >
+    <option value="">Select Specialization</option>
+    <option value="Dermatology">Dermatology (Skin)</option>
+    <option value="Dentistry">Dentistry (Teeth)</option>
+    <option value="Psychiatry">
+      Psychiatry (Mental, Emotional or Behavioral Disorders)
+    </option>
+    {/* Add other options as needed */}
+  </Form.Select>
+</Form.Group>
+
 
 	 <Form.Group className="mb-3" controlId="image_url">
 	  <Form.Label>Image File</Form.Label>
