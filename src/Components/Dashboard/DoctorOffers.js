@@ -67,12 +67,12 @@ function DoctorOffers() {
             <div className="col-md-3">
               <Sidebar />
             </div>
-            <div className="col-md-9 mt-3">
+            <div className="col-md-9 mt-3 text-center">
               <h2>Your Offers ({offers.length})</h2>
               <Row>
                 {currentOffers.map((offer) => (
                   <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3">
-                    <Card style={{ width: '100%' }}>
+                    <Card >
                       <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
                       <Card.Body>
                         <Card.Title>{offer.specialization}</Card.Title>
@@ -82,10 +82,10 @@ function DoctorOffers() {
                           Discount Price: {offer.discount_price} EGP
                         </Card.Text>
                         <Button variant="primary" onClick={() => handleEdit(offer.id)}>
-                          <FontAwesomeIcon icon={faEdit} /> Edit
+                          <FontAwesomeIcon icon={faEdit} /> 
                         </Button>{' '}
                         <Button variant="danger" onClick={() => handleDelete(offer.id)}>
-                          <FontAwesomeIcon icon={faTrash} /> Delete
+                          <FontAwesomeIcon icon={faTrash} /> 
                         </Button>
                       </Card.Body>
                     </Card>

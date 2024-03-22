@@ -27,7 +27,6 @@ import  AppointmentCount  from "./Pages/ViewAppointment/AppointmentCount.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
 import AddOffer from "./Components/Dashboard/AddOffer.js";
-import DoctorOffers from "./Components/Dashboard/DoctorOffers.js";
 import  Appointments from "./Components/Dashboard/Appointments.js";
 import AddSchedule from "./Components/Dashboard/AddSchedule.js"
 import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
@@ -38,6 +37,7 @@ import Teams from "./Pages/Flink/Teams/Teams.js";
 import Medical from "./Pages/Flink/Medical.js";
 import OurTeam from "./Pages/Flink/OurTeam/OurTeam.js";
 import Privacy from "./Pages/Flink/privcy/Privacy_Policy.js";
+import DoctorOffers from "./Components/Dashboard/DoctorOffers.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
@@ -74,11 +74,10 @@ function App() {
             <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
             <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />
             <Route exact path="/AddOffer" element={<AddOffer />} />
-            <Route exact path="/DoctorOffers" element={<DoctorOffers />} />
             <Route exact path="/Rating" element={<Rating/>} />
             <Route exact path="/Our" element={<OurTeam/>} />
             <Route exact path="/pri" element={<Privacy/>} />
-
+            <Route exact path="/DoctorOffers" element={<DoctorOffers />} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
