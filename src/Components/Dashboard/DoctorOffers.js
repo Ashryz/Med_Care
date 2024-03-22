@@ -32,10 +32,7 @@ function DoctorOffers() {
     fetchOffers();
   }, [userId]);
 
-  const handleEdit = (offerId) => {
-    console.log('Edit offer with ID:', offerId);
-  };
-
+ 
   const handleDelete = async (offerId) => {
     try {
       await axiosInstance.delete(`/offers/doctors/${userId}/${offerId}/`);
@@ -72,26 +69,28 @@ function DoctorOffers() {
               <Row>
                 {currentOffers.map((offer) => (
                   <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
-                    <Card >
-                      <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
-                     <Card.Body>
-			  <Card.Title>{offer.specialization}</Card.Title>
-			  <Card.Text>
-			    <div style={{ textDecoration: 'line-through' }}> {offer.original_price} EGP</div>
-			    <div> {offer.discount_price} EGP</div>
-			    <div>
-			     {((offer.original_price - offer.discount_price) / offer.original_price * 100).toFixed(2)}% Off
-			    </div>
-			  </Card.Text>
-			  <Button variant="primary" onClick={() => handleEdit(offer.id)}>
-			    <FontAwesomeIcon icon={faEdit} />
-			  </Button>{' '}
-			  <Button variant="danger" onClick={() => handleDelete(offer.id)}>
-			    <FontAwesomeIcon icon={faTrash} />
-			  </Button>
-			</Card.Body>
+		 <Card style={{ position: 'relative' }}>
+		  <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
+		    {((offer.original_price - offer.discount_price) / offer.original_price * 100)}% Off
+		  </div>
+		  <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
+		  <Card.Body>
+		    <Card.Title>{offer.specialization}</Card.Title>
+		    <Row>
+		      <Col>
+			<div className="prim-color" style={{ textDecoration: 'line-through' }}> {offer.original_price} EGP</div>
+		      </Col>
+		      <Col>
+			<div> {offer.discount_price} EGP</div>
+		      </Col>
+		    </Row>
+		    
+		    <Button variant="danger" onClick={() => handleDelete(offer.id)}>
+		      <FontAwesomeIcon icon={faTrash} />
+		    </Button>
+		  </Card.Body>
+		</Card>
 
-                    </Card>
                   </Col>
                 ))}
               </Row>
