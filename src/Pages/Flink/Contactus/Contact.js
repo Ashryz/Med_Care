@@ -29,6 +29,13 @@ message:''
     } catch (error) {
         console.error('Error:', error);
     }
+    setFormdata({
+      name: '',
+      email: '',
+      message:''
+      // Reset other fields as needed
+    });
+
 };
   return (
     <div id='conMain' >
