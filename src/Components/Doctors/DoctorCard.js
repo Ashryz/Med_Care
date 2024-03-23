@@ -109,7 +109,8 @@ function DoctorCard({ doctor }) {
             </h3>
             <div className="">
               <p className="text-capitalize">
-                {doctor.degree ? doctor.degree : "MD"  } at {doctor.specialization ? doctor.specialization : "General"}
+                {doctor.degree ? doctor.degree : "MD"} at{" "}
+                {doctor.specialization ? doctor.specialization : "General"}
               </p>
               <p>
                 <FontAwesomeIcon
@@ -121,7 +122,8 @@ function DoctorCard({ doctor }) {
             </div>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
               <span style={{ color: "dodgerblue" }}>
-                <FontAwesomeIcon icon={faMoneyBill1Wave} /> &nbsp; {doctor.fees ? doctor.fees : 100} EGP
+                <FontAwesomeIcon icon={faMoneyBill1Wave} /> &nbsp;{" "}
+                {doctor.fees ? doctor.fees : 100} EGP
               </span>
             </p>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
@@ -184,7 +186,7 @@ function DoctorCard({ doctor }) {
               <GoStarFill className="me-2 fs-3" />
               <span className="fs-6 ">
                 Rating & Reviews{" "}
-                {currentUser.is_patient && (
+                {currentUser && currentUser.user_type === "patient" && (
                   <FaPlus
                     className="add"
                     onClick={() => setAdd(!add)}
