@@ -4,7 +4,7 @@ import { Col, Container, Row } from 'react-bootstrap';
 function FooterComp() {
     return (
         <div className="container-fluid p-0">
-            <footer className="w-100  main-bg-1 py-5 mt-5 ">
+            <footer className="w-100  main-bg-1 py-5 mt-5">
                 <Container className='container d-flex justify-content-between'>
                     <div className="me-5 d-none d-lg-block">
                         <h1 className='fw-bold fs-2 text-white'><Link className='text-decoration-none text-white' to="/"><i className="bi bi-hospital"></i> MED-CARE </Link></h1>
@@ -22,29 +22,17 @@ function FooterComp() {
                         <Col>
                             <h2 className='text-white fs-3 fw-bold'>About Us</h2>
                             <ul className="list-unstyled fs-5">
-                                <li><Link className='text-white text-decoration-none' to={'Our'}>Our Team</Link></li>
+                                {/* <li><Link className='text-white text-decoration-none' to={'Our'}>Our Team</Link></li> */}
                                 <li><Link className='text-white text-decoration-none' to={'contact'}>Contact Us</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={'SignIn'}>Sign In</Link></li>
-                            </ul>
-                        </Col>
-                        <Col>
-                            <h2 className='text-white fs-3 fw-bold'>Search By </h2>
-                            <ul className="list-unstyled fs-5">
-                                <li><Link className='text-white text-decoration-none'>Speciality</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Area</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Insurance</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Hospital</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Center</Link></li>
                             </ul>
                         </Col>
                         <Col>
                             <h2 className='text-white fs-3 fw-bold'>Need Help ? </h2>
                             <ul className="list-unstyled fs-5">
                                 <li><Link className='text-white text-decoration-none' to={"Medical"}>Medical Library</Link></li>
-                                <li><Link className='text-white text-decoration-none' to={"contact"}>Contact Us</Link></li>
                                 <li><Link className='text-white text-decoration-none' to={'tems'}>Terms of Use</Link></li>
                                 <li><Link className='text-white text-decoration-none'to={'pri'}>Privacy Policy</Link></li>
-                                <li><Link className='text-white text-decoration-none'>Doctors Privacy Policy</Link></li>
                             </ul>
                         </Col>
                         <Col>

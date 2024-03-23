@@ -5,6 +5,7 @@ import doctorsReducer from './DoctorsReducers';
 import appointmentdoctorReducer from './AppointmentsReducer';
 import appointmentuserReducer from './AppointmentUserReducer';
 import AlertReducer from './AlertReducer';
+import PaymentReducer from './PaymentReducer';
 
 
 
@@ -15,6 +16,7 @@ export default combineReducers({
     combineDoctors:doctorsReducer,
     combinedocAppointment:appointmentdoctorReducer,
     combineuserAppointment:appointmentuserReducer,
-    combineAlert:AlertReducer
+    combineAlert:AlertReducer,
+    combinePayment:PaymentReducer,
     
 })

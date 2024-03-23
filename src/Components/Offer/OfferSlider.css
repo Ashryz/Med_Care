@@ -1,14 +1,24 @@
 .offer-slider {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   justify-content: center;
   gap: 20px;
+
 }
 
 .offer-card {
-  max-width: 240px;
+  flex: 0 0 auto;
   text-align: center;
   position: relative;
+  margin-right: 3px;
+  min-width: 250px;
+}
+
+
+
+
+.offer-card:last-child {
+  margin-right: 0;
 }
 
 .discount-label {
@@ -49,7 +59,4 @@
   color: gray;
 }
 
-.discounted-price {
-  color: red;
-}
 

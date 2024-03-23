@@ -43,7 +43,7 @@ function Review() {
         <Button onClick={() => setAdd(!add)} className="text-center mb-2">
           Add
         </Button>
-        <hr/>
+        <hr />
       </div>
 
       {add && <ReviewAdd />}

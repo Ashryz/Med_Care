@@ -28,7 +28,7 @@ function AppDocCard({ appointments }) {
     console.log("Booked Appointment Data:", newAppointment);
 
     axiosInstance
-      .post("/appointments/all_app/", newAppointment)
+      .post("/appointments/all_app/", newAppointment) 
       .then((response) => {
         dispatch({
           type: "SET_ALERT",

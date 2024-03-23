@@ -23,24 +23,26 @@ import DoctorCard from "./Components/Doctors/DoctorCard.js";
 // import DoctorDetails from "./Components/Doctors/DoctorDetails.js";
 import DoctorDetails from "./Pages/Doctors/DoctorDetails.js";
 import { ViewAppointment } from "./Pages/ViewAppointment/ViewAppointment.js";
-import  AppointmentCount  from "./Pages/ViewAppointment/AppointmentCount.js";
+import AppointmentCount from "./Pages/ViewAppointment/AppointmentCount.js";
 import { Schadule } from "./Components/ViewAppointment/Schadule.js";
 import Dashboard from "./Components/Dashboard/Dashboard.js";
-import  Appointments from "./Components/Dashboard/Appointments.js";
-import AddSchedule from "./Components/Dashboard/AddSchedule.js"
-import ViewSchedule from "./Components/Dashboard/ViewSchedule.js"
-import Rating from "./Components/Dashboard/Rating.js"
+import AddOffer from "./Components/Dashboard/AddOffer.js";
+import Appointments from "./Components/Dashboard/Appointments.js";
+import AddSchedule from "./Components/Dashboard/AddSchedule.js";
+import ViewSchedule from "./Components/Dashboard/ViewSchedule.js";
+import Rating from "./Components/Dashboard/Rating.js";
 import { useSelector } from "react-redux";
 import Contact from "./Pages/Flink/Contactus/Contact.js";
 import Teams from "./Pages/Flink/Teams/Teams.js";
 import Medical from "./Pages/Flink/Medical.js";
 import OurTeam from "./Pages/Flink/OurTeam/OurTeam.js";
 import Privacy from "./Pages/Flink/privcy/Privacy_Policy.js";
+import DoctorOffers from "./Components/Dashboard/DoctorOffers.js";
+import Success from "./Pages/Success/Success.js";
 function App() {
   const myTheme = useSelector((state) => state.combineThemes.theme);
   return (
     <div className={`App ${myTheme === "light" ? "" : "bg-dark text-white"}`}>
-     
       <BrowserRouter>
         <AuthProvider>
           <NavbarComp />
@@ -50,6 +52,7 @@ function App() {
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SelectReg />} />
+            <Route path="/payment" element={<Success />} />
             <Route exact path="/Userprofile" element={<Userprofile />} />
             <Route exact path="/changepassword" element={<ChangePass />} />
             <Route exact path="/changedDpassword" element={<ChangeDPass />} />
@@ -60,22 +63,34 @@ function App() {
             <Route exact path="/Hero" element={<Hero />} />
             <Route exact path="/review" element={<Review />} />
             <Route exact path="/DoctorCard" element={<DoctorCard />} />
-            <Route exact path="/DoctorDetails/:id"element={<DoctorDetails />}/>
-            <Route exact path="/viewappointment"element={<ViewAppointment />}/>
+            <Route
+              exact
+              path="/DoctorDetails/:id"
+              element={<DoctorDetails />}
+            />
+            <Route
+              exact
+              path="/viewappointment"
+              element={<ViewAppointment />}
+            />
             <Route exact path="/Schadule" element={<Schadule />} />
             <Route exact path="/Dashboard" element={<Dashboard />} />
-            <Route exact path="/Appointments" element={< Appointments  />} />
-            <Route exact path="/Medical" element={<Medical/>} />
-            <Route exact path="/contact" element={<Contact/>} />
-            <Route exact path="/tems" element={<Teams/>} />
-            <Route exact path="/AddSchedule" element={<AddSchedule/>} />
-            <Route exact path="/ViewSchedule" element={<ViewSchedule/>} />
-            <Route exact path="/AppointmentCount" element={<AppointmentCount/>} />
-
-            <Route exact path="/Rating" element={<Rating/>} />
-            <Route exact path="/Our" element={<OurTeam/>} />
-            <Route exact path="/pri" element={<Privacy/>} />
-
+            <Route exact path="/Appointments" element={<Appointments />} />
+            <Route exact path="/Medical" element={<Medical />} />
+            <Route exact path="/contact" element={<Contact />} />
+            <Route exact path="/tems" element={<Teams />} />
+            <Route exact path="/AddSchedule" element={<AddSchedule />} />
+            <Route exact path="/ViewSchedule" element={<ViewSchedule />} />
+            <Route
+              exact
+              path="/AppointmentCount"
+              element={<AppointmentCount />}
+            />
+            <Route exact path="/AddOffer" element={<AddOffer />} />
+            <Route exact path="/Rating" element={<Rating />} />
+            <Route exact path="/Our" element={<OurTeam />} />
+            <Route exact path="/pri" element={<Privacy />} />
+            <Route exact path="/DoctorOffers" element={<DoctorOffers />} />
             <Route exact path="/" element={<Dashboard />} />
             <Route path="*" element={<Error />} />
           </Routes>
