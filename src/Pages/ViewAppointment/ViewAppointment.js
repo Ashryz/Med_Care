@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAppoitmentListbydoctor } from "../../Store/Actions/Actions.js";
 import { getAppoitmentListbyuser } from "../../Store/Actions/Actions.js";
 import { axiosInstance } from "../../Network/axiosInstance.js";
+import { useNavigate } from "react-router-dom";
 
 export const ViewAppointment = () => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export const ViewAppointment = () => {
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 3;
+  const navigate = useNavigate();
 
   const doctorAppointments = useSelector(
     (state) => state.combinedocAppointment.appointments
@@ -22,6 +24,12 @@ export const ViewAppointment = () => {
   const userAppointments = useSelector(
     (state) => state.combineuserAppointment.appointments
   );
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, [currentUser]);
 
   const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
   const totalPagesUser = Math.ceil(userAppointments.count / pageSize);

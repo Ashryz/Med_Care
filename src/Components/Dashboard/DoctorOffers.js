@@ -7,6 +7,7 @@ import { AuthContext } from '../../context/AuthContext';
 import { axiosInstance } from '../../Network/axiosInstance';
 import Sidebar from './Sidebar';
 import './Offer.css';
+import { useNavigate } from 'react-router-dom';
 
 function DoctorOffers() {
   const authContext = useContext(AuthContext);
@@ -17,6 +18,16 @@ function DoctorOffers() {
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
   const [offersPerPage] = useState(4);
+
+  const currentUser = authContext.currentUser;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!currentUser) {
+      navigate("/");
+    }
+  }, []);
+
 
   useEffect(() => {
     const fetchOffers = async () => {
