@@ -11,6 +11,7 @@ import {
   faCalendarAlt,
   faCamera,
   faVenusMars,
+  faMapMarkerAlt
 } from "@fortawesome/free-solid-svg-icons";
 import DSidebar from "../../Components/DoctorProfile/DSideBar/DSidebar";
 import { Validations } from "../../Components/utils/validations/validation";
@@ -32,6 +33,7 @@ const DoctorProfile = () => {
     gender: "",
     Image: "",
     ImageFile: null,
+    address :"",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -49,6 +51,7 @@ const DoctorProfile = () => {
     gender: "",
     specialization: "",
     degree: "",
+    address: "", 
   });
 
   const authContext = useContext(AuthContext);
@@ -72,10 +75,10 @@ const DoctorProfile = () => {
             fees,
             specialization,
             degree,
-
             first_name,
             last_name,
             img,
+            address, 
           } = response.data;
 
           setDoctorData({
@@ -91,6 +94,7 @@ const DoctorProfile = () => {
             fname: first_name,
             lname: last_name,
             Image: img,
+            address, 
           });
           setIsLoading(false);
           resolve();
@@ -161,15 +165,24 @@ const DoctorProfile = () => {
           errorMessage = "Fees must be greater than 200";
         }
         break;
-      default:
-        break;
-    }
-    setValidationErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
-  };
-
+     case "address":
+        if (value.length < 10) {
+          errorMessage = "Address should be at least 10 characters long";
+        } else if (
+        /[!@#$%^&*()"{}\[\]]/.test(value)
+        ) {
+          errorMessage =
+          "Address should not contain special characters like @, #, %, &, *, (), '', {}, or []";
+         }
+         break;
+     default:
+      break;
+  }
+  setValidationErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: errorMessage,
+  }));
+};
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -192,7 +205,7 @@ const DoctorProfile = () => {
       formData.append("age", doctorData.age);
       formData.append("city", doctorData.area);
       formData.append("gender", doctorData.gender);
-
+      formData.append("address", doctorData.address);
       // Check if ImageFile is not null before appending
       if (doctorData.ImageFile) {
         formData.append("img", doctorData.ImageFile);
@@ -244,7 +257,7 @@ const DoctorProfile = () => {
   return (
     <div className="container mt-5">
       {isLoading ? (
-        <div>Loading...</div>
+         <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>Loading...</p>
       ) : (
         <div className="row ">
           <div className="col-md-3">
@@ -442,7 +455,26 @@ const DoctorProfile = () => {
                       </Form.Select>
                     </div>
                   </div>
-
+		<div className="mb-3 row">
+		  <label
+		    htmlFor="address"
+		    className="form-label col-sm-3 text-primary"
+		  >
+		    <FontAwesomeIcon icon={faMapMarkerAlt} /> Address
+		  </label>
+		  <div className="col-sm-9">
+		    <input
+		      type="text"
+		      name="address"
+		      value={doctorData.address}
+		      onChange={handleInputChange}
+		      className="form-control form-control-blue"
+		    />
+		    <div className="text-danger">
+		      {validationErrors.address}
+		    </div>
+		  </div>
+		</div>
                   <div className="text-center">
                     <button type="submit" className="btn main-btn me-2">
                       Save

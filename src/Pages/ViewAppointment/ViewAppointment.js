@@ -188,7 +188,7 @@ export const ViewAppointment = () => {
         </>
       ) : (
         <div className="text-center">
-          <h1 className="text-muted"><i className="bi bi-table me-2"></i> <br /> No Appointments Found</h1>
+          <h1 className=""><i className="bi bi-table me-2"></i> <br /> No Appointments Found</h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
 

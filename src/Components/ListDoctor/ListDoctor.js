@@ -41,6 +41,7 @@ function ListDoctor() {
                 key={index + 1}
                 active={index + 1 === currentPage}
                 onClick={() => handlePageChange(index + 1)}
+                
               >
                 {index + 1}
               </Pagination.Item>
@@ -54,7 +55,7 @@ function ListDoctor() {
         </>
       ) : (
         <div className="text-center">
-          <h1 className="text-muted">No Doctors Found</h1>
+          <h1 className="">No Doctors Found</h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
       )}
