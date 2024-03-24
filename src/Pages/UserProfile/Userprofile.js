@@ -11,6 +11,7 @@ import {
   faCalendarAlt,
   faCamera,
   faVenusMars,
+  faMapMarkerAlt
 } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/AuthContext";
 import { Validations } from "../../Components/utils/validations/validation";
@@ -32,6 +33,7 @@ const Userprofile = () => {
     degree: "",
     Image: "",
     ImageFile: null,
+    address :"",
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -52,6 +54,7 @@ const Userprofile = () => {
     gender: "",
     specialization: "",
     degree: "",
+    address :"",
   });
 
   const authContext = useContext(AuthContext);
@@ -76,6 +79,7 @@ const Userprofile = () => {
             first_name,
             last_name,
             img,
+            address,
           } = response.data;
 
           setDoctorData({
@@ -91,6 +95,7 @@ const Userprofile = () => {
             fname: first_name,
             lname: last_name,
             Image: img,
+            address,
           });
           setIsLoading(false);
           resolve();
@@ -161,14 +166,24 @@ const Userprofile = () => {
           errorMessage = "Fees must be greater than 200";
         }
         break;
-      default:
-        break;
-    }
-    setValidationErrors((prevErrors) => ({
-      ...prevErrors,
-      [name]: errorMessage,
-    }));
-  };
+      case "address":
+        if (value.length < 10) {
+          errorMessage = "Address should be at least 10 characters long";
+        } else if (
+        /[!@#$%^&*()"{}\[\]]/.test(value)
+        ) {
+          errorMessage =
+          "Address should not contain special characters like @, #, %, &, *, (), '', {}, or []";
+         }
+         break;
+     default:
+      break;
+  }
+  setValidationErrors((prevErrors) => ({
+    ...prevErrors,
+    [name]: errorMessage,
+  }));
+};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -192,7 +207,7 @@ const Userprofile = () => {
       formData.append("age", doctorData.age);
       formData.append("city", doctorData.area);
       formData.append("gender", doctorData.gender);
-
+      formData.append("address", doctorData.address);
       // Check if ImageFile is not null before appending
       if (doctorData.ImageFile) {
         formData.append("img", doctorData.ImageFile);
@@ -453,7 +468,26 @@ const Userprofile = () => {
                       </Form.Select>
                     </div>
                   </div>
-
+		<div className="mb-3 row">
+		  <label
+		    htmlFor="address"
+		    className="form-label col-sm-3 text-primary"
+		  >
+		    <FontAwesomeIcon icon={faMapMarkerAlt} /> Address
+		  </label>
+		  <div className="col-sm-9">
+		    <input
+		      type="text"
+		      name="address"
+		      value={doctorData.address}
+		      onChange={handleInputChange}
+		      className="form-control form-control-blue"
+		    />
+		    <div className="text-danger">
+		      {validationErrors.address}
+		    </div>
+		  </div>
+		</div>
                   <div className="text-center">
                     <button type="submit" className="btn main-btn me-2">
                       Save
