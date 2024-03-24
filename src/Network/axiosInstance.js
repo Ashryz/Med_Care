@@ -8,15 +8,15 @@ export const axiosInstance = axios.create({
   },
 });
 
-axiosInstance.interceptors.request.use(
-  function (config) {
-    if (localStorage.getItem("token")) {
-      config.headers.Authorization = `Token ${localStorage.getItem("token")}`;
-    }
+// axiosInstance.interceptors.request.use(
+//   function (config) {
+//     if (localStorage.getItem("token")) {
+//       config.headers.Authorization = `Token ${localStorage.getItem("token")}`;
+//     }
 
-    return config;
-  },
-  function (error) {
-    return Promise.reject(error);
-  }
-);
+//     return config;
+//   },
+//   function (error) {
+//     return Promise.reject(error);
+//   }
+// );
