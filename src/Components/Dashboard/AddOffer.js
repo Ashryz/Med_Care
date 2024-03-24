@@ -20,21 +20,26 @@ function AddOffer() {
   });
   const [successMessage, setSuccessMessage] = useState('');
 
-  const handleChange = (e) => {
-    const { name, value, files } = e.target;
-    if (name === 'image_url' && files.length > 0) {
-      setFormData({ ...formData, [name]: files[0] });
-    } else {
-      setFormData({ ...formData, [name]: value });
-      if (name === 'original_price' && value <= 200) {
-        setErrors({ ...errors, original_price: true });
-      } else if (name === 'discount_price' && (value <= 20 || value >= formData.original_price)) {
+const handleChange = (e) => {
+  const { name, value, files } = e.target;
+  if (name === 'image_url' && files.length > 0) {
+    setFormData({ ...formData, [name]: files[0] });
+  } else {
+    setFormData({ ...formData, [name]: value });
+    if (name === 'original_price' && value <= 200) {
+      setErrors({ ...errors, original_price: true });
+    } else if (name === 'discount_price') {
+      if (value <= 20 || parseFloat(value) >= parseFloat(formData.original_price)) {
         setErrors({ ...errors, discount_price: true });
       } else {
-        setErrors({ ...errors, [name]: false });
+        setErrors({ ...errors, discount_price: false });
       }
+    } else {
+      setErrors({ ...errors, [name]: false });
     }
-  };
+  }
+};
+
 
   const handleSubmit = (e) => {
     e.preventDefault();

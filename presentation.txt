@@ -28,3 +28,22 @@ II- Presentation (all) meeting
 
 
 
+**presentation**
+1- project idea
+      ------------Tarek---------------
+      - project Desc
+      - problem statement 
+      - client
+      --------------Hager------------------
+      - F study
+
+2- Project features
+      A- Func reqs (mohamed)
+      B- Non func reqs (mahmoud) xxxx
+      c- users and roles (yussef)
+
+3- tools and tech
+      - tech used (israa)
+
+
+**demo**
