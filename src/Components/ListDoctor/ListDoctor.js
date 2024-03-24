@@ -31,7 +31,7 @@ function ListDoctor() {
                 <CardSmallDoc key={doctor.user.id} doc={doctor} />
               ))}
           </Row>
-          <Pagination className="mt-3 justify-content-center"
+          <Pagination className="mt-3 justify-content-center" 
           >
             <Pagination.First onClick={() => handlePageChange(1)} />
             <Pagination.Prev
@@ -55,7 +55,7 @@ function ListDoctor() {
         </>
       ) : (
         <div className="text-center">
-          <h1 className="text-muted">No Doctors Found</h1>
+          <h1 className="">No Doctors Found</h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
       )}

@@ -31,7 +31,7 @@ function Contact() {
   };
   return (
     <div className='container' style={{ minHeight: '400px' }}>
-      <div className='row mx-auto w-75 mt-4 shadow rounded-4 '>
+      <div className='row mx-auto w-75 mt-4 shadow rounded-4  bg-white text-dark'>
         <div className='col p-0'>
           <div
             className="prim-pg text-center text-light  p-1"

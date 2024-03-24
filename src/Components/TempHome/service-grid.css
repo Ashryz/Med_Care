@@ -11,8 +11,7 @@
 }
 
 .ser-card {
-  background-color: white !important;
-  color: black !important;
+
   transition: background-color 0.3s ease, color 1s ease;
   cursor: pointer;
 }
