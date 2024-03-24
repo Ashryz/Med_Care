@@ -38,8 +38,8 @@ function SearchResults() {
                                 ))}
                             </Row>
                             <Pagination className="mt-3 justify-content-center">
-                                <Pagination.First onClick={() => handlePageChange(1)} />
-                                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} />
+                                <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1}/>
+                                <Pagination.Prev onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}/>
                                 {Array.from({ length: totalPages }, (_, index) => (
                                     <Pagination.Item
                                         key={index + 1}
@@ -49,8 +49,8 @@ function SearchResults() {
                                         {index + 1}
                                     </Pagination.Item>
                                 ))}
-                                <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} />
-                                <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+                                <Pagination.Next onClick={() => handlePageChange(currentPage + 1)} disabled={currentPage === totalPages}/>
+                                <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}/>
                             </Pagination>
                         </>
                     )}

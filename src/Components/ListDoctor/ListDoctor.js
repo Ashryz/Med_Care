@@ -31,10 +31,10 @@ function ListDoctor() {
                 <CardSmallDoc key={doctor.user.id} doc={doctor} />
               ))}
           </Row>
-          <Pagination className="mt-3 justify-content-center">
-            <Pagination.First onClick={() => handlePageChange(1)} />
+          <Pagination className="mt-3 justify-content-center" >
+            <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1}/>
             <Pagination.Prev
-              onClick={() => handlePageChange(currentPage - 1)}
+              onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}
             />
             {Array.from({ length: totalPages }, (_, index) => (
               <Pagination.Item
@@ -47,8 +47,9 @@ function ListDoctor() {
             ))}
             <Pagination.Next
               onClick={() => handlePageChange(currentPage + 1)}
+              disabled={currentPage === totalPages}
             />
-            <Pagination.Last onClick={() => handlePageChange(totalPages)} />
+            <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
           </Pagination>
         </>
       ) : (

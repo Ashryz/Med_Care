@@ -82,7 +82,7 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
         </h3>
       </div>
 
-      <div className="card-body">
+      <div className="card-body" style={{ backgroundColor: "#77ffe84b" }}>
         <div className="row">
           <div className="col">
             <p className="fs-6 fw-bold mb-0 sec-color">
