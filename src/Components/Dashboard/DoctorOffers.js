@@ -62,16 +62,16 @@ function DoctorOffers() {
   return (
     <div>
       {loading ? (
-  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '75vh' }}>Loading...</p>
+  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>Loading...</p>
 ) : error ? (
-  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '75vh' }}>{error}</p>
+  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>{error}</p>
 ) : (
         <div className="container-fluid">
           <div className="row">
             <div className="col-md-3">
               <Sidebar />
             </div>
-            <div className="col-md-9 mt-3 text-center prim-color">
+            <div className="col-md-9 mt-3 text-center prim-color" style={{ minHeight: '40.4vh' }}>
               <h2>Your Offers ({offers.length})</h2>
               {offers.length === 0 ? (
 
@@ -104,7 +104,7 @@ function DoctorOffers() {
                     ))}
                   </Row>
                   {offers.length > offersPerPage && (
-                    <Pagination className="justify-content-center">
+                    <Pagination className="justify-content-center ">
                       <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
                       {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
                         <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>

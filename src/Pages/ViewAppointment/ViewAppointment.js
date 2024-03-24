@@ -15,7 +15,7 @@ export const ViewAppointment = () => {
   const currentUser = authContext.currentUser;
   const [refresh, setRefresh] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 3;
+  const pageSize = 6;
   const navigate = useNavigate();
 
   const doctorAppointments = useSelector(
@@ -31,8 +31,12 @@ export const ViewAppointment = () => {
     }
   }, [currentUser]);
 
-  const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
-  const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
+  // const totalPagesDoctor = Math.ceil(doctorAppointments.count / pageSize);
+  // const totalPagesUser = Math.ceil(userAppointments.count / pageSize);
+  const totalAppointments = currentUser.is_doctor
+    ? doctorAppointments.count
+    : userAppointments.count;
+  const totalPages = Math.ceil(totalAppointments / pageSize);
 
   const totalDoctorAppointments = doctorAppointments.count;
   const totalUserAppointments = userAppointments.count;
@@ -116,21 +120,22 @@ export const ViewAppointment = () => {
   );
 
   return (
-    <div className="container" style={{ minHeight: "36.6vh" }}>
-      <div className="text-center mb-3">
-        <h1 className="text-center text-capitalize">View Appointments</h1>
-        {currentUser && currentUser.is_doctor && (
-          <h3>Total Appointments {doctorAppointments.count}</h3>
-        )}
-        {currentUser && currentUser.is_patient && (
-          <h3>Total Appointments {userAppointments.count}</h3>
-        )}
-      </div>
+    <div className="container" style={{ minHeight: "38.7vh" }}>
       {totalDoctorAppointments > 0 || totalUserAppointments > 0 ? (
         <>
+          <div className="text-center mb-3">
+            <h1 className="text-center text-capitalize">View Appointments</h1>
+            {currentUser && currentUser.is_doctor && (
+              <h3>Total Appointments {doctorAppointments.count}</h3>
+            )}
+            {currentUser && currentUser.is_patient && (
+              <h3>Total Appointments {userAppointments.count}</h3>
+            )}
+          </div>
           <div className="">
             <div className="mb-3 row row-cols-3">
               {currentUser.is_doctor &&
+                doctorAppointments.results &&
                 doctorAppointments.results.map((appointment) => (
                   <div key={appointment.id} className="col">
                     <CardAppDoc
@@ -141,6 +146,7 @@ export const ViewAppointment = () => {
                   </div>
                 ))}
               {currentUser.is_patient &&
+                userAppointments.results &&
                 userAppointments.results.map((appointment) => (
                   <div key={appointment.id} className="col">
                     <CartAppPat
@@ -161,56 +167,34 @@ export const ViewAppointment = () => {
               onClick={() => handlePageChange(currentPage - 1)}
               disabled={currentPage === 1}
             />
-            {Array.from(
-              {
-                length:
-                  totalPagesDoctor > totalPagesUser
-                    ? totalPagesDoctor
-                    : totalPagesUser,
-              },
-              (_, index) => (
-                <Pagination.Item
-                  key={index + 1}
-                  active={index + 1 === currentPage}
-                  onClick={() => handlePageChange(index + 1)}
-                >
-                  {index + 1}
-                </Pagination.Item>
-              )
-            )}
+            {Array.from({ length: totalPages }, (_, index) => (
+              <Pagination.Item
+                key={index + 1}
+                active={index + 1 === currentPage}
+                onClick={() => handlePageChange(index + 1)}
+              >
+                {index + 1}
+              </Pagination.Item>
+            ))}
             <Pagination.Next
               onClick={() => handlePageChange(currentPage + 1)}
-              disabled={
-                currentPage ===
-                (totalPagesDoctor > totalPagesUser
-                  ? totalPagesDoctor
-                  : totalPagesUser)
-              }
+              disabled={currentPage === totalPages}
             />
             <Pagination.Last
-              onClick={() =>
-                handlePageChange(
-                  totalPagesDoctor > totalPagesUser
-                    ? totalPagesDoctor
-                    : totalPagesUser
-                )
-              }
-              disabled={
-                currentPage ===
-                (totalPagesDoctor > totalPagesUser
-                  ? totalPagesDoctor
-                  : totalPagesUser)
-              }
+              onClick={() => handlePageChange(totalPages)}
+              disabled={currentPage === totalPages}
             />
           </Pagination>
         </>
       ) : (
         <div className="text-center">
-          <h1 className="text-muted">No Appointments Found</h1>
+          <h1 className=""><i className="bi bi-table me-2"></i> <br /> No Appointments Found</h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
-      )}
-    </div>
+
+      )
+      }
+    </div >
   );
 };
 

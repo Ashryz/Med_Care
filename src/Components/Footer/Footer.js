@@ -13,7 +13,7 @@ function FooterComp() {
                         <Link className="me-4 text-white fs-2"><i className="bi bi-facebook"></i></Link>
                         <Link className="me-4 text-white fs-2"><i className="bi bi-instagram"></i></Link>
                         <Link className="me-4 text-white fs-2"><i className="bi bi-twitter-x"></i></Link>
-                        <Link className="me-4 text-white fs-2"><i className="bi bi-github"></i></Link>
+                        {/* <Link className="me-4 text-white fs-2"><i className="bi bi-github"></i></Link> */}
                     </div>
                 </Container>
                 <Container>
@@ -40,8 +40,8 @@ function FooterComp() {
                             <ul className="list-unstyled fs-5">
                                 <li><p className='text-white text-decoration-none'></p></li>
                                 <li><p className='text-white text-decoration-none'><i className="bi bi-house-fill"></i> Cairo, C 12311, EGYPT</p></li>
-                                <li><p className='text-white text-decoration-none'><i className="bi bi-envelope-fill"></i> customercare@medcare.com</p></li>
-                                <li><p className='text-white text-decoration-none'><i className="bi bi-telephone-fill"></i> +20 1112223334</p></li>
+                                <li><p className='text-white text-decoration-none'><i className="bi bi-envelope-fill"></i> <a href="mailto:yabualam@gmail.com">customercare@medcare.com</a></p></li>
+                                <li><p className='text-white text-decoration-none'><i className="bi bi-telephone-fill"></i> <a href="tel:+201099959294">+201099959294</a></p></li>
                             </ul>
                         </Col>
                     </Row>

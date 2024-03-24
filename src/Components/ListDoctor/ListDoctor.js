@@ -22,7 +22,7 @@ function ListDoctor() {
   console.log(doctors);
 
   return (
-    <Container className="mt-5 mb-5" style={{ minHeight: "31vh" }}>
+    <Container className="mt-5 mb-5" style={{ minHeight: "37.1vh" }}>
       {doctors.results && doctors.results.length > 0 ? (
         <>
           <Row>
@@ -31,7 +31,8 @@ function ListDoctor() {
                 <CardSmallDoc key={doctor.user.id} doc={doctor} />
               ))}
           </Row>
-          <Pagination className="mt-3 justify-content-center">
+          <Pagination className="mt-3 justify-content-center" 
+          >
             <Pagination.First onClick={() => handlePageChange(1)} />
             <Pagination.Prev
               onClick={() => handlePageChange(currentPage - 1)}
@@ -41,6 +42,7 @@ function ListDoctor() {
                 key={index + 1}
                 active={index + 1 === currentPage}
                 onClick={() => handlePageChange(index + 1)}
+                
               >
                 {index + 1}
               </Pagination.Item>
@@ -53,7 +55,7 @@ function ListDoctor() {
         </>
       ) : (
         <div className="text-center">
-          <h1 className="text-muted">No Doctors Found</h1>
+          <h1 className="">No Doctors Found</h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
       )}

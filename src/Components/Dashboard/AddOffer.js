@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import { axiosInstance } from '../../Network/axiosInstance';
 import { AuthContext } from '../../context/AuthContext';
 import {faGraduationCap,faImage,faMoneyBillAlt,faTags} from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
 function AddOffer() {
   const authContext = useContext(AuthContext);
   const [formData, setFormData] = useState({
@@ -19,8 +20,8 @@ function AddOffer() {
     discount_price: false,
   });
   const [successMessage, setSuccessMessage] = useState('');
-
-const handleChange = (e) => {
+  const navigate = useNavigate();
+ const handleChange = (e) => {
   const { name, value, files } = e.target;
   if (name === 'image_url' && files.length > 0) {
     setFormData({ ...formData, [name]: files[0] });
@@ -60,6 +61,7 @@ const handleChange = (e) => {
       .then((response) => {
         console.log('Offer added successfully');
         setSuccessMessage('Offer added successfully');
+        navigate("/DoctorOffers");
         // Clear form data
         setFormData({
           specialization: '',
@@ -85,7 +87,7 @@ const handleChange = (e) => {
           <Sidebar />
         </div>
         <div className="col-md-9 mt-3">
-          <Card>
+          <Card className='w-75 mx-auto'>
             <Card.Header className="prim-pg text-center text-white">Add Offer</Card.Header>
             <Card.Body>
               {successMessage && <Alert variant="success">{successMessage}</Alert>}

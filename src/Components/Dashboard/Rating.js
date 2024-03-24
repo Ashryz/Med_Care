@@ -55,7 +55,7 @@ function Rating() {
 
   return (
     <>
-      <div className="App" style={{ minHeight: "75vh" }}>
+      <div className="App" style={{ minHeight: "42.1vh" }}>
         <div className="container-fluid">
           <div className="row">
             <hr />
@@ -73,7 +73,7 @@ function Rating() {
               </div>
               <div className="text-center">
                 {data === undefined || data.length === 0 ? (
-                  <h3 className="text-center text-dark">No ratings yet</h3>
+                  <h3 className="text-center ">No ratings yet</h3>
                 ) : (
                   data.map((revObj, index) => (
                     <RatingCardForDoc revObj={revObj} />

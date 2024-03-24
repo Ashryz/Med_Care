@@ -6,12 +6,9 @@ import { FaRegCheckCircle } from "react-icons/fa";
 const Success = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  // get the payment getway callback from the url  and display it on the page
   const urlParams = new URLSearchParams(window.location.search);
   const data = localStorage.getItem("payment");
 
-  
   const handlePayment = useCallback(async (data) => {
     try {
       const response = await axiosInstance.put(
@@ -27,7 +24,7 @@ const Success = () => {
         }
       );
 
-      if (response) {
+      if (response.status === 200) {
         console.log(response.data);
         localStorage.removeItem("payment");
         setTimeout(() => {
@@ -50,7 +47,7 @@ const Success = () => {
 
   return (
     <div
-      style={{ minHeight: "36.6vh" }}
+      style={{ minHeight: "75vh" }}
       className="d-flex justify-content-center align-items-center flex-column"
     >
       <FaRegCheckCircle
