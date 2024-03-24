@@ -24,13 +24,12 @@ function SearchResults() {
     };
 
     return (
-        <Container fluid className="mt-5 mb-5">
-            <Row >
-                <Col md={3} className="d-none d-xl-block">
+        <Container fluid className="mt-5 mb-5" style={{minHeight:'22.4rem'}}>
+            <Row>
+                {/* <Col md={3} className="d-none d-xl-block">
                     <Filter />
-                </Col>
-                <Col md={9}>
-                    {doctors.results?.length === 0 && <p className="fs-3">No doctors found for "{query}"</p>}
+                </Col> */}
+                    {doctors.results?.length === 0 && <h3 className="text-center">No doctors found for "{query}"</h3>}
                     {doctors.results?.length > 0 && (
                         <>
                             <Row className="row-cols-1 g-4">
@@ -55,7 +54,6 @@ function SearchResults() {
                             </Pagination>
                         </>
                     )}
-                </Col>
             </Row>
         </Container>
     );

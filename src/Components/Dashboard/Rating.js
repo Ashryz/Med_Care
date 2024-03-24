@@ -55,7 +55,7 @@ function Rating() {
 
   return (
     <>
-      <div className="App" style={{ minHeight: "75vh" }}>
+      <div className="App" style={{ minHeight: "42.1vh" }}>
         <div className="container-fluid">
           <div className="row">
             <hr />

@@ -1,9 +1,9 @@
 
-li:hover{
-    text-decoration: underline;
-    color: white
+li p:hover{
+    cursor: pointer;
 }
 
-footer{
-   
+li a {
+    text-decoration: none;
+    color: white !important;
 }
