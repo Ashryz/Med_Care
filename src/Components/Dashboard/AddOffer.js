@@ -87,7 +87,7 @@ function AddOffer() {
           <Sidebar />
         </div>
         <div className="col-md-9 mt-3">
-          <Card className='w-75 mx-auto'>
+          <Card>
             <Card.Header className="prim-pg text-center text-white">Add Offer</Card.Header>
             <Card.Body>
               {successMessage && <Alert variant="success">{successMessage}</Alert>}
