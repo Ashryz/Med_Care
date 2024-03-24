@@ -273,7 +273,7 @@ const Userprofile = () => {
   return (
     <div className="container mt-5">
       {isLoading ? (
-        <div>Loading...</div>
+         <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>Loading...</p>
       ) : (
         <div className="row ">
           <div className="col-md-3">
