@@ -2,7 +2,7 @@
 1- اخر كارد(israa)
 2- الدارك مود
 3- لينكات الفوتر(yussef and tarek) xxxx
-4- البجيناشن بتاع المواعيد(yussef and tarek)
+4- البجيناشن بتاع المواعيد(yussef and tarek) xxxx
 5- الكنوتكت اس
 6- البرايفسي بوليسي
 7- الريدايركت(mohamed) xxxx
@@ -13,9 +13,9 @@ https://localhost:3000/AddSchedule (mohamed) xxx
 https://localhost:3000/Rating (mohamed) xxxx
 https://localhost:3000/AddOffer (mohamed) xxx
 8- remove filter from search (yussef) xxx
-9- pages height (yussef- tarek)
+9- pages height (yussef- tarek) xxxxx
 =================================
-3- appointments cards (yussef and tarek)
+3- appointments cards (yussef and tarek) xxxx 
 4- phone number (mohamed) xxxx
 5- slider offers (israa)xxxx
 6- offers (israa)xxxx
