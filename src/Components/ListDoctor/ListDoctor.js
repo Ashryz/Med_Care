@@ -31,7 +31,8 @@ function ListDoctor() {
                 <CardSmallDoc key={doctor.user.id} doc={doctor} />
               ))}
           </Row>
-          <Pagination className="mt-3 justify-content-center">
+          <Pagination className="mt-3 justify-content-center"
+          >
             <Pagination.First onClick={() => handlePageChange(1)} />
             <Pagination.Prev
               onClick={() => handlePageChange(currentPage - 1)}
@@ -41,6 +42,7 @@ function ListDoctor() {
                 key={index + 1}
                 active={index + 1 === currentPage}
                 onClick={() => handlePageChange(index + 1)}
+                
               >
                 {index + 1}
               </Pagination.Item>
