@@ -3,7 +3,7 @@
 Test Account
 12/25
 123
-http://127.0.0.1:8000/
+http://127.0.0.1:8000/admin/login/?next=/admin/
 admin
 admin@gmail.com
 admin
