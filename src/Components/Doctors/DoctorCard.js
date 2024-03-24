@@ -186,7 +186,7 @@ function DoctorCard({ doctor }) {
               <GoStarFill className="me-2 fs-3" />
               <span className="fs-6 ">
                 Rating & Reviews{" "}
-                {currentUser && currentUser.user_type === "patient" && (
+                {currentUser && currentUser.is_patient && (
                   <FaPlus
                     className="add"
                     onClick={() => setAdd(!add)}

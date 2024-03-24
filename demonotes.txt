@@ -1,3 +1,14 @@
+--------------------payment info--------------
+5123456789012346
+Test Account
+12/25
+123
+http://127.0.0.1:8000/
+admin
+admin@gmail.com
+admin
+------------------
+
 doctor
 mohamed
 mohamed.kk878@gmail.com
@@ -13,32 +24,33 @@ admin@gmail.com
 admin
 
 
-----------firstPhase----------
+----------firstPhase---------- yussef
 1- sign in as a doctor 
-2- update your profile
-3- add 2 scheduale
+2- update your profile [add info]
+3- add 3 scheduale
 4- view your scheduale
 
-----------secondPhase----------
+----------secondPhase---------- tarek
 1- sign in as a patient
 2- view all doctors
 3- view doctor profile
 4- book 2 appointment
 5- view your appointments
-----------thirdPhase----------
+
+----------thirdPhase----------israa
 1- view doctor appointments
 2- cancel appointment
 3- accept appointment
 
-----------forthPhase----------
+----------forthPhase---------- mohamed
 1- patient pay accepted appointment
 3- doctor view that appointment is paid
 
-----------fifthPhase----------
+----------fifthPhase---------- mahoud
+home page
 1- patient rate doctor
 2- doctor view his rate
 
-
-
+----------admin---------- hager
 
 
