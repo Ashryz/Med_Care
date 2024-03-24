@@ -47,6 +47,11 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
             </p>
 
             <p className="fs-6 fw-bold  mb-0 sec-color">
+              Schedual:{" "}
+              <span className="fs-6 text-muted">{appointment.schedule}</span>
+            </p>
+
+            <p className="fs-6 fw-bold  mb-0 sec-color">
               Time:{" "}
               <span className="fs-6 text-muted">
                 {appointment.create_at.slice(11, 16)}

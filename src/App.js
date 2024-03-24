@@ -52,7 +52,7 @@ function App() {
             <Route path="/ForgotPassword" element={<ForgotPassword />} />
             <Route path="/SignIn" element={<SignIn />} />
             <Route path="/SignUp" element={<SelectReg />} />
-            <Route path="/payment" element={<Success />} />
+            <Route path="/payment/?" element={<Success />} />
             <Route exact path="/Userprofile" element={<Userprofile />} />
             <Route exact path="/changepassword" element={<ChangePass />} />
             <Route exact path="/changedDpassword" element={<ChangeDPass />} />

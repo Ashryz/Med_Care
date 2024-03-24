@@ -7,15 +7,17 @@ http://127.0.0.1:8000/admin/login/?next=/admin/
 admin
 admin@gmail.com
 admin
+python manange.py createsuperuser
+--to clear the database python manage.py flush
 ------------------
 
-doctor
+doctor (brave) blackmail
 mohamed
 mohamed.kk878@gmail.com
 Aa1234
 01098557840
 ------------------
-patient
+patient (firefox)
 Ali
 mohamed.a.abdelgani@gmail.com
 Aa1234
@@ -54,3 +56,4 @@ home page
 ----------admin---------- hager
 
 
+re
