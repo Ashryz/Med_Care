@@ -67,7 +67,7 @@ function Sidebar() {
     );
   } else {
     return (
-      <div className="list-group-wrapper ">
+      <div className="list-group-wrapper shadow " style={{ minHeight: "75vh" }}>
         <ListGroup className="list-group listStyle m-3 col border border-light">
           <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
             <i className="bi bi-speedometer2"></i>
