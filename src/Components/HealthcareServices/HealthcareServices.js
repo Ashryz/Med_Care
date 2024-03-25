@@ -7,14 +7,20 @@ import { AuthContext } from "../../context/AuthContext";
 function HealthcareServices() {
   const [showModal, setShowModal] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
+  const [showLoginAlert, setShowLoginAlert] = useState(false); // State for login alert
   const [question, setQuestion] = useState(""); // State to store the question
   const authContext = useContext(AuthContext);
   const localuser = JSON.parse(localStorage.getItem("user"));
   const isDoctor = localuser && localuser.is_doctor; 
+  const isAuthenticated = localuser !== null; // Check if user is authenticated
   const mytheme = useSelector((state) => state.combineThemes.theme);
 
   const handleAskNow = () => {
-    setShowModal(true);
+    if (isAuthenticated) {
+      setShowModal(true);
+    } else {
+      setShowLoginAlert(true); // Show login alert
+    }
   };
 
   const handleCloseModal = () => {
@@ -39,6 +45,10 @@ function HealthcareServices() {
     setShowSuccessMessage(false);
   };
 
+  const handleCloseLoginAlert = () => {
+    setShowLoginAlert(false); // Close login alert
+  };
+
   return (
     <div className="container-fluid p-5">
       <h2 className="text-center mb-5">Our Healthcare Services</h2>
@@ -61,6 +71,14 @@ function HealthcareServices() {
           </div>
         </div>
       </div>
+
+      {/* Login Alert */}
+      {showLoginAlert && (
+        <div className="alert alert-warning alert-dismissible fade show" role="alert">
+          Please log in to ask a question.
+          <button type="button" className="btn-close" onClick={handleCloseLoginAlert}></button>
+        </div>
+      )}
 
       {/* Modal */}
       {showModal && (
@@ -97,6 +115,5 @@ function HealthcareServices() {
     </div>
   );
 }
-
 export default HealthcareServices;
 
