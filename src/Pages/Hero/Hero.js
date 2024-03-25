@@ -36,7 +36,7 @@ const Hero = () => {
                   <span className="sec-color">Care</span>
                 </h1>
                 {isLoggedIn && (
-                  <Link to="/Dashboard" className="btn main-btn btn-lg ">
+                  <Link to="/Appointments" className="btn main-btn btn-lg ">
                     Dashboard
                   </Link>
                 )}

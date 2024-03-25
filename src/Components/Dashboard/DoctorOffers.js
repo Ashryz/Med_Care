@@ -66,7 +66,9 @@ function DoctorOffers() {
 ) : error ? (
   <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>{error}</p>
 ) : (
-        <div className="container-fluid">
+        <div className="container-fluid"
+        style={{minHeight: "75vh"}}
+        >
           <div className="row">
             <div className="col-md-3">
               <Sidebar />

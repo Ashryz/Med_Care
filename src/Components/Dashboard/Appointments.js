@@ -12,7 +12,9 @@ function Appointments() {
   const appointments = useSelector((state => state.combineSchadule.appointments))
   return (
     <>
-      <div className="App">
+      <div className="App"
+      style={{minHeight: "75vh"}}
+      >
         <div className="container-fluid">
           <div className="row">
             <hr />

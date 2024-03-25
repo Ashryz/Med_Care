@@ -12,8 +12,6 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
     refresh();
   };
 
-
-
   return (
     <div
       className="card text-white shadow rounded-1 shadow border border-0"
@@ -28,11 +26,9 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
       <div className="card-body" style={{ backgroundColor: "#77ffe84b" }}>
         <div className="row">
           <div className="col">
-          <p className="fs-6 fw-bold mb-0 sec-color">
+            <p className="fs-6 fw-bold mb-0 sec-color">
               ID:
-              <span className="ms-2 fs-6 text-muted">
-                {appointment.id}
-              </span>
+              <span className="ms-2 fs-6 text-muted">{appointment.id}</span>
             </p>
             <p className="fs-6 fw-bold mb-0 sec-color">
               Phone:
@@ -56,7 +52,9 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
 
             <p className="fs-6 fw-bold  mb-0 sec-color">
               Schedual:{" "}
-              <span className="fs-6 text-muted">{appointment.schedule}</span>
+              <span className="fs-6 text-muted">
+                {appointment.schedule.day}
+              </span>
             </p>
 
             <p className="fs-6 fw-bold  mb-0 sec-color">

@@ -84,7 +84,9 @@ function AddSchedule() {
           <button type="button" className="btn-close" aria-label="Close" onClick={handleCloseError}></button>
         </div>
       )}
-      <div className="App">
+      <div className="App"
+      style={{minHeight: "75vh"}}
+      >
         <div className="container-fluid">
           <div className="row">
             <hr />

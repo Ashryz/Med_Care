@@ -15,12 +15,15 @@ function Sidebar() {
 
   if (currentUser.is_doctor) {
     return (
-      <div className="list-group-wrapper ">
-        <ListGroup className="list-group listStyle m-3 col border border-light bg-white">
-          <Link to="/Dashboard" className="text-decoration-none">
-            <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
+      <div
+        className="list-group-wrapper shadow p-0 "
+        style={{ minHeight: "75vh" }}
+      >
+        <ListGroup className="list-group listStyle m-3 col  border border-light bg-white">
+          <Link to="/Dashboard" className="text-decoration-none ">
+            <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white rounded-2">
               <i className="bi bi-speedometer2"></i>
-              <span className="spanStyle">Dashboard</span>
+              <span className="spanStyle ">Dashboard</span>
             </ListGroup.Item>
           </Link>
           <Link to="/Appointments" className="text-decoration-none">
@@ -64,7 +67,7 @@ function Sidebar() {
     );
   } else {
     return (
-      <div className="list-group-wrapper ">
+      <div className="list-group-wrapper shadow " style={{ minHeight: "75vh" }}>
         <ListGroup className="list-group listStyle m-3 col border border-light">
           <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
             <i className="bi bi-speedometer2"></i>

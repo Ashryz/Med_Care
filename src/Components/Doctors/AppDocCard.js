@@ -28,7 +28,7 @@ function AppDocCard({ appointments }) {
     console.log("Booked Appointment Data:", newAppointment);
 
     axiosInstance
-      .post("/appointments/all_app/", newAppointment) 
+      .post("/appointments/all_app/", newAppointment)
       .then((response) => {
         dispatch({
           type: "SET_ALERT",
@@ -90,7 +90,7 @@ function AppDocCard({ appointments }) {
                   <span className="text-capitalize">Status: </span>
                   {appointment.is_active ? "Active" : "Inactive"}
                 </p>
-                {currentUser.is_patient && (
+                {currentUser && currentUser.is_patient && (
                   <button
                     className="btn sec-btn shadow"
                     onClick={() =>
