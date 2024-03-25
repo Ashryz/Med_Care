@@ -20,12 +20,14 @@ function RatingCardForDoc({ revObj, refresh }) {
         {/* <div className="d-flex justify-content-center align-items-center"> */}
         <div
           className={`d-flex ${
-            currentUser.id === revObj.user.id
+
+
+            currentUser && currentUser.id === revObj.user.id
               ? "justify-content-between"
               : "justify-content-center"
           } align-items-center`}
         >
-          {currentUser.id === revObj.user.id && (
+          {currentUser && currentUser.id === revObj.user.id && (
             <FaPen className="add" onClick={() => setAction("mod")} />
           )}
           <blockquote className="rating__card__quote text-center mb-0 w-100">
@@ -33,7 +35,7 @@ function RatingCardForDoc({ revObj, refresh }) {
               {revObj.comment}
             </span>
           </blockquote>
-          {currentUser.id === revObj.user.id && (
+          {currentUser && currentUser.id === revObj.user.id && (
             <MdDelete className="delete" onClick={() => setAction("delete")} />
           )}
         </div>
