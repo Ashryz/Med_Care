@@ -21,35 +21,28 @@
   border: none;
   border-radius: 0;
   display: flex; /* Add flex display */
-  align-items: center; 
-  transition: transform .3s; 
- 
- 
+  align-items: center;
+  transition: transform 0.3s;
 }
 
-.lis:hover{
+.lis:hover {
   background-color: mediumseagreen;
   border-radius: 8px;
-  transform: scale(1.1);
-  
+  transform: scale(1.05);
 }
 
 .list-group-item i {
   margin-right: 20px;
-  
 }
 
+/* MainDashboard styles */
+.main-dashboard-container {
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 20px;
+  background-color: #f8f9fa;
+}
 
-  
-  /* MainDashboard styles */
-  .main-dashboard-container {
-    border: 1px solid #e0e0e0;
-    border-radius: 5px;
-    padding: 20px;
-    background-color: #f8f9fa;
-  }
-  
-  .card {
-    margin-bottom: 20px;
-  }
-  
+.card {
+  margin-bottom: 20px;
+}
