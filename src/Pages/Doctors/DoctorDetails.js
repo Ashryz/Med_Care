@@ -16,7 +16,6 @@ function DoctorDetails() {
       .get(`/doctors/doctor/${id}`)
       .then((response) => {
         setDoctor(response.data);
-        console.log(response.data);
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {

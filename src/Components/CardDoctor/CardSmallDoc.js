@@ -10,7 +10,6 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function CardSmallDoc({ doc }) {
-  console.log(doc);
   return (
     <Container className="my-container w-75">
       <Row className="doc_card border px-3 rounded-3 shadow me-3 mb-2" style={{backgroundColor:'#77ffe84b'}}>

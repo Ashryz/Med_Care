@@ -9,7 +9,6 @@ function ReviewDel({ revObj, onClose ,refresh}) {
 
   const handleSubmit = () => {
     axiosInstance.delete(`/ratings/${revObj.id}/`).then((response) => {
-      console.log(response.data);
       setDeleted(true);
       refresh()
     }

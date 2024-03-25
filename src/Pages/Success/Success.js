@@ -1,10 +1,9 @@
 import React, { useEffect, useCallback } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { axiosInstance } from "../../Network/axiosInstance";
 import { FaRegCheckCircle } from "react-icons/fa";
 const Success = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
   const urlParams = new URLSearchParams(window.location.search);
   const data = localStorage.getItem("payment");
@@ -15,7 +14,6 @@ const Success = () => {
         `/appointments/pay/${data.appointment_id}/`,
         {
           doctor: data.schedule.doctor,
-          user: data.user,
           schedule: data.schedule.id,
           payment_status: data.payment_status,
           payment_method: data.payment_method,
@@ -43,7 +41,7 @@ const Success = () => {
       handlePayment(JSON.parse(data));
       console.log("Payment Success");
     }
-  }, [urlParams]);
+  }, [urlParams, data, handlePayment]);
 
   return (
     <div

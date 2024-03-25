@@ -51,7 +51,7 @@ function ReviewAdd({ doctor_id, onClose, refresh }) {
       rating: starRating,
     };
     axiosInstance.post("/ratings/", updatedRevObj).then((response) => {
-      console.log(response.data);
+      
       refresh();
     });
 

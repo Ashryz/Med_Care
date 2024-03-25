@@ -16,7 +16,7 @@ function RatingCardForDoc({ revObj, refresh }) {
 
   return (
     <>
-      <div className="rating__card">
+      <div className="rating__card" key={revObj.id}>
         {/* <div className="d-flex justify-content-center align-items-center"> */}
         <div
           className={`d-flex ${
