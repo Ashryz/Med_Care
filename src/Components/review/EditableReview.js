@@ -24,7 +24,7 @@ function EditableReview({ revObj, onClose ,refresh}) {
       rating: starRating,
       comment: reviewText,
     }).then((response) => {
-      console.log(response.data);
+      
       refresh();
     
     });

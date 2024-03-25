@@ -19,8 +19,6 @@ function ListDoctor() {
   const handlePageChange = (page) => {
     setCurrentPage(page);
   };
-  console.log(doctors);
-
   return (
     <Container className="mt-5 mb-5" style={{ minHeight: "37.1vh" }}>
       {doctors.results && doctors.results.length > 0 ? (

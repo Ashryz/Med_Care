@@ -2,7 +2,7 @@ import React from "react";
 import { Button, Modal } from "react-bootstrap";
 import { useState } from "react";
 import { axiosInstance } from "../../Network/axiosInstance.js";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import "./cardpatapp.css";
 function CartAppPat({ appointment, handlePayment, refresh }) {
   const [data, setData] = useState({

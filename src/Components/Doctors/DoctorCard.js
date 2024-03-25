@@ -21,7 +21,7 @@ function DoctorCard({ doctor }) {
   const [add, setAdd] = useState(false);
   const authContext = useContext(AuthContext);
   const currentUser = authContext.currentUser;
-
+  const [norate, setNorate] = useState(true);
   const [appointments, setAppointments] = useState([]);
 
   const getRating = () => {
@@ -32,11 +32,9 @@ function DoctorCard({ doctor }) {
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
-          // Handle 404 error here
           console.log("Rating not found for the doctor");
-          // You can set data to some default value or handle the error in another way
+          setData([]);
         } else {
-          // Handle other errors
           console.error("Error fetching rating:", error);
         }
       });
@@ -53,34 +51,25 @@ function DoctorCard({ doctor }) {
       });
   };
 
-  useEffect(() => {
-    getRating();
-    getAppointments();
-    // eslint-disable-next-line
-  }, []);
-
   const refresh = () => {
     getRating();
+    getAppointments();
+    
   };
 
   useEffect(() => {
-    axiosInstance
-      .get(`/ratings/doctor/${doctor.user.id}`)
-      .then((response) => {
-        setData(response.data);
-      })
-      .catch((error) => {
-        if (error.response && error.response.status === 404) {
-          console.log("Rating not found for the doctor");
-        } else {
-          console.error("Error fetching rating:", error);
-        }
-      });
+    refresh();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [doctor, currentUser, add, norate]);
 
-    getAppointments();
-
-    // eslint-disable-next-line
-  }, [doctor, add, currentUser, data.length]);
+  useEffect(() => {
+    if (data.length === 0) {
+      setNorate(true);
+    } else {
+      setNorate(false);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, norate]);
   return (
     <Container className="mt-4">
       <Card className="mt-5 p-3 shadow">
@@ -117,7 +106,7 @@ function DoctorCard({ doctor }) {
                   style={{ color: "dodgerblue" }}
                   icon={faLocationDot}
                 />
-                &nbsp; {doctor.area}
+                &nbsp; {doctor.area} , {doctor.user.address}
               </p>
             </div>
             <p className="col-12 text-center" style={{ fontSize: ".9rem" }}>
@@ -191,12 +180,13 @@ function DoctorCard({ doctor }) {
                     className="add"
                     onClick={() => setAdd(!add)}
                     style={{ cursor: "pointer" }}
+
                   />
                 )}
               </span>
             </div>
             <div className="text-center ">
-              {data.length === 0 && (
+              {norate && (
                 <div className="text-center">
                   <h5 className="text-muted">No reviews yet</h5>
                 </div>
