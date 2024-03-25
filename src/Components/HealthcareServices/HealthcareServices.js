@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState ,useContext} from "react";
 import { useSelector } from "react-redux";
+import axios from "axios"; 
+import { axiosInstance } from "../../Network/axiosInstance";
+import { AuthContext } from "../../context/AuthContext";
 function HealthcareServices() {
   const [showModal, setShowModal] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-
+  const [question, setQuestion] = useState(""); // State to store the question
+  const authContext = useContext(AuthContext);
+  const localuser = JSON.parse(localStorage.getItem("user"));
   const mytheme = useSelector((state) => state.combineThemes.theme);
 
   const handleAskNow = () => {
@@ -14,9 +19,19 @@ function HealthcareServices() {
     setShowModal(false);
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => { 
     event.preventDefault();
-    setShowSuccessMessage(true);
+    try {
+      
+      const response = await axiosInstance.post(`questions/user/${localuser.id}/`, { question });
+      setShowSuccessMessage(true);
+      setQuestion(""); // Clear the question input
+          setTimeout(() => {
+          setShowModal(false);
+        }, 1000);
+    } catch (error) {
+      console.error("Error submitting question:", error);
+    }
   };
 
   const handleCloseSuccessMessage = () => {
@@ -30,7 +45,7 @@ function HealthcareServices() {
         <div className="col-12">
           <div className="row mb-4">
             <div className="col-12">
-              <div className= {`card service-card border p-3 rounded-3 shadow ${mytheme === 'light'? '':'text-white bg-dark'} `}>
+              <div className={`card service-card border p-3 rounded-3 shadow ${mytheme === 'light'? '':'text-white bg-dark'} `}>
                 <div className="card-body m-3">
                   <h5 className="card-title prim-color service-title">
                     Have a Medical Question?
@@ -72,11 +87,12 @@ function HealthcareServices() {
                       className="form-control"
                       id="question"
                       rows="3"
+                      value={question}
+                      onChange={(e) => setQuestion(e.target.value)}
                       required
                     ></textarea>
                   </div>
                   <div className={`modal-footer  ${mytheme === 'light'? '':'text-white bg-dark'}`}>
-                   
                     <button type="submit" className="btn main-btn">
                       Submit
                     </button>
@@ -90,17 +106,9 @@ function HealthcareServices() {
 
       {/* Success message */}
       {showSuccessMessage && (
-        <div
-          className="alert alert-success alert-dismissible fade show"
-          role="alert"
-        >
-          <strong>Success!</strong> Your question has been submitted
-          successfully.
-          <button
-            type="button"
-            className="btn-close"
-            onClick={handleCloseSuccessMessage}
-          ></button>
+        <div className="alert alert-success alert-dismissible fade show" role="alert">
+          <strong>Success!</strong> Your question has been submitted successfully.
+          <button type="button" className="btn-close" onClick={handleCloseSuccessMessage}></button>
         </div>
       )}
     </div>
@@ -108,3 +116,4 @@ function HealthcareServices() {
 }
 
 export default HealthcareServices;
+
