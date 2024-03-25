@@ -8,7 +8,7 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
   const [data, setData] = useState({
     payment_status: "paid",
     payment_method: "PayMob",
-    
+
     payment_amount: appointment.doctor.fees,
     payment_transaction_id: "123456",
   });
@@ -26,8 +26,10 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
 
   const getIframeUrl = async () => {
     try {
-      const response = await axiosInstance.get(`/appointments/iframe/${appointment.id}/`);
-      
+      const response = await axiosInstance.get(
+        `/appointments/iframe/${appointment.id}/`
+      );
+
       dispatch({
         type: "SET_PAYMENT",
         payload: {
@@ -43,24 +45,24 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
         },
       });
 
-      localStorage.setItem("payment", 
-      JSON.stringify({
-        appointment_id: appointment.id,
-        doctor: appointment.doctor,
-        user: appointment.user,
-        schedule: appointment.schedule,
-        is_accepted: appointment.is_accepted,
-        payment_status: data.payment_status,
-        payment_method: data.payment_method,
-        payment_amount: appointment.doctor.fees,
-        payment_transaction_id: data.payment_transaction_id,
-      })
+      localStorage.setItem(
+        "payment",
+        JSON.stringify({
+          appointment_id: appointment.id,
+          doctor: appointment.doctor,
+          user: appointment.user,
+          schedule: appointment.schedule,
+          is_accepted: appointment.is_accepted,
+          payment_status: data.payment_status,
+          payment_method: data.payment_method,
+          payment_amount: appointment.doctor.fees,
+          payment_transaction_id: data.payment_transaction_id,
+        })
       );
 
-
-      return response.data.iframe_url
+      return response.data.iframe_url;
     } catch (error) {
-      console.error('Error fetching iframe URL:', error);
+      console.error("Error fetching iframe URL:", error);
       return null;
     }
   };
@@ -69,12 +71,12 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
     const url = await getIframeUrl();
     setIframeUrl(url);
     setShow(true);
-  }
+  };
 
   return (
     <div
       className="card text-white shadow rounded-1 shadow border border-0 "
-      style={{ backgroundColor: "#f8f9fa", minHeight: "35vh" }}
+      style={{ backgroundColor: "#f8f9fa", minHeight: "39vh" }}
     >
       <div className="card-header  border-0">
         <h3 className="card-title fs-5 fw-bold text-capitalize sec-color text-center">
@@ -85,6 +87,10 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
       <div className="card-body" style={{ backgroundColor: "#77ffe84b" }}>
         <div className="row">
           <div className="col">
+            <p className="fs-6 fw-bold mb-0 sec-color">
+              ID:
+              <span className="ms-2 fs-6 text-muted">{appointment.id}</span>
+            </p>
             <p className="fs-6 fw-bold mb-0 sec-color">
               Phone:
               <span className="ms-2 fs-6 text-muted">
@@ -135,7 +141,10 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
             </div>
           </div>
         </div>
-        <Modal show={show} onHide={handleClose} className="modal "
+        <Modal
+          show={show}
+          onHide={handleClose}
+          className="modal "
           size="md"
           aria-labelledby="contained-modal-title-vcenter"
           centered
@@ -158,7 +167,6 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
           </Modal.Footer>
         </Modal>
       </div>
-
     </div>
   );
 }

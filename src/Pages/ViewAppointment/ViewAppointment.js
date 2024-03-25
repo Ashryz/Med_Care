@@ -73,7 +73,7 @@ export const ViewAppointment = () => {
           {
             doctor: appointment.doctor,
             user: appointment.user.id,
-            schedule: appointment.schedule,
+            schedule: appointment.schedule.id,
             is_accepted: isAccepted,
             status: status,
           }
@@ -82,6 +82,7 @@ export const ViewAppointment = () => {
         if (response) {
           console.log(response);
           handelrefresh();
+          setCurrentPage(1);
         }
       } catch (error) {
         console.error("Error occurred while updating appointment:", error);
@@ -188,13 +189,13 @@ export const ViewAppointment = () => {
         </>
       ) : (
         <div className="text-center">
-          <h1 className=""><i className="bi bi-table me-2"></i> <br /> No Appointments Found</h1>
+          <h1 className="">
+            <i className="bi bi-table me-2"></i> <br /> No Appointments Found
+          </h1>
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
-
-      )
-      }
-    </div >
+      )}
+    </div>
   );
 };
 
