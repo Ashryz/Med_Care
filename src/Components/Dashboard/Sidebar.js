@@ -16,7 +16,7 @@ function Sidebar() {
   if (currentUser.is_doctor) {
     return (
       <div className="list-group-wrapper ">
-        <ListGroup className="list-group listStyle m-3 col border border-light">
+        <ListGroup className="list-group listStyle m-3 col border border-light bg-white">
           <Link to="/Dashboard" className="text-decoration-none">
             <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
               <i className="bi bi-speedometer2"></i>

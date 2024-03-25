@@ -104,7 +104,7 @@ function DoctorOffers() {
                     ))}
                   </Row>
                   {offers.length > offersPerPage && (
-                    <Pagination className="justify-content-center">
+                    <Pagination className="justify-content-center ">
                       <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
                       {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
                         <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>

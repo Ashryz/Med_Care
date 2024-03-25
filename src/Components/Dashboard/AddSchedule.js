@@ -1,6 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Sidebar from "./Sidebar";
@@ -92,7 +94,7 @@ function AddSchedule() {
             <div className="col-md-9  mt-3">
               <Form
                 onSubmit={handleSubmit}
-                className="w-75 rounded-4 shadow mx-auto"
+                className="w-75 rounded-4 shadow mx-auto bg-white text-dark"
               >
                 <div
                   className="prim-pg text-center text-white p-1"
@@ -156,7 +158,8 @@ function AddSchedule() {
                   </label>
 
                   <div className="text-center mb-3">
-                    <Button variant="primary" type="submit" className="">
+                    <Button  type="submit" className="main-btn">
+                    <FontAwesomeIcon icon={faPlus} className="me-2" />
                       Add
                     </Button>
                   </div>

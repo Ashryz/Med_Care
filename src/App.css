@@ -105,3 +105,15 @@ body {
   cursor: pointer;
   transform: scale(1.2);
 }
+
+.pagination .page-link {
+  --bs-pagination-color: black !important; /* Set the color of the arrows to black */
+  background-color: light !important;
+  color: dodgerblue !important;
+}
+
+.pagination .page-link:hover {
+  --bs-pagination-color: black !important; /* Set the color of the arrows to black */
+  background-color: gray !important;
+  color: dodgerblue !important;
+}

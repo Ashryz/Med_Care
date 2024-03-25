@@ -41,7 +41,7 @@ function ViewSchedule() {
             <div className="col-md-9 mt-3">
               {schedules.length === 0 ? (
                 <div className="text-center">
-                  <h1 className="text-muted"><i className="bi bi-calendar me-2"></i><br />No Schedules Found</h1>
+                  <h1 className=""><i className="bi bi-calendar me-2"></i><br />No Schedules Found</h1>
                   <hr className="w-75 mx-auto sec-color shadow rounded-5" />
                 </div>
               ) : (
