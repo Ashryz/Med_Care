@@ -67,14 +67,14 @@ function Sidebar() {
     );
   } else {
     return (
-      <div className="list-group-wrapper shadow " style={{ minHeight: "75vh" }}>
-        <ListGroup className="list-group listStyle m-3 col border border-light">
+      <div className="list-group-wrapper " >
+        <ListGroup className="list-group listStyle m-3 col border border-light bg-white shadow" style={{ minHeight: "65vh" }}>
           <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
             <i className="bi bi-speedometer2"></i>
             <span className="spanStyle">Dashboard</span>
           </ListGroup.Item>
 
-          <Link to="/Appointments" className="text-decoration-none">
+          <Link to="/Appointments" className="text-decoration-none py-2">
             <ListGroup.Item className="list-group-item listgroupItem lis">
               <i className="bi bi-table me-2"></i>
               <span>Appointments</span>

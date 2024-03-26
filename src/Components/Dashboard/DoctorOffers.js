@@ -70,10 +70,10 @@ function DoctorOffers() {
         style={{minHeight: "75vh"}}
         >
           <div className="row">
-            <div className="col-md-3">
+            <div className="col-md-3 mt-3">
               <Sidebar />
             </div>
-            <div className="col-md-9 mt-3 text-center prim-color" style={{ minHeight: '40.4vh' }}>
+            <div className="col-md-9 mt-4 text-center prim-color" style={{ minHeight: '40.4vh' }}>
               <h2>Your Offers ({offers.length})</h2>
               {offers.length === 0 ? (
 
