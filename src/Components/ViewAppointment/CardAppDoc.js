@@ -82,16 +82,18 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
               </span>
             </p>
             <div className="my-3 d-flex justify-content-center">
-              {!appointment.is_accepted && (
-                <Button className="me-2 main-btn" onClick={handleAccept}>
-                  Accept
-                </Button>
-              )}
-              {appointment.payment_status === "pending" && (
-                <Button className="sec-btn" onClick={handleReject}>
-                  Reject
-                </Button>
-              )}
+              {!appointment.is_accepted &&
+                appointment.status !== "rejected" && (
+                  <Button className="me-2 main-btn" onClick={handleAccept}>
+                    Accept
+                  </Button>
+                )}
+              {appointment.payment_status === "pending" &&
+                appointment.status === "accepted" && (
+                  <Button className="sec-btn" onClick={handleReject}>
+                    Reject
+                  </Button>
+                )}
             </div>
           </div>
         </div>

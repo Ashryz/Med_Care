@@ -7,7 +7,6 @@ import { faHeartPulse } from "@fortawesome/free-solid-svg-icons";
 import { AuthContext } from "../../context/AuthContext";
 
 const Hero = () => {
-  //const currentUser = JSON.parse(localStorage.getItem('currentUser')) || {}
   const authcontext = useContext(AuthContext);
   const isLoggedIn = authcontext.isLoggedIn;
   return (

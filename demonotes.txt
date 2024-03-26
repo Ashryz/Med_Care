@@ -11,6 +11,15 @@ admin
 python manange.py createsuperuser
 --to clear the database python manage.py flush
 ------------------
+patient (firefox)
+Ali
+mohamed.pay@gmail.com
+Aa1234
+
+------------------------
+admin
+admin@gmail.com
+admin
 
 doctor (brave) blackmail
 mohamed
@@ -18,43 +27,32 @@ mohamed.kk878@gmail.com
 Aa1234
 01098557840
 ------------------
-patient (firefox)
-Ali
-mohamed.a.abdelgani@gmail.com
-Aa1234
-admin
-admin@gmail.com
-admin
 
 
-----------firstPhase---------- yussef
-1- sign in as a doctor 
-2- update your profile [add info]
-3- add 3 scheduale
-4- view your scheduale
 
-----------secondPhase---------- tarek
-1- sign in as a patient
-2- view all doctors
-3- view doctor profile
-4- book 2 appointment
-5- view your appointments
+----------firstPhase---------- tarek (mahoud)
+1-guest
+
+----------secondPhase---------- yussef
+2- doctor
+      signup activate
+      login
 
 ----------thirdPhase----------israa
-1- view doctor appointments
-2- cancel appointment
-3- accept appointment
+3- doctor dashboard
 
-----------forthPhase---------- mohamed
-1- patient pay accepted appointment
-3- doctor view that appointment is paid
+----------forthPhase---------- Tarek
+4- patient
+      login
+      book 
+      doc sign in accept
+----------fifthPhase---------- mohamed
 
-----------fifthPhase---------- mahoud
-home page
-1- patient rate doctor
-2- doctor view his rate
+5- payment and rating
+
 
 ----------admin---------- hager
 
+admin
 
-re
+

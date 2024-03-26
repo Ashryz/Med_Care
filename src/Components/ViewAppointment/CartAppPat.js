@@ -24,6 +24,18 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
 
   const handleClose = () => setShow(false);
 
+  const cancelAppointment = async () => {
+    try {
+      const response = await axiosInstance.delete(
+        `/schedules/appointment/${appointment.id}/`
+      );
+      console.log(response.data);
+      refresh();
+    } catch (error) {
+      console.error("Error cancelling appointment:", error);
+    }
+  };
+
   const getIframeUrl = async () => {
     try {
       const response = await axiosInstance.get(
@@ -78,10 +90,19 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
       className="card text-white shadow rounded-1 shadow border border-0 "
       style={{ backgroundColor: "#f8f9fa", minHeight: "39vh" }}
     >
-      <div className="card-header  border-0">
+      <div className="card-header  d-flex justify-content-between border-0 align-items-center">
         <h3 className="card-title fs-5 fw-bold text-capitalize sec-color text-center">
           Appointment
         </h3>
+
+        {appointment.payment_status === "pending" && (
+          <button
+            className="btn sec-btn p-2 rounded-2"
+            onClick={cancelAppointment}
+          >
+            X
+          </button>
+        )}
       </div>
 
       <div className="card-body" style={{ backgroundColor: "#77ffe84b" }}>
