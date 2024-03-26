@@ -8,7 +8,6 @@ import { axiosInstance } from '../../Network/axiosInstance';
 import Sidebar from './Sidebar';
 import './Offer.css';
 import { useNavigate } from 'react-router-dom';
-import { useMediaQuery } from 'react-responsive';
 
 function DoctorOffers() {
   const authContext = useContext(AuthContext);
@@ -18,20 +17,7 @@ function DoctorOffers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-
- 
-  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
-  const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
-  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
-
-  let offersPerPage;
-  if (isLargeScreen) {
-    offersPerPage = 3; 
-  } else if (isMediumScreen) {
-    offersPerPage = 2; 
-  } else if (isSmallScreen) {
-    offersPerPage = 1; 
-  }
+  const [offersPerPage] = useState(3);
 
   const currentUser = authContext.currentUser;
   const navigate = useNavigate();
@@ -93,12 +79,11 @@ function DoctorOffers() {
                 <>
                   <Row>
                     {currentOffers.map((offer, index) => (
-                      <Col key={offer.id} lg={isMediumScreen ? 6 : 4} className="mb-3 mt-3"> 
+                      <Col key={offer.id} lg={4} md={6} className="mb-3 mt-3">
                         <Card className="offer-card">
-			 <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
-			  {calculateDiscount(offer.original_price, offer.discount_price)}% Off
-			</div>
-
+                          <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
+                            {calculateDiscount(offer.original_price, offer.discount_price)}% Off
+                          </div>
                           <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
                           <Card.Body>
                             <Card.Title className="mt-2">{offer.specialization}</Card.Title>
@@ -140,4 +125,5 @@ function calculateDiscount(original_price, discount_price) {
 }
 
 export default DoctorOffers;
+
 
