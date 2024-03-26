@@ -1,0 +1,9 @@
+-------------doctors---------
+1 - 
+name: ahemed
+email: mohamed.kk878@gmail.com
+password: Aa1234
+----------patient------------
+name: mohamed
+email:mohamed.a.abdelgani@gmail.com
+password: Aa1234
