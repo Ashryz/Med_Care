@@ -1,6 +1,7 @@
 .offer-card {
   position: relative;
-  height: 260px; 
+  height: 330px;
+  
 }
 
 .discount-label {
@@ -8,17 +9,19 @@
   top: 0;
   left: 0;
   padding: 5px;
-  background-color: #fff; 
+  background-color: #fff;
   z-index: 1;
 }
 
 .offer-card .card-img-top {
-  height: 40%; 
+  height: 60%;
+  width:100%;
   object-fit: cover;
 }
 
 .offer-card .card-body {
   padding: 10px;
+
 }
 
 .price {

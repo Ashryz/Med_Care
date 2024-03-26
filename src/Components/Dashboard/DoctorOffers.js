@@ -8,6 +8,7 @@ import { axiosInstance } from '../../Network/axiosInstance';
 import Sidebar from './Sidebar';
 import './Offer.css';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from 'react-responsive';
 
 function DoctorOffers() {
   const authContext = useContext(AuthContext);
@@ -17,7 +18,20 @@ function DoctorOffers() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [offersPerPage] = useState(4);
+
+ 
+  const isLargeScreen = useMediaQuery({ query: '(min-width: 1200px)' });
+  const isMediumScreen = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1199px)' });
+  const isSmallScreen = useMediaQuery({ query: '(max-width: 767px)' });
+
+  let offersPerPage;
+  if (isLargeScreen) {
+    offersPerPage = 3; // عرض 3 عروض في الشاشات الكبيرة
+  } else if (isMediumScreen) {
+    offersPerPage = 2; // عرض 2 عرض في الشاشات المتوسطة
+  } else if (isSmallScreen) {
+    offersPerPage = 1; // عرض عرض واحد في الشاشات الصغيرة
+  }
 
   const currentUser = authContext.currentUser;
   const navigate = useNavigate();
@@ -62,13 +76,11 @@ function DoctorOffers() {
   return (
     <div>
       {loading ? (
-  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>Loading...</p>
-) : error ? (
-  <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>{error}</p>
-) : (
-        <div className="container-fluid"
-        style={{minHeight: "75vh"}}
-        >
+        <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>Loading...</p>
+      ) : error ? (
+        <p className="prim-color d-flex justify-content-center align-items-center " style={{ minHeight: '40.4vh' }}>{error}</p>
+      ) : (
+        <div className="container-fluid" style={{ minHeight: "75vh" }}>
           <div className="row">
             <div className="col-md-3 mt-3">
               <Sidebar />
@@ -76,18 +88,17 @@ function DoctorOffers() {
             <div className="col-md-9 mt-4 text-center prim-color" style={{ minHeight: '40.4vh' }}>
               <h2>Your Offers ({offers.length})</h2>
               {offers.length === 0 ? (
-
                 <p>No offers available </p>
-
               ) : (
                 <>
                   <Row>
                     {currentOffers.map((offer, index) => (
-                      <Col key={offer.id} lg={3} md={6} sm={12} className="mb-3 mt-3">
+                      <Col key={offer.id} lg={isMediumScreen ? 6 : 4} className="mb-3 mt-3"> {/* استخدام نطاقات العرض لتحديد عدد العروض في الصفحة */}
                         <Card className="offer-card">
-                          <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
-                            {calculateDiscount(offer.original_price, offer.discount_price)}% Off
-                          </div>
+			 <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
+			  {calculateDiscount(offer.original_price, offer.discount_price)}% Off
+			</div>
+
                           <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
                           <Card.Body>
                             <Card.Title className="mt-2">{offer.specialization}</Card.Title>
@@ -105,17 +116,15 @@ function DoctorOffers() {
                       </Col>
                     ))}
                   </Row>
-                  {offers.length > offersPerPage && (
-                    <Pagination className="justify-content-center ">
-                      <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
-                      {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
-                        <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
-                          {number + 1}
-                        </Pagination.Item>
-                      ))}
-                      <Pagination.Next onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(offers.length / offersPerPage)} />
-                    </Pagination>
-                  )}
+                  <Pagination className="justify-content-center ">
+                    <Pagination.Prev onClick={() => paginate(currentPage - 1)} disabled={currentPage === 1} />
+                    {[...Array(Math.ceil(offers.length / offersPerPage)).keys()].map((number) => (
+                      <Pagination.Item key={number + 1} active={number + 1 === currentPage} onClick={() => paginate(number + 1)}>
+                        {number + 1}
+                      </Pagination.Item>
+                    ))}
+                    <Pagination.Next onClick={() => paginate(currentPage + 1)} disabled={currentPage === Math.ceil(offers.length / offersPerPage)} />
+                  </Pagination>
                 </>
               )}
             </div>
