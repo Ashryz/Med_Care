@@ -7,32 +7,46 @@ import { AuthContext } from "../../context/AuthContext";
 function HealthcareServices() {
   const [showModal, setShowModal] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
-  const [showLoginAlert, setShowLoginAlert] = useState(false); // State for login alert
-  const [question, setQuestion] = useState(""); // State to store the question
+  const [showLoginAlert, setShowLoginAlert] = useState(false);
+  const [question, setQuestion] = useState("");
+  const [questionError, setQuestionError] = useState("");
   const authContext = useContext(AuthContext);
   const localuser = JSON.parse(localStorage.getItem("user"));
   const isDoctor = localuser && localuser.is_doctor; 
-  const isAuthenticated = localuser !== null; // Check if user is authenticated
+  const isAuthenticated = localuser !== null;
   const mytheme = useSelector((state) => state.combineThemes.theme);
 
   const handleAskNow = () => {
     if (isAuthenticated) {
       setShowModal(true);
     } else {
-      setShowLoginAlert(true); // Show login alert
+      setShowLoginAlert(true);
     }
   };
 
   const handleCloseModal = () => {
     setShowModal(false);
+    // Clear question error when modal is closed
+    setQuestionError("");
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    // Clear previous question error
+    setQuestionError("");
+    // Validate question
+    if (!question.trim()) {
+      setQuestionError("Please enter your question");
+      return;
+    }
+    if (question.trim().length < 10) {
+      setQuestionError("Question should be at least 10 characters long");
+      return;
+    }
     try {
       const response = await axiosInstance.post(`questions/user/${localuser.id}/`, { question });
       setShowSuccessMessage(true);
-      setQuestion(""); // Clear the question input
+      setQuestion("");
       setTimeout(() => {
         setShowModal(false);
       }, 1000);
@@ -46,7 +60,17 @@ function HealthcareServices() {
   };
 
   const handleCloseLoginAlert = () => {
-    setShowLoginAlert(false); // Close login alert
+    setShowLoginAlert(false);
+  };
+
+  const handleQuestionChange = (event) => {
+    setQuestion(event.target.value);
+    // Real-time validation
+    if (event.target.value.trim().length < 10) {
+      setQuestionError("Question should be at least 10 characters long");
+    } else {
+      setQuestionError("");
+    }
   };
 
   return (
@@ -72,7 +96,6 @@ function HealthcareServices() {
         </div>
       </div>
 
-      {/* Login Alert */}
       {showLoginAlert && (
         <div className="alert alert-warning alert-dismissible fade show" role="alert">
           Please log in to ask a question.
@@ -80,9 +103,8 @@ function HealthcareServices() {
         </div>
       )}
 
-      {/* Modal */}
       {showModal && (
-        <div className=" modal fade show" style={{ display: "block" }}>
+        <div className="modal fade show" style={{ display: "block" }}>
           <div className="modal-dialog modal-dialog-centered  ">
             <div className="modal-content border rounded-3 opacity-1 shadow  ">
               <div className={`modal-header ${mytheme === 'light' ? '' : 'text-white bg-dark'} `}>
@@ -93,7 +115,8 @@ function HealthcareServices() {
                 <form onSubmit={handleSubmit}>
                   <div className="mb-3">
                     <label htmlFor="question" className="form-label">Your Question</label>
-                    <textarea className="form-control" id="question" rows="3" value={question} onChange={(e) => setQuestion(e.target.value)} required></textarea>
+                    <textarea className="form-control" id="question" rows="3" value={question} onChange={handleQuestionChange} required></textarea>
+                    {questionError && <div className="text-danger">{questionError}</div>}
                   </div>
                   <div className={`modal-footer  ${mytheme === 'light' ? '' : 'text-white bg-dark'}`}>
                     <button type="submit" className="btn main-btn">Submit</button>
@@ -105,7 +128,6 @@ function HealthcareServices() {
         </div>
       )}
 
-      {/* Success message */}
       {showSuccessMessage && (
         <div className="alert alert-success alert-dismissible fade show" role="alert">
           <strong>Success!</strong> Your question has been submitted successfully.
