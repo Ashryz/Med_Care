@@ -26,11 +26,11 @@ function DoctorOffers() {
 
   let offersPerPage;
   if (isLargeScreen) {
-    offersPerPage = 3; // عرض 3 عروض في الشاشات الكبيرة
+    offersPerPage = 3; 
   } else if (isMediumScreen) {
-    offersPerPage = 2; // عرض 2 عرض في الشاشات المتوسطة
+    offersPerPage = 2; 
   } else if (isSmallScreen) {
-    offersPerPage = 1; // عرض عرض واحد في الشاشات الصغيرة
+    offersPerPage = 1; 
   }
 
   const currentUser = authContext.currentUser;
@@ -93,7 +93,7 @@ function DoctorOffers() {
                 <>
                   <Row>
                     {currentOffers.map((offer, index) => (
-                      <Col key={offer.id} lg={isMediumScreen ? 6 : 4} className="mb-3 mt-3"> {/* استخدام نطاقات العرض لتحديد عدد العروض في الصفحة */}
+                      <Col key={offer.id} lg={isMediumScreen ? 6 : 4} className="mb-3 mt-3"> 
                         <Card className="offer-card">
 			 <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
 			  {calculateDiscount(offer.original_price, offer.discount_price)}% Off
