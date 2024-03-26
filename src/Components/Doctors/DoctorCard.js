@@ -28,7 +28,7 @@ function DoctorCard({ doctor }) {
     axiosInstance
       .get(`/ratings/doctor/${doctor.user.id}`)
       .then((response) => {
-        setData(response.data);
+        setData(response.data.results);
       })
       .catch((error) => {
         if (error.response && error.response.status === 404) {
@@ -54,7 +54,7 @@ function DoctorCard({ doctor }) {
   const refresh = () => {
     getRating();
     getAppointments();
-    
+
   };
 
   useEffect(() => {
@@ -192,9 +192,9 @@ function DoctorCard({ doctor }) {
                 </div>
               )}
 
-              {data.map((revObj) => {
-                return <RatingCardForDoc revObj={revObj} refresh={refresh} />;
-              })}
+              {Array.isArray(data) && data.map((revObj) => (
+                <RatingCardForDoc key={revObj.id} revObj={revObj} refresh={refresh} />
+              ))}
             </div>
           </div>
           {/* end rating sec */}

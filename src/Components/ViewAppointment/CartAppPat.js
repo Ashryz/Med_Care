@@ -88,7 +88,7 @@ function CartAppPat({ appointment, handlePayment, refresh }) {
   return (
     <div
       className="card text-white shadow rounded-1 shadow border border-0 "
-      style={{ backgroundColor: "#f8f9fa", minHeight: "39vh" }}
+      style={{ backgroundColor: "#f8f9fa", minHeight: "43vh" }}
     >
       <div className="card-header  d-flex justify-content-between border-0 align-items-center">
         <h3 className="card-title fs-5 fw-bold text-capitalize sec-color text-center">

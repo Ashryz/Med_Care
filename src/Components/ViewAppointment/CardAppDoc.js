@@ -15,7 +15,7 @@ const CardAppDoc = ({ appointment, handleAppointmentAction, refresh }) => {
   return (
     <div
       className="card text-white shadow rounded-1 shadow border border-0"
-      style={{ backgroundColor: "#f8f9fa", minHeight: "39vh" }}
+      style={{ backgroundColor: "#f8f9fa", minHeight: "50vh" }}
     >
       <div className="card-header  border-0">
         <h3 className="card-title fs-5 fw-bold text-capitalize sec-color text-center">
