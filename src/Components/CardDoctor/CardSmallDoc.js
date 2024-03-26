@@ -62,7 +62,7 @@ function CardSmallDoc({ doc }) {
           className="d-flex justify-content-center align-items-center flex-column"
         >
           <Link to={`/DoctorDetails/${doc.user.id}`}>
-            <Button className="btn me-2 sec-btn">Details</Button>
+            <Button className="btn m-2 sec-btn ">Details</Button>
           </Link>
           
         </Col>
