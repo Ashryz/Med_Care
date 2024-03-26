@@ -86,10 +86,10 @@ function AppDocCard({ appointments }) {
                   <span className="text-capitalize">End Time: </span>
                   {appointment.end_time}
                 </p>
-                <p className="card-text">
+                {/* <p className="card-text">
                   <span className="text-capitalize">Status: </span>
                   {appointment.is_active ? "Active" : "Inactive"}
-                </p>
+                </p> */}
                 {currentUser && currentUser.is_patient && (
                   <button
                     className="btn sec-btn shadow"

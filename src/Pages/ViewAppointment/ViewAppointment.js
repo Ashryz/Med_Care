@@ -134,11 +134,11 @@ export const ViewAppointment = () => {
             )}
           </div>
           <div className="">
-            <div className="mb-3 row row-cols-3">
+            <div className="mb-3 row ">
               {currentUser.is_doctor &&
                 doctorAppointments.results &&
                 doctorAppointments.results.map((appointment) => (
-                  <div key={appointment.id} className="col">
+                  <div key={appointment.id} className="col-md-4">
                     <CardAppDoc
                       appointment={appointment}
                       handleAppointmentAction={handleAppointmentAction}
@@ -149,7 +149,7 @@ export const ViewAppointment = () => {
               {currentUser.is_patient &&
                 userAppointments.results &&
                 userAppointments.results.map((appointment) => (
-                  <div key={appointment.id} className="col">
+                  <div key={appointment.id} className="col-lg-4 col-md-6">
                     <CartAppPat
                       appointment={appointment}
                       handlePayment={handlePayment}

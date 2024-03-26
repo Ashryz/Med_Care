@@ -1,4 +1,4 @@
-import { Container, Row, Pagination } from "react-bootstrap";
+import { Container, Row, Pagination, Col } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
 import CardSmallDoc from "../CardDoctor/CardSmallDoc";
@@ -20,17 +20,20 @@ function ListDoctor() {
     setCurrentPage(page);
   };
   return (
-    <Container className="mt-5 mb-5" style={{ minHeight: "37.1vh" }}>
+    <div className=" container mt-5 mb-5" >
       {doctors.results && doctors.results.length > 0 ? (
         <>
-          <Row>
+          <div className="row">
             {Array.isArray(doctors.results) &&
               doctors.results.map((doctor) => (
-                <CardSmallDoc key={doctor.user.id} doc={doctor} />
+                <div className="col-12">
+                  <CardSmallDoc key={doctor.user.id} doc={doctor} />
+                </div>
               ))}
-          </Row>
+          </div>
+          <div className="row">
           <Pagination className="mt-3 justify-content-center" >
-            <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1}/>
+            <Pagination.First onClick={() => handlePageChange(1)} disabled={currentPage === 1} />
             <Pagination.Prev
               onClick={() => handlePageChange(currentPage - 1)} disabled={currentPage === 1}
             />
@@ -39,7 +42,7 @@ function ListDoctor() {
                 key={index + 1}
                 active={index + 1 === currentPage}
                 onClick={() => handlePageChange(index + 1)}
-                
+
               >
                 {index + 1}
               </Pagination.Item>
@@ -50,6 +53,7 @@ function ListDoctor() {
             />
             <Pagination.Last onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages} />
           </Pagination>
+          </div>
         </>
       ) : (
         <div className="text-center">
@@ -57,7 +61,7 @@ function ListDoctor() {
           <hr className="w-75 mx-auto sec-color shadow rounded-5" />
         </div>
       )}
-    </Container>
+    </div>
   );
 }
 export default ListDoctor;

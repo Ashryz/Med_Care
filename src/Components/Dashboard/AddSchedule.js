@@ -143,7 +143,7 @@ function AddSchedule() {
                     />
                   </Form.Group>
 
-                  <label>
+                  {/* <label>
                     Active Now
                     <input
                       className="ms-2"
@@ -157,7 +157,7 @@ function AddSchedule() {
                         })
                       }
                     />
-                  </label>
+                  </label> */}
 
                   <div className="text-center mb-3">
                     <Button  type="submit" className="main-btn">

@@ -19,7 +19,7 @@ function Sidebar() {
         className="list-group-wrapper  "
         
       >
-        <ListGroup className="list-group listStyle m-3 col  border border-light bg-white shadow" style={{ minHeight: "65vh" }}>
+        <ListGroup className="list-group listStyle m-3 col  border border-light bg-white shadow" >
           <Link to="/Dashboard" className="text-decoration-none ">
             <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white rounded-2">
               <i className="bi bi-speedometer2"></i>
@@ -68,7 +68,7 @@ function Sidebar() {
   } else {
     return (
       <div className="list-group-wrapper " >
-        <ListGroup className="list-group listStyle m-3 col border border-light bg-white shadow" style={{ minHeight: "65vh" }}>
+        <ListGroup className="list-group listStyle m-3 col border border-light bg-white shadow" >
           <ListGroup.Item className="list-group-item listgroupItem prim-pg text-white">
             <i className="bi bi-speedometer2"></i>
             <span className="spanStyle">Dashboard</span>
