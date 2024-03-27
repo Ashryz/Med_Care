@@ -85,7 +85,7 @@ function OfferSlider() {
 			<img className="offer-image" src={`http://localhost:8000${offer.image_url}`} alt={offer.specialization} />
 			<div className="offer-details">
 			  <h3 className="offer-title">{offer.specialization}</h3>
-			  <div className="doctor-name">Dr. {offer.doctor_name}</div>
+			  <div className="doctor-name"><span className="prim-color">Dr.</span> {offer.doctor_name}</div>
 			  <div className="offer-price">
 			    <span className="original-price">{offer.original_price}EGP</span>
 			    <span className="prim-color">{offer.discount_price}EGP</span>
