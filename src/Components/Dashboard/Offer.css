@@ -13,13 +13,13 @@
   z-index: 1;
 }
 
-.offer-card .card-img-top {
+.offer-card1 .card-img-top {
   height: 60%;
   width:100%;
   object-fit: cover;
 }
 
-.offer-card .card-body {
+.offer-card1 .card-body {
   padding: 10px;
 
 }
