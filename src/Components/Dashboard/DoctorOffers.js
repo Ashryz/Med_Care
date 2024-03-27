@@ -80,7 +80,7 @@ function DoctorOffers() {
                   <Row>
                     {currentOffers.map((offer, index) => (
                       <Col key={offer.id} lg={4} md={6} className="mb-3 mt-3">
-                        <Card className="offer-card">
+                        <Card className="offer-card1">
                           <div className="btn main-btn" style={{ position: 'absolute', top: 0, left: 0, padding: '5px' }}>
                             {calculateDiscount(offer.original_price, offer.discount_price)}% Off
                           </div>
