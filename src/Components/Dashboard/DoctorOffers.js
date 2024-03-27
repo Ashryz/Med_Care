@@ -87,6 +87,7 @@ function DoctorOffers() {
                           <Card.Img variant="top" src={`http://localhost:8000${offer.image_url}`} />
                           <Card.Body>
                             <Card.Title className="mt-2">{offer.specialization}</Card.Title>
+                            <div className="doctor-name">Dr. {offer.doctor_name}</div>
                             <div className="price">
                               <div className="original-price">{offer.original_price} EGP</div>
                               <div className="prim-color">{offer.discount_price} EGP </div>
@@ -125,5 +126,4 @@ function calculateDiscount(original_price, discount_price) {
 }
 
 export default DoctorOffers;
-
 
